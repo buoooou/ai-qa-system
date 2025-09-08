@@ -38,6 +38,10 @@ public class QAController {
             response.setQuestion(qa.getQuestion());
             response.setAnswer(qa.getAnswer());
             response.setCreateTime(qa.getCreateTime());
+            List<QAResponse> history = qaService.getQAHistory(qa.getUserId());
+            if(history != null && history.size() > 0){
+                response.setUsername(history.get(0).getUsername());
+            }
             return Response.success(response);
         } else {
             return Response.error("未找到指定的问答记录");
