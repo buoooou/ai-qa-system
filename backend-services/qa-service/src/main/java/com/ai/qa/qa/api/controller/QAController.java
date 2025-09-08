@@ -7,7 +7,7 @@ import com.ai.qa.qa.application.QAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.validation.annotation.Validated;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +18,7 @@ public class QAController {
     private QAService qaService;
     
     @PostMapping("/ask")
-    public Response<QAResponse> askQuestion(@Validated @RequestBody QARequest request) {
+    public Response<QAResponse> askQuestion(@Valid @RequestBody QARequest request) {
         QAResponse response = qaService.askQuestion(request);
         return Response.success(response);
     }

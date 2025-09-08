@@ -27,8 +27,17 @@ public class UserController {
     }
 
     @PutMapping("/updateNick")
-    public Response<Boolean> updateNick(@RequestParam String nick, @RequestParam String userId) {
+    public Response<Boolean> updateNick(@RequestParam String nick, @RequestParam Long userId) {
         boolean result = UserService.updateNick(nick, userId);
         return Response.success(result);
+    }
+    
+    @GetMapping("/getUserById")
+    public Response<User> getUserById(@RequestParam("userId") Long userId) {
+        User user = UserService.getUserById(userId);
+        if (user != null) {
+            return Response.success(user);
+        }
+        return Response.error("用户不存在");
     }
 }
