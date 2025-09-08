@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.http.ResponseCookie;
 
 @Component
 public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<JwtAuthenticationFilter.Config> {
@@ -46,9 +47,14 @@ public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<JwtAut
             String token = authHeader.substring(7);
 
             try {
-                // 验证Token
-                Claims claims = jwtUtil.validateToken(token);
-                
+                // 检查Token是否在本地存储中存在且有效
+                // 这里我们不直接使用jwtUtil.validateToken，因为我们要先检查本地存储
+                if (!jwtUtil.isTokenValidInStorage(token)) {
+                    ServerHttpResponse response = exchange.getResponse();
+                    response.setStatusCode(HttpStatus.UNAUTHORIZED);
+                    return response.setComplete();
+                }
+
                 // 检查Token是否过期
                 if (jwtUtil.isTokenExpired(token)) {
                     ServerHttpResponse response = exchange.getResponse();
@@ -56,13 +62,32 @@ public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<JwtAut
                     return response.setComplete();
                 }
 
+                // 检查并处理Token续期
+                String newToken = jwtUtil.renewTokenIfNeeded(token);
+                
+                // 构建修改后的请求
+                ServerHttpRequest.Builder requestBuilder = request.mutate();
+                
                 // 将用户信息添加到请求头中
-                ServerHttpRequest modifiedRequest = request.mutate()
-                        .header("X-User-Id", claims.get("userId", String.class))
-                        .header("X-User-Name", claims.get("username", String.class))
-                        .build();
+                requestBuilder.header("X-User-Id", jwtUtil.getUserIdFromToken(token))
+                        .header("X-User-Name", jwtUtil.getUsernameFromToken(token));
+                
+                // 构建响应
+                ServerHttpResponse response = exchange.getResponse();
+                
+                // 如果Token已续期，将新Token添加到响应中
+                if (newToken != null && !newToken.equals(token)) {
+                    // 在响应中设置新的Token
+                    response.addCookie(ResponseCookie.from("token", newToken)
+                            .httpOnly(true)
+                            .path("/")
+                            .build());
+                    
+                    // 也可以在响应头中添加新Token
+                    response.getHeaders().add("X-New-Token", newToken);
+                }
 
-                return chain.filter(exchange.mutate().request(modifiedRequest).build());
+                return chain.filter(exchange.mutate().request(requestBuilder.build()).response(response).build());
             } catch (Exception e) {
                 ServerHttpResponse response = exchange.getResponse();
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
