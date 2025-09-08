@@ -1,9 +1,51 @@
 server:
   port: 8082
+
 spring:
   application:
     name: qa-service
+  
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: ai_qa_system
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  
+  # 服务发现配置
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: 54.219.180.170:8848
+
+# Gemini API配置
+gemini:
+  api:
+    base-url: https://generativelanguage.googleapis.com/v1beta
+    key: YOUR_API_KEY_HERE  # 需要替换为真实的API Key
+    model: gemini-pro
+
+# 日志配置
+logging:
+  level:
+    com.ai.qa.service: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
