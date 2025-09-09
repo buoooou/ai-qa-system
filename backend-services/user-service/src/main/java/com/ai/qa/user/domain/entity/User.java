@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 
 /**
  * 用户实体
- * 映射 user_rw 表，维持用户基础信息
+ * 映射 user_cgp 表，维持用户基础信息
  *
  * @author Chen Guoping
  * @version 1.0
  */
 @Entity
-@Table(name = "user_rw")
+@Table(name = "user_cgp")
 @Data
 public class User {
 

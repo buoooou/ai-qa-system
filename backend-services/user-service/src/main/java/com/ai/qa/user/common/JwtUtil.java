@@ -106,7 +106,11 @@ public class JwtUtil {
             parser.parseSignedClaims(token);
             return true;
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException |
-                 SignatureException | IllegalArgumentException | JwtException e) {
+                SignatureException | IllegalArgumentException e) {
+            // Handle specific exceptions (excluding JwtException, as it's a parent class)
+            return false;
+        } catch (JwtException e) {
+            // Catch any remaining JwtException (parent class) not handled above
             return false;
         }
     }
