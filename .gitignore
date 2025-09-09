@@ -71,4 +71,5 @@ dependency-reduced-pom.xml
 # 临时文件
 **/*.tmp
 **/*.temp
-/tmp/
+**/*.bak
+
