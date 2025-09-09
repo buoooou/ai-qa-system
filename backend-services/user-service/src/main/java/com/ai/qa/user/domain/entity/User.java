@@ -1,20 +1,33 @@
 package com.ai.qa.user.domain.entity;
 
 import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
-@Table
+@Table(name = "users")
 public class User {
-
-    private  String userName;
-     private  String password;
-     private Long id;
-     private LocalDateTime createTime;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+    @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", allocationSize = 1)
+    private Long id;
+    private String username;
+    private String password;
+    private String nick;
+    @Column(name = "update_date", nullable = false)
+    @CreationTimestamp
+    private LocalDateTime createTime;
+    @Column(name = "creation_date", nullable = false)
+    @CreationTimestamp
     private LocalDateTime updateTime;
 
 

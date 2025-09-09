@@ -1,13 +1,16 @@
 package com.ai.qa.user.api.controller;
 
-import com.ai.qa.user.domain.entity.User;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@Controller
+import com.ai.qa.user.api.dto.LoginRequest;
+import com.ai.qa.user.api.dto.RegisterRequest;
+import com.ai.qa.user.api.dto.Response;
+
+
 public interface UserController {
-//    Response<User> login(String username, String Password);
+   Response<?> login(@RequestBody LoginRequest request);
 
-//    Response<Boolean> register(String username, String Password);
+   Response<?> register(@RequestBody RegisterRequest request);
 
-//    updateNick(String nick,String userId);
+   Response<?> updateNick(String nick,Long userId);
 }

@@ -8,13 +8,25 @@ spring:
       discovery:
         server-addr: 54.219.180.170:8848
   datasource:
-    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: ai_qa_system
+    url: jdbc:postgresql://localhost:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+# application.yml 正确配置
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  expiration:
+    ms: 3600000  # 这里是具体的过期时间（毫秒），对应Expiration的ms字段
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
