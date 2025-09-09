@@ -2,6 +2,8 @@ package com.ai.qa.user.application.service.impl;
 
 import com.ai.qa.user.api.dto.request.LoginRequest;
 import com.ai.qa.user.api.dto.request.RegisterRequest;
+import com.ai.qa.user.api.dto.request.ChangePasswordRequest;
+import com.ai.qa.user.api.dto.response.ChangePasswordResponse;
 import com.ai.qa.user.api.dto.response.LoginResponse;
 import com.ai.qa.user.api.dto.response.RegisterResponse;
 import com.ai.qa.user.api.exception.BusinessException;
@@ -14,9 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.time.LocalDateTime;
 
 /**
  * 用户服务实现
@@ -121,4 +127,47 @@ public class UserServiceImpl implements UserService {
     public Boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
+
+@Override
+@Transactional
+public ChangePasswordResponse changePassword(ChangePasswordRequest request) {
+    // 1. 从 SecurityContext 获取当前登录用户信息
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication == null || !(authentication.getPrincipal() instanceof UserDetails)) {
+        throw BusinessException.invalidToken();
+    }
+
+    String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+    User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> BusinessException.userNotFound());
+
+    // 2. 校验当前密码
+    if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+        throw BusinessException.passwordIncorrect();
+    }
+
+    // 3. 校验新密码与确认密码是否一致
+    if (!request.getNewPassword().equals(request.getConfirmNewPassword())) {
+        throw BusinessException.of(ErrCode.BAD_REQUEST, "新密码与确认密码不一致");
+    }
+
+    // （可选）可以在这里加入新密码复杂度校验
+
+    // 4. 更新密码
+    user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+    user.setUpdateDate(LocalDateTime.now());
+    userRepository.save(user);
+
+    // 5. 构造返回
+    ChangePasswordResponse response = new ChangePasswordResponse();
+    response.setSuccess(true);
+    response.setMessage(ErrCode.MSG_SUCCESS);
+    response.setErrorCode(ErrCode.SUCCESS);
+    response.setUserId(user.getId());
+    response.setUsername(user.getUsername());
+    response.setChangeTime(LocalDateTime.now());
+
+    return response;
+}
+
 }

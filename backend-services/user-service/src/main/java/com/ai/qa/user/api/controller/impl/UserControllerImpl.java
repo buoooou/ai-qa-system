@@ -9,6 +9,9 @@ import com.ai.qa.user.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import com.ai.qa.user.api.dto.request.ChangePasswordRequest;
+import com.ai.qa.user.api.dto.response.ChangePasswordResponse;
+import com.ai.qa.user.application.service.UserService;
 
 /**
  * 用户模块控制器实现
@@ -52,5 +55,12 @@ public class UserControllerImpl implements UserController {
         // 交由业务层处理注册逻辑
         RegisterResponse response = userService.register(registerRequest);
         return ResponseEntity.status(201).body(response);
+    }
+
+    // password update
+    @Override
+    public ResponseEntity<ChangePasswordResponse> changePassword(ChangePasswordRequest request) {
+        ChangePasswordResponse response = userService.changePassword(request);
+        return ResponseEntity.ok(response);
     }
 }

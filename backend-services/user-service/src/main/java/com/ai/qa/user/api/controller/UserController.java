@@ -4,6 +4,8 @@ import com.ai.qa.user.api.dto.request.LoginRequest;
 import com.ai.qa.user.api.dto.request.RegisterRequest;
 import com.ai.qa.user.api.dto.response.LoginResponse;
 import com.ai.qa.user.api.dto.response.RegisterResponse;
+import com.ai.qa.user.api.dto.request.ChangePasswordRequest;
+import com.ai.qa.user.api.dto.response.ChangePasswordResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -61,4 +63,23 @@ public interface UserController {
             @Parameter(description = "注册请求", required = true)
             @RequestBody RegisterRequest registerRequest
     );
+
+        /**
+         * 修改密码
+         *
+         * @param request 当前密码、新密码、确认密码
+         * @return 修改结果
+         */
+        @Operation(summary = "修改密码", description = "验证当前密码后，修改为新密码")
+        @ApiResponses({
+                @ApiResponse(responseCode = "200", description = "密码修改成功"),
+                @ApiResponse(responseCode = "400", description = "密码不匹配或不符合要求"),
+                @ApiResponse(responseCode = "401", description = "未授权或身份校验失败"),
+                @ApiResponse(responseCode = "404", description = "用户不存在")
+        })
+        @PostMapping("/change-password")
+        ResponseEntity<ChangePasswordResponse> changePassword(
+                @Parameter(description = "修改密码请求", required = true)
+                @RequestBody ChangePasswordRequest request
+        );
 }

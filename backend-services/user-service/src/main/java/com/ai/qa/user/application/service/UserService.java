@@ -2,7 +2,9 @@ package com.ai.qa.user.application.service;
 
 import com.ai.qa.user.api.dto.request.LoginRequest;
 import com.ai.qa.user.api.dto.request.RegisterRequest;
+import com.ai.qa.user.api.dto.request.ChangePasswordRequest;
 import com.ai.qa.user.api.dto.response.LoginResponse;
+import com.ai.qa.user.api.dto.response.ChangePasswordResponse;
 import com.ai.qa.user.api.dto.response.RegisterResponse;
 import com.ai.qa.user.domain.entity.User;
 
@@ -53,4 +55,14 @@ public interface UserService {
      * @return true 已存在，false 可用
      */
     Boolean existsByUsername(String username);
+
+    /**
+     * 修改用户密码
+     *
+     * @param request 包含当前密码、新密码、确认密码
+     * @return 修改结果响应
+     * @throws BusinessException 当前密码错误、新密码不一致、用户不存在等
+     */
+    ChangePasswordResponse changePassword(ChangePasswordRequest request);
+
 }
