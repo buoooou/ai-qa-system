@@ -1,8 +1,16 @@
 package com.ai.qa.user.application;
 
-public interface userService {
+import com.ai.qa.user.api.dto.*;
 
-//    User login(String username,String pwd);
-
-//    User register(String username,String pwd);
+public interface UserService {
+    
+    LoginResponse login(UserLoginRequest request);
+    
+    UserResponse register(UserRegisterRequest request);
+    
+    UserResponse updateNickname(Long userId, UpdateNicknameRequest request);
+    
+    UserResponse getUserById(Long userId);
+    
+    UserResponse getUserByUsername(String username);
 }

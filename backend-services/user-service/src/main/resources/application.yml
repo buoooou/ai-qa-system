@@ -18,3 +18,18 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+  
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# JWT配置
+jwt:
+  secret: myVerySecretKeyForJWTTokenGenerationThatShouldBeLongEnough
+  expiration: 86400  # 24小时（秒）
+
+# 日志配置
+logging:
+  level:
+    com.ai.qa.user: DEBUG
+    org.springframework.security: DEBUG
