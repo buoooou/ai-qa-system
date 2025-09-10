@@ -8,7 +8,7 @@ spring:
       discovery:
         server-addr: localhost:8848  # 保持与服务一致的Nacos地址
     gateway:
-      server:  # 新增server.webflux层级
+      server:  #server.webflux层级
         webflux:
           discovery:
             locator:

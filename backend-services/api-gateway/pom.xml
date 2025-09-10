@@ -24,6 +24,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+        <!--loadbalancer 没有的话报"status": 503,"error": "Service Unavailable" -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
@@ -51,18 +52,17 @@
             <version>0.13.0</version>
             <scope>runtime</scope>
         </dependency>
-<!--        &lt;!&ndash; Swagger WebFlux版本（适配Gateway） &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>-->
-<!--            <version>2.8.13</version>-->
-<!--        </dependency>-->
+        <!-- Swagger WebFlux版本（适配Gateway） -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+            <version>2.8.13</version>
+        </dependency>
         <!-- 健康检查 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- 移除Redis依赖（无需限流） -->
     </dependencies>
 
     <build>
