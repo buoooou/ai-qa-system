@@ -6,12 +6,10 @@ https://nacos.io/docs/latest/overview/
 
 nacos服务器：
 http://54.219.180.170:8080/#/login
-nacos
-nacos
+
 
 apikey 申请网站：
 https://aistudio.google.com/apikey
 
-密钥：
-AIzaSyBIlVODRP9MmzbmJvJvDGQP0LUfl4l225w
+
 
