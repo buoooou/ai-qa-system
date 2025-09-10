@@ -1,0 +1,165 @@
+# Backend Services 通用 .gitignore 文件
+# 适用于所有微服务（user-service, qa-service, api-gateway 等）
+
+# 编译输出
+**/target/
+**/build/
+**/out/
+**/bin/
+
+# Maven
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
+**/pom.xml.tag
+**/pom.xml.releaseBackup
+**/pom.xml.versionsBackup
+**/pom.xml.next
+**/release.properties
+**/dependency-reduced-pom.xml
+**/buildNumber.properties
+**/.mvn/timing.properties
+**/.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+**/.gradle/
+**/gradle/
+**/gradlew
+**/gradlew.bat
+**/gradle-app.setting
+**/gradle.properties
+
+# IDE - IntelliJ IDEA
+**/.idea/
+**/*.iws
+**/*.iml
+**/*.ipr
+**/out/
+**/target/
+
+# IDE - Eclipse
+**/.settings/
+**/.project
+**/.classpath
+**/.factorypath
+**/bin/
+
+# IDE - VS Code
+**/.vscode/
+**/.history/
+
+# OS - macOS
+**/.DS_Store
+**/.AppleDouble
+**/.LSOverride
+**/.Trashes
+**/Icon?
+**/.VolumeIcon.icns
+**/.com.apple.timemachine.donotpresent
+
+# OS - Windows
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
+**/$RECYCLE.BIN/
+
+# Java
+**/*.class
+**/*.log
+**/*.ctxt
+**/*.jar
+**/*.war
+**/*.nar
+**/*.ear
+**/*.zip
+**/*.tar.gz
+**/*.rar
+**/hs_err_pid*
+**/replay_pid*
+
+# Logs
+**/logs/
+**/*.log
+**/log/
+**/logging/
+
+# 临时文件
+**/tmp/
+**/temp/
+**/*.tmp
+**/*.bak
+**/*.swp
+**/*~.nib
+**/local.properties
+**/.loadpath
+**/.recommenders
+
+# 数据库
+**/*.h2.db
+**/*.mv.db
+**/*.trace.db
+**/*.lock.db
+
+# 配置文件（环境特定）
+**/application-*.yml
+**/application-*.properties
+!**/application.yml
+!**/application.properties
+**/application-local.yml
+**/application-dev.yml
+**/application-test.yml
+**/application-prod.yml
+
+# Docker
+**/docker-compose.override.yml
+**/.dockerignore
+
+# 测试报告
+**/surefire-reports/
+**/failsafe-reports/
+**/jacoco.exec
+**/coverage/
+
+# 缓存
+**/.cache/
+**/node_modules/
+**/.npm/
+**/.yarn/
+
+# 证书和密钥
+**/*.jks
+**/*.p12
+**/*.pfx
+**/*.pem
+**/*.key
+**/keystore*
+**/truststore*
+
+# 环境变量文件
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+# 上传文件
+**/uploads/
+**/upload/
+**/static/uploads/
+
+# 缓存和索引
+**/.index/
+**/.metadata/
+**/.recommenders/
+
+# 构建工具缓存
+**/.gradle/
+**/.m2/repository/
+**/node_modules/
+
+# 其他
+**/generated/
+**/generated-sources/
+**/generated-test-sources/
+**/maven-status/
+**/maven-archiver/
