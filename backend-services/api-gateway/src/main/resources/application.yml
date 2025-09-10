@@ -2,7 +2,7 @@ server:
   port: 8080 # 所有后端请求的入口
 spring:
   application:
-    name: api-gateway
+    name: api-gateway-hl
   cloud:
     nacos:
       discovery:
@@ -21,3 +21,21 @@ spring:
           uri: lb://qa-service
           predicates:
             - Path=/api/qa/**
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    urls:
+      - url: /user-service/v3/api-docs
+        name: 用户服务
+      - url: /qa-service/v3/api-docs
+        name: AI问答服务
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  # 24小时
+  expiration: 86400000

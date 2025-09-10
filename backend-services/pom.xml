@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.example</groupId>
+    <groupId>com.ai-qa</groupId>
     <artifactId>ai-qa-backend</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>

@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service-1
+    name: user-service-lh
   cloud:
     nacos:
       discovery:
@@ -17,4 +17,41 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          serverTimezone: GMT+8
     show-sql: true
+
+springdoc:
+  packages-to-scan: com.ai.qa.user
+  swagger-ui:
+    enabled: false
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  group-configs:
+    - group: 'user-service'
+      display-name: User Service
+      paths-to-match: /api/users/**
+
+logging:
+  level: 
+    root: info
+    '[com.ai.qa]': debug
+    '[com.alibaba.nacos]': info
+    '[org.springframework.cloud]': warn
+    '[org.hibernate]': error
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/user-service.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
+
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  # 24小时
+  expiration: 86400000 
