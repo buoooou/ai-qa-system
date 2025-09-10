@@ -33,4 +33,4 @@ CREATE TABLE `qa_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='问答历史表';
 
 -- 插入一些测试数据 (可选)
-INSERT INTO `user` (`username`, `password`) VALUES ('testuser', '$2a$10$abcdefghijklmnopqrstuv'); -- 密码是加密的，请通过注册接口创建用户
+-- INSERT INTO `user` (`username`, `password`) VALUES ('testuser', '$2a$10$abcdefghijklmnopqrstuv'); -- 密码是加密的，请通过注册接口创建用户
