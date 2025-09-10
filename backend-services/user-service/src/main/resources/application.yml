@@ -21,3 +21,11 @@ spring:
 app:
   jwtSecret: ThisIsASecretKeyForJWTAuthenticationWithEnoughLengthToMeetSecurityRequirements123456
   jwtExpirationMs: 86400000
+#nacos:
+#  logging:
+#    default:
+#      config:
+#        enabled: false
+logging:
+  file:
+    path: D:/logs/user-service

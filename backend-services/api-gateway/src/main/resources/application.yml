@@ -8,7 +8,7 @@ spring:
       discovery:
         server-addr: localhost:8848  # 保持与服务一致的Nacos地址
     gateway:
-      server:  #server.webflux层级
+      server:  # server.webflux层级
         webflux:
           discovery:
             locator:
@@ -36,7 +36,4 @@ app:
   jwtExpirationMs: 86400000
 logging:
   file:
-    name: C:/Users/WangXL/logs/api-gateway/${spring.application.name}.log
-  logback:
-    rollingpolicy:
-      file-name-pattern: C:/Users/WangXL/logs/api-gateway/${spring.application.name}-%d{yyyy-MM-dd}.log
+    path: D:/logs/api-gateway
