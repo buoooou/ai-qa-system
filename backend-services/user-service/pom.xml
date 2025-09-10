@@ -25,10 +25,6 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
@@ -43,7 +39,7 @@
             <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
-
+        <!-- Add 20250910 -->
         <!-- MapStruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -52,6 +48,10 @@
         </dependency>
 
         <!-- JWT -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -75,6 +75,7 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.8.9</version>
         </dependency>
+        <!-- End 20250910 -->
 
     </dependencies>
 
@@ -86,32 +87,34 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
 
             </plugin>
-            <!-- 编译时启用 MapStruct 注解处理器 -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <release>17</release>
                     <annotationProcessorPaths>
-                        <!-- ✅ 新增：关键！解决 Lombok 与 MapStruct 冲突 -->
+                        <!-- Add 20250910 -->
+                        <!-- Lombok与MapStruct冲突 -->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
                             <version>0.2.0</version>
                         </path>
-                        <!-- ✅ 新增：Lombok -->
+                        <!-- Lombok -->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>1.18.30</version>
                         </path>
-
+                        <!-- 编译时启用 MapStruct 注解处理器 -->
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>1.5.3.Final</version>
                         </path>
                     </annotationProcessorPaths>
+                    <!-- End 20250910 -->
                 </configuration>
             </plugin>
         </plugins>

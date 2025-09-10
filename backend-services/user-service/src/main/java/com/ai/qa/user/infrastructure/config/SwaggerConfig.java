@@ -22,12 +22,12 @@ public class SwaggerConfig {
                         .description("AI QA系统的API文档")
                         .contact(new Contact()
                                 .name("xxxx")
-                                .url("xxxxxxxx")))
+                                .url("xxxx")))
                 .externalDocs(new io.swagger.v3.oas.models.ExternalDocumentation()
                         .description("更多详细信息")
                         .url("https://example.com/xxxxxxx"))
                 .servers(List.of(
-                        new Server().url("http://localhost:8080").description("serverUrl")));
+                        new Server().url("http://localhost:8081").description("serverUrl")));
     }
 
 }
