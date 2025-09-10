@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service-1
+    name: user-service-ycr
   cloud:
     nacos:
       discovery:
@@ -18,3 +18,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03  # 替换为你的JWT密钥，建议至少32位长度
+  expiration:
+      ms: 86400000  # 可选，设置token过期时间（毫秒）

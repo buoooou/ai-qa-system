@@ -1,18 +1,8 @@
 package com.ai.qa.user.api.exception;
 
-public final class ErrCode {
+public interface ErrCode {
+	final static int SuccessCode = 200;
+	final static int ErrorCode = 500;
+	final static String Success = "success";
 
-    /***
-     *
-     */
-//    SUCCESS=""
-
-    /***
-     * 通用业务
-     */
-
-
-    /***
-     *
-     */
 }
