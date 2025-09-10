@@ -6,16 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-@Data
+
 @Entity
-@Table
+@Table(name = "user_ycr")
+@Data
 public class User {
-
-    private  String userName;
-     private  String password;
-     private Long id;
-     private LocalDateTime createTime;
+    private Long id;
+    private String username;
+    private String password;
+    private LocalDateTime createTime;
     private LocalDateTime updateTime;
-
-
+    private String nickname;
+    private String role;
+    
 }
