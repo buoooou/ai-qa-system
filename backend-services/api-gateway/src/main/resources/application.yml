@@ -1,23 +1,42 @@
 server:
-  port: 8080 # 所有后端请求的入口
+  port: 8888
 spring:
   application:
     name: api-gateway
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: localhost:8848  # 保持与服务一致的Nacos地址
     gateway:
-      discovery:
-        locator:
-          enabled: true # 开启基于服务发现的路由功能
-          lower-case-service-id: true
-      routes:
-        - id: user_service_route
-          uri: lb://user-service # lb:// 表示从Nacos负载均衡地选择一个user-service实例
-          predicates:
-            - Path=/api/user/** # 匹配所有/api/user/开头的请求
-        - id: qa_service_route
-          uri: lb://qa-service
-          predicates:
-            - Path=/api/qa/**
+      server:  # 新增server.webflux层级
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: user_service_route
+              uri: lb://user-service-wxl
+              predicates:
+                - Path=/api/user/**,/api/auth/**
+#            - id: qa_service_route
+#              uri: lb://qa-service
+#              predicates:
+#                - Path=/api/qa/**
+# 暴露健康检查端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+# JWT配置（与user-service保持一致）
+app:
+  jwtSecret: ThisIsASecretKeyForJWTAuthenticationWithEnoughLengthToMeetSecurityRequirements123456
+  jwtExpirationMs: 86400000
+logging:
+  file:
+    name: C:/Users/WangXL/logs/api-gateway/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: C:/Users/WangXL/logs/api-gateway/${spring.application.name}-%d{yyyy-MM-dd}.log
