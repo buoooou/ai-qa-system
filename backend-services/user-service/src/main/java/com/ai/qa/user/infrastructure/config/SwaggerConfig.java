@@ -1,4 +1,23 @@
 package com.ai.qa.user.infrastructure.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class SwaggerConfig {
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("AI问答系统 - 用户服务API")
+                        .description("用户管理相关API接口文档")
+                        .version("1.0.0")
+                        .contact(new Contact()
+                                .name("AI QA Team")
+                                .email("ai-qa@example.com")));
+    }
 }
