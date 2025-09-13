@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service
+    name: user-service-LiuGang
   cloud:
     nacos:
       server-addr: 54.219.180.170:8848
