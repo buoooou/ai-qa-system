@@ -2,8 +2,14 @@ package com.ai.qa.user.api.controller;
 
 import com.ai.qa.user.api.dto.AuthRequest;
 import com.ai.qa.user.api.dto.AuthResponse;
-import lombok.RequiredArgsConstructor;
+import com.ai.qa.user.application.userService;
+import com.ai.qa.user.domain.model.User;
+import com.ai.qa.user.common.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /***
  * 为什么user-service必须也要自己做安全限制？
@@ -16,18 +22,91 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/user")
-@RequiredArgsConstructor
 public class UserController {
 
-    @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        System.out.println("测试login");
-        return new AuthResponse("token");
+    private final userService userService;
+    private final JwtUtil jwtUtil;
+
+    @Autowired
+    public UserController(userService userService, JwtUtil jwtUtil) {
+        this.userService = userService;
+        this.jwtUtil = jwtUtil;
     }
 
+    /**
+     * 用户登录接口
+     * @param authRequest 登录请求参数
+     * @return 登录响应（包含令牌）
+     */
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
+        // 调用服务层进行登录验证
+        AuthResponse authResponse = userService.login(authRequest);
+        // 返回成功响应，包含令牌
+        return ResponseEntity.ok(authResponse);
+    }
+
+    /**
+     * 用户退出接口
+     * @param token 用户令牌（通过请求头Authorization传递）
+     * @return 是否退出成功
+     */
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, Boolean>> logout(@RequestHeader("Authorization") String token) {
+        // 移除"Bearer "前缀
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        // 调用服务层进行退出处理
+        boolean success = userService.logout(token);
+        // 返回退出结果
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("success", success);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 根据用户ID获取用户信息接口
+     * @param userId 用户ID
+     * @return 用户信息
+     */
     @GetMapping("/{userId}")
-    public String getUserById(@PathVariable("userId") Long userId) {
-        System.out.println("测试userid");
-        return "userid:"+userId;
+    public ResponseEntity<User> getUserById(@PathVariable("userId") Long userId) {
+        // 调用服务层获取用户信息
+        User user = userService.getUserById(userId);
+        // 返回用户信息
+        return ResponseEntity.ok(user);
+    }
+
+    /**
+     * 获取当前登录用户信息接口
+     * @param token 用户令牌（通过请求头Authorization传递）
+     * @return 当前登录用户信息
+     */
+    @GetMapping("/current")
+    public ResponseEntity<User> getCurrentUser(@RequestHeader("Authorization") String token) {
+        // 移除"Bearer "前缀
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        // 从token中提取用户名
+        String username = jwtUtil.extractUsername(token);
+        // 调用服务层获取用户信息
+        User user = userService.getUserByUsername(username);
+        // 返回用户信息
+        return ResponseEntity.ok(user);
+    }
+
+    /**
+     * 用户注册接口
+     * @param authRequest 注册请求参数
+     * @return 注册成功的用户信息
+     */
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody AuthRequest authRequest) {
+        // 调用服务层进行用户注册
+        User user = userService.register(authRequest.getUsername(), authRequest.getPassword());
+        // 返回注册成功的用户信息
+        return ResponseEntity.ok(user);
     }
 }

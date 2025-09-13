@@ -9,7 +9,7 @@ logging:
     com.alibaba.nacos.client: DEBUG
 spring:
   application:
-    name: api-gateway
+    name: api-gateway-LiuGang
   config:
     import:
       # 引入共享配置
