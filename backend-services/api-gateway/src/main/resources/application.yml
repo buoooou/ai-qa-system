@@ -3,10 +3,17 @@ server:
 spring:
   application:
     name: api-gateway
+  config:
+    import:
+      - optional:nacos:shared-config_dh.yml?group=DEFAULT_GROUP&refresh=true
   cloud:
     nacos:
       discovery:
         server-addr: 54.219.180.170:8848
+      config:
+        server-addr: 54.219.180.170:8848
+        file-extension: yml
+        # 不再使用 extension-configs，改为 spring.config.import 方式
     gateway:
       discovery:
         locator:
