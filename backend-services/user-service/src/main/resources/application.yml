@@ -5,15 +5,7 @@ spring:
     name: user-service
   cloud:
     nacos:
-      discovery:
-        server-addr: 54.219.180.170:8848
-      config:
-        server-addr: 54.219.180.170:8848
-        file-extension: yml
-        shared-configs:
-          - data-id: shared-config_dh.yml
-            group: DEFAULT_GROUP
-            refresh: true
+      server-addr: 54.219.180.170:8848
   datasource:
     url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
