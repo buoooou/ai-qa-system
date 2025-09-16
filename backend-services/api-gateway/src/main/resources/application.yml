@@ -19,10 +19,10 @@ spring:
               uri: lb://user-service-wxl
               predicates:
                 - Path=/api/user/**,/api/auth/**
-#            - id: qa_service_route
-#              uri: lb://qa-service
-#              predicates:
-#                - Path=/api/qa/**
+            - id: qa_service_route
+              uri: lb://qa-service-wxl
+              predicates:
+                - Path=/api/qa/**
 # 暴露健康检查端点
 management:
   endpoints:
@@ -36,4 +36,4 @@ app:
   jwtExpirationMs: 86400000
 logging:
   file:
-    path: D:/logs/api-gateway
+    path: ./logs/api-gateway

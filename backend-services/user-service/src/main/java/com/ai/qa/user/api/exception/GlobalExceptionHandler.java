@@ -27,7 +27,8 @@ public class GlobalExceptionHandler {
             SignatureException.class,
             IllegalArgumentException.class
     })
-    public ResponseEntity<MessageResponse> handleJwtExceptions(Exception ex) {
+    @ResponseBody
+    public Response<Void> handleJwtExceptions(Exception ex) {
         String message;
         if (ex instanceof ExpiredJwtException) {
             message = "JWT令牌已过期";
@@ -42,8 +43,6 @@ public class GlobalExceptionHandler {
         } else {
             message = "JWT处理错误";
         }
-
-        MessageResponse errorResponse = new MessageResponse(message);
-        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+        return Response.fail(HttpStatus.UNAUTHORIZED.value(), message);
     }
 }

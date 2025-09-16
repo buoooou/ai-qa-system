@@ -1,0 +1,6 @@
+# Default ignored files
+.svn/
+target/
+.idea/
+*.iml
+*.log
