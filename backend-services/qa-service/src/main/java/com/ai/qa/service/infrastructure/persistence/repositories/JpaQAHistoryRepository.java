@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO> {
-
-    QAHistoryPO findHistoryById(String userId);
-
+public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long> {
+    QAHistoryPO findHistoryById(Long id);
 }

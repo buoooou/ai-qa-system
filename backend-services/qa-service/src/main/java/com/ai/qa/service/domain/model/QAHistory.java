@@ -1,54 +1,37 @@
 package com.ai.qa.service.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
-
-
 
 public class QAHistory {
 
-    private String id;
-    private String userId;
+    private Long id;
+    private Long userId;
     private String question;
     private String answer;
-    private LocalDateTime timestamp;
-    private String sessionId;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 
-    private Object rag;
+    public QAHistory() {}
 
-    public String getId(){
-        return this.id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
+    public String getQuestion() { return question; }
+    public void setQuestion(String question) { this.question = question; }
+    public String getAnswer() { return answer; }
+    public void setAnswer(String answer) { this.answer = answer; }
+    public LocalDateTime getCreateTime() { return createTime; }
+    public void setCreateTime(LocalDateTime createTime) { this.createTime = createTime; }
+    public LocalDateTime getUpdateTime() { return updateTime; }
+    public void setUpdateTime(LocalDateTime updateTime) { this.updateTime = updateTime; }
 
-    /**
-     *
-     * @param question
-     * @return
-     */
-    public String getAnswer(String question) {
-        String response = rag.getContext();
-        return answer+response;
-    }
-
-    private QAHistory(String id){
-
-    }
-
-    public String getUserId(){
-
-    }
-
-    public String getRAGAnswer(){
-
-        getAnswer();
-        serivice.sss();
-        return  "";
-    }
-    public static QAHistory createNew(String userId, String question, String answer,...){
-
-
-        return new QAHistory();
+    public static QAHistory createNew(Long userId, String question, String answer) {
+        QAHistory history = new QAHistory();
+        history.setUserId(userId);
+        history.setQuestion(question);
+        history.setAnswer(answer);
+        history.setCreateTime(LocalDateTime.now());
+        return history;
     }
 }

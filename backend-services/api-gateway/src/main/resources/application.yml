@@ -38,6 +38,59 @@ spring:
           uri: lb://qa-service
           predicates:
             - Path=/api/qa/**
+        # 用户注册路由，只允许POST请求
+        - id: user_create_route
+          uri: lb://user-service # 负载均衡转发到 user-service
+          predicates:
+            - Path=/api/users/register # 只匹配注册接口
+            - Method=POST              # 只允许POST请求
+          filters:
+            - StripPrefix=2            # 去掉前两个路径前缀
+
+        # 用户登录路由，只允许POST请求
+        - id: user_login_route
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/login
+            - Method=POST
+          filters:
+            - StripPrefix=2
+
+        # 用户信息查询，允许GET方法
+        - id: user_read_route
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+            - Method=GET
+          filters:
+            - StripPrefix=2
+
+        # 修改密码接口，只允许POST请求
+        - id: user_update_route
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/change-password
+            - Method=POST
+          filters:
+            - StripPrefix=2
+
+        # 问答服务的提问接口，只允许POST请求
+        - id: qa_ask_route
+          uri: lb://qa-service
+          predicates:
+            - Path=/api/qa/ask
+            - Method=POST
+          filters:
+            - StripPrefix=2
+
+        # 查询问答历史，允许GET方法
+        - id: qa_history_route
+          uri: lb://qa-service
+          predicates:
+            - Path=/api/qa/history/**
+            - Method=GET
+          filters:
+            - StripPrefix=2
       default-filters:
         # 配置默认的限流过滤器
         - name: RequestRateLimiter
