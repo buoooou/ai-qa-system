@@ -1,6 +1,8 @@
 package com.ai.qa.user.api.controller;
 
 import com.ai.qa.user.api.dto.Response;
+import com.ai.qa.user.api.dto.UserRequest;
+import com.ai.qa.user.api.dto.UserResponse;
 import com.ai.qa.user.application.userService;
 import com.ai.qa.user.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +32,18 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Response<Boolean> register(@Valid @RequestBody User user) {
-        User registeredUser = UserService.register(user.getUsername(), user.getPassword());
-        return Response.success(registeredUser != null);
+    public Response<UserResponse> register(@Valid @RequestBody UserRequest userRequest) {
+        User registeredUser = UserService.register(userRequest.getUsername(), userRequest.getPassword(), userRequest.getNick());
+        if (registeredUser != null) {
+            UserResponse response = new UserResponse();
+            response.setId(registeredUser.getId());
+            response.setUsername(registeredUser.getUsername());
+            response.setNick(registeredUser.getNick());
+            response.setCreateTime(registeredUser.getCreateTime());
+            response.setUpdateTime(registeredUser.getUpdateTime());
+            return Response.success(response);
+        }
+        return Response.error("注册失败，用户名可能已存在");
     }
 
     @PutMapping("/updateNick")
@@ -42,10 +53,16 @@ public class UserController {
     }
     
     @GetMapping("/getUserById")
-    public Response<User> getUserById(@RequestParam("userId") Long userId) {
+    public Response<UserResponse> getUserById(@RequestParam("userId") Long userId) {
         User user = UserService.getUserById(userId);
         if (user != null) {
-            return Response.success(user);
+            UserResponse response = new UserResponse();
+            response.setId(user.getId());
+            response.setUsername(user.getUsername());
+            response.setNick(user.getNick());
+            response.setCreateTime(user.getCreateTime());
+            response.setUpdateTime(user.getUpdateTime());
+            return Response.success(response);
         }
         return Response.error("用户不存在");
     }

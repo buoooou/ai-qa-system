@@ -1,5 +1,6 @@
 package com.ai.qa.user.application;
 
+import com.ai.qa.user.common.CommonUtil;
 import com.ai.qa.user.domain.entity.User;
 import com.ai.qa.user.infrastructure.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,10 @@ public class userService {
     @Autowired
     private UserRepository userRepository;
     
-    public User login(String username, String pwd) {
-        // 实际项目中需要实现认证逻辑
-        // 这里简化处理，直接返回一个用户对象
+    public User login(String username, String pwd) {        
         User user = userRepository.findByUsername(username);
-        if (user != null && user.getPassword().equals(pwd)) {
+        String encryptedPassword = CommonUtil.encryptPassword(pwd);
+        if (user != null && user.getPassword().equals(encryptedPassword)) {
             return user;
         }
         return null;
@@ -27,8 +27,12 @@ public class userService {
 
     @Transactional
     public User register(String username, String pwd) {
-        // 实际项目中需要实现注册逻辑
-        // 包括密码加密、保存到数据库等
+        return register(username, pwd, null);
+    }
+    
+    @Transactional
+    public User register(String username, String pwd, String nick) {
+        
         // 检查用户是否已存在
         User existingUser = userRepository.findByUsername(username);
         if (existingUser != null) {
@@ -37,7 +41,8 @@ public class userService {
         
         User user = new User();
         user.setUsername(username);
-        user.setPassword(pwd); // 实际应该加密存储
+        user.setPassword(CommonUtil.encryptPassword(pwd)); 
+        user.setNick(nick);
         
         // 保存到数据库
         User savedUser = userRepository.save(user);
