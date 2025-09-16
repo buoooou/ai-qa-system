@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service-1
+    name: user-service-qiaozhe
   cloud:
     nacos:
       discovery:
@@ -18,3 +18,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+
+# SpringDoc配置
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /api/user/v3/api-docs
+    config-url: /api/user/v3/api-docs/swagger-config
+    disable-swagger-default-url: true

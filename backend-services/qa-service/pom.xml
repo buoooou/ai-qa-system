@@ -46,6 +46,12 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         
+        <!-- LoadBalancer用于负载均衡 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        
         <!-- MySQL数据库驱动 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -59,6 +65,13 @@
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <optional>true</optional>
+        </dependency>
+        
+        <!-- SpringDoc OpenAPI UI - Swagger文档 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.15</version>
         </dependency>
         
         <!-- Spring Boot Test - 测试依赖 -->

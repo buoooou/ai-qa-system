@@ -1,8 +1,11 @@
 package com.ai.qa.service.service;
 
 import com.ai.qa.service.client.GeminiClient;
+import com.ai.qa.service.client.UserServiceClient;
+import com.ai.qa.service.dto.ApiResponse;
 import com.ai.qa.service.dto.QaRequest;
 import com.ai.qa.service.dto.QaResponse;
+import com.ai.qa.service.dto.UserInfoDto;
 import com.ai.qa.service.entity.QaHistory;
 import com.ai.qa.service.repository.QaHistoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +47,11 @@ public class QaService implements IQaService {
     private final GeminiClient geminiClient;
     
     /**
+     * 用户服务客户端
+     */
+    private final UserServiceClient userServiceClient;
+    
+    /**
      * 问答历史数据访问层
      */
     private final QaHistoryRepository qaHistoryRepository;
@@ -70,24 +78,30 @@ public class QaService implements IQaService {
         long startTime = System.currentTimeMillis();
         
         try {
-            // 1. 构建完整的问题（包含上下文）
-            String fullQuestion = buildQuestionWithContext(request);
+            // 1. 获取用户信息（通过Feign Client调用user-service）
+            UserInfoDto userInfo = getUserInfo(request.getUserId());
             
-            // 2. 调用AI服务获取回答
+            // 2. 构建包含用户信息的完整问题
+            String fullQuestion = buildQuestionWithUserContext(request, userInfo);
+            
+            // 3. 调用AI服务获取回答
             String answer = geminiClient.askQuestion(fullQuestion);
             
-            // 3. 计算响应时间
+            // 4. 个性化回答（包含用户信息）
+            String personalizedAnswer = personalizeAnswer(answer, userInfo);
+            
+            // 5. 计算响应时间
             long responseTime = System.currentTimeMillis() - startTime;
             
-            // 4. 保存问答历史
+            // 6. 保存问答历史
             QaHistory qaHistory = new QaHistory(
                 request.getUserId(), 
                 request.getQuestion(), 
-                answer
+                personalizedAnswer
             );
             QaHistory savedHistory = qaHistoryRepository.save(qaHistory);
             
-            // 5. 构建响应对象
+            // 7. 构建响应对象
             QaResponse response = new QaResponse(
                 savedHistory.getId(),
                 savedHistory.getUserId(),
@@ -98,8 +112,8 @@ public class QaService implements IQaService {
             response.setModel("gemini-pro");
             response.setResponseTime(responseTime);
             
-            log.info("问答处理完成，用户ID: {}, 响应时间: {}ms", 
-                    request.getUserId(), responseTime);
+            log.info("问答处理完成，用户ID: {}, 用户名: {}, 响应时间: {}ms", 
+                    request.getUserId(), userInfo != null ? userInfo.getUserName() : "未知", responseTime);
             
             return response;
             
@@ -313,6 +327,87 @@ public class QaService implements IQaService {
             log.error("批量删除用户问答记录失败，用户ID: {}, 错误信息: {}", userId, e.getMessage(), e);
             throw new RuntimeException("删除用户问答记录失败");
         }
+    }
+    
+    /**
+     * 获取用户信息
+     * 
+     * 通过Feign Client调用user-service获取用户信息
+     * 
+     * @param userId 用户ID
+     * @return UserInfoDto 用户信息（如果获取失败返回null）
+     */
+    private UserInfoDto getUserInfo(Long userId) {
+        try {
+            log.debug("通过Feign Client获取用户信息，用户ID: {}", userId);
+            
+            ApiResponse<UserInfoDto> response = userServiceClient.getUserById(userId);
+            
+            if (response != null && response.getCode() == 200 && response.getData() != null) {
+                log.debug("成功获取用户信息，用户ID: {}, 用户名: {}", 
+                         userId, response.getData().getUserName());
+                return response.getData();
+            } else {
+                log.warn("获取用户信息失败，用户ID: {}, 响应: {}", userId, response);
+                return null;
+            }
+            
+        } catch (Exception e) {
+            log.error("调用用户服务失败，用户ID: {}, 错误信息: {}", userId, e.getMessage(), e);
+            return null;
+        }
+    }
+    
+    /**
+     * 构建包含用户信息的完整问题
+     * 
+     * 结合用户信息和历史上下文构建更完整的问题
+     * 
+     * @param request 问答请求
+     * @param userInfo 用户信息
+     * @return String 包含用户信息的完整问题
+     */
+    private String buildQuestionWithUserContext(QaRequest request, UserInfoDto userInfo) {
+        StringBuilder questionBuilder = new StringBuilder();
+        
+        // 添加用户信息上下文
+        if (userInfo != null) {
+            questionBuilder.append("用户信息：\n");
+            questionBuilder.append("- 用户名: ").append(userInfo.getUserName()).append("\n");
+            questionBuilder.append("- 邮箱: ").append(userInfo.getEmail()).append("\n");
+            questionBuilder.append("- 状态: ").append(userInfo.getStatus()).append("\n\n");
+        }
+        
+        // 添加历史对话上下文
+        String contextQuestion = buildQuestionWithContext(request);
+        questionBuilder.append(contextQuestion);
+        
+        return questionBuilder.toString();
+    }
+    
+    /**
+     * 个性化回答
+     * 
+     * 根据用户信息对AI回答进行个性化处理
+     * 
+     * @param answer 原始AI回答
+     * @param userInfo 用户信息
+     * @return String 个性化后的回答
+     */
+    private String personalizeAnswer(String answer, UserInfoDto userInfo) {
+        if (userInfo == null || userInfo.getUserName() == null) {
+            return answer;
+        }
+        
+        // 在回答前添加个性化问候
+        StringBuilder personalizedAnswer = new StringBuilder();
+        personalizedAnswer.append("你好，").append(userInfo.getUserName()).append("！\n\n");
+        personalizedAnswer.append(answer);
+        
+        // 在回答末尾添加个性化结尾
+        personalizedAnswer.append("\n\n如果您还有其他问题，随时可以问我哦！");
+        
+        return personalizedAnswer.toString();
     }
     
     /**

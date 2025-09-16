@@ -1,9 +1,14 @@
 package com.ai.qa.service.controller;
 
+import com.ai.qa.service.client.UserServiceClient;
 import com.ai.qa.service.dto.ApiResponse;
 import com.ai.qa.service.dto.QaRequest;
 import com.ai.qa.service.dto.QaResponse;
+import com.ai.qa.service.dto.UserInfoDto;
 import com.ai.qa.service.service.IQaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +35,7 @@ import java.util.List;
  * @version 1.0
  * @since 2025-09-06
  */
+@Tag(name = "问答服务", description = "AI智能问答相关接口")
 @Slf4j                      // Lombok注解：自动生成日志对象
 @RestController             // Spring注解：标识这是一个REST控制器
 @RequestMapping("/api/qa")   // 设置基础路径
@@ -46,6 +52,13 @@ public class QaController {
     private final IQaService qaService;
     
     /**
+     * 用户服务客户端
+     * 
+     * 通过Feign Client调用user-service
+     */
+    private final UserServiceClient userServiceClient;
+    
+    /**
      * 提交问题并获取AI回答
      * 
      * 这是核心接口，接收用户问题，调用AI服务获取回答
@@ -53,6 +66,7 @@ public class QaController {
      * @param request 问答请求，包含用户ID、问题内容等
      * @return ApiResponse<QaResponse> 问答结果
      */
+    @Operation(summary = "提交问题获取AI回答", description = "向AI提交问题并获取智能回答，支持上下文对话")
     @PostMapping("/ask")
     public ApiResponse<QaResponse> askQuestion(@Valid @RequestBody QaRequest request) {
         log.info("收到问答请求，用户ID: {}, 问题长度: {}", 
@@ -82,9 +96,10 @@ public class QaController {
      * @param userId 用户ID
      * @return ApiResponse<List<QaResponse>> 问答历史列表
      */
+    @Operation(summary = "获取用户问答历史", description = "获取指定用户的所有问答记录，按时间倒序排列")
     @GetMapping("/history/{userId}")
     public ApiResponse<List<QaResponse>> getUserHistory(
-            @PathVariable @NotNull @Min(1) Long userId) {
+            @Parameter(description = "用户ID", required = true) @PathVariable @NotNull @Min(1) Long userId) {
         log.info("收到查询用户问答历史请求，用户ID: {}", userId);
         
         try {
@@ -227,6 +242,7 @@ public class QaController {
      * 
      * @return ApiResponse<String> 服务状态
      */
+    @Operation(summary = "健康检查", description = "检查问答服务是否正常运行")
     @GetMapping("/health")
     public ApiResponse<String> health() {
         return ApiResponse.success("QA Service is running");
@@ -305,9 +321,68 @@ public class QaController {
         info.put("version", "1.0");
         info.put("description", "AI智能问答服务");
         info.put("features", java.util.Arrays.asList(
-            "AI问答", "历史记录", "上下文对话", "搜索功能", "记录删除"
+            "AI问答", "历史记录", "上下文对话", "搜索功能", "记录删除", "Feign Client服务间调用"
         ));
         
         return ApiResponse.success("获取服务信息成功", info);
+    }
+    
+    /**
+     * 测试Feign Client - 获取用户信息
+     * 
+     * 通过Feign Client调用user-service获取用户信息
+     * 用于测试服务间通信是否正常
+     * 
+     * @param userId 用户ID
+     * @return ApiResponse<UserInfoDto> 用户信息
+     */
+    @GetMapping("/test/user/{userId}")
+    public ApiResponse<UserInfoDto> testGetUserInfo(@PathVariable @NotNull @Min(1) Long userId) {
+        log.info("测试Feign Client获取用户信息，用户ID: {}", userId);
+        
+        try {
+            ApiResponse<UserInfoDto> response = userServiceClient.getUserById(userId);
+            
+            if (response != null && response.getCode() == 200 && response.getData() != null) {
+                log.info("Feign Client调用成功，用户ID: {}, 用户名: {}", 
+                        userId, response.getData().getUserName());
+                return ApiResponse.success("Feign Client调用成功", response.getData());
+            } else {
+                log.warn("Feign Client调用失败，用户ID: {}, 响应: {}", userId, response);
+                return ApiResponse.error("用户不存在或服务调用失败");
+            }
+            
+        } catch (Exception e) {
+            log.error("Feign Client调用异常，用户ID: {}, 错误信息: {}", userId, e.getMessage(), e);
+            return ApiResponse.error("服务间调用失败：" + e.getMessage());
+        }
+    }
+    
+    /**
+     * 测试Feign Client - 检查用户服务健康状态
+     * 
+     * 通过Feign Client调用user-service的健康检查接口
+     * 
+     * @return ApiResponse<String> 健康检查结果
+     */
+    @GetMapping("/test/user-service/health")
+    public ApiResponse<String> testUserServiceHealth() {
+        log.info("测试Feign Client调用用户服务健康检查");
+        
+        try {
+            ApiResponse<String> response = userServiceClient.checkHealth();
+            
+            if (response != null && response.getCode() == 200) {
+                log.info("用户服务健康检查成功，响应: {}", response.getMessage());
+                return ApiResponse.success("用户服务健康检查成功", response.getData());
+            } else {
+                log.warn("用户服务健康检查失败，响应: {}", response);
+                return ApiResponse.error("用户服务健康检查失败");
+            }
+            
+        } catch (Exception e) {
+            log.error("用户服务健康检查异常，错误信息: {}", e.getMessage(), e);
+            return ApiResponse.error("用户服务健康检查异常：" + e.getMessage());
+        }
     }
 }

@@ -71,12 +71,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/logout").permitAll()
                 // 允许Swagger文档接口匿名访问（开发环境）
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                // 允许Actuator监控端点
+                .antMatchers("/actuator/**").permitAll()
                 // 其他所有请求都需要认证
                 .anyRequest().authenticated()
             
             .and()
             
-            // 配置HTTP Basic认证（简单起见，生产环境建议使用JWT）
-            .httpBasic();
+            // 禁用HTTP Basic认证，避免弹出用户名密码框
+            .httpBasic().disable()
+            
+            // 禁用表单登录
+            .formLogin().disable();
     }
 }

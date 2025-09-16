@@ -15,9 +15,67 @@ spring:
           enabled: true # 开启基于服务发现的路由功能
           lower-case-service-id: true
       routes:
+        # 用户服务Swagger路由 - 必须放在通用路由之前
+        - id: user_swagger_ui
+          uri: lb://user-service-qiaozhe
+          predicates:
+            - Path=/api/user/swagger-ui/**
+          filters:
+            - StripPrefix=2
+        
+        - id: user_swagger_docs
+          uri: lb://user-service-qiaozhe
+          predicates:
+            - Path=/api/user/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+        
+        - id: user_swagger_webjars
+          uri: lb://user-service-qiaozhe
+          predicates:
+            - Path=/api/user/webjars/**
+          filters:
+            - StripPrefix=2
+        
+        - id: user_swagger_config
+          uri: lb://user-service-qiaozhe
+          predicates:
+            - Path=/api/user/v3/api-docs/swagger-config
+          filters:
+            - StripPrefix=2
+        
+        # 问答服务Swagger路由 - 必须放在通用路由之前
+        - id: qa_swagger_ui
+          uri: lb://qa-service-qiaozhe
+          predicates:
+            - Path=/api/qa/swagger-ui/**
+          filters:
+            - StripPrefix=2
+        
+        - id: qa_swagger_docs
+          uri: lb://qa-service-qiaozhe
+          predicates:
+            - Path=/api/qa/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+        
+        - id: qa_swagger_webjars
+          uri: lb://qa-service-qiaozhe
+          predicates:
+            - Path=/api/qa/webjars/**
+          filters:
+            - StripPrefix=2
+        
+        - id: qa_swagger_config
+          uri: lb://qa-service-qiaozhe
+          predicates:
+            - Path=/api/qa/v3/api-docs/swagger-config
+          filters:
+            - StripPrefix=2
+        
         # 用户服务路由
         - id: user_service_route
-          uri: lb://user-service-1 # lb:// 表示从Nacos负载均衡地选择一个user-service实例
+          uri: lb://user-service-qiaozhe # lb:// 表示从Nacos负载均衡地选择一个user-service实例
           predicates:
             - Path=/api/user/** # 匹配所有/api/user/开头的请求
           filters:
@@ -25,7 +83,7 @@ spring:
         
         # JWT认证服务路由
         - id: auth_service_route
-          uri: lb://user-service-1
+          uri: lb://user-service-qiaozhe
           predicates:
             - Path=/api/auth/** # 匹配所有/api/auth/开头的请求
           filters:
@@ -33,11 +91,29 @@ spring:
         
         # 问答服务路由
         - id: qa_service_route
-          uri: lb://qa-service
+          uri: lb://qa-service-qiaozhe
           predicates:
             - Path=/api/qa/** # 匹配所有/api/qa/开头的请求
           filters:
             - StripPrefix=0
+      
+      # 全局CORS配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 
+              - "http://localhost:3000"
+              - "http://127.0.0.1:3000"
+              - "http://192.168.31.171:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
     
     # 负载均衡配置
     loadbalancer:

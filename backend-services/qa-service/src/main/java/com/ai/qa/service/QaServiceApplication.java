@@ -3,6 +3,7 @@ package com.ai.qa.service;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * 问答服务应用启动类
@@ -27,6 +28,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication      // Spring Boot应用标识
 @EnableDiscoveryClient     // 启用服务发现客户端
+@EnableFeignClients        // 启用Feign客户端
 public class QaServiceApplication {
     
     /**

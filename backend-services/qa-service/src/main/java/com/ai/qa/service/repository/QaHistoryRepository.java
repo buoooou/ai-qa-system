@@ -2,6 +2,7 @@ package com.ai.qa.service.repository;
 
 import com.ai.qa.service.entity.QaHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -93,6 +94,7 @@ public interface QaHistoryRepository extends JpaRepository<QaHistory, Long> {
      * @param beforeTime 指定时间点
      * @return int 删除的记录数
      */
+    @Modifying
     @Query("DELETE FROM QaHistory q WHERE q.createTime < :beforeTime")
     int deleteByCreateTimeBefore(@Param("beforeTime") LocalDateTime beforeTime);
     
