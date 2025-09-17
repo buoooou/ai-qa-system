@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service-1
+    name: user-service-zhuzhiqun
   cloud:
     nacos:
       discovery:
@@ -11,6 +11,7 @@ spring:
     url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: ai_qa_system
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update

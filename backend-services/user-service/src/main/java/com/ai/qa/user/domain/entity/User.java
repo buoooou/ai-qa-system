@@ -1,5 +1,6 @@
 package com.ai.qa.user.domain.entity;
 
+import com.ai.qa.user.domain.valueobject.UserVectorEmbedding;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -38,6 +39,9 @@ public class User {
     @Schema(description = "更新时间", example = "2024-01-01T12:00:00")
     private LocalDateTime updateTime;
 
+    @Transient
+    private UserVectorEmbedding vectorEmbedding;
+
     @PrePersist
     protected void onCreate() {
         createTime = LocalDateTime.now();
@@ -47,5 +51,24 @@ public class User {
     @PreUpdate
     protected void onUpdate() {
         updateTime = LocalDateTime.now();
+    }
+
+    public static User create(String username, String password) {
+        User user = new User();
+        user.setUserName(username);
+        user.setPassword(password);
+        return user;
+    }
+
+    public void updateProfile(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void updateVectorEmbedding(UserVectorEmbedding vectorEmbedding) {
+        this.vectorEmbedding = vectorEmbedding;
+    }
+
+    public boolean hasVectorEmbedding() {
+        return this.vectorEmbedding != null && this.vectorEmbedding.getEmbedding() != null;
     }
 }
