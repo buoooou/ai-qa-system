@@ -1,4 +1,4 @@
-package com.ai.qa.user.application.impl;
+package com.ai.qa.service.domain.service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -12,20 +12,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.ai.qa.user.application.service.JwtService;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 @Service
-public class JwtServiceImpl implements JwtService {
+public class JwtServiceImpl {
     @Value("${jwt.secret}")
     private String SECRET;
 
     @Value("${jwt.expiration.ms}")
     private long EXPIRATION;
 
-    @Override
     public String extractUsername(String jwt) {
         return Jwts.parser()
                 .verifyWith(getSignInKey()).build()
@@ -33,13 +30,11 @@ public class JwtServiceImpl implements JwtService {
                 .getSubject();
     }
 
-    @Override
     public boolean isTokenValid(String jwt, UserDetails userDetails) {
         final String username = extractUsername(jwt);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(jwt);
     }
 
-    @Override
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<String, Object>();
         return createToken(claims, username);

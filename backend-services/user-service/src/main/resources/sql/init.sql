@@ -24,9 +24,10 @@ CREATE TABLE `user` (
 DROP TABLE IF EXISTS `qa_history`;
 CREATE TABLE `qa_history` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `user_id` VARCHAR(255) NOT NULL COMMENT '用户名',
   `question` TEXT NOT NULL COMMENT '用户提出的问题',
   `answer` LONGTEXT COMMENT 'AI返回的回答',
+  `session_id` VARCHAR(255) NOT NULL COMMENT '会话ID',
   `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `idx_user_id` (`user_id`)

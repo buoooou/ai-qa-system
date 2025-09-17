@@ -3,14 +3,19 @@ server:
 spring:
   application:
     name: user-service-xuwei
+  config:
+    import:
+      # 引入共享配置
+      - "nacos:shared-config-xuwei.yml"
   cloud:
     nacos:
+      server-addr: 54.219.180.170:8848
       discovery:
         server-addr: 54.219.180.170:8848
-  datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: ${DB_USER:root}
-    password: ${DB_PASS:zaq1!QAZ}
+      config:
+        # 明确告诉 Nacos Config 默认的文件扩展名是 yml
+        file-extension: yml
+        group: DEFAULT_GROUP
   jpa:
     hibernate:
       ddl-auto: update
@@ -25,7 +30,3 @@ spring:
   springdoc:
     swagger-ui:
       path: /swagger-ui.html
-jwt:
-  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
-  expiration:
-    ms: 86400000

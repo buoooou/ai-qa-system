@@ -1,6 +1,7 @@
-package com.ai.qa.user.domain.entity;
+package com.ai.qa.service.infrastructure.persistence.entities;
 
 import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "user")
-public class User {
+public class UserPO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

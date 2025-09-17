@@ -2,8 +2,23 @@ server:
   port: 8082
 spring:
   application:
-    name: qa-service
+    name: qa-service-xuwei
+  config:
+    import:
+      # 引入共享配置
+      - "nacos:shared-config-xuwei.yml"
   cloud:
     nacos:
+      server-addr: 54.219.180.170:8848
       discovery:
-        server-addr: localhost:8848
+        server-addr: 54.219.180.170:8848
+      config:
+        # 明确告诉 Nacos Config 默认的文件扩展名是 yml
+        file-extension: yml
+        group: DEFAULT_GROUP
+
+logging:
+  level:
+    # 将你的FeignClient接口所在的包路径设置为DEBUG
+    # 假设 UserClient 在 com.ai.qa.qaservice.feign 包下
+    com.ai.qa.qaservice.feign: DEBUG
