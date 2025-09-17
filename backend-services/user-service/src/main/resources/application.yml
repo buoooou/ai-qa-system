@@ -2,11 +2,10 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service-1
+    name: user-service-LiuGang
   cloud:
     nacos:
-      discovery:
-        server-addr: 54.219.180.170:8848
+      server-addr: 54.219.180.170:8848
   datasource:
     url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
