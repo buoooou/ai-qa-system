@@ -3,14 +3,14 @@ package com.ai.qa.user.domain.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "user_ycr")
 @Data
 public class User {
+    @Id
     private Long id;
     private String username;
     private String password;

@@ -80,7 +80,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // 允许匿名访问的资源
                 .antMatchers("/","/index.html","/*.js", "/*.css", "/*.png", "/*.ico", "/assets/**",
-                "/api/auth/**",
+                "/api/user/**",
 //                 "/api/orders/**",
                 "/swagger-ui.html","/swagger-ui/**","/v3/api-docs/**","/webjars/**","/swagger-resources/**"// 允许访问Swagger文档
                 ).permitAll()

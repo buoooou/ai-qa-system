@@ -3,6 +3,8 @@ package com.ai.qa.user.api.controller;
 import com.ai.qa.user.domain.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,7 @@ import lombok.RequiredArgsConstructor;
  *
  */
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -35,6 +37,24 @@ public class UserController {
     
     private final UserService userService;
 
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
+    @GetMapping("/Test")
+//    @Operation(summary = "登录", description = "登录")
+    public AuthResponse test(@RequestBody UserRequestDto request){
+        System.out.print("测试user test ");
+        return new AuthResponse("token");
+    }
+
+
+    @GetMapping("/{userId}")
+    public String getUserById(@PathVariable("userId") Long userId) {
+        System.out.println("测试userid");
+        return "userid:"+userId;
+    }
 
     /**
      * 登录
