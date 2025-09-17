@@ -7,8 +7,13 @@ import java.util.Optional;
 
 public interface QAHistoryRepo {
 
-    void save(QAHistory history);
+    QAHistory save(QAHistory history);
+    
     Optional<QAHistory> findHistoryById(String id);
+    
     List<QAHistory> findHistoryBySession(String sessionId);
-
+    
+    List<QAHistory> findHistoryByUserId(String userId);
+    
+    void deleteById(String id);
 }

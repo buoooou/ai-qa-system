@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Schema(description = "用户信息响应")
 public class UserInfoResponse {
     
-    @Schema(description = "用户ID", example = "1")
-    private Long id;
+    @Schema(description = "用户ID", example = "user123")
+    private String id;
     
     @Schema(description = "用户名", example = "testuser")
     private String username;

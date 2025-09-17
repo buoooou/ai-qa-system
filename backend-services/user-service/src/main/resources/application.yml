@@ -3,9 +3,15 @@ server:
 spring:
   application:
     name: user-service
+  config:
+    import:
+      - "optional:nacos:shared-config.yml"
   cloud:
     nacos:
       server-addr: 54.219.180.170:8848
+      config:
+        file-extension: yml
+        group: DEFAULT_GROUP
   datasource:
     url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root

@@ -177,11 +177,7 @@ public class UserServiceImpl implements UserService {
         return response;
     }
     
-    /**
-     * 生成token（简化实现，实际项目中应使用JWT）
-     */
-    private String generateToken(Long userId) {
-        // 这里简化处理，实际项目中应该使用JWT生成token
+    private String generateToken(String userId) {
         return "token_" + userId + "_" + System.currentTimeMillis();
     }
 }

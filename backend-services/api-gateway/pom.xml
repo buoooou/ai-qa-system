@@ -65,6 +65,12 @@
             <artifactId>nacos-client</artifactId>
             <!-- 版本号会从你的 dependencyManagement 中继承 -->
         </dependency>
+        <!-- Lombok工具 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <!-- 3. 添加构建插件，用于打包成可执行jar -->

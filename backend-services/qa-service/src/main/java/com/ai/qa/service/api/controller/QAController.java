@@ -2,10 +2,14 @@ package com.ai.qa.service.api.controller;
 
 import com.ai.qa.service.api.dto.QAHistoryDTO;
 import com.ai.qa.service.application.dto.SaveHistoryCommand;
+import com.ai.qa.service.application.dto.QAHistoryQuery;
+import com.ai.qa.service.application.service.QAHistoryService;
 import com.ai.qa.service.domain.service.QAService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/qa")
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class QAController {
 
     private final QAService qaService;
+    private final QAHistoryService qaHistoryService;
 
     @GetMapping("/test")
     public String testFeign() {
@@ -20,14 +25,22 @@ public class QAController {
         return qaService.processQuestion(1L);
     }
 
-
     @PostMapping("/save")
-    public ReponseEntity<QAHistoryDTO> saveHistory(@RequestBody SaveHistoryRequest request){
-//        request.getUserId
-        SaveHistoryCommand command new = SaveHistoryCommand()
+    public ResponseEntity<QAHistoryDTO> saveHistory(@RequestBody SaveHistoryCommand command) {
+        QAHistoryDTO dto = qaHistoryService.saveHistory(command);
+        return ResponseEntity.ok(dto);
+    }
 
-        QAHistoryDTO dto= qaHistorySerive.saveHistory(command);
+    @GetMapping("/history/{userId}")
+    public ResponseEntity<List<QAHistoryDTO>> getUserHistory(@PathVariable String userId) {
+        QAHistoryQuery query = new QAHistoryQuery();
+        query.setUserId(userId);
+        List<QAHistoryDTO> history = qaHistoryService.queryUserHistory(query);
+        return ResponseEntity.ok(history);
+    }
 
-        return  new ReponseEntity(dto) ;
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("QA Service is running!");
     }
 }

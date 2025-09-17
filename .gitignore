@@ -275,3 +275,6 @@ tramp
 local.properties
 local.yml
 local.yaml
+
+# Documentation and test files
+.doc/
