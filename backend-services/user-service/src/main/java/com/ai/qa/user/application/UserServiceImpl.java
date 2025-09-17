@@ -1,5 +1,6 @@
 package com.ai.qa.user.application;
 
+import com.ai.qa.user.common.JwtUtil;
 import com.ai.qa.user.dto.LoginRequest;
 import com.ai.qa.user.dto.LoginResponse;
 import com.ai.qa.user.dto.RegisterRequest;
@@ -11,11 +12,15 @@ import com.ai.qa.user.common.CommonUtil;
 import com.ai.qa.user.api.exception.ErrCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -39,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     /**
      * 用户注册
@@ -130,8 +138,13 @@ public class UserServiceImpl implements UserService {
         // 5. 构建登录响应 - 使用JWT版本的LoginResponse
         LoginResponse response = new LoginResponse();
         response.setUser(user);
-        response.setAccessToken("mock-jwt-token-" + user.getId()); // 简化实现，实际应该生成JWT
-        response.setRefreshToken("mock-refresh-token-" + user.getId());
+        Map<String, String> map = new HashMap();
+        map.put("id", String.valueOf(user.getId()));
+        map.put("username", user.getUserName());
+        String accessToken =  jwtUtil.generateToken(user.getUserName(),map);
+        //String accessToken = jwtUtil.generateToken(user.getId(), user.getUserName());
+        response.setAccessToken(accessToken); // 简化实现，实际应该生成JWT
+        response.setRefreshToken(accessToken);
         response.setExpiresIn(7200L); // 2小时
 
         log.info("用户登录成功，用户ID: {}, 用户名: {}", user.getId(), user.getUserName());

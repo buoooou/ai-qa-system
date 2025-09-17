@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -66,8 +68,11 @@ public class AuthController {
             User user = userService.login(request);
 
             // 生成JWT令牌
-            String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getUserName());
-            String refreshToken = jwtUtil.generateRefreshToken(user.getId(), user.getUserName());
+            Map<String, String> map = new HashMap();
+            map.put("id", String.valueOf(user.getId()));
+            map.put("username", user.getUserName());
+            String accessToken = jwtUtil.generateToken(user.getUserName(),map);
+            //String refreshToken = jwtUtil.generateToken(user.getId(), user.getUserName());
 
             // 为了安全，不返回密码信息
             user.setPassword(null);
@@ -76,7 +81,7 @@ public class AuthController {
             LoginResponse loginResponse = new LoginResponse(
                     user,
                     accessToken,
-                    refreshToken,
+                    accessToken,
                     accessTokenExpiration / 1000 // 转换为秒
             );
 
@@ -97,11 +102,11 @@ public class AuthController {
      * @param request 刷新令牌请求
      * @return Response<LoginResponse> 新的令牌信息
      */
-    @PostMapping("/refresh")
+   /* @PostMapping("/refresh")
     public Response<LoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
         log.info("收到刷新令牌请求");
 
-        try {
+       *//* try {
             String refreshToken = request.getRefreshToken();
 
             // 验证刷新令牌
@@ -130,23 +135,23 @@ public class AuthController {
 
             // 为了安全，不返回密码信息
             user.setPassword(null);
-
+*//*
             // 构建响应（使用原刷新令牌）
             LoginResponse loginResponse = new LoginResponse(
-                    user,
-                    newAccessToken,
-                    refreshToken,
+                    null,
+                    null,
+                    null,
                     accessTokenExpiration / 1000
             );
 
-            log.info("刷新令牌成功，用户ID: {}, 用户名: {}", userId, username);
+            log.info("刷新令牌成功，用户ID: {}, 用户名: {}", null, username);
             return Response.success("令牌刷新成功", loginResponse);
 
         } catch (Exception e) {
             log.error("刷新令牌失败: {}", e.getMessage());
             return Response.error(401, "刷新令牌失败，请重新登录");
         }
-    }
+    }*/
 
     /**
      * 用户登出接口
@@ -163,11 +168,11 @@ public class AuthController {
 
         try {
             // 从请求头中获取令牌
-            String token = extractTokenFromRequest(httpRequest);
+            String token =null; //extractTokenFromRequest(httpRequest);
 
             if (token != null) {
-                String username = jwtUtil.getUsernameFromToken(token);
-                log.info("用户登出成功，用户名: {}", username);
+                //String username = jwtUtil.(token);
+                //log.info("用户登出成功，用户名: {}", username);
 
                 // TODO: 在实际应用中，可以将令牌加入黑名单
                 // tokenBlacklistService.addToBlacklist(token);
@@ -191,7 +196,7 @@ public class AuthController {
      * @param httpRequest HTTP请求
      * @return Response<String> 验证结果
      */
-    @GetMapping("/verify")
+   /* @GetMapping("/verify")
     public Response<String> verifyToken(HttpServletRequest httpRequest) {
         try {
             String token = extractTokenFromRequest(httpRequest);
@@ -222,14 +227,14 @@ public class AuthController {
         }
     }
 
-    /**
+    *//**
      * 获取当前用户信息接口
      *
      * 根据访问令牌获取当前登录用户的信息
      *
      * @param httpRequest HTTP请求
      * @return Response<User> 用户信息
-     */
+     *//*
     @GetMapping("/profile")
     public Response<User> getCurrentUserProfile(HttpServletRequest httpRequest) {
         try {
@@ -261,12 +266,12 @@ public class AuthController {
         }
     }
 
-    /**
+    *//**
      * 从HTTP请求中提取JWT令牌
      *
      * @param request HTTP请求
      * @return String JWT令牌，如果不存在则返回null
-     */
+     *//*
     private String extractTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
 
@@ -275,5 +280,5 @@ public class AuthController {
         }
 
         return null;
-    }
+    }*/
 }
