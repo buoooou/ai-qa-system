@@ -3,7 +3,7 @@ package com.ai.qa.user.api.controller;
 import com.ai.qa.user.api.dto.Response;
 import com.ai.qa.user.api.dto.UserRequest;
 import com.ai.qa.user.api.dto.UserResponse;
-import com.ai.qa.user.application.userService;
+import com.ai.qa.user.application.UserService;
 import com.ai.qa.user.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +16,11 @@ import java.util.Map;
 public class UserController {
     
     @Autowired
-    private userService UserService;
+    private UserService userService;
     
     @PostMapping("/login")
     public Response<Map<String, Object>> login(@RequestParam String username, @RequestParam String password) {
-        User user = UserService.login(username, password);
+        User user = userService.login(username, password);
         if (user != null) {
             // 登录成功，返回用户信息和token占位符
             Map<String, Object> result = new HashMap<>();
@@ -33,7 +33,7 @@ public class UserController {
 
     @PostMapping("/register")
     public Response<UserResponse> register(@Valid @RequestBody UserRequest userRequest) {
-        User registeredUser = UserService.register(userRequest.getUsername(), userRequest.getPassword(), userRequest.getNick());
+        User registeredUser = userService.register(userRequest.getUsername(), userRequest.getPassword(), userRequest.getNick());
         if (registeredUser != null) {
             UserResponse response = new UserResponse();
             response.setId(registeredUser.getId());
@@ -48,13 +48,13 @@ public class UserController {
 
     @PutMapping("/updateNick")
     public Response<Boolean> updateNick(@RequestParam String nick, @RequestParam Long userId) {
-        boolean result = UserService.updateNick(nick, userId);
+        boolean result = userService.updateNick(nick, userId);
         return Response.success(result);
     }
     
     @GetMapping("/getUserById")
     public Response<UserResponse> getUserById(@RequestParam("userId") Long userId) {
-        User user = UserService.getUserById(userId);
+        User user = userService.getUserById(userId);
         if (user != null) {
             UserResponse response = new UserResponse();
             response.setId(user.getId());
