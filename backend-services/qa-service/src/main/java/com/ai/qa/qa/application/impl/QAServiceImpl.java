@@ -50,7 +50,7 @@ public class QAServiceImpl implements QAService {
             try {
                 com.ai.qa.qa.api.dto.Response<User> userResponse = userServiceFeignClient.getUserById(request.getUserId());
                 if (userResponse != null && "SUCCESS".equals(userResponse.getResult()) && userResponse.getData() != null) {
-                    response.setUsername(userResponse.getData().getUsername());
+                    response.setUserNick(userResponse.getData().getNick());
                 }
             } catch (Exception e) {
                 // 如果调用失败，记录日志但不中断主流程
@@ -78,7 +78,7 @@ public class QAServiceImpl implements QAService {
                 try {
                     com.ai.qa.qa.api.dto.Response<User> userResponse = userServiceFeignClient.getUserById(userId);
                     if (userResponse != null && "SUCCESS".equals(userResponse.getResult()) && userResponse.getData() != null) {
-                        response.setUsername(userResponse.getData().getUsername());
+                        response.setUserNick(userResponse.getData().getNick());
                     }
                 } catch (Exception e) {
                     // 如果调用失败，记录日志但不中断主流程

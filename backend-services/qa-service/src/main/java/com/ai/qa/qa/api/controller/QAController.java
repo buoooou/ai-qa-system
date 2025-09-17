@@ -40,7 +40,7 @@ public class QAController {
             response.setCreateTime(qa.getCreateTime());
             List<QAResponse> history = qaService.getQAHistory(qa.getUserId());
             if(history != null && history.size() > 0){
-                response.setUsername(history.get(0).getUsername());
+                response.setUserNick(history.get(0).getUserNick());
             }
             return Response.success(response);
         } else {

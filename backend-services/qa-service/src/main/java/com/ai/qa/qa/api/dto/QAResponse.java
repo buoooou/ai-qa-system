@@ -9,5 +9,5 @@ public class QAResponse {
     private String question;
     private String answer;
     private LocalDateTime createTime;
-    private String username; // 添加用户名字段
+    private String userNick; // 添加用户名字段
 }
