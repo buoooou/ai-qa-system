@@ -16,4 +16,6 @@ public interface UserService {
     User getUserById(Long userId);
     
     List<User> getUsers();
+    
+    boolean isNickExists(String nick);
 }

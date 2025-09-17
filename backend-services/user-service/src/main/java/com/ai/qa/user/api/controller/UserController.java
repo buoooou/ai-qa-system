@@ -66,4 +66,10 @@ public class UserController {
         }
         return Response.error("用户不存在");
     }
+    
+    @GetMapping("/checkNick")
+    public Response<Boolean> checkNick(@RequestParam("nick") String nick) {
+        boolean exists = userService.isNickExists(nick);
+        return Response.success(exists);
+    }
 }

@@ -76,4 +76,10 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsers() {
         return userRepository.findAll();
     }
+    
+    @Override
+    public boolean isNickExists(String nick) {
+        User user = userRepository.findByNick(nick);
+        return user != null;
+    }
 }
