@@ -32,6 +32,7 @@ git commit -m "添加了XX功能：具体修改说明"  # 提交时写清楚修�
 推送到自己 fork 仓库的新分支：
 bash
 git push origin 分支名称  # origin默认指向你的fork仓库
+git push origin main     # 推送到主分支
 
 查看远程分支：
 git branch -r
