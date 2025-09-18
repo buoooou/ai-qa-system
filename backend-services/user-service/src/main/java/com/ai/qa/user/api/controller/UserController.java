@@ -9,7 +9,6 @@ import com.ai.qa.user.application.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +33,13 @@ public class UserController {
 
         UserResponse response = userService.login(request);
         return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    @GetMapping("/getUserName")
+    public ResponseEntity<ApiResponse<String>> getUserName(@RequestParam("userId") Long userId) {
+        log.info("Getting user with userid: {}", userId);
+        String username = userService.getUserName(userId);
+        log.info("User with username: {}", username);
+        return ResponseEntity.ok(ApiResponse.success(username));
     }
 }

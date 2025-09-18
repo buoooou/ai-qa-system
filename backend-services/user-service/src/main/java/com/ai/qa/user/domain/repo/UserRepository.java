@@ -2,7 +2,7 @@ package com.ai.qa.user.domain.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ai.qa.user.domain.model.User;
+import com.ai.qa.user.domain.entity.User;
 
 import java.util.Optional;
 

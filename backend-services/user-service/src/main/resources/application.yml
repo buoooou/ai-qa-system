@@ -2,19 +2,26 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service-1
+    name: user-service-fm
+  config:
+    import:
+      # 引入共享配置
+      - "nacos:shared-config_fm.yml"    
+  # cloud:
+  #   nacos:
+  #     discovery:
+  #       server-addr: 54.219.180.170:8848
   cloud:
     nacos:
-      discovery:
-        server-addr: 54.219.180.170:8848
+      server-addr: 54.219.180.170:8848
+      config:
+        # 明确告诉 Nacos Config 默认的文件扩展名是 yml
+        file-extension: yml
+        group: DEFAULT_GROUP  
   datasource:
     url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: ai_qa_system
-  # datasource:
-  #   url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-  #   username: root
-  #   password: 123456
   jpa:
     hibernate:
       ddl-auto: update

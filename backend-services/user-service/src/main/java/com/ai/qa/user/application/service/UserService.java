@@ -5,7 +5,7 @@ import com.ai.qa.user.api.dto.RegisterRequest;
 import com.ai.qa.user.api.dto.UserResponse;
 import com.ai.qa.user.api.exception.BusinessException;
 import com.ai.qa.user.application.service.UserService;
-import com.ai.qa.user.domain.model.User;
+import com.ai.qa.user.domain.entity.User;
 import com.ai.qa.user.domain.repo.UserRepository;
 import com.ai.qa.user.infrastructure.config.JwtUtil;
 
@@ -31,7 +31,7 @@ public class UserService {
 
     @Transactional
     public UserResponse register(RegisterRequest request) {
-        log.info("注册请求: {}", request.toString());
+        log.info("注册请求 username: {}", request.getUsername());
 
         // 检查用户名是否已存在
         Optional<User> existingUser = userRepository.findByUsername(request.getUsername());
@@ -49,7 +49,7 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         // 生成JWT令牌
-        String token = jwtUtil.generateToken(savedUser.getUsername());
+        String token = jwtUtil.generateToken(savedUser.getId(), savedUser.getUsername());
 
         // 构建响应
         UserResponse response = new UserResponse();
@@ -61,7 +61,7 @@ public class UserService {
     }
 
     public UserResponse login(LoginRequest request) {
-        log.info("登录请求: {}", request.toString());
+        log.info("登录请求 username: {}", request.getUsername());
 
         // 查找用户
         Optional<User> userOptional = userRepository.findByUsername(request.getUsername());
@@ -77,7 +77,7 @@ public class UserService {
         }
 
         // 生成JWT令牌
-        String token = jwtUtil.generateToken(user.getUsername());
+        String token = jwtUtil.generateToken(user.getId(), user.getUsername());
 
         // 构建响应
         UserResponse response = new UserResponse();
@@ -86,5 +86,19 @@ public class UserService {
         response.setToken(token);
 
         return response;
+    }
+
+    public String getUserName(Long userid) {
+        log.info("获取用户请求: {}", userid);
+
+        // 查找用户
+        Optional<User> userOptional = userRepository.findById(userid);
+        if (userOptional.isEmpty()) {
+            return "";
+        }
+
+        User user = userOptional.get();
+
+        return user.getUsername();
     }
 }

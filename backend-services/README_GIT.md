@@ -11,8 +11,11 @@ cd 项目名  # 进入项目目录
 
 # 3. 创建新分支并编辑代码
 不建议直接在main分支修改（保持主分支干净），创建并切换到新分支：
-bash
-git checkout -b feature/new-function  # 分支名建议清晰（如功能名、bug修复等）
+git branch 新分支名称
+git checkout 新分支名称
+
+或
+git checkout -b 新分支名称   # 分支名建议清晰（如功能名、bug修复等）
 
 用编辑器修改代码（如添加新功能、修复 bug）。
 
@@ -28,7 +31,7 @@ git commit -m "添加了XX功能：具体修改说明"  # 提交时写清楚修�
 
 推送到自己 fork 仓库的新分支：
 bash
-git push origin feature/new-function  # origin默认指向你的fork仓库
+git push origin 分支名称  # origin默认指向你的fork仓库
 
 查看远程分支：
 git branch -r
