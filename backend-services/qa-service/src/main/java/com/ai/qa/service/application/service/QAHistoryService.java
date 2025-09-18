@@ -3,6 +3,8 @@ package com.ai.qa.service.application.service;
 import com.ai.qa.service.application.dto.SaveHistoryCommand;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ai.qa.service.api.dto.QAHistoryDTO;
 import com.ai.qa.service.domain.model.QAHistory;
 import com.ai.qa.service.domain.repo.QAHistoryRepo;
@@ -11,6 +13,7 @@ import com.ai.qa.service.infrastructure.persistence.mapper.QAHistoryMapper;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class QAHistoryService {
     private final QAHistoryMapper qaHistoryMapper;

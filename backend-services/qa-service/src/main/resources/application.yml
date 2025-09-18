@@ -16,6 +16,20 @@ spring:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
         group: DEFAULT_GROUP
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:sql/init.sql
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
 
 logging:
   level:

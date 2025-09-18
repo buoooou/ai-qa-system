@@ -4,12 +4,14 @@ import com.ai.qa.service.domain.model.QAHistory;
 import com.ai.qa.service.domain.repo.QAHistoryRepo;
 import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
 import com.ai.qa.service.infrastructure.persistence.mapper.QAHistoryMapper;
-import com.ai.qa.service.infrastructure.persistence.repositories.JpaQAHistoryRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 @RequiredArgsConstructor
 public class QAHistoryRepoImpl implements QAHistoryRepo {
 

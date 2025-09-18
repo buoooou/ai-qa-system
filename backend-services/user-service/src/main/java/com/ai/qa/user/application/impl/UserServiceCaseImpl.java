@@ -2,6 +2,7 @@ package com.ai.qa.user.application.impl;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.qa.user.api.exception.ResourceNotFoundException;
 import com.ai.qa.user.domain.service.JwtServiceImpl;
@@ -13,6 +14,7 @@ import com.ai.qa.user.domain.model.User;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceCaseImpl implements UserCaseService {
     private final UserRepository userRepository;

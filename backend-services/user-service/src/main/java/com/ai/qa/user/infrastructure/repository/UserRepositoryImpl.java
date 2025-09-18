@@ -2,6 +2,8 @@ package com.ai.qa.user.infrastructure.repository;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.ai.qa.user.domain.model.User;
 import com.ai.qa.user.domain.repository.UserRepository;
 import com.ai.qa.user.infrastructure.entity.UserPO;
@@ -9,6 +11,7 @@ import com.ai.qa.user.infrastructure.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 
+@Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
