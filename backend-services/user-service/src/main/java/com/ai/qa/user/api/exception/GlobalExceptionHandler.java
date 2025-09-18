@@ -15,14 +15,14 @@ import org.slf4j.LoggerFactory;
  * 异常处理
  */
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+        public class GlobalExceptionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+            private static final Logger log = LoggerFactory.getLogger(com.ai.qa.user.api.exception.GlobalExceptionHandler.class);
 
-    // 处理校验异常
-    @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
-    public ResponseEntity<UserResponseDto<Void>> handleValidationException(Exception e) {
-        log.warn("请求参数校验失败: {}", e.getMessage());
+            // 处理校验异常
+            @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
+            public ResponseEntity<UserResponseDto<Void>> handleValidationException(Exception e) {
+                log.warn("请求参数校验失败: {}", e.getMessage());
         return ResponseEntity.badRequest()
                 .body(UserResponseDto.fail(ErrCode.INVALID_PARAMS));
     }

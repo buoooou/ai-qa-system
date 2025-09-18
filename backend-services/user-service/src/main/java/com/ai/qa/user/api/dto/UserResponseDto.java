@@ -25,7 +25,7 @@ public class UserResponseDto<T> {
         return new UserResponseDto<>(ErrCode.SUCCESS.getCode(), ErrCode.SUCCESS.getMsg(), data);
     }
 
-    public static <T>  UserResponseDto<T> fail(ErrCode errCode) {
+    public static <T> UserResponseDto<T> fail(ErrCode errCode) {
         return new UserResponseDto<>(errCode.getCode(), errCode.getMsg(), null);
     }
 

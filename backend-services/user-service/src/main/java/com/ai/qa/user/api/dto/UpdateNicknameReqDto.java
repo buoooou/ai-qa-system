@@ -8,5 +8,6 @@ import lombok.Data;
 @Data
 public class UpdateNicknameReqDto {
 
+    private String username;
     private String nickname;
 }
