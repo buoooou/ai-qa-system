@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service-1
+    name: user-service-zj
   cloud:
     nacos:
       discovery:
@@ -24,9 +24,3 @@ jwt:
   secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
   expiration:
     ms: 3600000  # 这里是具体的过期时间（毫秒），对应Expiration的ms字段
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    enabled: true
