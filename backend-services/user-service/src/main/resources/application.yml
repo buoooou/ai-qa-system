@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service
+    name: user-service-cdw
   cloud:
     nacos:
       server-addr: 54.219.180.170:8848
@@ -25,7 +25,7 @@ spring:
     show-sql: true
 
 jwt:
-  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  secret: R7E8a3rXn8m9Yq0sT5v2u6w1z0A8B4cD
   expiration:
     ms: 86400000
 

@@ -1,4 +1,4 @@
-package com.ai.qa.user.common;
+package com.ai.qa.service.infrastructure.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
+
 @Slf4j
 @Component
 public class JwtUtil {

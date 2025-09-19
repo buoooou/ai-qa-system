@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
         // 5. 构建登录响应 - 使用JWT版本的LoginResponse
         LoginResponse response = new LoginResponse();
         response.setUser(user);
-        Map<String, String> map = new HashMap();
+        Map<String, Object> map = new HashMap();
         map.put("id", String.valueOf(user.getId()));
         map.put("username", user.getUserName());
         String accessToken =  jwtUtil.generateToken(user.getUserName(),map);

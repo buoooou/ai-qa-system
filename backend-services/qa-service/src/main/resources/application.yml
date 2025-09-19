@@ -2,12 +2,32 @@ server:
   port: 8082
 spring:
   application:
-    name: qa-service
+    name: qa-service-cdw
   cloud:
     nacos:
       server-addr: 54.219.180.170:8848
+  datasource:
+    url: jdbc:mysql://localhost:3306/airline_order_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
 logging:
   level:
     # 将你的FeignClient接口所在的包路径设置为DEBUG
     # 假设 UserClient 在 com.ai.qa.qaservice.feign 包下
     com.ai.qa.qaservice.feign: DEBUG
+
+jwt:
+  secret: R7E8a3rXn8m9Yq0sT5v2u6w1z0A8B4cD
+  expiration:
+    ms: 86400000
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 15000     # 15 秒，根据业务峰值再调
+        logger-level: FULL     # 调完关闭
+  okhttp:
+    enabled: true              # 比 HttpURLConnection 更快

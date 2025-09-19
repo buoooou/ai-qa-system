@@ -1,9 +1,11 @@
 package com.ai.qa.service.domain.service;
 
 import com.ai.qa.service.infrastructure.feign.UserClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class QAService {
 
@@ -15,10 +17,12 @@ public class QAService {
         System.out.println("Fetching user info for userId: " + userId);
         String user;
         try {
-
+            log.info("调用 user service 前");
             // 就像调用一个本地方法一样！
             user = userClient.getUserById(userId);
+            log.info("调用 user service after");
         } catch (Exception e) {
+            log.info("can not get due to", e);
             // Feign 在遇到 4xx/5xx 错误时会抛出异常，需要处理
             System.err.println("Failed to fetch user info for userId: " + userId + ". Error: " + e.getMessage());
             // 可以根据业务返回一个默认的、友好的错误信息

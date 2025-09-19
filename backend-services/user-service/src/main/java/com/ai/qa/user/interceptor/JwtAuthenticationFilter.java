@@ -64,7 +64,6 @@ public class JwtAuthenticationFilter  {
             // Result error = Result.error(false, "NOT_LOGIN");
             throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.INVALID_TOKEN));
         }
-        filterChain.doFilter(request, response);
         log.info(">>> Filter: {} {}, response status={}",
                 request.getMethod(), request.getRequestURI(),
                 response.getStatus());

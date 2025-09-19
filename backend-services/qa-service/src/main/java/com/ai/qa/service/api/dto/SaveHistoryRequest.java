@@ -1,11 +1,10 @@
-package com.ai.qa.service.application.dto;
+package com.ai.qa.service.api.dto;
 
 import lombok.Data;
 
 @Data
-public class SaveHistoryCommand {
+public class SaveHistoryRequest {
     private String userId;
     private String question;
     private String answer;
-    private String sessionId;
 }

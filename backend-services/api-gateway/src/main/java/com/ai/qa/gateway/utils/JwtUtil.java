@@ -1,10 +1,11 @@
-package com.ai.qa.user.common;
+package com.ai.qa.gateway.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.index.qual.SameLen;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +18,13 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
+    //@Value("${jwt.secret}")
+    //private String secretString="R7E8a3rXn8m9Yq0sT5v2u6w1z0A8B4cD";
+
     @Value("${jwt.secret}")
     private String secretString;
+
+
 
     @Value("${jwt.expiration.ms}")
     private long expirationMs;

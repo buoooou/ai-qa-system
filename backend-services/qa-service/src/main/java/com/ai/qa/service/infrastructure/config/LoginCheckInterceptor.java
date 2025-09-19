@@ -1,13 +1,11 @@
-package com.ai.qa.user.interceptor;
+package com.ai.qa.service.infrastructure.config;
 
 
 
-import com.ai.qa.user.api.exception.ErrCode;
-import com.ai.qa.user.common.JwtUtil;
-import com.ai.qa.user.dto.JwtResponse;
+import com.ai.qa.service.api.exception.ErrCode;
+import com.ai.qa.service.infrastructure.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Result;
 import java.util.List;
 
 
@@ -60,9 +57,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             //请求头不存在或者请求头为空
             log.info("token不存在");
 
-            String result = mapper.writeValueAsString( new JwtResponse("Invalid token"));
-            response.getWriter().write(result);
-            throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.INVALID_TOKEN));
+            //String result = mapper.writeValueAsString( new JwtResponse("Invalid token"));
+            //response.getWriter().write(result);
+            throw new RuntimeException("invalid token");
                 }
         //3,请求头不正确
         Long userId =  null;
@@ -71,9 +68,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         }  catch (Exception e)  {
             log.info("请求头不正确!!");
             // Result error = Result.error(false, "NOT_LOGIN");
-            String result = mapper.writeValueAsString(new JwtResponse("Invalid token"));
-            response.getWriter().write(result);
-            throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.INVALID_TOKEN));
+            //String result = mapper.writeValueAsString(new JwtResponse("Invalid token"));
+            //response.getWriter().write(result);
+            //throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.INVALID_TOKEN));
+            throw new RuntimeException("invalid token");
         }
         return true;
     }
