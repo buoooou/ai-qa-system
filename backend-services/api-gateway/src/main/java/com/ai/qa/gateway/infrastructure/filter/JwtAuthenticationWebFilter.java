@@ -2,6 +2,7 @@ package com.ai.qa.gateway.infrastructure.filter;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
@@ -84,7 +85,7 @@ public class JwtAuthenticationWebFilter extends AuthenticationWebFilter {
         try {
             // 验证JWT
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(jwtSecret.getBytes())
+                    .setSigningKey(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
@@ -93,11 +94,15 @@ public class JwtAuthenticationWebFilter extends AuthenticationWebFilter {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     claims.getSubject(), null, null);
 
+            // log.info("X-User-Id: {}", claims.getSubject());
+            log.info("X-User-Id: {}", claims.get("userid"));
+            log.info("X-User-Name: {}", claims.get("username"));
+
             // 将用户信息添加到请求头传递给下游服务
             ServerHttpRequest newRequest = request.mutate()
                     .header("X-Gateway-Secret", gatewaySecret)
-                    .header("X-User-Id", claims.getSubject())
-                    .header("X-User-Name", claims.get("username", String.class))
+                    .header("X-User-Id", (String) claims.get("userid"))
+                    .header("X-User-Name", (String) claims.get("username"))
                     .build();
 
             SecurityContext securityContext = new SecurityContextImpl();

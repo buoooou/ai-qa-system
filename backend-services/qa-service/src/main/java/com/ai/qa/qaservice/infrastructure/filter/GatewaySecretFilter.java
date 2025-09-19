@@ -27,8 +27,6 @@ public class GatewaySecretFilter extends OncePerRequestFilter {
 
         // 验证网关的路径进行校验
         String secret = request.getHeader("X-Gateway-Secret");
-        log.info("X-Gateway-Secret: {}", secret);
-        log.info("gatewaySecret: {}", gatewaySecret);
 
         if (secret == null || !secret.equals(gatewaySecret)) {
             log.warn("网关密钥验证失败，路径: {}", path);

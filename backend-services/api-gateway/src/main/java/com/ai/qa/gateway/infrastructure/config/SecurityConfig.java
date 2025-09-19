@@ -11,39 +11,28 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+
 import com.ai.qa.gateway.infrastructure.filter.JwtAuthenticationWebFilter;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
-@EnableWebFluxSecurity // spring gateway, Enable Spring Security for WebFlux
+@EnableWebFluxSecurity // 适用于Spring Gateway的WebFlux安全配置
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtAuthenticationWebFilter jwtAuthFilter;
 
-    // @Bean
-    // public ReactiveAuthenticationManager reactiveAuthenticationManager() {
-    // // Simple authentication manager that accepts any valid JWT authentication
-    // return authentication -> Mono.just(
-    // new UsernamePasswordAuthenticationToken(
-    // authentication.getPrincipal(),
-    // authentication.getCredentials(),
-    // authentication.getAuthorities()));
-    // }
-
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-        // JwtAuthenticationWebFilter jwtAuthFilter = new
-        // JwtAuthenticationWebFilter(reactiveAuthenticationManager());
-
         return http
-                .cors().configurationSource(corsConfigurationSource()).and()
-                .csrf().disable()
-                .authorizeExchange()
-                .pathMatchers("/api/test/*", "/api/user/login", "/api/user/register")
-                .permitAll()
-                .anyExchange().authenticated()
-                .and()
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                // 使用Lambda风格配置请求授权
+                .authorizeExchange(exchanges -> exchanges
+                        .pathMatchers("/api/test/*", "/api/user/login", "/api/user/register")
+                        .permitAll()
+                        .anyExchange()
+                        .authenticated())
                 .addFilterAt(jwtAuthFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .build();
     }
