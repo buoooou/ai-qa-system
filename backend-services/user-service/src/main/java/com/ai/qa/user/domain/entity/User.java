@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * 遵循DDD设计，包含业务逻辑
  */
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,105 +21,51 @@ import java.time.LocalDateTime;
 public class User {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
     
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "username", unique = true, nullable = false, length = 255)
     private String username;
     
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
     
-    @Column(name = "nickname")
-    private String nickname;
+    @Column(name = "create_time")
+    private LocalDateTime createTime;
     
-    @Column(name = "email")
-    private String email;
-    
-    @Column(name = "phone")
-    private String phone;
-    
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private UserStatus status;
-    
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "update_time")
+    private LocalDateTime updateTime;
     
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+        createTime = LocalDateTime.now();
+        updateTime = LocalDateTime.now();
     }
     
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        updateTime = LocalDateTime.now();
     }
     
-    /**
-     * 用户状态枚举
-     */
-    public enum UserStatus {
-        ACTIVE,     // 激活
-        INACTIVE,   // 未激活
-        LOCKED,     // 锁定
-        DELETED     // 已删除
-    }
-    
-    /**
-     * 业务方法：检查用户是否可用
-     */
-    public boolean isAvailable() {
-        return status == UserStatus.ACTIVE;
-    }
-    
-    /**
-     * 业务方法：激活用户
-     */
-    public void activate() {
-        this.status = UserStatus.ACTIVE;
-        this.updatedAt = LocalDateTime.now();
-    }
-    
-    /**
-     * 业务方法：锁定用户
-     */
-    public void lock() {
-        this.status = UserStatus.LOCKED;
-        this.updatedAt = LocalDateTime.now();
-    }
-    
-    /**
-     * 业务方法：更新昵称
-     */
-    public void updateNickname(String nickname) {
-        this.nickname = nickname;
-        this.updatedAt = LocalDateTime.now();
-    }
     
     /**
      * 业务方法：更新密码
      */
     public void updatePassword(String newPassword) {
         this.password = newPassword;
-        this.updatedAt = LocalDateTime.now();
+        this.updateTime = LocalDateTime.now();
     }
     
     /**
      * 静态工厂方法：创建新用户
      */
-    public static User createNewUser(String id, String username, String password, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
+    public static User createNewUser(String username, String password, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
         return User.builder()
-                .id(id)
                 .username(username)
                 .password(passwordEncoder.encode(password))
-                .status(UserStatus.ACTIVE)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
+                .createTime(LocalDateTime.now())
+                .updateTime(LocalDateTime.now())
                 .build();
     }
     
@@ -138,20 +84,20 @@ public class User {
             throw new RuntimeException("原密码不正确");
         }
         this.password = passwordEncoder.encode(newPassword);
-        this.updatedAt = LocalDateTime.now();
+        this.updateTime = LocalDateTime.now();
     }
     
     /**
      * 获取创建时间（兼容性方法）
      */
     public LocalDateTime getCreateTime() {
-        return this.createdAt;
+        return this.createTime;
     }
     
     /**
      * 获取更新时间（兼容性方法）
      */
     public LocalDateTime getUpdateTime() {
-        return this.updatedAt;
+        return this.updateTime;
     }
 }

@@ -11,11 +11,12 @@ import java.time.LocalDateTime;
 public class QAHistoryPO {
 
     @Id
-    @Column(name = "id", length = 50)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "user_id", nullable = false, length = 50)
-    private String userId;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "question", nullable = false, columnDefinition = "TEXT")
     private String question;
@@ -23,26 +24,11 @@ public class QAHistoryPO {
     @Column(name = "answer", columnDefinition = "LONGTEXT")
     private String answer;
 
-    @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
-
-    @Column(name = "session_id", length = 100)
-    private String sessionId;
-
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
-
-    @Column(name = "update_time", nullable = false)
-    private LocalDateTime updateTime;
 
     @PrePersist
     protected void onCreate() {
         createTime = LocalDateTime.now();
-        updateTime = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updateTime = LocalDateTime.now();
     }
 }
