@@ -77,7 +77,7 @@ public class GeminiClient {
                     requestEntity, String.class);
 
             // 打印响应内容
-            log.info(" response = {}", response);
+            // log.info(" response = {}", response);
 
             // 解析响应
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {

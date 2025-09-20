@@ -24,6 +24,9 @@ public class QaHistory {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    @Column(name = "conversation_id", nullable = false)
+    private String conversationId;
+
     @Column(name = "question", nullable = false, columnDefinition = "TEXT")
     private String question;
 

@@ -42,8 +42,7 @@ public class SecurityConfig { // 不再继承WebSecurityConfigurerAdapter
                 .csrf(csrf -> csrf.disable()) // Lambda语法
                 .addFilterBefore(gatewaySecretFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth // 替换authorizeRequests为authorizeHttpRequests
-                        .antMatchers("/api/qa/question", "/api/qa/history",
-                                "/api/qa/deleteHistory", "/api/qa/getUserName")
+                        .antMatchers("/api/qa/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex // Lambda语法

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeignConfig {
 
-    // 从配置中读取gateway.secretId（需确保微服务A的配置中存在该值，可通过Nacos共享配置）
+    // 通过Nacos共享配置
     @Value("${gateway.secretId}")
     private String gatewaySecretId;
 

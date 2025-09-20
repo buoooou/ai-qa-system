@@ -32,5 +32,21 @@ CREATE TABLE `qa_history` (
   KEY `idx_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='问答历史表';
 
+-- ----------------------------
+-- 问答历史表 (qa_history) (可选，用于功能扩展)
+-- ----------------------------
+DROP TABLE IF EXISTS `qa_history_fm`;
+CREATE TABLE `qa_history` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `conversation_id` VARCHAR(64) NOT NULL COMMENT '对话ID',
+  `question` TEXT NOT NULL COMMENT '用户提出的问题',
+  `answer` LONGTEXT COMMENT 'AI返回的回答',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+   KEY `idx_user_conversation` (`user_id`, `conversation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='问答历史表';
+
 -- 插入一些测试数据 (可选)
 INSERT INTO `user` (`username`, `password`) VALUES ('testuser', '$2a$10$abcdefghijklmnopqrstuv'); -- 密码是加密的，请通过注册接口创建用户
