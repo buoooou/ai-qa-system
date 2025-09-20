@@ -1,7 +1,7 @@
 package com.ai.qa.service.infrastructure.persistence.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import java.time.LocalDateTime;
 

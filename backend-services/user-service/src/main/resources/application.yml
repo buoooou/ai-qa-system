@@ -7,9 +7,15 @@ spring:
     nacos:
       server-addr: 54.219.180.170:8848
   datasource:
-    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/airline_order_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
-    password: ai_qa_system
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #datasource:
+    #url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    #username: root
+    #password: ai_qa_system
+    #driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,3 +23,14 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  expiration:
+    ms: 86400000
+
+logging:
+  level:
+    org.springframework.web: debug
+    org.springframework.security: debug
+    org.apache.coyote.http11: debug
