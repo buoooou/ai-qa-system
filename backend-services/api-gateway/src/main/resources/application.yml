@@ -9,11 +9,11 @@ logging:
     com.alibaba.nacos.client: DEBUG
 spring:
   application:
-    name: api-gateway
+    name: api-gateway-hl
   config:
     import:
       # 引入共享配置
-      - "nacos:shared-config.yml"
+      - "nacos:shared-config.yml"  
   cloud:
     nacos:
       server-addr: 54.219.180.170:8848
@@ -43,3 +43,21 @@ spring:
         - name: RequestRateLimiter
           args:
             key-resolver: '#{@ipKeyResolver}'
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    urls:
+      - url: /user-service/v3/api-docs
+        name: 用户服务
+      - url: /qa-service/v3/api-docs
+        name: AI问答服务
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  # 24小时
+  expiration: 86400000
