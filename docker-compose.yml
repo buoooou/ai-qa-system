@@ -100,33 +100,71 @@ services:
       retries: 3
 
   # 前端应用
+  # 前端依赖的PostgreSQL数据库（新增）
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-qa-frontend-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-aiqa_front}  # 前端数据库用户
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aiqa_front123}  # 前端数据库密码
+      POSTGRES_DB: ${POSTGRES_DB:-ai_qa_frontend}  # 前端数据库名
+    ports:
+      - "5432:5432"  # 暴露端口供本地调试（可选）
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # 持久化数据
+    networks:
+      - frontend-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aiqa_front}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 前端依赖的Redis缓存
+  redis:
+    image: redis:7-alpine
+    container_name: ai-qa-frontend-redis
+    ports:
+      - "6379:6379"  # 暴露端口供本地调试（可选）
+    volumes:
+      - redis_data:/data  # 持久化数据
+    networks:
+      - frontend-network
+    command: redis-server --appendonly yes  # 开启AOF持久化
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 前端应用（独立运行）
   frontend:
     build:
-      context: ./frontend
+      context: ./frontend/ai-chatbot  # 修正前端代码路径（原路径为./frontend，需指向实际代码目录）
       dockerfile: Dockerfile
     container_name: ai-qa-frontend
     environment:
-      NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
+      AUTH_SECRET: a7f2d4e8b1c93567284091536789024578901234567890123456789012345678
+      DEEPSEEK_API_KEY: sk-ad6256b746a44e5597f33eab18e5d967
+      # 前端数据库连接URL（容器内访问PostgreSQL）
+      POSTGRES_URL: postgresql://${POSTGRES_USER:-aiqa_front}:${POSTGRES_PASSWORD:-aiqa_front123}@postgres:5432/${POSTGRES_DB:-ai_qa_frontend}
+      # 前端Redis连接URL（容器内访问Redis）
+      REDIS_URL: redis://redis:6379
+      # 若前端无需调用后端API，可移除或注释该变量
+      # NEXT_PUBLIC_API_BASE_URL: http://api-gateway:8080
     ports:
-      - "3000:3000"
+      - "3000:3000"  # 前端访问端口
     depends_on:
-      - api-gateway
+      postgres:
+        condition: service_healthy  # 等待PostgreSQL就绪
+      redis:
+        condition: service_healthy  # 等待Redis就绪
     networks:
-      - ai-qa-network
-
-  # Redis缓存 (可选)
-  redis:
-    image: redis:7-alpine
-    container_name: ai-qa-redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    networks:
-      - ai-qa-network
-    command: redis-server --appendonly yes
+      - frontend-network
 
 volumes:
+  postgres_data:
+    driver: local
   mysql_data:
     driver: local
   redis_data:
@@ -134,4 +172,6 @@ volumes:
 
 networks:
   ai-qa-network:
+    driver: bridge
+  frontend-network:
     driver: bridge

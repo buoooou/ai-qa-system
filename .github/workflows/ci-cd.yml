@@ -119,7 +119,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./frontend # 假设前端项目在根目录的 frontend 文件夹下
-          file: ./frontend/Dockerfile
+          file: ./frontend/ai-chatbot/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-frontend:latest
 
