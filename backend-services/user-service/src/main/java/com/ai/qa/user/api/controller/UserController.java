@@ -13,6 +13,8 @@ import com.ai.qa.user.api.dto.ApiResponseDTO;
 import com.ai.qa.user.api.dto.AuthRequestDTO;
 import com.ai.qa.user.api.dto.AuthResponseDTO;
 import com.ai.qa.user.api.dto.UserDTO;
+import com.ai.qa.user.application.dto.UpdateNicknameRequest;
+import com.ai.qa.user.application.service.UserApplicationService;
 import com.ai.qa.user.common.constants.Constants;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,6 +42,16 @@ public class UserController {
 
     // private final UserService userService;
     // private final AuthService authService;
+    private final UserApplicationService userApplicationService;
+
+    @Operation(summary = "用户登录")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "用户登录成功",
+                content = @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = ApiResponseDTO.class))),
+        @ApiResponse(responseCode = "401", description = "用户认证失败"),
+        @ApiResponse(responseCode = "500", description = "预期外错误")
+    })
 
     @Operation(summary = "用户登录")
     @ApiResponses(value = {
@@ -101,9 +113,16 @@ public class UserController {
         @ApiResponse(responseCode = "400", description = "用户已存在"),
         @ApiResponse(responseCode = "500", description = "预期外错误")
     })
-    @PutMapping("/{username}")
-    public ApiResponseDTO<UserDTO> updateNickname(@PathVariable String username, @RequestBody AuthRequestDTO request) {
+    @PutMapping("/{username}/nickname")
+    public ApiResponseDTO<UserDTO> updateNickname(@PathVariable String username, @RequestBody UpdateNicknameRequest request) {
         log.debug("[User-Service] [{}]## {} Start.", this.getClass().getSimpleName(), "updateNickname");
+
+        //校验。。。
+
+        // 控制器只负责调用应用层，不处理业务逻辑
+        // User updatedUser = userApplicationService.updateNickname(userId, request.getNickname());
+        // // 为了安全，最佳实践是返回一个DTO而不是直接返回领域实体，这里为了简化直接返回
+        // return ApiResponse.success(updatedUser);
 
         // try {
         //     UserDTO userDTO = userService.updateNickname(username, request.getNickname());

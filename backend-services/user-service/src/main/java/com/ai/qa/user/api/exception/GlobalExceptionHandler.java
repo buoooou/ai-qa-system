@@ -18,6 +18,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserServiceException.class)
     public ResponseEntity<ApiResponseDTO<?>> handleBusinessException(UserServiceException e) {
         log.error("[User-Service] [{}]## {} occured. HttpStatus:{}, message:{}", this.getClass().getSimpleName(), UserServiceException.class.getName(), e.getCode(), e.getMessage());
+        // ErrorCode errorCode = ex.getErrorCode();
+        // return new ResponseEntity<>(ApiResponse.failure(errorCode), errorCode.getHttpStatus());
         ApiResponseDTO<?> response = ApiResponseDTO.error(e.getCode(), e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getCode()));
     }
@@ -36,9 +38,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
+    /**
+     * 处理JPA等持久化层抛出的“实体未找到”异常
+     * 这是将基础设施层的异常转换为统一业务响应的好例子
+     */
+    // @ExceptionHandler(EntityNotFoundException.class)
+    // public ResponseEntity<ApiResponse<Object>> handleEntityNotFoundException(EntityNotFoundException ex) {
+    //     log.warn("实体未找到: {}", ex.getMessage());
+    //     ErrorCode errorCode = ErrorCode.USER_NOT_FOUND; // 映射到一个具体的业务错误码
+    //     return new ResponseEntity<>(ApiResponse.failure(errorCode, ex.getMessage()), errorCode.getHttpStatus());
+    // }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponseDTO<?>> handleGlobalException(Exception e) {
-        log.error("[User-Service] [{}]## {} occured. message:{}", this.getClass().getSimpleName(), Exception.class.getName(), e.getMessage());
+        log.error("[User-Service] [{}]## Unexpected exception occured. message:{}", this.getClass().getSimpleName(), e.getMessage());
+        // ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
+        // return new ResponseEntity<>(ApiResponse.failure(errorCode), errorCode.getHttpStatus());
         ApiResponseDTO<?> response = ApiResponseDTO.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), Constants.GLOBAL_ERROR_MSG);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
