@@ -39,17 +39,27 @@ export default function ChatPage() {
     setIsLoading(true);
 
     try {
-      // 这里应该调用后端API与AI模型交互
-      // 模拟API调用
-      setTimeout(() => {
-        const aiMessage = { 
-          id: (Date.now() + 1).toString(), 
-          role: 'assistant' as const, 
-          content: `你好，${user?.name}！这是对"${input}"的模拟回复。在实际应用中，这里会调用后端API与AI模型进行交互。` 
-        };
-        setMessages(prev => [...prev, aiMessage]);
-        setIsLoading(false);
-      }, 1000);
+      // 调用后端API与V0 AI模型交互
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ messages: [...messages, userMessage] }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      const aiMessage = { 
+        id: (Date.now() + 1).toString(), 
+        role: 'assistant' as const, 
+        content: data.content
+      };
+      setMessages(prev => [...prev, aiMessage]);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error:', error);
       const errorMessage = { 
