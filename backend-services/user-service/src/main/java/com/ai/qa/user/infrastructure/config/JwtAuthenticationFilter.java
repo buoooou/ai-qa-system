@@ -1,6 +1,6 @@
 package com.ai.qa.user.infrastructure.config;
 
-import com.ai.qa.user.application.service.UserDetailsServiceImpl;
+import com.ai.qa.user.application.service.impl.UserDetailsServiceImpl;
 import com.ai.qa.user.common.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
