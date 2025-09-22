@@ -5,9 +5,10 @@ spring:
     name: user-service
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      discovery:
+        server-addr: 3.84.225.222:8848
   datasource:
-    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://3.84.225.222:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: ai_qa_system
   jpa:
@@ -17,3 +18,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+
+# SpringDoc配置
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /api/user/v3/api-docs
+    config-url: /api/user/v3/api-docs/swagger-config
+    disable-swagger-default-url: true

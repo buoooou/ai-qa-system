@@ -1,13 +1,61 @@
 server:
   port: 8082
+
 spring:
   application:
     name: qa-service
+  
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://3.84.225.222:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: ai_qa_system
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  
+  # 服务发现配置
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      discovery:
+        server-addr: 3.84.225.222:8848
+
+# SpringDoc配置
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /api/qa/v3/api-docs
+    config-url: /api/qa/v3/api-docs/swagger-config
+    disable-swagger-default-url: true
+
+# Gemini API配置
+gemini:
+  api:
+    base-url: https://generativelanguage.googleapis.com/v1beta
+    key: ${GEMINI_API_KEY:}  # 从环境变量读取，如果没有则为空
+    model: gemini-1.5-flash  # 免费的Gemini模型，速度快，适合对话
+
+# 日志配置
 logging:
   level:
-    # 将你的FeignClient接口所在的包路径设置为DEBUG
-    # 假设 UserClient 在 com.ai.qa.qaservice.feign 包下
-    com.ai.qa.qaservice.feign: DEBUG
+    com.ai.qa.service: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
