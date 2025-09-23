@@ -2,6 +2,10 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# 关键修改1：定义构建参数，用于构建阶段
+ARG POSTGRES_URL
+ENV POSTGRES_URL=$POSTGRES_URL
+
 # 复制依赖文件
 COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm && pnpm install
@@ -9,8 +13,7 @@ RUN npm install -g pnpm && pnpm install
 # 复制源代码
 COPY . .
 
-# 移除构建阶段的数据库迁移步骤（关键修改）
-# 只执行构建，不执行迁移
+# 执行构建（此时需要POSTGRES_URL）
 RUN pnpm build
 
 # 运行阶段
@@ -24,15 +27,19 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/lib ./lib
 
+# 关键修改2：运行阶段也需要这个变量（迁移和应用启动时用）
+ENV POSTGRES_URL=$POSTGRES_URL
+
 # 暴露端口
 EXPOSE 3000
 
-# 关键修改：创建启动脚本，先执行迁移再启动应用
+# 创建启动脚本：先迁移再启动
 RUN echo "#!/bin/sh" > /app/start.sh && \
+    echo "set -e" >> /app/start.sh && \
     echo "pnpm db:migrate" >> /app/start.sh && \
     echo "pnpm start" >> /app/start.sh && \
     chmod +x /app/start.sh
 
-# 使用启动脚本执行迁移并启动应用
+# 启动命令
 CMD ["/app/start.sh"]
     
