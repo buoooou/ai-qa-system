@@ -84,6 +84,8 @@ jobs:
       - name: Build and push Frontend image
         uses: docker/build-push-action@v5
         with:
+          build-args: |
+            POSTGRES_URL=${{ secrets.POSTGRES_URL }}
           context: ./frontend/ai-chatbot
           file: ./frontend/ai-chatbot/Dockerfile
           push: true
