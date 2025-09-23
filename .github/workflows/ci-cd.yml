@@ -101,6 +101,6 @@ jobs:
           script: |
             set -e  # 出错立即退出
             cd ~/ai-qa-system-cicd || { echo "部署目录不存在"; exit 1; }
-            docker-compose pull
-            docker-compose up -d --remove-orphans
-            docker image prune -f
+            sudo docker-compose pull
+            sudo docker-compose up -d --remove-orphans
+            sudo docker image prune -f

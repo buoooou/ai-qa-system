@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848  # 保持与服务一致的Nacos地址
+        server-addr: nacos:8848  # 保持与服务一致的Nacos地址
     gateway:
       server:  # server.webflux层级
         webflux:
