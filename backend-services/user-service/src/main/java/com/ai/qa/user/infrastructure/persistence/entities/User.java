@@ -22,13 +22,12 @@ public class User {
     private Long id;
     private String username;
     private String password;
-    private String nick;
+    private String nickname;
     @Column(name = "update_date", nullable = false)
     @CreationTimestamp
     private LocalDateTime createTime;
     @Column(name = "creation_date", nullable = false)
     @CreationTimestamp
     private LocalDateTime updateTime;
-
 
 }

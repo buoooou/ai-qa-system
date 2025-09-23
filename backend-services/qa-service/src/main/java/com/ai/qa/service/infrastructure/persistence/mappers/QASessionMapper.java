@@ -6,7 +6,7 @@ import org.mapstruct.ReportingPolicy;
 import com.ai.qa.service.domain.model.QAHistorySession;
 import com.ai.qa.service.infrastructure.persistence.entities.QASessionPO;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QASessionMapper {
     QASessionPO toPO(QAHistorySession qaHistorySession);
 

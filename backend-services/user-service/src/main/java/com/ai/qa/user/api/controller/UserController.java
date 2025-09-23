@@ -1,19 +1,17 @@
 package com.ai.qa.user.api.controller;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import com.ai.qa.user.api.dto.LoginRequest;
 import com.ai.qa.user.api.dto.RegisterRequest;
-import com.ai.qa.user.api.dto.Response;
-import com.ai.qa.user.common.CommonUtil;
-import com.ai.qa.user.domain.model.UserDto;
+import com.ai.qa.user.api.dto.UpdateNickRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.ai.qa.user.api.exception.ErrCode;
+import com.ai.qa.user.application.dto.LoginDto;
+import com.ai.qa.user.application.dto.Response;
 import com.ai.qa.user.application.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,46 +23,51 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     @Operation(summary = "用户登录", description = "根据用户名和密码验证用户身份")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "登录成功")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "用户名或密码为空")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "用户不存在或密码错误")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "服务器内部错误")
     public Response<?> login(@RequestBody LoginRequest request) {
         try {
-            UserDto userDto = userService.findByUsername(request.getUsername());
-            if (userDto != null && passwordEncoder.matches(request.getPassword(), userDto.getPassword())) {
-                return Response.success(userDto);
+            String username = request.getUsername();
+            String password = request.getPassword();
+            if(username == null || password == null){
+                return Response.error(ErrCode.BAD_REQUEST.getCode(), "用户名、密码不能为空");
+            }
+
+            LoginDto dto = userService.login(username, password);
+            if(dto != null ){
+                return Response.success(dto);
             } else {
                 return Response.error(ErrCode.UNAUTHORIZED.getCode(), ErrCode.UNAUTHORIZED.getMessage());
             }
+        } catch (UsernameNotFoundException e) {
+            return Response.error(ErrCode.UNAUTHORIZED.getCode(), "用户不存在");
         } catch (Exception e) {
             return Response.error(ErrCode.INTERNAL_SERVER_ERROR.getCode(), ErrCode.INTERNAL_SERVER_ERROR.getMessage());
         }
     }
 
-    @GetMapping("/{userId}")
-    public String getUserById(@PathVariable("userId") Long userId){
-        UserDto userDto = userService.findByUserID(userId);
-        if(userDto != null){
-            return "exist";
-        } else {
-            return "not exist";
-        }
-    }
-
-    @PutMapping("/register")
+    @PostMapping("/auth/register")
     @Operation(summary = "用户注册", description = "注册新用户并返回注册结果")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "注册成功")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "用户名、密码或昵称为空，或用户名已存在")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "服务器内部错误")
     public Response<?> register(@RequestBody RegisterRequest request) {
         try {
             String username = request.getUsername();
-            String encodedPassword = passwordEncoder.encode(request.getPassword());
-            String nick = request.getNick();
-            // 如果注册时未填写昵称，使用系统默认昵称
-            if(nick == null || nick.length() == 0) {
-                nick = CommonUtil.generateDefaultNick();
+            String password = request.getPassword();
+            String nickname = request.getNickname();
+            if(username == null || password == null || nickname == null){
+                return Response.error(ErrCode.BAD_REQUEST.getCode(), "用户名、密码、昵称不能为空");
             }
-            UserDto userDto = userService.register(username, encodedPassword, nick);
-            return Response.success(userDto);
+            if(userService.findByUsername(username) != null){
+                return Response.error(ErrCode.BAD_REQUEST.getCode(), "用户名已存在");
+            }
+            return Response.success(userService.register(username, password, nickname));
         } catch (RuntimeException e) {
             return Response.error(ErrCode.BAD_REQUEST.getCode(), e.getMessage());
         } catch (Exception e) {
@@ -74,14 +77,17 @@ public class UserController {
 
     @PutMapping("/update")
     @Operation(summary = "用户修改昵称", description = "修改用户昵称并返回修改结果")
-    public Response<?> updateNick(String nick, Long userId) {
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "昵称修改成功")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "用户名或昵称为空")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "服务器内部错误")
+    public Response<?> updateNick(@RequestBody UpdateNickRequest request) {
         try {
-            int result = userService.updateNick(nick, userId);
-            if (result == 1) {
-                return Response.success(true);
-            } else {
-                return Response.error(ErrCode.BAD_REQUEST.getCode(), "昵称修改失败");
+            String username = request.getUsername();
+            String nickname = request.getNickname();
+            if(username == null ||  nickname == null){
+                return Response.error(ErrCode.BAD_REQUEST.getCode(), "用户名、昵称不能为空");
             }
+            return Response.success(userService.updateNick(nickname, username));
         } catch (Exception e) {
             return Response.error(ErrCode.INTERNAL_SERVER_ERROR.getCode(), ErrCode.INTERNAL_SERVER_ERROR.getMessage());
         }

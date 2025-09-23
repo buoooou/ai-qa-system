@@ -1,4 +1,4 @@
-package com.ai.qa.user.api.dto;
+package com.ai.qa.user.application.dto;
 
 import lombok.Data;
 

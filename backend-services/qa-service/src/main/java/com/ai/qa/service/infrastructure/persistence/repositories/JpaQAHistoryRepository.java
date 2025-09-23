@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
 
 @Repository
-public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, String> {
+public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long> {
 
     List<QAHistoryPO> findBySessionId(String sessionId);
 

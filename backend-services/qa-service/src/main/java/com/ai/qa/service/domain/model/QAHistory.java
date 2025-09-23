@@ -4,13 +4,31 @@ import java.time.LocalDateTime;
 
 import lombok.Getter;
 
+/**
+ * 问答历史记录实体类，用于存储用户问答历史信息。
+ */
 @Getter
 public class QAHistory {
 
+    /**
+     * 用户ID
+     */
     private String userId;
+    /**
+     * 会话ID
+     */
     private String sessionId;
+    /**
+     * 问题内容
+     */
     private String question;
+    /**
+     * 回答内容
+     */
     private String answer;
+    /**
+     * 创建时间
+     */
     private LocalDateTime createTime;
 
     private QAHistory(String userId, String sessionId, String question, String answer, LocalDateTime createTime) {

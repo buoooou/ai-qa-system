@@ -17,7 +17,7 @@ class QAControllerIntegrationTest extends AbstractIntegrationTest {
     @Test
     void testCreateSession() {
         CreateSessionRequest request = new CreateSessionRequest();
-        request.setUserId("user123");
+        request.setUserid("user123");
 
         ResponseEntity<QAHistorySessionDTO> response = restTemplate.postForEntity(
                 "/api/qa/sessions",

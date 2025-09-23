@@ -26,7 +26,7 @@ public class RedisService {
     }
 
     // 删除会话
-    public void deleteSession(String sessionId) {
-        redisTemplate.delete("session:" + sessionId);
+    public boolean deleteSession(String sessionId) {
+        return redisTemplate.delete("session:" + sessionId);
     }
 }

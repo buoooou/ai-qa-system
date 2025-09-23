@@ -1,7 +1,8 @@
 package com.ai.qa.user.api.controller;
 
 import com.ai.qa.user.api.dto.LoginRequest;
-import com.ai.qa.user.api.dto.Response;
+import com.ai.qa.user.application.dto.Response;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;

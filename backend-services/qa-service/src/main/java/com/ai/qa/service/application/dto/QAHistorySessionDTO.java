@@ -7,11 +7,26 @@ import com.ai.qa.service.domain.model.QAHistorySession;
 
 import lombok.Data;
 
+/**
+ * 历史会话数据传输对象，用于封装历史会话的相关信息。
+ */
 @Data
 public class QAHistorySessionDTO {
+    /**
+     * 用户ID
+     */
     private String userId;
+    /**
+     * 会话ID
+     */
     private String sessionId;
+    /**
+     * 历史会话ID列表
+     */
     private List<String> historySessionId;
+    /**
+     * 历史会话主题列表
+     */
     private List<String> historySessionTopic;
 
     private QAHistorySessionDTO() {

@@ -1,9 +1,8 @@
 package com.ai.qa.user.api.controller;
 
 import com.ai.qa.user.api.dto.LoginRequest;
-import com.ai.qa.user.api.dto.RegisterRequest;
-import com.ai.qa.user.api.dto.Response;
 import com.ai.qa.user.domain.model.UserDto;
+import com.ai.qa.user.application.dto.Response;
 import com.ai.qa.user.application.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

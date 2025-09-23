@@ -11,12 +11,14 @@ import com.ai.qa.service.domain.repo.QAHistoryRepo;
 import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
 import com.ai.qa.service.infrastructure.persistence.mappers.QAHistoryMapper;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 @RequiredArgsConstructor
 public class QAHistoryRepoImpl implements QAHistoryRepo {
 
     private final JpaQAHistoryRepository jpaQAHistoryRepository;
-    private QAHistoryMapper mapper;
+    private final QAHistoryMapper mapper;
 
     @Override
     public void save(QAHistory history) {
@@ -24,6 +26,7 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
         jpaQAHistoryRepository.save(qaHistoryPO);
     }
 
+    @Transactional
     @Override
     public int delete(String sessionId){
         return jpaQAHistoryRepository.deleteBySessionId(sessionId);

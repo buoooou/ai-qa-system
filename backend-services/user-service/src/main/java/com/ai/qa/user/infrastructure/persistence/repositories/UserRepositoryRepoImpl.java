@@ -6,6 +6,7 @@ import com.ai.qa.user.infrastructure.persistence.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import com.ai.qa.user.domain.repositories.UserRepositoryRepo;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class UserRepositoryRepoImpl implements UserRepositoryRepo{
     private final JpaUserRepository jpaUserRepository;
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     public UserDto login(String username, String pwd){
         Optional<User> userOptional = jpaUserRepository.findByUsername(username);
@@ -40,21 +41,18 @@ public class UserRepositoryRepoImpl implements UserRepositoryRepo{
         return null;
     }
 
-    public UserDto register(String username, String pwd, String nick){
-        UserDto userDto = new UserDto();
-        userDto.setUsername(username);
-        userDto.setPassword(pwd);
-        userDto.setNick(nick); // 默认昵称为用户名
-
-        User registeredUser = jpaUserRepository.save(userMapper.toUser(userDto));
+    public UserDto register(UserDto userDto){
+        User toRegister = userMapper.toUser(userDto);
+        User registeredUser = jpaUserRepository.save(toRegister);
         return userMapper.toUserDto(registeredUser);
     }
 
-    public int updateNick(String nick, Long userId){
-        Optional<User> userOptional = jpaUserRepository.findById(userId);
+    public int updateNick(String nick, String username){
+        Optional<User> userOptional = jpaUserRepository.findByUsername(username);
         if (userOptional.isPresent() && nick != null && !nick.isEmpty()) {
             User user = userOptional.get();
-            user.setNick(nick);
+            user.setNickname(nick);
+            user.setUpdateTime(LocalDateTime.now());
             jpaUserRepository.save(user);
             return 1;
         }
