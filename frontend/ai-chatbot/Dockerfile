@@ -34,4 +34,4 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
 # 启动时先执行迁移，再启动服务（此时已能访问数据库）
-CMD ["sh", "-c", "pnpm db:migrate && next start"]
+CMD ["sh", "-c", "pnpm db:migrate && pnpm start"]
