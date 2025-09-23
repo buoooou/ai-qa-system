@@ -14,11 +14,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 调用V0 API
-    const apiKey = "v1:XDpXI4WnuzoWx70gkzODHdYy:Lwply4fnNd8YMXAbcAwCgzVA";
-    const model = "v0-1.5-md";
+    // 调用智谱清言API
+    const apiKey = "11573aa296234faca13fc82a7cc55403.PfKqfGqI7YY3fyHZ";
+    const model = "glm-4-plus"; // 使用GLM-4-Plus模型
     
-    const response = await fetch('https://api.v0.dev/v1/chat/completions', {
+    const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -27,15 +27,27 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         model: model,
         messages: messages,
-        stream: false,
+        stream: false, // 同步调用
+        temperature: 0.75, // 控制输出随机性
+        top_p: 0.9, // 核采样参数
+        max_tokens: 2000, // 最大输出token数
       }),
     });
 
     if (!response.ok) {
-      throw new Error(`V0 API request failed with status ${response.status}`);
+      const errorText = await response.text();
+      console.error('智谱清言API错误响应:', errorText);
+      throw new Error(`智谱清言API请求失败，状态码: ${response.status}`);
     }
 
     const data = await response.json();
+    
+    // 检查响应格式
+    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+      console.error('智谱清言API响应格式异常:', data);
+      throw new Error('API响应格式异常');
+    }
+    
     const aiResponse = data.choices[0].message.content;
 
     return new Response(
