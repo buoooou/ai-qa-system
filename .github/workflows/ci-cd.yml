@@ -1,113 +1,95 @@
-# 工作流的名称，会显示在 GitHub Actions 的 UI 界面中
 name: CI/CD for AI QA System
 
-# 工作流的触发条件
 on:
-  # 当有代码推送到 main 分支时触发
   push:
     branches: [ "main" ]
-  # 当有针对 main 分支的 Pull Request 被创建或更新时触发
   pull_request:
     branches: [ "main" ]
 
-# 定义工作流中的所有任务 (Jobs)
 jobs:
-  # --- 第一个任务：构建并测试后端微服务 ---
   build-and-test-backend:
-    # 任务的名称，会显示在 UI 中
     name: Build and Test Backend Services
-    # 运行此任务所需的虚拟机环境
     runs-on: ubuntu-latest
 
-    # 任务的执行步骤
     steps:
-      # 步骤 1: 检出代码
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 步骤 2: 设置 Java 环境
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
 
-      # 步骤 3: 缓存 Maven 依赖
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          # 匹配backend-services目录下的所有pom.xml，确保缓存正确
+          key: ${{ runner.os }}-maven-${{ hashFiles('backend-services/**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # 步骤 4: 使用 Maven 构建和测试
-      - name: Build with Maven
+      # 关键修复：进入backend-services目录执行Maven命令（此处是父pom.xml所在目录）
+      - name: Build and test all backend services
         run: mvn -B clean package
-        continue-on-error: false  # 构建失败时终止工作流
+        working-directory: ./backend-services  # 核心修改：指定包含pom.xml的目录
 
-  # --- 第二个任务：构建 Docker 镜像并推送到仓库 ---
   build-and-push-images:
-    # 任务的名称
     name: Build and Push Docker Images
     runs-on: ubuntu-latest
-    # 依赖关系：依赖后端构建测试完成
     needs: build-and-test-backend
 
     steps:
-      # 步骤 1: 检出代码
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 步骤 2: 登录到 Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-        continue-on-error: false  # 登录失败时终止
 
-      # 步骤 3: 设置 Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 步骤 4: 构建并推送 API Gateway 镜像
+      # 构建API网关镜像（路径修正为backend-services下的子目录）
       - name: Build and push API Gateway image
         uses: docker/build-push-action@v5
         with:
-          context: ./api-gateway
-          file: ./api-gateway/Dockerfile
+          context: ./backend-services/api-gateway  # 修正路径
+          file: ./backend-services/api-gateway/Dockerfile  # 修正路径
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-api-gateway:latest
 
-      # 步骤 5: 构建并推送 User Service 镜像
+      # 构建用户服务镜像（路径修正）
       - name: Build and push User Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./user-service
-          file: ./user-service/Dockerfile
+          context: ./backend-services/user-service  # 修正路径
+          file: ./backend-services/user-service/Dockerfile  # 修正路径
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-user-service:latest
 
-      # 步骤 6: 构建并推送 QA Service 镜像
+      # 构建问答服务镜像（路径修正）
       - name: Build and push QA Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./qa-service
-          file: ./qa-service/Dockerfile
+          context: ./backend-services/qa-service  # 修正路径
+          file: ./backend-services/qa-service/Dockerfile  # 修正路径
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-qa-service:latest
 
-      # 步骤 7: 构建并推送 Frontend 镜像（修正路径）
+      # 构建前端镜像
       - name: Build and push Frontend image
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend/ai-chatbot  # 修正为 Dockerfile 所在目录
+          context: ./frontend/ai-chatbot
           file: ./frontend/ai-chatbot/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-frontend:latest
 
-      # 部署到 EC2
+      # 部署到EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -115,8 +97,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            set -e  # 脚本执行出错时立即退出
-            cd ~/ai-qa-system-cicd || { echo "目录不存在"; exit 1; }
+            set -e  # 出错立即退出
+            cd ~/ai-qa-system-cicd || { echo "部署目录不存在"; exit 1; }
             docker-compose pull
             docker-compose up -d --remove-orphans
             docker image prune -f
