@@ -1,45 +1,21 @@
 # 构建阶段
 FROM node:20-alpine AS builder
 WORKDIR /app
-
-# 关键修改1：定义构建参数，用于构建阶段
-ARG POSTGRES_URL
-ENV POSTGRES_URL=$POSTGRES_URL
-
-# 复制依赖文件
 COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm && pnpm install
-
-# 复制源代码
+RUN pnpm install --frozen-lockfile
 COPY . .
 
-# 执行构建（此时需要POSTGRES_URL）
-RUN pnpm build
+# 移除构建阶段的数据库迁移步骤，只执行 next build
+RUN next build  # 这里只构建应用，不执行迁移
 
 # 运行阶段
 FROM node:20-alpine
 WORKDIR /app
-
-# 复制构建产物
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/lib ./lib
+COPY --from=builder /app/package.json ./package.json
 
-# 关键修改2：运行阶段也需要这个变量（迁移和应用启动时用）
-ENV POSTGRES_URL=$POSTGRES_URL
-
-# 暴露端口
-EXPOSE 3000
-
-# 创建启动脚本：先迁移再启动
-RUN echo "#!/bin/sh" > /app/start.sh && \
-    echo "set -e" >> /app/start.sh && \
-    echo "pnpm db:migrate" >> /app/start.sh && \
-    echo "pnpm start" >> /app/start.sh && \
-    chmod +x /app/start.sh
-
-# 启动命令
-CMD ["/app/start.sh"]
-    
+# 添加启动脚本，在容器启动时执行迁移
+CMD ["sh", "-c", "pnpm db:migrate && next start"]
