@@ -1,4 +1,4 @@
-package com.ai.qa.user.infrastructure.config;
+package com.ai.qa.service.infrastructure.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
         ),
         servers = {
                 @Server(
-                        url = "http://localhost:9999",
+                        url = "http://localhost:6666",
                         description = "开发服务器"
                 )
         }

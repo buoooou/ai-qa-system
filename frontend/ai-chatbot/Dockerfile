@@ -22,6 +22,10 @@ RUN pnpm build
 # 运行阶段
 FROM node:20-alpine
 WORKDIR /app
+
+# 关键：在运行阶段也安装 pnpm
+RUN npm install -g pnpm
+
 COPY --from=builder /app/next.config.ts ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
