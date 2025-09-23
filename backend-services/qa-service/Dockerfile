@@ -2,12 +2,13 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 
-# 复制pom.xml和源代码
-COPY pom.xml .
-COPY src ./src
+# 复制整个后端服务目录（包含父POM和所有子模块）
+COPY ../pom.xml /app/pom.xml
+COPY ../qa-service /app/qa-service
 
-# 编译打包（跳过测试加速构建）
-RUN mvn clean package -DskipTests
+# 进入当前服务目录，基于父POM构建
+WORKDIR /app/qa-service
+RUN mvn -B clean package -DskipTests
 
 
 # 第二阶段：运行JAR包（使用轻量JRE镜像）
@@ -15,10 +16,11 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # 从构建阶段复制生成的JAR包
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/api-gateway/target/*.jar app.jar
 
-# 暴露服务端口（根据实际配置修改，如user-service是8081）
+# 暴露服务端口（api-gateway使用8080）
 EXPOSE 8082
 
-# 启动命令（执行JAR包）
+# 启动命令
 ENTRYPOINT ["java", "-jar", "app.jar"]
+    
