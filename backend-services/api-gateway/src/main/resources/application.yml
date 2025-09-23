@@ -23,12 +23,12 @@ spring:
               uri: lb://qa-service-wxl
               predicates:
                 - Path=/api/qa/**
-# 暴露健康检查端点
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
+# # 暴露健康检查端点
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: health,info
 
 # JWT配置（与user-service保持一致）
 app:

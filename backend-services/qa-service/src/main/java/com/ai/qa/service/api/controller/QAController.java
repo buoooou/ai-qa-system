@@ -5,6 +5,9 @@ import com.ai.qa.service.api.dto.QAHistoryDTO;
 import com.ai.qa.service.api.dto.SaveHistoryRequest;
 import com.ai.qa.service.application.dto.QAHistoryQuery;
 import com.ai.qa.service.infrastructure.mapper.QAMapper;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.ai.qa.service.application.service.QAHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/qa")
+@Tag(name = "QA管理", description = "QA历史记录接口")
 @RequiredArgsConstructor
 public class QAController {
 
