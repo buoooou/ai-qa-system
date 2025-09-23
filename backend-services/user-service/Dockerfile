@@ -16,7 +16,7 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # 从构建阶段复制生成的JAR包
-COPY --from=builder /app/api-gateway/target/*.jar app.jar
+COPY --from=builder /app/user-service/target/*.jar app.jar
 
 # 暴露服务端口（api-gateway使用8080）
 EXPOSE 8081
