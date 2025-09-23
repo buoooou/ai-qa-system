@@ -3,181 +3,153 @@ package com.ai.qa.user.application.impl;
 import com.ai.qa.user.api.dto.*;
 import com.ai.qa.user.application.UserService;
 import com.ai.qa.user.domain.entity.User;
-import com.ai.qa.user.domain.service.UserDomainService;
 import com.ai.qa.user.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
-/**
- * 用户应用服务实现 - 只做协调工作
- * 业务逻辑已经移到Domain层，这里只负责：
- * 1. 事务管理
- * 2. 调用领域服务
- * 3. 数据转换
- * 4. 异常处理
- */
-@Slf4j
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
-    
+
     private final UserRepository userRepository;
-    private final UserDomainService userDomainService;
-    
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional
     public UserInfoResponse register(UserRegisterRequest request) {
-        try {
-            // 调用领域服务处理业务逻辑
-            User user = userDomainService.registerUser(
-                request.getUsername(),
-                request.getPassword(),
-                request.getNickname(),
-                () -> userRepository.existsByUsername(request.getUsername())
-            );
-            
-            // 保存用户
-            User savedUser = userRepository.save(user);
-            
-            log.info("用户注册成功: {}", savedUser.getUsername());
-            return convertToUserInfoResponse(savedUser);
-            
-        } catch (IllegalArgumentException e) {
-            // 业务异常直接抛出
-            throw e;
-        } catch (Exception e) {
-            log.error("用户注册失败: {}", e.getMessage(), e);
-            throw new RuntimeException("注册失败，请稍后重试");
+        log.info("用户注册请求: {}", request.getUsername());
+        
+        // 检查用户名是否已存在
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new RuntimeException("用户名已存在");
         }
+
+        // 创建新用户
+        User user = User.createNewUser(request.getUsername(), request.getPassword(), request.getNickname(), passwordEncoder);
+        user = userRepository.save(user);
+        
+        log.info("用户注册成功: {}", user.getUsername());
+        
+        return convertToUserInfoResponse(user);
     }
-    
+
     @Override
     public LoginResponse login(UserLoginRequest request) {
-        try {
-            // 调用领域服务处理业务逻辑
-            User user = userDomainService.authenticateUser(
-                request.getUsername(),
-                request.getPassword(),
-                username -> userRepository.findByUsername(username).orElse(null)
-            );
-            
-            // 生成token（这里简化处理，实际项目中应该使用JWT）
-            String token = generateToken(user.getId());
-            
-            LoginResponse response = new LoginResponse();
-            response.setToken(token);
-            response.setUserInfo(convertToUserInfoResponse(user));
-            
-            log.info("用户登录成功: {}", user.getUsername());
-            return response;
-            
-        } catch (IllegalArgumentException e) {
-            // 业务异常直接抛出
-            throw e;
-        } catch (Exception e) {
-            log.error("用户登录失败: {}", e.getMessage(), e);
-            throw new RuntimeException("登录失败，请稍后重试");
+        log.info("用户登录请求: {}", request.getUsername());
+        
+        // 查找用户
+        Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("用户名或密码错误");
         }
+
+        User user = userOpt.get();
+        
+        // 验证密码
+        if (!user.verifyPassword(request.getPassword(), passwordEncoder)) {
+            throw new RuntimeException("用户名或密码错误");
+        }
+
+        log.info("用户登录成功: {}", user.getUsername());
+        
+        // 生成简单的 token（实际项目中应该使用 JWT）
+        String token = generateSimpleToken(user);
+        
+        LoginResponse response = new LoginResponse();
+        response.setToken(token);
+        response.setUserInfo(convertToUserInfoResponse(user));
+        
+        return response;
     }
-    
+
     @Override
     @Transactional
     public boolean changePassword(Long userId, ChangePasswordRequest request) {
-        try {
-            // 查找用户
-            Optional<User> userOpt = userRepository.findById(userId);
-            if (userOpt.isEmpty()) {
-                throw new IllegalArgumentException("用户不存在");
-            }
-            
-            User user = userOpt.get();
-            
-            // 调用领域服务处理业务逻辑
-            userDomainService.changeUserPassword(user, request.getOldPassword(), request.getNewPassword());
-            
-            // 保存用户
-            userRepository.save(user);
-            
-            log.info("用户修改密码成功: {}", user.getUsername());
-            return true;
-            
-        } catch (IllegalArgumentException e) {
-            // 业务异常直接抛出
-            throw e;
-        } catch (Exception e) {
-            log.error("修改密码失败: {}", e.getMessage(), e);
-            throw new RuntimeException("修改密码失败，请稍后重试");
-        }
-    }
-    
-    @Override
-    @Transactional
-    public UserInfoResponse updateNickname(Long userId, UpdateNicknameRequest request) {
-        try {
-            // 查找用户
-            Optional<User> userOpt = userRepository.findById(userId);
-            if (userOpt.isEmpty()) {
-                throw new IllegalArgumentException("用户不存在");
-            }
-            
-            User user = userOpt.get();
-            
-            // 调用领域服务处理业务逻辑
-            userDomainService.updateUserNickname(user, request.getNickname());
-            
-            // 保存用户
-            User savedUser = userRepository.save(user);
-            
-            log.info("用户修改昵称成功: {} -> {}", user.getUsername(), request.getNickname());
-            return convertToUserInfoResponse(savedUser);
-            
-        } catch (IllegalArgumentException e) {
-            // 业务异常直接抛出
-            throw e;
-        } catch (Exception e) {
-            log.error("修改昵称失败: {}", e.getMessage(), e);
-            throw new RuntimeException("修改昵称失败，请稍后重试");
-        }
-    }
-    
-    @Override
-    public UserInfoResponse getUserInfo(Long userId) {
+        log.info("用户修改密码请求: {}", userId);
+        
         Optional<User> userOpt = userRepository.findById(userId);
         if (userOpt.isEmpty()) {
             throw new RuntimeException("用户不存在");
         }
+
+        User user = userOpt.get();
+        user.changePassword(request.getOldPassword(), request.getNewPassword(), passwordEncoder);
+        userRepository.save(user);
         
+        log.info("用户密码修改成功: {}", userId);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public UserInfoResponse updateNickname(Long userId, UpdateNicknameRequest request) {
+        log.info("用户修改昵称请求: {}", userId);
+        
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("用户不存在");
+        }
+
+        User user = userOpt.get();
+        user.updateNickname(request.getNickname());
+        userRepository.save(user);
+        
+        log.info("用户昵称修改成功: {}", userId);
+        return convertToUserInfoResponse(user);
+    }
+
+    @Override
+    public UserInfoResponse getUserInfo(Long userId) {
+        log.info("获取用户信息请求: {}", userId);
+        
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("用户不存在");
+        }
+
         return convertToUserInfoResponse(userOpt.get());
     }
-    
+
     @Override
     public UserInfoResponse getUserInfoByUsername(String username) {
+        log.info("根据用户名获取用户信息请求: {}", username);
+        
         Optional<User> userOpt = userRepository.findByUsername(username);
         if (userOpt.isEmpty()) {
             throw new RuntimeException("用户不存在");
         }
-        
+
         return convertToUserInfoResponse(userOpt.get());
     }
-    
+
     /**
-     * 将User实体转换为UserInfoResponse
+     * 转换为用户信息响应
      */
     private UserInfoResponse convertToUserInfoResponse(User user) {
         UserInfoResponse response = new UserInfoResponse();
-        response.setId(user.getId());
+        response.setId(user.getId().toString());
         response.setUsername(user.getUsername());
         response.setNickname(user.getNickname());
         response.setCreateTime(user.getCreateTime());
         response.setUpdateTime(user.getUpdateTime());
         return response;
     }
-    
-    private String generateToken(String userId) {
-        return "token_" + userId + "_" + System.currentTimeMillis();
+
+    /**
+     * 生成简单的 token
+     * 实际项目中应该使用 JWT
+     */
+    private String generateSimpleToken(User user) {
+        // 简单的 token 生成策略：用户ID + 时间戳 + 随机字符串
+        long timestamp = System.currentTimeMillis();
+        return String.format("token_%d_%d_%s", user.getId(), timestamp, 
+                Integer.toHexString(user.getUsername().hashCode()));
     }
 }

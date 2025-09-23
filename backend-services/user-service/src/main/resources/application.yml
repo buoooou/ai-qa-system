@@ -1,25 +1,24 @@
 server:
   port: 8081
+
 spring:
   application:
     name: user-service
-  config:
-    import:
-      - "optional:nacos:shared-config.yml"
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      discovery:
+        enabled: false  # 禁用服务发现
       config:
-        file-extension: yml
-        group: DEFAULT_GROUP
+        enabled: false  # 禁用配置中心
   datasource:
-    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://54.219.180.170:3306/ai_user_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
     username: root
     password: ai_qa_system
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true

@@ -25,7 +25,7 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
 
     @Override
     public Optional<QAHistory> findHistoryById(String id) {
-        Optional<QAHistoryPO> po = jpaQAHistoryRepository.findById(id);
+        Optional<QAHistoryPO> po = jpaQAHistoryRepository.findById(Long.parseLong(id));
         return po.map(this::toDomain);
     }
 
@@ -47,7 +47,7 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
 
     @Override
     public void deleteById(String id) {
-        jpaQAHistoryRepository.deleteById(id);
+        jpaQAHistoryRepository.deleteById(Long.parseLong(id));
     }
 
     /**
@@ -59,7 +59,7 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
         po.setUserId(history.getUserId());
         po.setQuestion(history.getQuestion());
         po.setAnswer(history.getAnswer());
-        po.setTimestamp(history.getTimestamp());
+        po.setCreateTime(history.getTimestamp());
         po.setSessionId(history.getSessionId());
         return po;
     }
@@ -72,7 +72,7 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
         history.setUserId(po.getUserId());
         history.setQuestion(po.getQuestion());
         history.setAnswer(po.getAnswer());
-        history.setTimestamp(po.getTimestamp());
+        history.setCreateTime(po.getCreateTime());
         history.setSessionId(po.getSessionId());
         return history;
     }

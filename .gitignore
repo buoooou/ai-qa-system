@@ -278,3 +278,6 @@ local.yaml
 
 # Documentation and test files
 .doc/
+
+# Reference repositories
+reference/

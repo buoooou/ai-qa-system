@@ -31,6 +31,9 @@ public class User {
     @Column(name = "password", nullable = false, length = 255)
     private String password;
     
+    @Column(name = "nickname", length = 100)
+    private String nickname;
+    
     @Column(name = "create_time")
     private LocalDateTime createTime;
     
@@ -60,10 +63,11 @@ public class User {
     /**
      * 静态工厂方法：创建新用户
      */
-    public static User createNewUser(String username, String password, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
+    public static User createNewUser(String username, String password, String nickname, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
         return User.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
+                .nickname(nickname)
                 .createTime(LocalDateTime.now())
                 .updateTime(LocalDateTime.now())
                 .build();
@@ -84,6 +88,14 @@ public class User {
             throw new RuntimeException("原密码不正确");
         }
         this.password = passwordEncoder.encode(newPassword);
+        this.updateTime = LocalDateTime.now();
+    }
+    
+    /**
+     * 业务方法：更新昵称
+     */
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
         this.updateTime = LocalDateTime.now();
     }
     

@@ -11,10 +11,11 @@ import lombok.Setter;
 public class QAHistory {
 
     private Long id;
-    private Long userId;
+    private String userId;
     private String question;
     private String answer;
     private LocalDateTime createTime;
+    private String sessionId;
 
     private QARAG rag;
 
@@ -27,7 +28,7 @@ public class QAHistory {
     /**
      * 获取用户ID
      */
-    public Long getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
@@ -56,17 +57,26 @@ public class QAHistory {
 
     /**
      * 创建新的问答历史记录
-     * @param userId 用户ID
+     * @param userId 用户ID (String)
      * @param question 问题
      * @param answer 答案
+     * @param sessionId 会话ID
      * @return 新的问答历史记录
      */
-    public static QAHistory createNew(Long userId, String question, String answer) {
+    public static QAHistory createNew(String userId, String question, String answer, String sessionId) {
         QAHistory history = new QAHistory(null); // ID将由数据库自动生成
-        history.userId = userId;
+        history.userId = userId; // 直接使用String类型
         history.question = question;
         history.answer = answer;
+        history.sessionId = sessionId;
         return history;
+    }
+
+    /**
+     * 获取时间戳 (兼容DTO)
+     */
+    public LocalDateTime getTimestamp() {
+        return this.createTime;
     }
 
     /**

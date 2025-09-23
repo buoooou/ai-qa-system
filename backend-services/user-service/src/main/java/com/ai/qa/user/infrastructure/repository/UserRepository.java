@@ -23,11 +23,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     boolean existsByUsername(String username);
     
-    /**
-     * 根据昵称查找用户
-     * @param nickname 昵称
-     * @return 用户信息
-     */
-    Optional<User> findByNickname(String nickname);
 }
 

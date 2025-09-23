@@ -16,20 +16,22 @@ class QARAGTest {
     void shouldCreateRAGContext() {
         // Given
         String context = "这是检索到的相关信息";
+        String source = "知识库文档";
 
         // When
-        QARAG rag = QARAG.createContext(context);
+        QARAG rag = QARAG.createContext(context, source);
 
         // Then
         assertNotNull(rag, "创建的RAG对象不应为空");
         assertEquals(context, rag.getContext(), "上下文内容应该匹配");
+        assertEquals(source, rag.getSource(), "来源应该匹配");
     }
 
     @Test
     @DisplayName("预期能够设置上下文内容")
     void shouldSetContext() {
         // Given
-        QARAG rag = QARAG.createContext("初始上下文");
+        QARAG rag = QARAG.createContext("初始上下文", "测试来源");
         String newContext = "更新后的上下文";
 
         // When

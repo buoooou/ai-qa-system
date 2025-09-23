@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, String> {
+public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long> {
 
     List<QAHistoryPO> findByUserId(String userId);
     
     List<QAHistoryPO> findBySessionId(String sessionId);
     
-    List<QAHistoryPO> findByUserIdOrderByTimestampDesc(String userId);
+    List<QAHistoryPO> findByUserIdOrderByCreateTimeDesc(String userId);
 }

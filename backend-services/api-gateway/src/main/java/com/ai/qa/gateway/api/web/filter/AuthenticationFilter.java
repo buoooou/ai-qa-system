@@ -27,7 +27,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
 
         // 白名单路径
-        List<String> whiteList = List.of("/user-service/register", "/user-service/login", "/qa-service/health", "/user-service/health");
+        List<String> whiteList = List.of("/api/user/register", "/api/user/login", "/api/qa/health", "/api/qa/test", "/api/qa/ask", "/api/user/health");
         if (whiteList.contains(request.getURI().getPath())) {
             return chain.filter(exchange);
         }

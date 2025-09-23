@@ -1,48 +1,33 @@
 server:
   port: 8080 # 所有后端请求的入口
+
 logging:
   level:
     # Gateway日志
     org.springframework.cloud.gateway: DEBUG
     # 网络日志
     reactor.netty.http.client: DEBUG
-    com.alibaba.nacos.client: DEBUG
+
+# JWT 配置
+jwt:
+  secret: "mySecretKey123456789"
+
 spring:
   application:
     name: api-gateway
-  config:
-    import:
-      - "nacos:shared-config.yml"
   cloud:
-    nacos:
-      server-addr: 54.219.180.170:8848
-      config:
-        file-extension: yml
-        group: DEFAULT_GROUP
     gateway:
       discovery:
         locator:
           enabled: false
-          lower-case-service-id: true
       routes:
-        - id: user_service_route
-          uri: lb://user-service
+        # QA Service 路由
+        - id: qa-service
+          uri: http://localhost:8082
           predicates:
-            - Path=/user-service/**
-          filters:
-            - StripPrefix=1
-            - PrefixPath=/api/user
-        - id: qa_service_route
-          uri: lb://qa-service
+            - Path=/api/qa/**
+        # User Service 路由  
+        - id: user-service
+          uri: http://localhost:8081
           predicates:
-            - Path=/qa-service/**
-          filters:
-            - StripPrefix=1
-            - PrefixPath=/api/qa
-      default-filters:
-        - name: RequestRateLimiter
-          args:
-            key-resolver: '#{@ipKeyResolver}'
-            redis-rate-limiter.replenishRate: 30
-            redis-rate-limiter.burstCapacity: 300
-            redis-rate-limiter.requestedTokens: 1
+            - Path=/api/user/**

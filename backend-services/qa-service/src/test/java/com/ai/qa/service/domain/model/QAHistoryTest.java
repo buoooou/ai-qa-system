@@ -36,7 +36,7 @@ class QAHistoryTest {
     void shouldGetRAGEnhancedAnswer() {
         // Given
         QAHistory history = QAHistory.createNew("user123", "什么是AI", "AI是人工智能", "session456");
-        QARAG rag = QARAG.createContext("人工智能相关上下文");
+        QARAG rag = QARAG.createContext("人工智能相关上下文", "知识库");
         history.setRAG(rag);
 
         // When

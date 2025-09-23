@@ -21,3 +21,10 @@ spring:
 logging:
   level:
     com.ai.qa.qaservice.feign: DEBUG
+    com.ai.qa.service.infrastructure.ai: DEBUG
+
+# DeepSeek AI 配置
+deepseek:
+  ai:
+    api-key: sk-807a0b59ed5f45d9812567e82db4e6c1
+    model: deepseek-chat

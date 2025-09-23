@@ -16,7 +16,7 @@ public class QAHistoryPO {
     private Long id;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private String userId;
 
     @Column(name = "question", nullable = false, columnDefinition = "TEXT")
     private String question;
@@ -26,6 +26,9 @@ public class QAHistoryPO {
 
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
+
+    @Column(name = "session_id")
+    private String sessionId;
 
     @PrePersist
     protected void onCreate() {

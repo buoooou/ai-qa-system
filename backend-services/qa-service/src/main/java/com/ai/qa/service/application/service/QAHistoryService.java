@@ -55,8 +55,8 @@ public class QAHistoryService {
      */
     private QAHistoryDTO toDto(QAHistory history) {
         QAHistoryDTO dto = new QAHistoryDTO();
-        dto.setId(history.getId());
-        dto.setUserId(history.getUserId());
+        dto.setId(history.getId() != null ? history.getId().toString() : null);
+        dto.setUserId(history.getUserId()); // 直接使用String类型
         dto.setQuestion(history.getQuestion());
         dto.setAnswer(history.getAnswer());
         dto.setTimestamp(history.getTimestamp());

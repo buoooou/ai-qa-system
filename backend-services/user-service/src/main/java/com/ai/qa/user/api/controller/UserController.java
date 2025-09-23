@@ -1,31 +1,43 @@
 package com.ai.qa.user.api.controller;
 
-import com.ai.qa.user.api.dto.AuthRequest;
-import com.ai.qa.user.api.dto.AuthResponse;
+import com.ai.qa.user.api.dto.*;
+import com.ai.qa.user.application.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
+    private final UserService userService;
+
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        System.out.println("测试login");
-        return new AuthResponse("token");
+    public LoginResponse login(@Valid @RequestBody UserLoginRequest request) {
+        log.info("登录请求: {}", request.getUsername());
+        return userService.login(request);
     }
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody AuthRequest request) {
-        System.out.println("测试register");
-        return new AuthResponse("register");
+    public UserInfoResponse register(@Valid @RequestBody UserRegisterRequest request) {
+        log.info("注册请求: {}", request.getUsername());
+        return userService.register(request);
     }
 
     @GetMapping("/{userId}")
-    public String getUserById(@PathVariable("userId") Long userId) {
-        System.out.println("测试userid");
-        return "userid:"+userId;
+    public UserInfoResponse getUserById(@PathVariable("userId") Long userId) {
+        log.info("获取用户信息请求: {}", userId);
+        return userService.getUserInfo(userId);
+    }
+
+    @GetMapping("/username/{username}")
+    public UserInfoResponse getUserByUsername(@PathVariable("username") String username) {
+        log.info("根据用户名获取用户信息请求: {}", username);
+        return userService.getUserInfoByUsername(username);
     }
 
     @GetMapping("/health")
