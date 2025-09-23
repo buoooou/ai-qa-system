@@ -17,7 +17,7 @@ import java.util.Map;
  * 提供JWT令牌的生成、解析、验证功能
  * 支持访问令牌和刷新令牌的管理
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-08
  */

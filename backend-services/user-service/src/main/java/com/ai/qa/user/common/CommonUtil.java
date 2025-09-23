@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * 3. 随机数生成
  * 4. 格式化工具
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

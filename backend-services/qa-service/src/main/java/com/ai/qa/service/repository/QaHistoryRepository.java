@@ -16,7 +16,7 @@ import java.util.List;
  * 继承JpaRepository，提供基本的CRUD操作
  * 包含自定义查询方法，用于问答历史的管理和查询
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

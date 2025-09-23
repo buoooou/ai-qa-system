@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * 2. HTTP安全配置
  * 3. 认证和授权规则
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * 对应数据库中的qa_history表，用于存储用户的问答记录
  * 包含用户ID、问题、答案、创建时间等字段
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

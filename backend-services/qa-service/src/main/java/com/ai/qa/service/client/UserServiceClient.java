@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * 通过Feign声明式HTTP客户端调用user-service的接口
  * 实现服务间通信，获取用户信息
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-12
  */

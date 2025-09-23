@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
  * 记录所有通过API Gateway的请求信息
  * 帮助调试路由和负载均衡问题
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-08
  */

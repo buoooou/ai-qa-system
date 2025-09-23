@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * 配置Spring Cloud LoadBalancer的负载均衡策略
  * 解决API Gateway路由到后端服务的负载均衡问题
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-08
  */

@@ -9,7 +9,7 @@ import com.ai.qa.user.common.CommonUtil;
 /**
  * 用户信息响应DTO
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

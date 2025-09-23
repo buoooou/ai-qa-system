@@ -31,7 +31,7 @@ import java.util.List;
  * 5. GET /api/qa/{id} - 根据ID获取问答记录
  * 6. GET /api/qa/count/{userId} - 获取用户问答总数
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

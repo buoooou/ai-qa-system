@@ -17,7 +17,7 @@ import java.util.List;
  * 3. 开闭原则：对扩展开放，对修改关闭
  * 4. 依赖倒置：高层模块不依赖低层模块，都依赖抽象
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

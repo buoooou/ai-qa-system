@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * 对应数据库中的user表，用于存储用户基本信息
  * 包含用户名、密码、创建时间等字段
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

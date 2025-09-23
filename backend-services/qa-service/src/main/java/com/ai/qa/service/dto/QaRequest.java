@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
  * 用于接收前端传来的问答请求信息
  * 包含用户ID和问题内容，以及数据验证注解
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

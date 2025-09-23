@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * - 依赖注入：通过构造函数注入依赖
  * - 单例模式：Spring管理的单例Bean
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

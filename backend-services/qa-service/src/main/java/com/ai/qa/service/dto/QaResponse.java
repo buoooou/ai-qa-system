@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * 用于返回AI问答的结果信息
  * 包含问题、答案、时间戳等信息
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

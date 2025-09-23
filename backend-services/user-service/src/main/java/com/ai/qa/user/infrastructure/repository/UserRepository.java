@@ -14,7 +14,7 @@ import java.util.Optional;
  * 继承JpaRepository，提供基本的CRUD操作
  * 定义用户相关的数据库查询方法
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */

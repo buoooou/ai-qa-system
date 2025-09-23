@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * 
  * 配置Feign客户端的超时、重试、日志等策略
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-12
  */

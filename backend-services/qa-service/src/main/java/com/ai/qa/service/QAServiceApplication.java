@@ -22,14 +22,14 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * - Nacos: 服务注册与发现
  * - Gemini API: Google AI服务
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */
 @SpringBootApplication      // Spring Boot应用标识
 @EnableDiscoveryClient     // 启用服务发现客户端
 @EnableFeignClients        // 启用Feign客户端
-public class QaServiceApplication {
+public class QAServiceApplication {
     
     /**
      * 应用程序入口点
@@ -37,7 +37,7 @@ public class QaServiceApplication {
      * @param args 命令行参数
      */
     public static void main(String[] args) {
-        SpringApplication.run(QaServiceApplication.class, args);
+        SpringApplication.run(QAServiceApplication.class, args);
         System.out.println("=================================");
         System.out.println("🤖 QA Service 启动成功!");
         System.out.println("📡 服务端口: 8082");

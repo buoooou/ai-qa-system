@@ -27,7 +27,7 @@ import java.util.Optional;
  * 4. GET /api/auth/verify - 验证令牌有效性
  * 5. GET /api/auth/profile - 获取当前用户信息
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-08
  */

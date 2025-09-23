@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
  * 包含用户信息和JWT令牌信息
  * 用于登录成功后返回给前端的完整认证信息
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-08
  */

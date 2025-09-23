@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  * 
  * 访问地址：http://localhost:8081/swagger-ui.html
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */
@@ -38,7 +38,7 @@ public class SwaggerConfig {
                         .description("用户管理相关的REST API接口文档")
                         .version("1.0")
                         .contact(new Contact()
-                                .name("Qiao Zhe")
+                                .name("Leon")
                                 .url("https://github.com/your-username")
                                 .email("support@ai-qa-system.com"))
                         .license(new License()

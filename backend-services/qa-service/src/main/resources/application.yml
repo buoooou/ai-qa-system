@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: qa-service
-  
+
   # 数据库配置
   datasource:
     url: jdbc:mysql://3.84.225.222:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
@@ -17,7 +17,7 @@ spring:
       connection-timeout: 30000
       idle-timeout: 600000
       max-lifetime: 1800000
-  
+
   # JPA配置
   jpa:
     hibernate:
@@ -27,12 +27,12 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
-  
+
   # 服务发现配置
   cloud:
     nacos:
       discovery:
-        server-addr: 3.84.225.222:8848
+        server-addr: 54.219.180.170:8848
 
 # SpringDoc配置
 springdoc:

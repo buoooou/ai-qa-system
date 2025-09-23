@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
  * 
  * 用于Feign Client调用user-service时接收用户信息
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-12
  */

@@ -6,7 +6,7 @@ package com.ai.qa.user.api.exception;
  * 定义用户服务中使用的所有错误码和错误消息
  * 采用分类管理，便于维护和扩展
  * 
- * @author Qiao Zhe
+ * @author Leon
  * @version 1.0
  * @since 2025-09-06
  */
