@@ -2,6 +2,9 @@
 -- 创建一个名为 'ai_qa_system' 的数据库，如果它不存在的话
 CREATE DATABASE IF NOT EXISTS `ai_qa_system` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- 创建Nacos配置数据库
+CREATE DATABASE IF NOT EXISTS `nacos_config` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- 切换到该数据库
 USE `ai_qa_system`;
 
