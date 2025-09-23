@@ -19,7 +19,7 @@ WORKDIR /app
 COPY --from=builder /app/api-gateway/target/*.jar app.jar
 
 # 暴露服务端口（api-gateway使用8080）
-EXPOSE 8080
+EXPOSE 8888
 
 # 启动命令
 ENTRYPOINT ["java", "-jar", "app.jar"]
