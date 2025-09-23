@@ -9,6 +9,9 @@ spring:
     nacos:
       discovery:
         server-addr: 3.84.225.222:8848
+        username: nacos
+        password: nacos
+        register-enabled: false  # 先禁用注册，稍后再启用
     gateway:
       discovery:
         locator:

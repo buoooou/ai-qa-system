@@ -128,8 +128,8 @@
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
   // ****** Proxy Start ***********
   "workbench.editor.enablePreview": false,
-  // "http.proxy": "http://127.0.0.1:10809",
-  // "https.proxy": "http://127.0.0.1:10809",
+  "http.proxy": "http://127.0.0.1:10809",
+  "https.proxy": "http://127.0.0.1:10809",
   "http.proxyStrictSSL": false,
   "http.proxySupport": "override",
   "http.noProxy": ["127.0.0.1", "localhost", ".local"],
