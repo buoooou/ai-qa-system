@@ -9,7 +9,6 @@ COPY src ./src
 # 编译打包（跳过测试加速构建）
 RUN mvn clean package -DskipTests
 
-
 # 第二阶段：运行JAR包（使用轻量JRE镜像）
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
