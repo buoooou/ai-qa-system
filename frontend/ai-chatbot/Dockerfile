@@ -11,7 +11,7 @@ RUN pnpm install --frozen-lockfile
 
 # 复制源代码并构建（根据之前的修改，只执行 next build）
 COPY . .
-RUN next build  # 仅构建应用，不执行数据库迁移
+RUN next build
 
 # 运行阶段（保持不变）
 FROM node:20-alpine
