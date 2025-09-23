@@ -2,18 +2,20 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# 安装 pnpm（新增步骤）
+# 安装 pnpm
 RUN npm install -g pnpm
 
-# 复制依赖文件并安装
+# 复制依赖文件并安装（确保依赖被正确安装）
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
-# 复制源代码并构建（根据之前的修改，只执行 next build）
+# 复制源代码
 COPY . .
-RUN next build
 
-# 运行阶段（保持不变）
+# 使用 pnpm 调用 next build（确保通过包管理器执行，避免路径问题）
+RUN pnpm build
+
+# 运行阶段
 FROM node:20-alpine
 WORKDIR /app
 COPY --from=builder /app/next.config.js ./
