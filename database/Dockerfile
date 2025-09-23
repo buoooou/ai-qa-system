@@ -6,10 +6,10 @@ FROM mysql:8.0
 # MYSQL_DATABASE: 创建的默认数据库名称
 # MYSQL_USER: 创建的普通用户名
 # MYSQL_PASSWORD: 普通用户的密码
-ENV MYSQL_ROOT_PASSWORD=ai_qa_system
+ENV MYSQL_ROOT_PASSWORD=root123
 ENV MYSQL_DATABASE=ai_qa_system
-ENV MYSQL_USER=ai_qa_user
-ENV MYSQL_PASSWORD=ai_qa_system
+ENV MYSQL_USER=aiqa
+ENV MYSQL_PASSWORD=aiqa123
 
 # 设置MySQL配置
 # 允许远程连接，设置字符集为utf8mb4

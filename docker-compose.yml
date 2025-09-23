@@ -66,11 +66,12 @@ services:
         condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=ai-qa-mysql
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=ai_qa_system
       - MYSQL_USERNAME=aiqa
       - MYSQL_PASSWORD=aiqa123
+      - NACOS_SERVER=ai-qa-nacos:8848
     networks:
       - ai-qa-network
     healthcheck:
@@ -95,11 +96,12 @@ services:
         condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=ai-qa-mysql
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=ai_qa_system
       - MYSQL_USERNAME=aiqa
       - MYSQL_PASSWORD=aiqa123
+      - NACOS_SERVER=ai-qa-nacos:8848
     networks:
       - ai-qa-network
     healthcheck:
@@ -124,11 +126,12 @@ services:
         condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=ai-qa-mysql
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=ai_qa_system
       - MYSQL_USERNAME=aiqa
       - MYSQL_PASSWORD=aiqa123
+      - NACOS_SERVER=ai-qa-nacos:8848
     networks:
       - ai-qa-network
     healthcheck:

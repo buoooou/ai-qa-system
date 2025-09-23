@@ -30,11 +30,12 @@ EXPOSE 8082
 # -Xms256m -Xmx512m: 设置堆内存大小
 # -Djava.security.egd=file:/dev/./urandom: 加速随机数生成
 # -Dspring.profiles.active=prod: 激活生产环境配置
+ENV SPRING_PROFILES_ACTIVE=docker
 ENTRYPOINT ["java", \
     "-Xms256m", \
     "-Xmx512m", \
     "-Djava.security.egd=file:/dev/./urandom", \
-    "-Dspring.profiles.active=prod", \
+
     "-jar", \
     "app.jar"]
 

@@ -1,5 +1,5 @@
 # 多阶段构建：第一阶段 - 构建阶段
-FROM node:18.17-alpine AS builder
+FROM node:18-alpine AS builder
 
 # 设置工作目录
 WORKDIR /app
