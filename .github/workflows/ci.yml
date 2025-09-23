@@ -123,6 +123,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-frontend:latest
 
+      # 步骤 8: 构建并推送 MySQL 镜像
+      # 为AI问答系统构建自定义的MySQL镜像，包含初始化脚本和配置
+      - name: Build and push MySQL image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./database # MySQL相关文件所在目录
+          file: ./database/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-mysql:latest
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
