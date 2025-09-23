@@ -6,11 +6,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 54.219.180.170:8848
+        server-addr: 3.84.225.222:8848
   datasource:
-    url: jdbc:mysql://3.84.225.222:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
-    password: ai_qa_system
+    password: root123
   jpa:
     hibernate:
       ddl-auto: update
