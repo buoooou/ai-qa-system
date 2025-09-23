@@ -18,12 +18,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// 预设用户数据
-const PRESET_USERS = [
-  { id: '1', name: 'Admin1', email: 'admin1@example.com', password: 'admin1' },
-  { id: '2', name: 'Admin2', email: 'admin2@example.com', password: 'admin2' }
-];
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -47,68 +41,66 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    // 模拟API调用
-    return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
-        // 检查预设用户
-        const presetUser = PRESET_USERS.find(
-          user => user.email === email && user.password === password
-        );
-        
-        if (presetUser) {
-          const userData = {
-            id: presetUser.id,
-            name: presetUser.name,
-            email: presetUser.email
-          };
-          // 保存认证信息到本地存储
-          localStorage.setItem('authToken', 'fake-jwt-token');
-          localStorage.setItem('userData', JSON.stringify(userData));
-          setUser(userData);
-          resolve();
-        } else if (email === 'user@example.com' && password === 'password') {
-          const userData = {
-            id: '3',
-            name: '测试用户',
-            email: email
-          };
-          // 保存认证信息到本地存储
-          localStorage.setItem('authToken', 'fake-jwt-token');
-          localStorage.setItem('userData', JSON.stringify(userData));
-          setUser(userData);
-          resolve();
-        } else {
-          reject(new Error('邮箱或密码错误'));
-        }
-      }, 500);
-    });
+    try {
+      // 调用后端登录API
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || '登录失败');
+      }
+
+      const data = await response.json();
+      
+      // 保存认证信息到本地存储
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userData', JSON.stringify(data.user));
+      setUser(data.user);
+    } catch (error) {
+      console.error('登录错误:', error);
+      throw error;
+    }
   };
 
   const register = async (name: string, email: string, password: string) => {
-    // 模拟API调用
-    return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
-        // 检查用户是否已存在（包括预设用户）
-        const existingUser = [...PRESET_USERS, { email: 'user@example.com' }].find(
-          user => user.email === email
-        );
-        
-        if (existingUser) {
-          reject(new Error('用户已存在'));
-        } else {
-          const userData = {
-            id: Date.now().toString(),
-            name: name,
-            email: email
-          };
-          // 保存认证信息到本地存储
-          localStorage.setItem('authToken', 'fake-jwt-token');
-          localStorage.setItem('userData', JSON.stringify(userData));
-          setUser(userData);
-          resolve();
-        }
-      }, 500);
-    });
+    try {
+      // 调用后端注册API
+      const response = await fetch('/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || '注册失败');
+      }
+
+      const data = await response.json();
+      
+      // 保存认证信息到本地存储
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userData', JSON.stringify(data.user));
+      setUser(data.user);
+    } catch (error) {
+      console.error('注册错误:', error);
+      throw error;
+    }
   };
 
   const logout = () => {
