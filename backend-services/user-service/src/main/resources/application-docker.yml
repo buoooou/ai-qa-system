@@ -3,10 +3,16 @@ server:
 spring:
   application:
     name: user-service
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
   cloud:
     nacos:
       discovery:
         server-addr: ai-qa-nacos:8848
+        username: nacos
+        password: nacos
         # 增加连接超时配置
         timeout: 30000
         heart-beat-timeout: 30000
@@ -31,6 +37,8 @@ spring:
       # 添加配置中心配置（即使不使用也有助于连接稳定性）
       config:
         server-addr: ai-qa-nacos:8848
+        username: nacos
+        password: nacos
         timeout: 30000
         # 禁用配置中心功能但保持连接配置
         enabled: false
@@ -54,3 +62,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         show-sql: true
+
+# Actuator配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  security:
+    enabled: false

@@ -46,10 +46,13 @@
             <version>1.6.14</version>
         </dependency>
         <!-- 添加Spring Security依赖 -->
+        <!-- 临时注释掉Spring Security依赖用于测试 -->
+        <!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        -->
         <!-- 添加validation依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

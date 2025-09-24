@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<JwtAut
 
             // 检查是否是登录或注册请求，这些请求不需要Token验证
             String path = request.getURI().getPath();
-            if (path.contains("/api/user/login") || path.contains("/api/user/register")) {
+            if (path.contains("/api/users/login") || path.contains("/api/users/register") || path.contains("/api/users/checkNick")) {
                 return chain.filter(exchange);
             }
 
