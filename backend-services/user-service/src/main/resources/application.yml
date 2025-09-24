@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: user-service-yl
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://3.84.225.222/:8848
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  expiration:
+    ms: 3600000  # 这里是具体的过期时间（毫秒），对应Expiration的ms字段
