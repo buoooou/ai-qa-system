@@ -1,9 +1,59 @@
 server:
   port: 8082
+
 spring:
   application:
     name: qa-service
+
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+
+  # 启用Nacos服务注册发现，连接公网服务器
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        enabled: true
+        server-addr: nacos.io:8848 # 使用公网测试Nacos服务器
+        username: nacos
+        password: nacos
+        namespace: public
+
+# AI模型配置
+ai:
+  model:
+    api:
+      url: https://api.openai.com/v1/chat/completions
+      key: ${AI_API_KEY:your-api-key-here}
+    timeout: 30000
+    max-tokens: 1000
+    temperature: 0.7
+
+# 日志配置
+logging:
+  level:
+    com.ai.qa.service: DEBUG
+    org.springframework.web: INFO
+    com.alibaba.cloud: INFO
+    com.alibaba.nacos: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# 分页配置
+app:
+  pagination:
+    default-page-size: 10
+    max-page-size: 100
