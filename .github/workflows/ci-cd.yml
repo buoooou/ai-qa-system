@@ -19,11 +19,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Export variables
-      run: |
-        echo "NAMESPACE=myrepo" >> $GITHUB_ENV
-        echo "TAG=${{ github.sha }}" >> $GITHUB_ENV   # 或固定版本号
-
     - name: Build backend services
       run: |
         cd backend-services/api-gateway && mvn clean package -DskipTests
@@ -58,6 +53,8 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           cd ~/ai-qa-system
+          export NAMESPACE=myrepo
+          export TAG=${{ github.sha }}     # 或固定版本号 latest
           docker compose down
           docker compose up -d --build
   
