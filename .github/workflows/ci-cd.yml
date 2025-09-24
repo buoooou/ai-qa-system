@@ -1,95 +1,52 @@
-name: CI-CD (Java17 + MySQL + Next.js → DockerHub → EC2)
+name: Build and Deploy to EC2
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
-
-env:
-  JDK_VERSION: 17
-  DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_USERNAME }}   # 你的 Docker Hub 命名空间
-  EC2_HOST: ${{ secrets.EC2_HOST }}
-  EC2_USER: ${{ secrets.EC2_USER }}
-  EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+    branches:
+      - main
 
 jobs:
-  # 1. 编译 & 单元测试
-  test:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'maven'
-      - name: Maven test
-        run: mvn -B test
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-  # 2. 构建镜像并推送到 Docker Hub
-  build-and-push:
-    needs: test
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service: [api-gateway, qa-service, user-service]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
 
-      - name: Build & push ${{ matrix.service }}
-        uses: docker/build-push-action@v5
-        with:
-          context: ./${{ matrix.service }}
-          file: ./${{ matrix.service }}/Dockerfile
-          push: true
-          tags: |
-            ${{ env.DOCKERHUB_NAMESPACE }}/${{ matrix.service }}:latest
-            ${{ env.DOCKERHUB_NAMESPACE }}/${{ matrix.service }}:${{ github.sha }}
+    - name: Build backend services
+      run: |
+        cd backend-services/api-gateway && mvn clean package -DskipTests
+        cd ../qa-service     && mvn clean package -DskipTests
+        cd ../user-service   && mvn clean package -DskipTests
 
-  # 3. 构建前端镜像
-  build-frontend:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build frontend
+      run: |
+        cd qa-frontend
+        npm ci
+        npm run build
 
-      - name: Build & push qa-frontend
-        uses: docker/build-push-action@v5
-        with:
-          context: ./qa-frontend
-          file: ./qa-frontend/Dockerfile
-          push: true
-          tags: |
-            ${{ env.DOCKERHUB_NAMESPACE }}/qa-frontend:latest
-            ${{ env.DOCKERHUB_NAMESPACE }}/qa-frontend:${{ github.sha }}
+    - name: Copy files to EC2
+      uses: appleboy/scp-action@v0.1.5
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        source: ".,!node_modules,.git"
+        target: ~/ai-qa-system
 
-  # 4. 远程部署到 EC2
-  deploy:
-    needs: [build-and-push, build-frontend]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: copy compose file & deploy script
-        run: |
-          scp -o StrictHostKeyChecking=no -i ec2.pem docker-compose.yml ${EC2_USER}@${EC2_HOST}:/home/${EC2_USER}/
-          scp -o StrictHostKeyChecking=no -i ec2.pem scripts/deploy.sh   ${EC2_USER}@${EC2_HOST}:/home/${EC2_USER}/
-        env:
-          EC2_HOST: ${{ env.EC2_HOST }}
-          EC2_USER: ${{ env.EC2_USER }}
-      - name: run remote deploy
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ec2.pem ${EC2_USER}@${EC2_HOST} \
-            "bash /home/${EC2_USER}/deploy.sh ${{ env.DOCKERHUB_NAMESPACE }} ${{ github.sha }}"
-        env:
-          EC2_HOST: ${{ env.EC2_HOST }}
-          EC2_USER: ${{ env.EC2_USER }}
+    - name: Deploy with Docker Compose
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd ~/ai-qa-system
+          docker compose down
+          docker compose up -d --build
