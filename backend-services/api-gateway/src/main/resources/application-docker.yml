@@ -44,10 +44,14 @@ spring:
           uri: http://user-service:8081 # 直接指向user-service容器
           predicates:
             - Path=/api/users/** # 匹配所有/api/users/开头的请求
+          filters:
+            - name: JwtAuthentication
         - id: qa_service_route
           uri: http://qa-service:8082
           predicates:
             - Path=/api/qa/**
+          filters:
+            - name: JwtAuthentication
 jwt:
   # 开发环境密钥
   secret-key-dev: "mySecretKeyForDevelopmentEnvironment12345"
