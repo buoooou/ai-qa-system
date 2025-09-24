@@ -15,6 +15,19 @@ spring:
         fail-fast: false
         # 延迟注册，等待Nacos客户端完全启动
         register-enabled: true
+        # 添加额外的稳定性配置
+        watch:
+          enabled: true
+        # 服务实例配置
+        instance:
+          # 设置实例权重
+          weight: 1.0
+          # 启用实例
+          enabled: true
+          # 设置实例元数据
+          metadata:
+            version: "1.0"
+            zone: "default"
       # 添加配置中心配置（即使不使用也有助于连接稳定性）
       config:
         server-addr: ai-qa-nacos:8848
