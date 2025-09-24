@@ -26,7 +26,7 @@ public class InMemoryRateLimiterConfig {
     /**
      * 自定义的内存限流器 Bean (完整版)
      */
-    @Bean
+   /* @Bean
     @Primary
     public org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<InMemoryRateLimiterConfig.RateLimiterConfig> inMemoryRateLimiter() {
 
@@ -95,10 +95,10 @@ public class InMemoryRateLimiterConfig {
         };
     }
 
-    /**
+    *//**
      * 配置类，用于存储限流参数
      * 现在它不再是空的了，包含了速率和容量
-     */
+     *//*
     public static class RateLimiterConfig {
         private double replenishRate;
         private int burstCapacity;
@@ -124,5 +124,5 @@ public class InMemoryRateLimiterConfig {
         public void setBurstCapacity(int burstCapacity) {
             this.burstCapacity = burstCapacity;
         }
-    }
+    }*/
 }

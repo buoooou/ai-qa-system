@@ -38,9 +38,9 @@ spring:
           uri: lb://qa-service-cdw
           predicates:
             - Path=/api/qa/**
-      default-filters:
+      #default-filters:
         # 配置默认的限流过滤器
-        - name: RequestRateLimiter
-          args:
-            key-resolver: '#{@ipKeyResolver}'
+        #- name: RequestRateLimiter
+          #args:
+            #key-resolver: '#{@ipKeyResolver}'
 

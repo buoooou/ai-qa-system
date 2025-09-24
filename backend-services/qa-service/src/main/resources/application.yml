@@ -22,6 +22,12 @@ jwt:
   expiration:
     ms: 86400000
 
+gemini:
+  api:
+    base-url: https://generativelanguage.googleapis.com/v1beta
+    key: ${GEMINI_API_KEY:}  # 从环境变量读取，如果没有则为空
+    model: gemini-1.5-flash  # 免费的Gemini模型，速度快，适合对话
+
 feign:
   client:
     config:
