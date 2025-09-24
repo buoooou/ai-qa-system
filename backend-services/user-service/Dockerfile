@@ -1,17 +1,17 @@
 # 使用Eclipse Temurin OpenJDK 17作为基础镜像（更稳定的官方镜像）
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jdk-ubi10-minimal
 
 # 设置工作目录
 WORKDIR /app
 
-# 更新包索引并安装curl和mysql客户端用于健康检查和数据库连接测试
-RUN apk update && apk add --no-cache curl mysql-client
+# 更新包索引并安装curl用于健康检查
+RUN microdnf update -y && microdnf install -y curl && microdnf clean all
 
 # 设置时区为上海时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
 # 创建应用用户（安全最佳实践）
-RUN addgroup -S appuser && adduser -S -G appuser appuser
+RUN groupadd -r appuser && useradd -r -g appuser appuser
 
 # 复制Maven构建的JAR文件到容器中
 # 注意：这里假设Maven构建后的JAR文件在target目录下

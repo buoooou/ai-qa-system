@@ -34,6 +34,20 @@ spring:
         timeout: 30000
         # 禁用配置中心功能但保持连接配置
         enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 开启基于服务发现的路由功能
+          lower-case-service-id: true
+      routes:
+        - id: user_service_route
+          uri: http://user-service:8081 # 直接指向user-service容器
+          predicates:
+            - Path=/api/users/** # 匹配所有/api/users/开头的请求
+        - id: qa_service_route
+          uri: http://qa-service:8082
+          predicates:
+            - Path=/api/qa/**
 jwt:
   # 开发环境密钥
   secret-key-dev: "mySecretKeyForDevelopmentEnvironment12345"
@@ -41,22 +55,3 @@ jwt:
   secret-key-prod: "mySecretKeyForProductionEnvironment67890"
   # 是否为生产环境，默认为false即开发环境
   production: false
-cloud:
-  gateway:
-    discovery:
-      locator:
-        enabled: true # 开启基于服务发现的路由功能
-        lower-case-service-id: true
-    routes:
-      - id: user_service_route
-        uri: lb://user-service # lb:// 表示从Nacos负载均衡地选择一个user-service实例
-        predicates:
-          - Path=/api/users/** # 匹配所有/api/users/开头的请求
-        filters:
-          - JwtAuthentication
-      - id: qa_service_route
-        uri: lb://qa-service
-        predicates:
-          - Path=/api/qa/**
-        filters:
-          - JwtAuthentication
