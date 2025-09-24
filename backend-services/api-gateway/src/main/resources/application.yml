@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: ${NACOS_SERVER:localhost:8848}
 jwt:
   # 开发环境密钥
   secret-key-dev: "mySecretKeyForDevelopmentEnvironment12345"
