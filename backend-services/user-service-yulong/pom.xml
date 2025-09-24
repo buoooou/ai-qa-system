@@ -13,7 +13,7 @@
     </parent>
 
     <!-- 2. 定义自己的坐标 -->
-    <artifactId>user-service</artifactId>
+    <artifactId>user-service-yulong</artifactId>
     <!-- version 和 groupId 会从父模块继承 -->
 
     <dependencies>

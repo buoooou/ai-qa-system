@@ -16,9 +16,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>user-service</module>
-        <module>qa-service</module>
-        <module>api-gateway</module>
+        <module>user-service-yulong</module>
+        <module>qa-service-yulong</module>
+        <module>api-gateway-yulong</module>
     </modules>
 
     <properties>

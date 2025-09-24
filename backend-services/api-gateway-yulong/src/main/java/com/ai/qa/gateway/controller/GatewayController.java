@@ -112,13 +112,13 @@ public class GatewayController {
         
         // QA Service路由
         Map<String, Object> qaRoute = new HashMap<>();
-        qaRoute.put("id", "qa-service");
-        qaRoute.put("uri", "lb://qa-service");
+        qaRoute.put("id", "qa-service-yulong");
+        qaRoute.put("uri", "lb://qa-service-yulong");
         qaRoute.put("predicates", new String[]{"Path=/api/qa/**"});
         qaRoute.put("description", "问答服务路由，处理AI问答、历史记录等功能");
         
         routeConfig.put("user-service", userRoute);
-        routeConfig.put("qa-service", qaRoute);
+        routeConfig.put("qa-service-yulong", qaRoute);
         
         routes.put("routes", routeConfig);
         routes.put("routeCount", routeConfig.size());

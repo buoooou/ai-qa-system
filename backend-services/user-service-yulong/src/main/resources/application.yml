@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service
+    name: user-service-yulong
   # 服务发现配置
   cloud:
     nacos:
@@ -13,7 +13,7 @@ spring:
         register-enabled: false  # 先禁用注册，稍后再启用
         failure-tolerance-enabled: true
   datasource:
-    url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://3.84.225.222:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: root123
   jpa:

@@ -64,7 +64,7 @@ jobs:
     if: github.event_name == 'push'
     strategy:
       matrix:
-        service: [api-gateway, user-service, qa-service, frontend]
+        service: [api-gateway-yulong, user-service-yulong, qa-service-yulong, frontend]
     
     steps:
     - uses: actions/checkout@v4
@@ -190,7 +190,7 @@ jobs:
     - name: Delete old container images
       uses: actions/delete-package-versions@v4
       with:
-        package-name: ${{ env.IMAGE_NAME }}-api-gateway
+        package-name: ${{ env.IMAGE_NAME }}-api-gateway-yulong
         package-type: container
         min-versions-to-keep: 5
         delete-only-untagged-versions: true

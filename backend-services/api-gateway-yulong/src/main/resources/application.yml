@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: api-gateway
+    name: api-gateway-yulong
 
   cloud:
     nacos:
@@ -20,7 +20,7 @@ spring:
       routes:
         # 用户服务Swagger路由 - 必须放在通用路由之前
         - id: user_swagger_ui
-          uri: lb://user-service
+            uri: lb://user-service-yulong
           predicates:
             - Path=/api/user/swagger-ui/**
           filters:
@@ -49,28 +49,28 @@ spring:
 
         # 问答服务Swagger路由 - 必须放在通用路由之前
         - id: qa_swagger_ui
-          uri: lb://qa-service
+          uri: lb://qa-service-yulong
           predicates:
             - Path=/api/qa/swagger-ui/**
           filters:
             - StripPrefix=2
 
         - id: qa_swagger_docs
-          uri: lb://qa-service
+          uri: lb://qa-service-yulong
           predicates:
             - Path=/api/qa/v3/api-docs/**
           filters:
             - StripPrefix=2
 
         - id: qa_swagger_webjars
-          uri: lb://qa-service
+          uri: lb://qa-service-yulong
           predicates:
             - Path=/api/qa/webjars/**
           filters:
             - StripPrefix=2
 
         - id: qa_swagger_config
-          uri: lb://qa-service
+          uri: lb://qa-service-yulong
           predicates:
             - Path=/api/qa/v3/api-docs/swagger-config
           filters:
@@ -94,7 +94,7 @@ spring:
 
         # 问答服务路由
         - id: qa_service_route
-          uri: lb://qa-service
+          uri: lb://qa-service-yulong
           predicates:
             - Path=/api/qa/** # 匹配所有/api/qa/开头的请求
           filters:

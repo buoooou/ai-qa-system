@@ -23,11 +23,11 @@ services:
       retries: 10
 
   # 用户服务
-  user-service:
+  user-service-yulong:
     build:
-      context: ./backend-services/user-service
+      context: ./backend-services/user-service-yulong
       dockerfile: Dockerfile
-    container_name: ai-qa-user-service
+    container_name: ai-qa-user-service-yulong
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ai_qa_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -47,24 +47,24 @@ services:
       retries: 3
 
   # 问答服务
-  qa-service:
+  qa-service-yulong:
     build:
-      context: ./backend-services/qa-service
+      context: ./backend-services/qa-service-yulong
       dockerfile: Dockerfile
-    container_name: ai-qa-qa-service
+    container_name: ai-qa-qa-service-yulong
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ai_qa_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: aiqa
       SPRING_DATASOURCE_PASSWORD: aiqa123
       GEMINI_API_KEY: ${GEMINI_API_KEY:-your_gemini_api_key_here}
-      USER_SERVICE_URL: http://user-service:8081
+      USER_SERVICE_URL: http://user-service-yulong:8081
     ports:
       - "8082:8082"
     depends_on:
       mysql:
         condition: service_healthy
-      user-service:
+      user-service-yulong:
         condition: service_healthy
     networks:
       - ai-qa-network
@@ -75,21 +75,21 @@ services:
       retries: 3
 
   # API网关
-  api-gateway:
+  api-gateway-yulong:
     build:
-      context: ./backend-services/api-gateway
+      context: ./backend-services/api-gateway-yulong
       dockerfile: Dockerfile
-    container_name: ai-qa-api-gateway
+    container_name: ai-qa-api-gateway-yulong
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      USER_SERVICE_URL: http://user-service:8081
-      QA_SERVICE_URL: http://qa-service:8082
+      USER_SERVICE_URL: http://user-service-yulong:8081
+      QA_SERVICE_URL: http://qa-service-yulong:8082
     ports:
       - "8080:8080"
     depends_on:
-      user-service:
+      user-service-yulong:
         condition: service_healthy
-      qa-service:
+      qa-service-yulong:
         condition: service_healthy
     networks:
       - ai-qa-network
@@ -110,7 +110,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - api-gateway
+      - api-gateway-yulong
     networks:
       - ai-qa-network
 

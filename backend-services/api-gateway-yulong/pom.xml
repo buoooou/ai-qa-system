@@ -13,7 +13,7 @@
     </parent>
 
     <!-- 2. 定义自己的artifactId -->
-    <artifactId>api-gateway</artifactId>
+    <artifactId>api-gateway-yulong</artifactId>
 
     <dependencies>
         <!-- Spring Cloud Gateway核心依赖 -->

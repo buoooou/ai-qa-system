@@ -13,7 +13,7 @@
     </parent>
 
     <!-- 2. 定义自己的artifactId -->
-    <artifactId>qa-service</artifactId>
+    <artifactId>qa-service-yulong</artifactId>
 
     <dependencies>
         <!-- Spring Boot Web Starter - 提供Web功能 -->
