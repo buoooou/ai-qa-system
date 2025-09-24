@@ -1,111 +1,57 @@
 version: "3.9"
-
 services:
-  # ---------- MySQL 8 ----------
   mysql:
     image: mysql:8.0
     container_name: mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: ai_qa_db          # 默认库
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+      MYSQL_DATABASE: ai_qa
     ports:
       - "3306:3306"
-    networks:
-      - ai-qa-net
+    volumes:
+      - mysql_data:/var/lib/mysql
 
-  # ---------- API-GATEWAY ----------
   api-gateway:
-    build:
-      context: .
-      dockerfile: Dockerfile.backend
-      args:
-        JAR_PATH: api-gateway/target/api-gateway-0.0.1-SNAPSHOT.jar
+    image: ${NAMESPACE}/api-gateway:${TAG:-latest}
     container_name: api-gateway
     restart: unless-stopped
-    env_file:
-      - .env
+    depends_on:
+      - qa-service
+      - user-service
+    ports:
+      - "80:8080"
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_LOCATION: /config/application.yml
-    volumes:
-      - ./config/api-gateway-prod.yml:/config/application.yml:ro
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql
-    networks:
-      - ai-qa-net
 
-  # ---------- QA-SERVICE ----------
   qa-service:
-    build:
-      context: .
-      dockerfile: Dockerfile.backend
-      args:
-        JAR_PATH: qa-service/target/qa-service-0.0.1-SNAPSHOT.jar
+    image: ${NAMESPACE}/qa-service:${TAG:-latest}
     container_name: qa-service
     restart: unless-stopped
-    env_file:
-      - .env
-    environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_LOCATION: /config/application.yml
-    volumes:
-      - ./config/qa-service-prod.yml:/config/application.yml:ro
-    ports:
-      - "8081:8081"
     depends_on:
       - mysql
-    networks:
-      - ai-qa-net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ai_qa?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
 
-  # ---------- USER-SERVICE ----------
   user-service:
-    build:
-      context: .
-      dockerfile: Dockerfile.backend
-      args:
-        JAR_PATH: user-service/target/user-service-0.0.1-SNAPSHOT.jar
+    image: ${NAMESPACE}/user-service:${TAG:-latest}
     container_name: user-service
     restart: unless-stopped
-    env_file:
-      - .env
-    environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_LOCATION: /config/application.yml
-    volumes:
-      - ./config/user-service-prod.yml:/config/application.yml:ro
-    ports:
-      - "8082:8082"
     depends_on:
       - mysql
-    networks:
-      - ai-qa-net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ai_qa?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
 
-  # ---------- FRONTEND ----------
   qa-frontend:
-    build:
-      context: qa-frontend
-      dockerfile: Dockerfile.frontend
+    image: ${NAMESPACE}/qa-frontend:${TAG:-latest}
     container_name: qa-frontend
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      NODE_ENV: production
-      NEXT_PUBLIC_API_GATEWAY: http://api-gateway:8080
-    depends_on:
-      - api-gateway
-    networks:
-      - ai-qa-net
-
-networks:
-  ai-qa-net:
-    driver: bridge
 
 volumes:
   mysql_data:
