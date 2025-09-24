@@ -4,8 +4,8 @@ FROM eclipse-temurin:17-jdk-alpine
 # 设置工作目录
 WORKDIR /app
 
-# 安装curl用于健康检查
-RUN apk add --no-cache curl
+# 更新包索引并安装curl用于健康检查
+RUN apk update && apk add --no-cache curl
 
 # 设置时区为上海时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone

@@ -26,8 +26,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
-        <!-- 升级到修复版本，解决 Nacos 与 WebFlux 兼容性问题 -->
-        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
+        <!-- 使用与Spring Boot 2.7.x兼容的Spring Cloud Alibaba版本 -->
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
     </properties>
 
     <!-- 统一管理所有子模块的依赖版本 -->
