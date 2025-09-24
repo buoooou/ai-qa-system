@@ -4,8 +4,8 @@ FROM eclipse-temurin:17-jdk-alpine
 # 设置工作目录
 WORKDIR /app
 
-# 安装curl用于健康检查
-RUN apk add --no-cache curl
+# 安装curl和mysql客户端用于健康检查和数据库连接测试
+RUN apk add --no-cache curl mysql-client
 
 # 设置时区为上海时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
@@ -23,22 +23,16 @@ RUN chown appuser:appuser app.jar
 # 切换到应用用户
 USER appuser
 
-# 暴露应用端口（QA Service默认端口8082）
+# 暴露应用端口（QA服务默认端口8082）
 EXPOSE 8082
 
 # 设置JVM参数和启动命令
 # -Xms256m -Xmx512m: 设置堆内存大小
 # -Djava.security.egd=file:/dev/./urandom: 加速随机数生成
-# -Dspring.profiles.active=prod: 激活生产环境配置
+# -Dspring.profiles.active=docker: 激活docker环境配置
 ENV SPRING_PROFILES_ACTIVE=docker
-ENTRYPOINT ["java", \
-    "-Xms256m", \
-    "-Xmx512m", \
-    "-Djava.security.egd=file:/dev/./urandom", \
-
-    "-jar", \
-    "app.jar"]
+ENTRYPOINT ["sh", "-c", "java -Xms256m -Xmx512m -Djava.security.egd=file:/dev/./urandom -jar app.jar"]
 
 # 健康检查
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
     CMD curl -f http://localhost:8082/actuator/health || exit 1

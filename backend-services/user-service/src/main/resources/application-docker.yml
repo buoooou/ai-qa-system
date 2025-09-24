@@ -22,7 +22,7 @@ spring:
         # 禁用配置中心功能但保持连接配置
         enabled: false
   datasource:
-    url: jdbc:mysql://ai-qa-mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&failOverReadOnly=false&maxReconnects=3
+    url: jdbc:mysql://ai-qa-mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
     username: aiqa
     password: aiqa123
     # 添加连接池配置
@@ -33,6 +33,7 @@ spring:
       idle-timeout: 300000
       max-lifetime: 1800000
       connection-test-query: SELECT 1
+      initialization-fail-timeout: 60000
   jpa:
     hibernate:
       ddl-auto: update
