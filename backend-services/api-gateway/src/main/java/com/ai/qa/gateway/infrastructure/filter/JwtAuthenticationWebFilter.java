@@ -46,21 +46,25 @@ public class JwtAuthenticationWebFilter extends AuthenticationWebFilter {
         ServerHttpRequest request = exchange.getRequest();
         String uri = request.getURI().getPath();
         log.info("========== JwtAuthenticationWebFilter path: {}", uri);
-        log.info("jwtSecret: {}", jwtSecret);
-        log.info("gatewaySecret: {}", gatewaySecret);
+        // log.info("jwtSecret: {}", jwtSecret);
+        // log.info("gatewaySecret: {}", gatewaySecret);
 
-        // 前端资产以及后端注册登录的场合，直接放行
-        if (uri.equals("/") ||
-                uri.equals("/index.html") ||
-                uri.startsWith("/static/") ||
-                uri.startsWith("/assets/") ||
-                uri.endsWith(".js") ||
-                uri.endsWith(".css") ||
-                uri.endsWith(".ico") ||
-                uri.endsWith(".png") ||
-                uri.contains("/api/test/") ||
-                uri.contains("/register") ||
-                uri.contains("/login")) {
+        // OpenDoc、Actuator等路径的场合，直接放行
+        if (uri.equals("/swagger-ui.html") ||
+                uri.startsWith("/swagger-ui/") ||
+                uri.startsWith("/v3/api-docs/") ||
+                // Actuator健康检查相关路径
+                uri.startsWith("/actuator/")) {
+            log.info("========== JwtAuthenticationFilter skip for path: {}", uri);
+
+            // 放行
+            return chain.filter(exchange);
+        }
+
+        // 注册登录的场合，添加头部后，放行
+        if (uri.contains("/api/test/") ||
+                uri.contains("/api/user/login") ||
+                uri.contains("/api/user/register")) {
             log.info("========== JwtAuthenticationFilter skip for path: {}", uri);
 
             // 构建新请求并添加X-Gateway-Secret头
@@ -69,7 +73,6 @@ public class JwtAuthenticationWebFilter extends AuthenticationWebFilter {
                     .build();
 
             // 放行
-            // return chain.filter(exchange); // 放行
             return chain.filter(exchange.mutate().request(mutatedRequest).build());
         }
 
@@ -125,4 +128,5 @@ public class JwtAuthenticationWebFilter extends AuthenticationWebFilter {
         DataBuffer buffer = response.bufferFactory().wrap(errorJson.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));
     }
+
 }

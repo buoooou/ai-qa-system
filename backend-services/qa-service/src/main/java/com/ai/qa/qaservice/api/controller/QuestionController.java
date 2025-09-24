@@ -72,6 +72,8 @@ public class QuestionController {
 
                 log.info("Deleting conversation: {} for user: {}", conversationId, userId);
                 int deleted = qaService.deleteConversation(userId, conversationId);
+                log.info("Deleted records count: {}", deleted);
+
                 return ResponseEntity.ok(ApiResponse.success(deleted > 0));
         }
 

@@ -25,10 +25,18 @@ public class GatewaySecretFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String path = request.getRequestURI();
 
-        // 验证网关的路径进行校验
+        // OpenDoc、Actuator等路径的场合，直接放行
+        if (path.equals("/swagger-ui.html") ||
+                path.startsWith("/swagger-ui/") ||
+                path.startsWith("/v3/api-docs/") ||
+                // Actuator健康检查相关路径
+                path.startsWith("/actuator/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        // 其他的验证网关的路径进行校验
         String secret = request.getHeader("X-Gateway-Secret");
-        log.info("X-Gateway-Secret: {}", secret);
-        log.info("gatewaySecret: {}", gatewaySecret);
 
         if (secret == null || !secret.equals(gatewaySecret)) {
             log.warn("网关密钥验证失败，路径: {}", path);

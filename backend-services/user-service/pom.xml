@@ -90,6 +90,19 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- OpenAPI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.15</version>
+        </dependency>
+        
+        <!-- Actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>          
+
     </dependencies>
 
     <!-- 3. 添加构建插件，用于打包 -->

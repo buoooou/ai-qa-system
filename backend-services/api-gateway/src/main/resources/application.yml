@@ -3,10 +3,10 @@ server:
 logging:
   level:
     # 将 Gateway 的核心日志级别设置为 DEBUG
-    org.springframework.cloud.gateway: DEBUG
+    "[org.springframework.cloud.gateway]": DEBUG
     # (可选) 将 Reactor Netty 的日志也设为 DEBUG，可以看到更底层的网络交互
-    reactor.netty.http.client: DEBUG
-    com.alibaba.nacos.client: DEBUG
+    "[reactor.netty.http.client]": DEBUG
+    "[com.alibaba.nacos.client]": DEBUG
 spring:
   application:
     name: api-gateway-fm
@@ -40,3 +40,23 @@ spring:
 #        - name: RequestRateLimiter
 #          args:
 #            key-resolver: '#{@ipKeyResolver}'
+
+# 健康检查配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info  # 暴露health（健康）和info（基本信息）端点
+  endpoint:
+    health:
+      show-details: always  # 总是显示详细健康信息（生产环境可改为when_authorized）
+      probes:
+        enabled: true
+
+# OpenAPI 文档配置
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+

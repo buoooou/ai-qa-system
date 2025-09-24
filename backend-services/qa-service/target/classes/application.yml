@@ -29,9 +29,22 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
 
-# Google AI Studio 配置
-# google:
-#   ai:
-#     api-key: AIzaSyBIlVODRP9MmzbmJvJvDGQP0LUfl4l225w
-#     endpoint: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
+# 健康检查配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info  # 暴露health（健康）和info（基本信息）端点
+  endpoint:
+    health:
+      show-details: always  # 总是显示详细健康信息（生产环境可改为when_authorized）
+      probes:
+        enabled: true
+
+# OpenAPI 文档配置
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 

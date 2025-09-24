@@ -41,11 +41,11 @@ public class QaService {
 
         // 构建包含上下文的提示词
         String prompt = buildPromptWithContext(question, conversationHistory);
-        log.info("Prompt: {}", prompt);
+        // log.info("Prompt: {}", prompt);
 
         // 调用Gemini API获取回答
         String answer = geminiClient.getGeminiResponse(prompt);
-        log.info("Gemini response: {}", answer);
+        // log.info("Gemini response: {}", answer);
 
         // 保存当前问答记录
         // 保存当前问答记录

@@ -32,6 +32,8 @@ public class UserController {
         log.info("Logging in user with username: {}", request.getUsername());
 
         UserResponse response = userService.login(request);
+        log.info("login ok, username: {}", response.getUsername());
+        log.info("login ok, ResponseEntity: {}", ResponseEntity.ok(ApiResponse.success(response).toString()));
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 

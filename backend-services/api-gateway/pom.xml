@@ -53,10 +53,10 @@
         </dependency>
 
         <!-- OpenFeign 核心依赖，用于服务间调用 -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
+        </dependency> -->
 
         <!--负载均衡，用于动态路由（OpenFeign 调用需要） -->
         <dependency>
@@ -95,17 +95,38 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>${jwt.version}</version>
             <scope>runtime</scope>
-        </dependency>        
+        </dependency>      
+
+        <!-- OpenAPI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.15</version>
+        </dependency>
+        
+        <!-- Actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>          
     </dependencies>
 
     <!-- 3. 添加构建插件，用于打包成可执行jar -->
-    <!-- <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>                
             </plugin>
         </plugins>
-    </build> -->
+    </build>
 
 </project>

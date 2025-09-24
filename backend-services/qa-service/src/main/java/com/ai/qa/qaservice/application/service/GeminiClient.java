@@ -38,8 +38,9 @@ public class GeminiClient {
      * @return AI生成的回答
      */
     public String getGeminiResponse(String prompt) {
-        log.info("====== 调用Gemini API获取回答: prompt = {} ====== ", prompt);
-        log.info("apiKey: {}, endpoint: {}, model: {}", apiKey, endpoint, model);
+        log.info("====== 调用Gemini API获取回答 ====== ");
+        // log.info("====== 调用Gemini API获取回答: prompt = {} ====== ", prompt);
+        // log.info("apiKey: {}, endpoint: {}, model: {}", apiKey, endpoint, model);
 
         try {
             // 创建HTTP头
@@ -66,9 +67,10 @@ public class GeminiClient {
             String apiUrl = String.format("%s/models/%s:generateContent?key=%s", endpoint, model, apiKey);
 
             // 打印调用参数
-            log.info("请求Gemini API: url = {}", apiUrl);
-            log.info("请求Gemini API: requestEntity.requestBody = {}", requestBody.toString());
-            log.info("请求Gemini API: requestEntity.headers = {}", headers.toString());
+            // log.info("请求Gemini API: url = {}", apiUrl);
+            // log.info("请求Gemini API: requestEntity.requestBody = {}",
+            // requestBody.toString());
+            // log.info("请求Gemini API: requestEntity.headers = {}", headers.toString());
 
             // 发送请求
             ResponseEntity<String> response = restTemplate.exchange(
