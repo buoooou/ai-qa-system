@@ -13,6 +13,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   api-gateway:
+    build: ./backend-services/api-gateway
     image: ${NAMESPACE}/api-gateway:${TAG:-latest}
     container_name: api-gateway
     restart: unless-stopped
@@ -25,6 +26,7 @@ services:
       SPRING_PROFILES_ACTIVE: prod
 
   qa-service:
+    build: ./backend-services/qa-service
     image: ${NAMESPACE}/qa-service:${TAG:-latest}
     container_name: qa-service
     restart: unless-stopped
@@ -36,6 +38,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: 123456
 
   user-service:
+    build: ./backend-services/user-service
     image: ${NAMESPACE}/user-service:${TAG:-latest}
     container_name: user-service
     restart: unless-stopped
@@ -47,6 +50,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: 123456
 
   qa-frontend:
+    build: ./qa-frontend
     image: ${NAMESPACE}/qa-frontend:${TAG:-latest}
     container_name: qa-frontend
     restart: unless-stopped
