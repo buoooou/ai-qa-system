@@ -50,3 +50,4 @@ jobs:
           cd ~/ai-qa-system
           docker compose down
           docker compose up -d --build
+  
