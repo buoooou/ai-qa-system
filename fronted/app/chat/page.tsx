@@ -49,7 +49,7 @@ export default function ChatPage() {
       router.push('/login');
     } catch (error) {
       toast.error('网络错误，请重试');
-    } 
+    }
   }
 
   const handleNicknameSubmit = async () => {
@@ -226,7 +226,7 @@ export default function ChatPage() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           userid: localStorage.getItem('userid'),
         }),
       });
@@ -365,7 +365,7 @@ export default function ChatPage() {
           )}
         </div>
         {/* 用户昵称显示区域 */}
-        <div 
+        <div
           className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-800/60 border-t border-teal-700/30' : theme === 'light' ? 'bg-amber-100 border-t border-amber-300' : theme === 'blue' ? 'bg-slate-800/60 border-t border-sky-700/30' : 'bg-emerald-900/60 border-t border-emerald-700/30'}`}
           onClick={(e) => {
             e.stopPropagation();
@@ -385,14 +385,14 @@ export default function ChatPage() {
                 autoFocus
               />
             ) : (
-              <div 
+              <div
                 className={`font-semibold ${theme === 'dark' ? 'text-teal-300' : theme === 'light' ? 'text-blue-600' : theme === 'blue' ? 'text-sky-300' : 'text-emerald-300'} p-2 rounded`}
               >
                 {nickname}
               </div>
             )}
             <div className="relative">
-              <button 
+              <button
                 className={`p-1 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer ${theme === 'dark' ? 'bg-gray-700 text-teal-300 hover:bg-gray-600' : theme === 'light' ? 'bg-amber-200 text-blue-600 hover:bg-amber-300' : theme === 'blue' ? 'bg-slate-700 text-sky-300 hover:bg-slate-600' : 'bg-emerald-800 text-emerald-300 hover:bg-emerald-700'}`}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -404,7 +404,7 @@ export default function ChatPage() {
               </button>
               <div className={`absolute right-0 bottom-full mb-2 w-48 rounded-md shadow-lg ${theme === 'dark' ? 'bg-gray-700' : theme === 'light' ? 'bg-amber-100' : theme === 'blue' ? 'bg-slate-700' : 'bg-emerald-800'} z-50 hidden user-menu`}>
                 <div className="py-1">
-                  <button 
+                  <button
                     className={`block w-full text-left px-4 py-2 ${theme === 'dark' ? 'text-teal-300 hover:bg-gray-600' : theme === 'light' ? 'text-blue-600 hover:bg-amber-200' : theme === 'blue' ? 'text-sky-300 hover:bg-slate-600' : 'text-emerald-300 hover:bg-emerald-700'}`}
                     onClick={() => {
                       setIsEditingNickname(true);
@@ -412,7 +412,7 @@ export default function ChatPage() {
                   >
                     更换昵称
                   </button>
-                  <button 
+                  <button
                     className={`block w-full text-left px-4 py-2 ${theme === 'dark' ? 'text-teal-300 hover:bg-gray-600' : theme === 'light' ? 'text-blue-600 hover:bg-amber-200' : theme === 'blue' ? 'text-sky-300 hover:bg-slate-600' : 'text-emerald-300 hover:bg-emerald-700'}`}
                     onClick={() =>handleLogout()}
                   >
