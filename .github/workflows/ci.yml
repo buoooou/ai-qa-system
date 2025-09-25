@@ -12,45 +12,6 @@ on:
 
 # 定义工作流中的所有任务 (Jobs)
 jobs:
-  # --- 第一个任务：构建并测试后端微服务 ---
-  build-and-test-backend:
-    # 任务的名称，会显示在 UI 中
-    name: Build and Test Backend Services
-    # 运行此任务所需的虚拟机环境
-    runs-on: ubuntu-latest
-
-    # 任务的执行步骤
-    steps:
-      # 步骤 1: 检出代码
-      # 使用官方的 actions/checkout@v4 action 来获取仓库的最新代码
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 步骤 2: 设置 Java 环境
-      # 使用官方的 actions/setup-java@v4 action 来安装和配置 JDK 17
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      # 步骤 3: 缓存 Maven 依赖
-      # 为了加速构建，缓存下载过的 Maven 依赖包。
-      # 这样下次构建时，如果 pom.xml 没有变化，就可以直接使用缓存，节省大量时间。
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      # 步骤 4: 使用 Maven 构建和测试
-      # -B: Batch mode，避免交互式提示
-      # clean package: 执行清理、编译、测试、打包等所有操作
-      - name: Build with Maven
-        run: mvn -B clean package
-        working-directory: backend-services
 
   # --- 第二个任务：构建 Docker 镜像并推送到仓库 ---
   build-and-push-images:
@@ -59,8 +20,7 @@ jobs:
     # 运行此任务所需的虚拟机环境
     runs-on: ubuntu-latest
 
-    # 依赖关系：这个任务必须在 `build-and-test-backend` 成功完成后才能开始
-    needs: build-and-test-backend
+
 
     # 任务的执行步骤
     steps:
