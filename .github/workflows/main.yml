@@ -167,6 +167,12 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
+          # 安装 docker-compose
+          echo "安装 docker-compose..."
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+          
           # 拉取最新镜像
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/chatbox-api-gateway:latest
@@ -182,17 +188,20 @@ jobs:
           
           # 等待服务健康检查通过
           echo "等待服务启动..."
-          sleep 30
+          sleep 60  # 增加等待时间
           
           # 验证服务健康状态
           echo "验证API网关健康状态..."
-          curl -f http://localhost:8080/actuator/health || exit 1
+          curl -f http://localhost:8080/actuator/health || (echo "API网关启动失败" && docker-compose logs api-gateway && exit 1)
           
           echo "验证用户服务健康状态..."
-          curl -f http://localhost:8081/actuator/health || exit 1
+          curl -f http://localhost:8081/actuator/health || (echo "用户服务启动失败" && docker-compose logs user-service && exit 1)
           
           echo "验证QA服务健康状态..."
-          curl -f http://localhost:8082/actuator/health || exit 1
+          curl -f http://localhost:8082/actuator/health || (echo "QA服务启动失败" && docker-compose logs qa-service && exit 1)
+          
+          echo "验证前端服务..."
+          curl -f http://localhost:3000 > /dev/null || (echo "前端服务启动失败" && docker-compose logs frontend && exit 1)
           
           echo "验证OpenAPI文档..."
           curl -f http://localhost:8080/api-docs && echo "✓ API网关OpenAPI文档可访问"
