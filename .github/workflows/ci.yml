@@ -112,9 +112,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-            # 删除现有目录并重新创建，确保权限正确
-            rm -rf ~/airline-cicd
+            # 尝试删除现有目录，如果失败则忽略
+            sudo rm -rf ~/airline-cicd || true
+            # 创建新的目录结构
             mkdir -p ~/airline-cicd/database/init-scripts
+            # 确保当前用户拥有目录的完整权限
+            sudo chown -R $USER:$USER ~/airline-cicd
+            chmod -R 755 ~/airline-cicd
 
       - name: Copy project files to EC2
         run: |
