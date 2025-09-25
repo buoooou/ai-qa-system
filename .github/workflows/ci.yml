@@ -94,6 +94,15 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-mysql:latest
           
+          
+      # 打印github的worksapce内容
+      - name: Print workspace content
+        run: |
+          echo "==== GitHub workspace content ===="
+          find /github/workspace -type f -name '*.sql' -o -name 'docker-compose.yml' sort
+          echo "==== tar test ===="
+          tar -cvf /tmp/test.tar docker-compose.yml database/init-scripts/*.sql
+          tar -tf /tmp/test.tar
       # 把同版本的 docker-compose.yml 和 database 目录复制到 EC2
       - name: Copy docker-compose.yml and database to EC2
         uses: appleboy/scp-action@v0.1.7
