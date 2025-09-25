@@ -12,7 +12,7 @@ spring:
       host: localhost  # Kubernetes 服务名或 Redis 服务器 IP
       port: 6379
   datasource:
-    url: jdbc:postgresql://localhost:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
+    url: jdbc:postgresql://3.84.225.222:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
@@ -32,3 +32,7 @@ chat:
   api:
     url: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
     key: AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw
+gemini:
+  api-key: AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw
+GOOGLE_API_KEY:
+  AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw

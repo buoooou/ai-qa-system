@@ -14,7 +14,7 @@ spring:
     import: "nacos:share-config-yulong.yml"
   cloud:
     nacos:
-      server-addr: http://3.84.225.222/:8848
+      server-addr: http://3.84.225.222:8848
       config:
         file-extension: yml
         group: DEFAULT_GROUP
@@ -38,3 +38,7 @@ spring:
       default-filters:
         # 配置默认的限流过滤器
         - name: RequestRateLimiter
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  expiration:
+    ms: 3600000  # 这里是具体的过期时间（毫秒），对应Expiration的ms字段
