@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "users")
@@ -21,11 +22,11 @@ public class User {
     private String username;
     private String password;
     private String nickname;
-    @Column(name = "update_date", nullable = false)
+    @Column(name = "create_time", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createTime;
-    @Column(name = "creation_date", nullable = false)
-    @CreationTimestamp
+    @Column(name = "update_time", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updateTime;
 
     public Long getId() {
