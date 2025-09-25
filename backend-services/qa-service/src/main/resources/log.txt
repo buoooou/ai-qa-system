@@ -1,694 +1,571 @@
-2025-09-25T09:32:11.7290031Z [INFO] -------------------------------------------------------
-2025-09-25T09:32:11.7290451Z [INFO]  T E S T S
-2025-09-25T09:32:11.7290773Z [INFO] -------------------------------------------------------
-2025-09-25T09:32:12.3643505Z [INFO] Running com.ai.qa.user.api.controller.UserControllerTest
-2025-09-25T09:32:12.7465229Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-2025-09-25T09:32:13.4883764Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.077 s - in com.ai.qa.user.api.controller.UserControllerTest
-2025-09-25T09:32:13.4936990Z [INFO] Running com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:32:13.6775127Z 09:32:13.596 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
-2025-09-25T09:32:13.6781259Z 09:32:13.600 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-2025-09-25T09:32:14.2789910Z 09:32:14.183 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
-2025-09-25T09:32:14.2791249Z 09:32:14.188 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
-2025-09-25T09:32:14.2792117Z 09:32:14.205 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker:
-2025-09-25T09:32:14.2792825Z   Server Version: 28.0.4
-2025-09-25T09:32:14.2793075Z   API Version: 1.48
-2025-09-25T09:32:14.2793351Z   Operating System: Ubuntu 24.04.3 LTS
-2025-09-25T09:32:14.2793648Z   Total Memory: 15995 MB
-2025-09-25T09:32:14.2794661Z 09:32:14.228 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling docker image: testcontainers/ryuk:0.5.1. Please be patient; this may take some time but only needs to be done once.
-2025-09-25T09:32:14.5793901Z 09:32:14.479 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Starting to pull image
-2025-09-25T09:32:14.5795196Z 09:32:14.501 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2025-09-25T09:32:14.6796489Z 09:32:14.646 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (58 KB/? MB)
-2025-09-25T09:32:14.6798769Z 09:32:14.664 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (58 KB/? MB)
-2025-09-25T09:32:14.6800142Z 09:32:14.677 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (63 KB/5 MB)
-2025-09-25T09:32:14.7797332Z 09:32:14.759 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (2 MB/5 MB)
-2025-09-25T09:32:14.9806246Z 09:32:14.944 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (2 MB/5 MB)
-2025-09-25T09:32:15.0829597Z 09:32:14.990 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
-2025-09-25T09:32:15.0833245Z 09:32:14.996 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Image testcontainers/ryuk:0.5.1 pull took PT0.767839753S
-2025-09-25T09:32:15.0835611Z 09:32:15.015 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
-2025-09-25T09:32:15.1810515Z 09:32:15.084 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: 4291921cfb457078cc275877f1ffa827745df1ef4d1d76bd5f5630cff822c83f
-2025-09-25T09:32:15.3814218Z 09:32:15.363 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT0.347861369S
-2025-09-25T09:32:15.3817655Z 09:32:15.369 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-2025-09-25T09:32:15.3820693Z 09:32:15.369 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
-2025-09-25T09:32:15.3826265Z 09:32:15.370 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
-2025-09-25T09:32:15.3830901Z 09:32:15.373 [main] INFO tc.redis:latest -- Pulling docker image: redis:latest. Please be patient; this may take some time but only needs to be done once.
-2025-09-25T09:32:15.6841586Z 09:32:15.595 [docker-java-stream-328759547] INFO tc.redis:latest -- Starting to pull image
-2025-09-25T09:32:15.6842756Z 09:32:15.596 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2025-09-25T09:32:15.7843979Z 09:32:15.734 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (874 bytes/? MB)
-2025-09-25T09:32:15.7845210Z 09:32:15.767 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (278 KB/? MB)
-2025-09-25T09:32:15.8845272Z 09:32:15.837 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (522 KB/? MB)
-2025-09-25T09:32:15.9847608Z 09:32:15.893 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  3 pending,  4 downloaded,  0 extracted, (20 MB/? MB)
-2025-09-25T09:32:15.9849745Z 09:32:15.911 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  2 pending,  5 downloaded,  0 extracted, (20 MB/? MB)
-2025-09-25T09:32:15.9852750Z 09:32:15.971 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  0 extracted, (36 MB/? MB)
-2025-09-25T09:32:15.9854504Z 09:32:15.977 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  0 extracted, (36 MB/49 MB)
-2025-09-25T09:32:16.9864817Z 09:32:16.980 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  1 extracted, (43 MB/49 MB)
-2025-09-25T09:32:17.1865206Z 09:32:17.090 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  2 extracted, (43 MB/49 MB)
-2025-09-25T09:32:17.1867496Z 09:32:17.107 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  3 extracted, (43 MB/49 MB)
-2025-09-25T09:32:17.4868849Z 09:32:17.427 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  4 extracted, (49 MB/49 MB)
-2025-09-25T09:32:17.4871248Z 09:32:17.435 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  5 extracted, (49 MB/49 MB)
-2025-09-25T09:32:17.4872806Z 09:32:17.446 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  6 extracted, (49 MB/49 MB)
-2025-09-25T09:32:17.4874178Z 09:32:17.472 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  7 extracted, (49 MB/49 MB)
-2025-09-25T09:32:17.4875137Z 09:32:17.478 [main] INFO tc.redis:latest -- Image redis:latest pull took PT2.104571786S
-2025-09-25T09:32:17.4875976Z 09:32:17.478 [docker-java-stream-328759547] INFO tc.redis:latest -- Pull complete. 7 layers, pulled in 1s (downloaded 49 MB at 49 MB/s)
-2025-09-25T09:32:17.4876698Z 09:32:17.480 [main] INFO tc.redis:latest -- Creating container for image: redis:latest
-2025-09-25T09:32:17.5869583Z 09:32:17.495 [main] INFO tc.redis:latest -- Container redis:latest is starting: c4c534ad18602be4a5543e3e778e83743f8ca24873e8ead766899a1b39bb575e
-2025-09-25T09:32:17.7871367Z 09:32:17.693 [main] INFO tc.redis:latest -- Container redis:latest started in PT0.213201224S
-2025-09-25T09:32:17.8874882Z 09:32:17.792 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ai.qa.user.api.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-09-25T09:32:17.9876305Z 09:32:17.941 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ai.qa.user.UserServiceApplication for test class com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:32:18.4018371Z 2025-09-25T09:32:18.307Z  INFO 2244 --- [           main] c.a.n.client.env.SearchableProperties    : properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
-2025-09-25T09:32:18.4020721Z 2025-09-25T09:32:18.308Z  WARN 2244 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
-2025-09-25T09:32:18.4030033Z
-2025-09-25T09:32:18.4031219Z   .   ____          _            __ _ _
-2025-09-25T09:32:18.4031714Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-2025-09-25T09:32:18.4032237Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-2025-09-25T09:32:18.4032904Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-2025-09-25T09:32:18.4033369Z   '  |____| .__|_| |_|_| |_\__, | / / / /
-2025-09-25T09:32:18.4033793Z  =========|_|==============|___/=/_/_/_/
-2025-09-25T09:32:18.4034413Z  :: Spring Boot ::                (v3.1.5)
-2025-09-25T09:32:18.4034687Z
-2025-09-25T09:32:18.4035825Z 2025-09-25T09:32:18.357Z  WARN 2244 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
-2025-09-25T09:32:18.4038645Z 2025-09-25T09:32:18.369Z  INFO 2244 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Starting UserControllerIntegrationTest using Java 17.0.16 with PID 2244 (started by runner in /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service)
-2025-09-25T09:32:18.4041196Z 2025-09-25T09:32:18.369Z  INFO 2244 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : The following 1 profile is active: "test"
-2025-09-25T09:32:19.1048564Z 2025-09-25T09:32:19.100Z  INFO 2244 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-25T09:32:19.2053704Z 2025-09-25T09:32:19.147Z  INFO 2244 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 1 JPA repository interfaces.
-2025-09-25T09:32:19.4066382Z 2025-09-25T09:32:19.341Z  INFO 2244 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=23a416e6-732d-3a9f-9089-c4013f9a249d
-2025-09-25T09:32:19.5528521Z java.lang.ClassNotFoundException: org.h2.Driver
-2025-09-25T09:32:19.5530693Z 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
-2025-09-25T09:32:19.5532086Z 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
-2025-09-25T09:32:19.5533458Z 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525)
-2025-09-25T09:32:19.5534340Z 	at java.base/java.lang.Class.forName0(Native Method)
-2025-09-25T09:32:19.5535173Z 	at java.base/java.lang.Class.forName(Class.java:467)
-2025-09-25T09:32:19.5536096Z 	at org.springframework.util.ClassUtils.forName(ClassUtils.java:291)
-2025-09-25T09:32:19.5537721Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.driverClassIsLoadable(DataSourceProperties.java:194)
-2025-09-25T09:32:19.5539738Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.determineDriverClassName(DataSourceProperties.java:175)
-2025-09-25T09:32:19.5542702Z 	at org.springframework.boot.autoconfigure.jdbc.PropertiesJdbcConnectionDetails.getDriverClassName(PropertiesJdbcConnectionDetails.java:49)
-2025-09-25T09:32:19.5545053Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration.createDataSource(DataSourceConfiguration.java:55)
-2025-09-25T09:32:19.5547192Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari.dataSource(DataSourceConfiguration.java:117)
-2025-09-25T09:32:19.5548788Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-2025-09-25T09:32:19.5555153Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-2025-09-25T09:32:19.5557206Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-2025-09-25T09:32:19.5558560Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-2025-09-25T09:32:19.5561603Z 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
-2025-09-25T09:32:19.5563506Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
-2025-09-25T09:32:19.5565350Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:642)
-2025-09-25T09:32:19.5567704Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
-2025-09-25T09:32:19.5570199Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
-2025-09-25T09:32:19.5572742Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
-2025-09-25T09:32:19.5574944Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
-2025-09-25T09:32:19.5605443Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
-2025-09-25T09:32:19.5607344Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-2025-09-25T09:32:19.5609029Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
-2025-09-25T09:32:19.5610557Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
-2025-09-25T09:32:19.5612148Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-2025-09-25T09:32:19.5614697Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
-2025-09-25T09:32:19.5616655Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
-2025-09-25T09:32:19.5618533Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910)
-2025-09-25T09:32:19.5620277Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788)
-2025-09-25T09:32:19.5622094Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:545)
-2025-09-25T09:32:19.5624488Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
-2025-09-25T09:32:19.5626909Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
-2025-09-25T09:32:19.5629125Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
-2025-09-25T09:32:19.5631290Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
-2025-09-25T09:32:19.5649324Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
-2025-09-25T09:32:19.5651272Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-2025-09-25T09:32:19.5653145Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
-2025-09-25T09:32:19.5654649Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
-2025-09-25T09:32:19.5656155Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312)
-2025-09-25T09:32:19.5657622Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
-2025-09-25T09:32:19.5659173Z 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
-2025-09-25T09:32:19.5660923Z 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
-2025-09-25T09:32:19.5662801Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
-2025-09-25T09:32:19.5664059Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
-2025-09-25T09:32:19.5665136Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
-2025-09-25T09:32:19.5666222Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
-2025-09-25T09:32:19.5667525Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-2025-09-25T09:32:19.5669106Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
-2025-09-25T09:32:19.5670310Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
-2025-09-25T09:32:19.5671436Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406)
-2025-09-25T09:32:19.5673062Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545)
-2025-09-25T09:32:19.5674685Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-2025-09-25T09:32:19.5676331Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-2025-09-25T09:32:19.5678846Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187)
-2025-09-25T09:32:19.5681621Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119)
-2025-09-25T09:32:19.5683734Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
-2025-09-25T09:32:19.5685671Z 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
-2025-09-25T09:32:19.5687950Z 	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
-2025-09-25T09:32:19.5689801Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241)
-2025-09-25T09:32:19.5692349Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138)
-2025-09-25T09:32:19.5694365Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377)
-2025-09-25T09:32:19.5696203Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382)
-2025-09-25T09:32:19.5698077Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377)
-2025-09-25T09:32:19.5699643Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-2025-09-25T09:32:19.5700743Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-2025-09-25T09:32:19.5701893Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
-2025-09-25T09:32:19.5703170Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-2025-09-25T09:32:19.5704308Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-2025-09-25T09:32:19.5705671Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
-2025-09-25T09:32:19.5707045Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
-2025-09-25T09:32:19.5708183Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
-2025-09-25T09:32:19.5709299Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
-2025-09-25T09:32:19.5710897Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376)
-2025-09-25T09:32:19.5713148Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289)
-2025-09-25T09:32:19.5714940Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.5716767Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288)
-2025-09-25T09:32:19.5722114Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278)
-2025-09-25T09:32:19.5723834Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
-2025-09-25T09:32:19.5725492Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277)
-2025-09-25T09:32:19.5727632Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
-2025-09-25T09:32:19.5729500Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105)
-2025-09-25T09:32:19.5731516Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.5734075Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
-2025-09-25T09:32:19.5735644Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
-2025-09-25T09:32:19.5737080Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
-2025-09-25T09:32:19.5738524Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.5740371Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
-2025-09-25T09:32:19.5742063Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
-2025-09-25T09:32:19.5743525Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-2025-09-25T09:32:19.5745494Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-2025-09-25T09:32:19.5747990Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-2025-09-25T09:32:19.5750023Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.5751861Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:32:19.5753720Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:32:19.5755358Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:32:19.5757505Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.5759154Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:32:19.5760534Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:32:19.5761529Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-2025-09-25T09:32:19.5763316Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-2025-09-25T09:32:19.5765281Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-2025-09-25T09:32:19.5766795Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.5768316Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:32:19.5769571Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:32:19.5770808Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:32:19.5772271Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.5773845Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:32:19.5775375Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:32:19.5777322Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-2025-09-25T09:32:19.5779324Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-2025-09-25T09:32:19.5780999Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-2025-09-25T09:32:19.5783801Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
-2025-09-25T09:32:19.5785873Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
-2025-09-25T09:32:19.5787415Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
-2025-09-25T09:32:19.5789096Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
-2025-09-25T09:32:19.5790825Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
-2025-09-25T09:32:19.5792715Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
-2025-09-25T09:32:19.5794015Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
-2025-09-25T09:32:19.5795113Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
-2025-09-25T09:32:19.5796468Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
-2025-09-25T09:32:19.5797824Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
-2025-09-25T09:32:19.5799186Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
-2025-09-25T09:32:19.5800777Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
-2025-09-25T09:32:19.5802347Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
-2025-09-25T09:32:19.5803987Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
-2025-09-25T09:32:19.5805131Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
-2025-09-25T09:32:19.5806145Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
-2025-09-25T09:32:19.5807195Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
-2025-09-25T09:32:19.5807761Z
-2025-09-25T09:32:19.5807773Z
-2025-09-25T09:32:19.5807782Z
-2025-09-25T09:32:19.5807963Z ============================
-2025-09-25T09:32:19.5808390Z CONDITIONS EVALUATION REPORT
-2025-09-25T09:32:19.5808796Z ============================
-2025-09-25T09:32:19.5809023Z
-2025-09-25T09:32:19.5809033Z
-2025-09-25T09:32:19.5809185Z Positive matches:
-2025-09-25T09:32:19.5809527Z -----------------
-2025-09-25T09:32:19.5809726Z
-2025-09-25T09:32:19.5809845Z     None
-2025-09-25T09:32:19.5810005Z
-2025-09-25T09:32:19.5810014Z
-2025-09-25T09:32:19.5810159Z Negative matches:
-2025-09-25T09:32:19.5810487Z -----------------
-2025-09-25T09:32:19.5810668Z
-2025-09-25T09:32:19.5810783Z     None
-2025-09-25T09:32:19.5810936Z
-2025-09-25T09:32:19.5810944Z
-2025-09-25T09:32:19.5811066Z Exclusions:
-2025-09-25T09:32:19.5811344Z -----------
-2025-09-25T09:32:19.5811506Z
-2025-09-25T09:32:19.5811615Z     None
-2025-09-25T09:32:19.5811775Z
-2025-09-25T09:32:19.5811796Z
-2025-09-25T09:32:19.5811961Z Unconditional classes:
-2025-09-25T09:32:19.5812330Z ----------------------
-2025-09-25T09:32:19.5812759Z
-2025-09-25T09:32:19.5812875Z     None
-2025-09-25T09:32:19.5813040Z
-2025-09-25T09:32:19.5813049Z
-2025-09-25T09:32:19.5813058Z
-2025-09-25T09:32:19.5820120Z 2025-09-25T09:32:19.506Z  WARN 2244 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.5828925Z 2025-09-25T09:32:19.518Z  INFO 2244 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger :
-2025-09-25T09:32:19.5829554Z
-2025-09-25T09:32:19.5831542Z Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-09-25T09:32:19.5833235Z 2025-09-25T09:32:19.535Z ERROR 2244 --- [           main] o.s.boot.SpringApplication               : Application run failed
-2025-09-25T09:32:19.5833843Z
-2025-09-25T09:32:19.5839359Z org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.5844987Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5847217Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:545) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5849954Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5883569Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5886426Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5889188Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5891488Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5895071Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5897179Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5899073Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5900921Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5903053Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5905077Z 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166) ~[spring-context-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5907443Z 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940) ~[spring-context-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5909783Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5912189Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738) ~[spring-boot-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.5914066Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440) ~[spring-boot-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.5915590Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.5917400Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.5920136Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5921736Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5926644Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406) ~[spring-boot-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.5928585Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545) ~[spring-boot-test-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.5930782Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.5933086Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.5935633Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5938417Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5941366Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5943998Z 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5946555Z 	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5948695Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5950733Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.5953255Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5955762Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5958221Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5960088Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
-2025-09-25T09:32:19.5961261Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
-2025-09-25T09:32:19.5962945Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
-2025-09-25T09:32:19.5964189Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
-2025-09-25T09:32:19.5965871Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
-2025-09-25T09:32:19.5967324Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310) ~[na:na]
-2025-09-25T09:32:19.5968779Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735) ~[na:na]
-2025-09-25T09:32:19.5970015Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734) ~[na:na]
-2025-09-25T09:32:19.5973972Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[na:na]
-2025-09-25T09:32:19.5975939Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5978584Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5980920Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.5983523Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5986106Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5987660Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
-2025-09-25T09:32:19.5989280Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5991475Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5993736Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5995810Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.5997860Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.5999901Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6001885Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6004043Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6005968Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6007764Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6009062Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
-2025-09-25T09:32:19.6011073Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6013851Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6015915Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6018492Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6020300Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6022113Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6024552Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6026591Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6028496Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6029791Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
-2025-09-25T09:32:19.6099270Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6101760Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6103898Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6105954Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6107790Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6109599Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6111598Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6113880Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6115802Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6118162Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6120734Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6123097Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6125834Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6127982Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6130096Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6132245Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6135224Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6137550Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6139484Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6141174Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6143624Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6145640Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6147511Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6149600Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6151740Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6153705Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6155275Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6156732Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6158164Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6161906Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.6165534Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6167736Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:642) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6170479Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6173496Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6176226Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6178815Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6181132Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6183937Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6186048Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6187978Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6189972Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6192202Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6194711Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6196989Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6199122Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6200327Z 	... 99 common frames omitted
-2025-09-25T09:32:19.6202271Z Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.6205014Z 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:171) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6207136Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6208312Z 	... 113 common frames omitted
-2025-09-25T09:32:19.6209121Z Caused by: java.lang.IllegalStateException: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.6210196Z 	at org.springframework.util.Assert.state(Assert.java:97) ~[spring-core-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6212048Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.determineDriverClassName(DataSourceProperties.java:175) ~[spring-boot-autoconfigure-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6215027Z 	at org.springframework.boot.autoconfigure.jdbc.PropertiesJdbcConnectionDetails.getDriverClassName(PropertiesJdbcConnectionDetails.java:49) ~[spring-boot-autoconfigure-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6217666Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration.createDataSource(DataSourceConfiguration.java:55) ~[spring-boot-autoconfigure-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6220063Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari.dataSource(DataSourceConfiguration.java:117) ~[spring-boot-autoconfigure-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6221788Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-2025-09-25T09:32:19.6223312Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
-2025-09-25T09:32:19.6224827Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-2025-09-25T09:32:19.6226051Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
-2025-09-25T09:32:19.6227628Z 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6228938Z 	... 114 common frames omitted
-2025-09-25T09:32:19.6229200Z
-2025-09-25T09:32:19.6231544Z 2025-09-25T09:32:19.545Z ERROR 2244 --- [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.ai.qa.user.api.controller.UserControllerIntegrationTest@77401977]
-2025-09-25T09:32:19.6233974Z
-2025-09-25T09:32:19.6246953Z java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@1610c03c testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@63f9b562, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2b4d4327, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@10e5bf9c, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@583fb274, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@d32a3218], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
-2025-09-25T09:32:19.6259121Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:143) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6261490Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6263992Z 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6266482Z 	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6268652Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6270697Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6273244Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6275753Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6278260Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6280149Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
-2025-09-25T09:32:19.6281356Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
-2025-09-25T09:32:19.6282748Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
-2025-09-25T09:32:19.6283955Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
-2025-09-25T09:32:19.6285154Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
-2025-09-25T09:32:19.6286993Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310) ~[na:na]
-2025-09-25T09:32:19.6288405Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735) ~[na:na]
-2025-09-25T09:32:19.6289627Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734) ~[na:na]
-2025-09-25T09:32:19.6290852Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[na:na]
-2025-09-25T09:32:19.6292948Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6295601Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6297962Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6300343Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6303184Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6304809Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
-2025-09-25T09:32:19.6306505Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6308803Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6311039Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6313436Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6315553Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6317676Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
-2025-09-25T09:32:19.6319709Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6321752Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6323987Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6325800Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6327089Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
-2025-09-25T09:32:19.6329039Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6331571Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6333835Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6336216Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6337994Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6339824Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6342017Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6344318Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6346292Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6347653Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
-2025-09-25T09:32:19.6349673Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6352270Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6354579Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6356705Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6358531Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6360419Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6362666Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6364695Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6366635Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6369059Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6371643Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6374058Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6376271Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6378457Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6380615Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6382974Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6385702Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6388177Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6390227Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6391980Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6394238Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
-2025-09-25T09:32:19.6396168Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6398093Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6400258Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6402603Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6404549Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6406179Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6407621Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6409099Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.0.0.jar:3.0.0]
-2025-09-25T09:32:19.6415767Z Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.6421410Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6423907Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:545) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6426659Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6429579Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6432137Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6434746Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6437345Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6439445Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6441484Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6443511Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6445455Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6447462Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6449549Z 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166) ~[spring-context-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6451988Z 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940) ~[spring-context-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6454495Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6456276Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738) ~[spring-boot-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6457916Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440) ~[spring-boot-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6459508Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6461409Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6463466Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6465074Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6466665Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406) ~[spring-boot-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6468604Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545) ~[spring-boot-test-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6470687Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6472983Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6475520Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6478307Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119) ~[spring-test-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6479794Z 	... 73 common frames omitted
-2025-09-25T09:32:19.6483274Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.6487233Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6489465Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:642) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6492223Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6495313Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6498052Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6500701Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6503169Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6505423Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6507595Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6509536Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6511607Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6514112Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6516633Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6519018Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6521268Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6522610Z 	... 99 common frames omitted
-2025-09-25T09:32:19.6524581Z Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.6527179Z 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:171) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6529392Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6530627Z 	... 113 common frames omitted
-2025-09-25T09:32:19.6531466Z Caused by: java.lang.IllegalStateException: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.6532715Z 	at org.springframework.util.Assert.state(Assert.java:97) ~[spring-core-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6534640Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.determineDriverClassName(DataSourceProperties.java:175) ~[spring-boot-autoconfigure-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6537394Z 	at org.springframework.boot.autoconfigure.jdbc.PropertiesJdbcConnectionDetails.getDriverClassName(PropertiesJdbcConnectionDetails.java:49) ~[spring-boot-autoconfigure-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6540381Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration.createDataSource(DataSourceConfiguration.java:55) ~[spring-boot-autoconfigure-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6542994Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari.dataSource(DataSourceConfiguration.java:117) ~[spring-boot-autoconfigure-3.1.5.jar:3.1.5]
-2025-09-25T09:32:19.6544781Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-2025-09-25T09:32:19.6546140Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
-2025-09-25T09:32:19.6547724Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-2025-09-25T09:32:19.6548949Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
-2025-09-25T09:32:19.6550610Z 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139) ~[spring-beans-6.0.13.jar:6.0.13]
-2025-09-25T09:32:19.6551993Z 	... 114 common frames omitted
-2025-09-25T09:32:19.6552264Z
-2025-09-25T09:32:19.7210845Z [ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 6.203 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:32:19.7212835Z [ERROR] com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin  Time elapsed: 0 s  <<< ERROR!
-2025-09-25T09:32:19.7226440Z java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@1610c03c testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@63f9b562, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2b4d4327, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@10e5bf9c, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@583fb274, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@d32a3218], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
-2025-09-25T09:32:19.7246430Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:143)
-2025-09-25T09:32:19.7248389Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
-2025-09-25T09:32:19.7250310Z 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
-2025-09-25T09:32:19.7252327Z 	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
-2025-09-25T09:32:19.7254183Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241)
-2025-09-25T09:32:19.7255788Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138)
-2025-09-25T09:32:19.7257699Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377)
-2025-09-25T09:32:19.7260262Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382)
-2025-09-25T09:32:19.7262243Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377)
-2025-09-25T09:32:19.7263956Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-2025-09-25T09:32:19.7265031Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-2025-09-25T09:32:19.7266178Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
-2025-09-25T09:32:19.7267320Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-2025-09-25T09:32:19.7268440Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-2025-09-25T09:32:19.7269810Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
-2025-09-25T09:32:19.7271240Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
-2025-09-25T09:32:19.7272359Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
-2025-09-25T09:32:19.7273637Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
-2025-09-25T09:32:19.7275258Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376)
-2025-09-25T09:32:19.7277306Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289)
-2025-09-25T09:32:19.7279070Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.7280870Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288)
-2025-09-25T09:32:19.7283064Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278)
-2025-09-25T09:32:19.7284398Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
-2025-09-25T09:32:19.7285730Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277)
-2025-09-25T09:32:19.7287459Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
-2025-09-25T09:32:19.7289089Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105)
-2025-09-25T09:32:19.7290616Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.7292056Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
-2025-09-25T09:32:19.7293785Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
-2025-09-25T09:32:19.7295230Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
-2025-09-25T09:32:19.7296575Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.7297822Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
-2025-09-25T09:32:19.7299017Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
-2025-09-25T09:32:19.7299983Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-2025-09-25T09:32:19.7301557Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-2025-09-25T09:32:19.7304240Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-2025-09-25T09:32:19.7306275Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.7307777Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:32:19.7309072Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:32:19.7310355Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:32:19.7311802Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.7313451Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:32:19.7314698Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:32:19.7315624Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-2025-09-25T09:32:19.7317185Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-2025-09-25T09:32:19.7319079Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-2025-09-25T09:32:19.7320694Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.7322976Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:32:19.7324287Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:32:19.7325579Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:32:19.7327108Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:32:19.7328646Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:32:19.7330051Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:32:19.7331947Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-2025-09-25T09:32:19.7334143Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-2025-09-25T09:32:19.7335822Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-2025-09-25T09:32:19.7337478Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
-2025-09-25T09:32:19.7338405Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
-2025-09-25T09:32:19.7339702Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
-2025-09-25T09:32:19.7341217Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
-2025-09-25T09:32:19.7343557Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
-2025-09-25T09:32:19.7345294Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
-2025-09-25T09:32:19.7346727Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
-2025-09-25T09:32:19.7347677Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
-2025-09-25T09:32:19.7349298Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
-2025-09-25T09:32:19.7351066Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
-2025-09-25T09:32:19.7352746Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
-2025-09-25T09:32:19.7354822Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
-2025-09-25T09:32:19.7356770Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
-2025-09-25T09:32:19.7359272Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
-2025-09-25T09:32:19.7360425Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
-2025-09-25T09:32:19.7361538Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
-2025-09-25T09:32:19.7362798Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
-2025-09-25T09:32:19.7369006Z Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.7374523Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801)
-2025-09-25T09:32:19.7376294Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:545)
-2025-09-25T09:32:19.7378516Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
-2025-09-25T09:32:19.7380940Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
-2025-09-25T09:32:19.7384078Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
-2025-09-25T09:32:19.7386347Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
-2025-09-25T09:32:19.7388196Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
-2025-09-25T09:32:19.7389874Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-2025-09-25T09:32:19.7391958Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
-2025-09-25T09:32:19.7393422Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
-2025-09-25T09:32:19.7394628Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312)
-2025-09-25T09:32:19.7395639Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
-2025-09-25T09:32:19.7396594Z 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
-2025-09-25T09:32:19.7398443Z 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
-2025-09-25T09:32:19.7400311Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
-2025-09-25T09:32:19.7401649Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
-2025-09-25T09:32:19.7403049Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
-2025-09-25T09:32:19.7404645Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
-2025-09-25T09:32:19.7405995Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-2025-09-25T09:32:19.7407358Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
-2025-09-25T09:32:19.7408464Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
-2025-09-25T09:32:19.7409567Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406)
-2025-09-25T09:32:19.7410981Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545)
-2025-09-25T09:32:19.7412789Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-2025-09-25T09:32:19.7414377Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-2025-09-25T09:32:19.7416383Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187)
-2025-09-25T09:32:19.7418630Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119)
-2025-09-25T09:32:19.7419853Z 	... 73 more
-2025-09-25T09:32:19.7423556Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.7426736Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:654)
-2025-09-25T09:32:19.7428457Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:642)
-2025-09-25T09:32:19.7430677Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
-2025-09-25T09:32:19.7433320Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
-2025-09-25T09:32:19.7435521Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
-2025-09-25T09:32:19.7437784Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
-2025-09-25T09:32:19.7439662Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
-2025-09-25T09:32:19.7441417Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-2025-09-25T09:32:19.7443362Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
-2025-09-25T09:32:19.7444815Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
-2025-09-25T09:32:19.7446350Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-2025-09-25T09:32:19.7448123Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
-2025-09-25T09:32:19.7450045Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
-2025-09-25T09:32:19.7451887Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910)
-2025-09-25T09:32:19.7454183Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788)
-2025-09-25T09:32:19.7455168Z 	... 99 more
-2025-09-25T09:32:19.7457044Z Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.7459353Z 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:171)
-2025-09-25T09:32:19.7461070Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
-2025-09-25T09:32:19.7461811Z 	... 113 more
-2025-09-25T09:32:19.7462653Z Caused by: java.lang.IllegalStateException: Cannot load driver class: org.h2.Driver
-2025-09-25T09:32:19.7463547Z 	at org.springframework.util.Assert.state(Assert.java:97)
-2025-09-25T09:32:19.7464952Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.determineDriverClassName(DataSourceProperties.java:175)
-2025-09-25T09:32:19.7466963Z 	at org.springframework.boot.autoconfigure.jdbc.PropertiesJdbcConnectionDetails.getDriverClassName(PropertiesJdbcConnectionDetails.java:49)
-2025-09-25T09:32:19.7468903Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration.createDataSource(DataSourceConfiguration.java:55)
-2025-09-25T09:32:19.7470632Z 	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari.dataSource(DataSourceConfiguration.java:117)
-2025-09-25T09:32:19.7471996Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-2025-09-25T09:32:19.7473543Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-2025-09-25T09:32:19.7474918Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-2025-09-25T09:32:19.7475997Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-2025-09-25T09:32:19.7477297Z 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:139)
-2025-09-25T09:32:19.7478342Z 	... 114 more
-2025-09-25T09:32:19.7478523Z
-2025-09-25T09:32:19.7835515Z [INFO]
-2025-09-25T09:32:19.7842135Z [INFO] Results:
-2025-09-25T09:32:19.7842649Z [INFO]
-2025-09-25T09:32:19.7842940Z [ERROR] Errors:
-2025-09-25T09:32:19.7857948Z [ERROR]   UserControllerIntegrationTest.testLogin » IllegalState Failed to load ApplicationContext for [WebMergedContextConfiguration@1610c03c testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@63f9b562, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2b4d4327, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@10e5bf9c, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@583fb274, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@d32a3218], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
-2025-09-25T09:32:19.7946313Z [INFO]
-2025-09-25T09:32:19.7946855Z [ERROR] Tests run: 3, Failures: 0, Errors: 1, Skipped: 0
-2025-09-25T09:32:19.7947823Z [INFO]
-2025-09-25T09:32:19.7948392Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:32:19.7949073Z [INFO] Reactor Summary for ai-qa-backend 1.0-SNAPSHOT:
-2025-09-25T09:32:19.7953488Z [INFO]
-2025-09-25T09:32:19.7954083Z [INFO] ai-qa-backend ...................................... SUCCESS [  0.382 s]
-2025-09-25T09:32:19.7954936Z [INFO] user-service ....................................... FAILURE [ 20.418 s]
-2025-09-25T09:32:19.7955929Z [INFO] qa-service ......................................... SKIPPED
-2025-09-25T09:32:19.7957335Z [INFO] api-gateway ........................................ SKIPPED
-2025-09-25T09:32:19.7958096Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:32:19.7958664Z [INFO] BUILD FAILURE
-2025-09-25T09:32:19.7959271Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:32:19.7959872Z [INFO] Total time:  23.601 s
-2025-09-25T09:32:19.7960451Z [INFO] Finished at: 2025-09-25T09:32:19Z
-2025-09-25T09:32:19.7961168Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:32:19.7962895Z [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0:test (default-test) on project user-service:
-2025-09-25T09:32:19.7963828Z [ERROR]
-2025-09-25T09:32:19.7968586Z [ERROR] Please refer to /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/surefire-reports for the individual test results.
-2025-09-25T09:32:19.7970920Z [ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
-2025-09-25T09:32:19.7971917Z [ERROR] -> [Help 1]
-2025-09-25T09:32:19.7972533Z [ERROR]
-2025-09-25T09:32:19.7973395Z [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-2025-09-25T09:32:19.7974474Z [ERROR] Re-run Maven using the -X switch to enable full debug logging.
-2025-09-25T09:32:19.7975209Z [ERROR]
-2025-09-25T09:32:19.7976318Z [ERROR] For more information about the errors and possible solutions, please read the following articles:
-2025-09-25T09:32:19.7977978Z [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
-2025-09-25T09:32:19.7979068Z [ERROR]
-2025-09-25T09:32:19.7979939Z [ERROR] After correcting the problems, you can resume the build with the command
-2025-09-25T09:32:19.7980990Z [ERROR]   mvn <args> -rf :user-service
-2025-09-25T09:32:19.8414393Z ##[error]Process completed with exit code 1.
+2025-09-25T09:35:53.4389550Z [INFO] -------------------------------------------------------
+2025-09-25T09:35:53.4389866Z [INFO]  T E S T S
+2025-09-25T09:35:53.4390180Z [INFO] -------------------------------------------------------
+2025-09-25T09:35:54.0968139Z [INFO] Running com.ai.qa.user.api.controller.UserControllerTest
+2025-09-25T09:35:54.4742169Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2025-09-25T09:35:55.2344019Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.076 s - in com.ai.qa.user.api.controller.UserControllerTest
+2025-09-25T09:35:55.2368705Z [INFO] Running com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T09:35:55.4155649Z 09:35:55.384 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+2025-09-25T09:35:55.4162733Z 09:35:55.388 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2025-09-25T09:35:56.0158184Z 09:35:56.009 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2025-09-25T09:35:56.1158223Z 09:35:56.015 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+2025-09-25T09:35:56.1159196Z 09:35:56.031 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker:
+2025-09-25T09:35:56.1159751Z   Server Version: 28.0.4
+2025-09-25T09:35:56.1160010Z   API Version: 1.48
+2025-09-25T09:35:56.1160290Z   Operating System: Ubuntu 24.04.3 LTS
+2025-09-25T09:35:56.1160609Z   Total Memory: 15995 MB
+2025-09-25T09:35:56.1161641Z 09:35:56.053 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling docker image: testcontainers/ryuk:0.5.1. Please be patient; this may take some time but only needs to be done once.
+2025-09-25T09:35:57.0173943Z 09:35:56.952 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Starting to pull image
+2025-09-25T09:35:57.0175092Z 09:35:56.980 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2025-09-25T09:35:57.6185628Z 09:35:57.525 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (58 KB/? MB)
+2025-09-25T09:35:57.6187499Z 09:35:57.573 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (2 MB/? MB)
+2025-09-25T09:35:57.6189832Z 09:35:57.592 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (2 MB/5 MB)
+2025-09-25T09:35:57.7183180Z 09:35:57.670 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (2 MB/5 MB)
+2025-09-25T09:35:57.8192066Z 09:35:57.790 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (2 MB/5 MB)
+2025-09-25T09:35:57.9190146Z 09:35:57.838 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
+2025-09-25T09:35:57.9195322Z 09:35:57.845 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Image testcontainers/ryuk:0.5.1 pull took PT1.791352396S
+2025-09-25T09:35:57.9200965Z 09:35:57.875 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
+2025-09-25T09:35:58.0191199Z 09:35:57.949 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: 427509c7007d2318a77fac1fff431247b3162bf1cf4efe6a2b1b5211260ca319
+2025-09-25T09:35:58.3199666Z 09:35:58.316 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT0.440928149S
+2025-09-25T09:35:58.4197023Z 09:35:58.325 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2025-09-25T09:35:58.4198904Z 09:35:58.326 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+2025-09-25T09:35:58.4200261Z 09:35:58.326 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+2025-09-25T09:35:58.4201300Z 09:35:58.329 [main] INFO tc.redis:latest -- Pulling docker image: redis:latest. Please be patient; this may take some time but only needs to be done once.
+2025-09-25T09:35:59.2208438Z 09:35:59.201 [docker-java-stream-328759547] INFO tc.redis:latest -- Starting to pull image
+2025-09-25T09:35:59.2209694Z 09:35:59.202 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2025-09-25T09:35:59.8218122Z 09:35:59.729 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (874 bytes/? MB)
+2025-09-25T09:35:59.8219822Z 09:35:59.736 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (1 KB/? MB)
+2025-09-25T09:36:00.0221899Z 09:35:59.999 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (21 MB/? MB)
+2025-09-25T09:36:00.1223746Z 09:36:00.040 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  3 pending,  4 downloaded,  0 extracted, (21 MB/? MB)
+2025-09-25T09:36:00.3226005Z 09:36:00.225 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  2 pending,  5 downloaded,  0 extracted, (27 MB/? MB)
+2025-09-25T09:36:00.3228001Z 09:36:00.283 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  0 extracted, (27 MB/? MB)
+2025-09-25T09:36:00.4227728Z 09:36:00.342 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  0 extracted, (27 MB/49 MB)
+2025-09-25T09:36:01.1236365Z 09:36:01.080 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  1 extracted, (33 MB/49 MB)
+2025-09-25T09:36:01.2239881Z 09:36:01.198 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  2 extracted, (33 MB/49 MB)
+2025-09-25T09:36:01.2241841Z 09:36:01.219 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  3 extracted, (33 MB/49 MB)
+2025-09-25T09:36:01.6244472Z 09:36:01.537 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  4 extracted, (49 MB/49 MB)
+2025-09-25T09:36:01.6247529Z 09:36:01.546 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  5 extracted, (49 MB/49 MB)
+2025-09-25T09:36:01.6248624Z 09:36:01.556 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  6 extracted, (49 MB/49 MB)
+2025-09-25T09:36:01.6249627Z 09:36:01.575 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  7 extracted, (49 MB/49 MB)
+2025-09-25T09:36:01.6250360Z 09:36:01.580 [main] INFO tc.redis:latest -- Image redis:latest pull took PT3.25120301S
+2025-09-25T09:36:01.6251134Z 09:36:01.580 [docker-java-stream-328759547] INFO tc.redis:latest -- Pull complete. 7 layers, pulled in 2s (downloaded 49 MB at 24 MB/s)
+2025-09-25T09:36:01.6251897Z 09:36:01.583 [main] INFO tc.redis:latest -- Creating container for image: redis:latest
+2025-09-25T09:36:01.6252707Z 09:36:01.597 [main] INFO tc.redis:latest -- Container redis:latest is starting: 7827f0b6ba6ece361605f6cfd2d36c24f6d704b0fb6fcf804513a04281f3d5f2
+2025-09-25T09:36:01.8260715Z 09:36:01.801 [main] INFO tc.redis:latest -- Container redis:latest started in PT0.217665914S
+2025-09-25T09:36:01.9265259Z 09:36:01.896 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ai.qa.user.api.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-09-25T09:36:02.1269028Z 09:36:02.058 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ai.qa.user.UserServiceApplication for test class com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T09:36:02.5286829Z 2025-09-25T09:36:02.481Z  INFO 2234 --- [           main] c.a.n.client.env.SearchableProperties    : properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
+2025-09-25T09:36:02.5293935Z 2025-09-25T09:36:02.483Z  WARN 2234 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
+2025-09-25T09:36:02.5298292Z
+2025-09-25T09:36:02.5301884Z   .   ____          _            __ _ _
+2025-09-25T09:36:02.5306193Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2025-09-25T09:36:02.5309969Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2025-09-25T09:36:02.5311717Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2025-09-25T09:36:02.5312208Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2025-09-25T09:36:02.5312648Z  =========|_|==============|___/=/_/_/_/
+2025-09-25T09:36:02.5313320Z  :: Spring Boot ::                (v3.1.5)
+2025-09-25T09:36:02.5313626Z
+2025-09-25T09:36:02.5314929Z 2025-09-25T09:36:02.519Z  WARN 2234 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
+2025-09-25T09:36:02.6274362Z 2025-09-25T09:36:02.530Z  INFO 2234 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Starting UserControllerIntegrationTest using Java 17.0.16 with PID 2234 (started by runner in /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service)
+2025-09-25T09:36:02.6276976Z 2025-09-25T09:36:02.531Z  INFO 2234 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : The following 1 profile is active: "test"
+2025-09-25T09:36:03.3305419Z 2025-09-25T09:36:03.283Z  INFO 2234 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-25T09:36:03.3313855Z 2025-09-25T09:36:03.326Z  INFO 2234 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 1 JPA repository interfaces.
+2025-09-25T09:36:03.5315569Z 2025-09-25T09:36:03.513Z  INFO 2234 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=23a416e6-732d-3a9f-9089-c4013f9a249d
+2025-09-25T09:36:03.7323216Z 2025-09-25T09:36:03.701Z  INFO 2234 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-25T09:36:03.8340616Z 2025-09-25T09:36:03.826Z  INFO 2234 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-09-25T09:36:03.8344415Z 2025-09-25T09:36:03.828Z  INFO 2234 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-25T09:36:03.8898770Z 2025-09-25T09:36:03.848Z  WARN 2234 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T09:36:03.8904409Z 2025-09-25T09:36:03.849Z  INFO 2234 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-09-25T09:36:03.8906039Z 2025-09-25T09:36:03.851Z  INFO 2234 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-09-25T09:36:03.8907565Z 2025-09-25T09:36:03.864Z  INFO 2234 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger :
+2025-09-25T09:36:03.8908162Z
+2025-09-25T09:36:03.8909137Z Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-09-25T09:36:03.8933745Z
+2025-09-25T09:36:03.8933770Z
+2025-09-25T09:36:03.8933779Z
+2025-09-25T09:36:03.8933992Z ============================
+2025-09-25T09:36:03.8934441Z CONDITIONS EVALUATION REPORT
+2025-09-25T09:36:03.8934840Z ============================
+2025-09-25T09:36:03.8935063Z
+2025-09-25T09:36:03.8935073Z
+2025-09-25T09:36:03.8935225Z Positive matches:
+2025-09-25T09:36:03.8935540Z -----------------
+2025-09-25T09:36:03.8935730Z
+2025-09-25T09:36:03.8935835Z     None
+2025-09-25T09:36:03.8935986Z
+2025-09-25T09:36:03.8935996Z
+2025-09-25T09:36:03.8936140Z Negative matches:
+2025-09-25T09:36:03.8936458Z -----------------
+2025-09-25T09:36:03.8948744Z
+2025-09-25T09:36:03.8948886Z     None
+2025-09-25T09:36:03.8949052Z
+2025-09-25T09:36:03.8949065Z
+2025-09-25T09:36:03.8949207Z Exclusions:
+2025-09-25T09:36:03.8949476Z -----------
+2025-09-25T09:36:03.8949658Z
+2025-09-25T09:36:03.8949788Z     None
+2025-09-25T09:36:03.8949929Z
+2025-09-25T09:36:03.8949937Z
+2025-09-25T09:36:03.8950090Z Unconditional classes:
+2025-09-25T09:36:03.8950434Z ----------------------
+2025-09-25T09:36:03.8950626Z
+2025-09-25T09:36:03.8950736Z     None
+2025-09-25T09:36:03.8950879Z
+2025-09-25T09:36:03.8950888Z
+2025-09-25T09:36:03.8950897Z
+2025-09-25T09:36:03.8951633Z 2025-09-25T09:36:03.876Z ERROR 2234 --- [           main] o.s.boot.SpringApplication               : Application run failed
+2025-09-25T09:36:03.8952252Z
+2025-09-25T09:36:03.8961539Z org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T09:36:03.8967213Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8969799Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8972385Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8974586Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8976913Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8979261Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8981149Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8983077Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8985017Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8987033Z 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166) ~[spring-context-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8989861Z 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940) ~[spring-context-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8992232Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.8994027Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.8995608Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.8997164Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.8999317Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9001318Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9003020Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9004657Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9006639Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9009126Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9011345Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9013993Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9017618Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9020110Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9023032Z 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9025472Z 	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9027791Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9028969Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9031009Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9032386Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9033930Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9035333Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+2025-09-25T09:36:03.9036485Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+2025-09-25T09:36:03.9037483Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
+2025-09-25T09:36:03.9038512Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+2025-09-25T09:36:03.9039197Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+2025-09-25T09:36:03.9040000Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310) ~[na:na]
+2025-09-25T09:36:03.9040878Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735) ~[na:na]
+2025-09-25T09:36:03.9041550Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734) ~[na:na]
+2025-09-25T09:36:03.9042230Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[na:na]
+2025-09-25T09:36:03.9043341Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9044853Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9046859Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9050881Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9053337Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9054241Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+2025-09-25T09:36:03.9055169Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9057580Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9059788Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9061848Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9063860Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9065890Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9068018Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9069968Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9071821Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9073609Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9074870Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2025-09-25T09:36:03.9076839Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9079732Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9081811Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9083911Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9085707Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9087694Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9089752Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9091960Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9093919Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9095198Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2025-09-25T09:36:03.9097157Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9099969Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9102078Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9104677Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9106553Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9108603Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9110718Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9112717Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9114661Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9117074Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9119821Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9121982Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9124120Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9126132Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9128359Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9130550Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9132938Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9135247Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9137084Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9145563Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9147751Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9149728Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9155969Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9158541Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9160605Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9162476Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9164504Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9165950Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9167572Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9171316Z Caused by: org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #1 of file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T09:36:03.9174502Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:282) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9176431Z 	at org.springframework.jdbc.datasource.init.ResourceDatabasePopulator.populate(ResourceDatabasePopulator.java:254) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9178687Z 	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:54) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9180946Z 	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9183334Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9185769Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9188356Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyDataScripts(AbstractScriptDatabaseInitializer.java:102) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9190840Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:77) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9193288Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9195821Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9198628Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9200072Z 	... 96 common frames omitted
+2025-09-25T09:36:03.9201121Z Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+2025-09-25T09:36:03.9203074Z INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) [42104-214]
+2025-09-25T09:36:03.9204634Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9205720Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9206537Z 	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9209970Z 	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9211197Z 	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8385) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9212550Z 	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8369) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9214112Z 	at org.h2.command.Parser.readTableOrView(Parser.java:8358) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9215124Z 	at org.h2.command.Parser.readTableOrView(Parser.java:8328) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9216087Z 	at org.h2.command.Parser.parseInsert(Parser.java:1632) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9217016Z 	at org.h2.command.Parser.parsePrepared(Parser.java:814) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9218064Z 	at org.h2.command.Parser.parse(Parser.java:689) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9218886Z 	at org.h2.command.Parser.parse(Parser.java:661) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9219789Z 	at org.h2.command.Parser.prepareCommand(Parser.java:569) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9220836Z 	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9221911Z 	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9223084Z 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9224226Z 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9225296Z 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9226444Z 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+2025-09-25T09:36:03.9227983Z 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+2025-09-25T09:36:03.9229673Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:261) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9230745Z 	... 106 common frames omitted
+2025-09-25T09:36:03.9231005Z
+2025-09-25T09:36:03.9233370Z 2025-09-25T09:36:03.885Z ERROR 2234 --- [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.ai.qa.user.api.controller.UserControllerIntegrationTest@3c9cfcde]
+2025-09-25T09:36:03.9235351Z
+2025-09-25T09:36:03.9248636Z java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@d17d554 testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5426cb36, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@671ea6ff, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@1624775, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@1989e8c6, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@4d50b96c], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+2025-09-25T09:36:03.9260842Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:143) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9263344Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9266188Z 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9268785Z 	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9270455Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9271581Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9272877Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9274240Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9275580Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9276590Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+2025-09-25T09:36:03.9277236Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+2025-09-25T09:36:03.9278628Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
+2025-09-25T09:36:03.9279921Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+2025-09-25T09:36:03.9281189Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+2025-09-25T09:36:03.9282659Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310) ~[na:na]
+2025-09-25T09:36:03.9284051Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735) ~[na:na]
+2025-09-25T09:36:03.9285240Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734) ~[na:na]
+2025-09-25T09:36:03.9286508Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[na:na]
+2025-09-25T09:36:03.9289853Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9292649Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9294454Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9296911Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9299708Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9301327Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+2025-09-25T09:36:03.9303038Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9305330Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9308105Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9310199Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9312213Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9314235Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T09:36:03.9316220Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9318481Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9320470Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9322304Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9323580Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2025-09-25T09:36:03.9325528Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9328180Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9330196Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9332221Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9333974Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9335767Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9337889Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9339876Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9341739Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9343005Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2025-09-25T09:36:03.9344948Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9347765Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9349763Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9351673Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9353294Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9355464Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9357642Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9359677Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9361622Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9364001Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9366519Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9368895Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9371100Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9373277Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9375434Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9377756Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9380057Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9382326Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9384181Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9385821Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9388127Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T09:36:03.9390042Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9391917Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9393982Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9396032Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9398055Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9399608Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9400998Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9402761Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T09:36:03.9408156Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T09:36:03.9413051Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9415586Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9418265Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9420465Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9422606Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9424701Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9426567Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9428693Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9430534Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9432482Z 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166) ~[spring-context-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9434785Z 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940) ~[spring-context-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9437013Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9438752Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9440189Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9441574Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9443232Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9444917Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9446329Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9447896Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9449658Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9452012Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9453973Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9456262Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9459173Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9460639Z 	... 73 common frames omitted
+2025-09-25T09:36:03.9463911Z Caused by: org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #1 of file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T09:36:03.9467221Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:282) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9469389Z 	at org.springframework.jdbc.datasource.init.ResourceDatabasePopulator.populate(ResourceDatabasePopulator.java:254) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9471470Z 	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:54) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9473671Z 	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9476016Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9478597Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9480990Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyDataScripts(AbstractScriptDatabaseInitializer.java:102) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9483441Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:77) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9485830Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T09:36:03.9488499Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9491092Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9492504Z 	... 96 common frames omitted
+2025-09-25T09:36:03.9493526Z Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+2025-09-25T09:36:03.9495433Z INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) [42104-214]
+2025-09-25T09:36:03.9497040Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9498384Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9499860Z 	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9500797Z 	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9501926Z 	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8385) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9503246Z 	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8369) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9504378Z 	at org.h2.command.Parser.readTableOrView(Parser.java:8358) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9505354Z 	at org.h2.command.Parser.readTableOrView(Parser.java:8328) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9506304Z 	at org.h2.command.Parser.parseInsert(Parser.java:1632) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9507228Z 	at org.h2.command.Parser.parsePrepared(Parser.java:814) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9508313Z 	at org.h2.command.Parser.parse(Parser.java:689) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9509127Z 	at org.h2.command.Parser.parse(Parser.java:661) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9510010Z 	at org.h2.command.Parser.prepareCommand(Parser.java:569) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9511061Z 	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9512182Z 	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9522588Z 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9523916Z 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9525044Z 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T09:36:03.9526229Z 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+2025-09-25T09:36:03.9527813Z 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+2025-09-25T09:36:03.9529446Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:261) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T09:36:03.9530533Z 	... 106 common frames omitted
+2025-09-25T09:36:03.9530788Z
+2025-09-25T09:36:04.0732568Z [ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 8.828 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T09:36:04.0734751Z [ERROR] com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin  Time elapsed: 0.001 s  <<< ERROR!
+2025-09-25T09:36:04.0749042Z java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@d17d554 testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5426cb36, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@671ea6ff, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@1624775, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@1989e8c6, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@4d50b96c], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+2025-09-25T09:36:04.0761366Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:143)
+2025-09-25T09:36:04.0763428Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
+2025-09-25T09:36:04.0765453Z 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
+2025-09-25T09:36:04.0767805Z 	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
+2025-09-25T09:36:04.0769652Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241)
+2025-09-25T09:36:04.0772015Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138)
+2025-09-25T09:36:04.0774246Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377)
+2025-09-25T09:36:04.0777809Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382)
+2025-09-25T09:36:04.0779785Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377)
+2025-09-25T09:36:04.0781351Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+2025-09-25T09:36:04.0782473Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+2025-09-25T09:36:04.0783661Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+2025-09-25T09:36:04.0784792Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+2025-09-25T09:36:04.0785932Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+2025-09-25T09:36:04.0787513Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
+2025-09-25T09:36:04.0788840Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
+2025-09-25T09:36:04.0789981Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
+2025-09-25T09:36:04.0791143Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+2025-09-25T09:36:04.0792790Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376)
+2025-09-25T09:36:04.0794899Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289)
+2025-09-25T09:36:04.0796731Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:36:04.0798716Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288)
+2025-09-25T09:36:04.0800700Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278)
+2025-09-25T09:36:04.0801959Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+2025-09-25T09:36:04.0803271Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277)
+2025-09-25T09:36:04.0804930Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
+2025-09-25T09:36:04.0806487Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105)
+2025-09-25T09:36:04.0809392Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:36:04.0811313Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
+2025-09-25T09:36:04.0812798Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
+2025-09-25T09:36:04.0814281Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
+2025-09-25T09:36:04.0815683Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:36:04.0817158Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
+2025-09-25T09:36:04.0821434Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
+2025-09-25T09:36:04.0822452Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+2025-09-25T09:36:04.0824072Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+2025-09-25T09:36:04.0826038Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+2025-09-25T09:36:04.0827747Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:36:04.0829237Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+2025-09-25T09:36:04.0830491Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+2025-09-25T09:36:04.0832110Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+2025-09-25T09:36:04.0833650Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:36:04.0835111Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+2025-09-25T09:36:04.0836515Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+2025-09-25T09:36:04.0837921Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+2025-09-25T09:36:04.0839434Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+2025-09-25T09:36:04.0841326Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+2025-09-25T09:36:04.0842819Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:36:04.0844321Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+2025-09-25T09:36:04.0845584Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+2025-09-25T09:36:04.0846848Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+2025-09-25T09:36:04.0848538Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:36:04.0850062Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+2025-09-25T09:36:04.0851475Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+2025-09-25T09:36:04.0853349Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+2025-09-25T09:36:04.0855184Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+2025-09-25T09:36:04.0856749Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+2025-09-25T09:36:04.0858725Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
+2025-09-25T09:36:04.0860818Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
+2025-09-25T09:36:04.0862390Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
+2025-09-25T09:36:04.0864006Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
+2025-09-25T09:36:04.0865815Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
+2025-09-25T09:36:04.0867922Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
+2025-09-25T09:36:04.0868915Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+2025-09-25T09:36:04.0869561Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+2025-09-25T09:36:04.0870319Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+2025-09-25T09:36:04.0871469Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
+2025-09-25T09:36:04.0872693Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+2025-09-25T09:36:04.0874549Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+2025-09-25T09:36:04.0875710Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+2025-09-25T09:36:04.0876953Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+2025-09-25T09:36:04.0878192Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+2025-09-25T09:36:04.0879022Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+2025-09-25T09:36:04.0879817Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2025-09-25T09:36:04.0883870Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T09:36:04.0887073Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+2025-09-25T09:36:04.0888617Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+2025-09-25T09:36:04.0889901Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+2025-09-25T09:36:04.0891018Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+2025-09-25T09:36:04.0892060Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+2025-09-25T09:36:04.0893110Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+2025-09-25T09:36:04.0894023Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+2025-09-25T09:36:04.0894918Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312)
+2025-09-25T09:36:04.0895810Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+2025-09-25T09:36:04.0896744Z 	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+2025-09-25T09:36:04.0898469Z 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+2025-09-25T09:36:04.0899656Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+2025-09-25T09:36:04.0900490Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+2025-09-25T09:36:04.0901202Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+2025-09-25T09:36:04.0901851Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+2025-09-25T09:36:04.0902735Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
+2025-09-25T09:36:04.0903633Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+2025-09-25T09:36:04.0904438Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+2025-09-25T09:36:04.0905483Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406)
+2025-09-25T09:36:04.0906939Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545)
+2025-09-25T09:36:04.0908863Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
+2025-09-25T09:36:04.0910465Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
+2025-09-25T09:36:04.0912463Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187)
+2025-09-25T09:36:04.0914809Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119)
+2025-09-25T09:36:04.0916132Z 	... 73 more
+2025-09-25T09:36:04.0919748Z Caused by: org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #1 of file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T09:36:04.0922673Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:282)
+2025-09-25T09:36:04.0924315Z 	at org.springframework.jdbc.datasource.init.ResourceDatabasePopulator.populate(ResourceDatabasePopulator.java:254)
+2025-09-25T09:36:04.0925668Z 	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:54)
+2025-09-25T09:36:04.0927725Z 	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87)
+2025-09-25T09:36:04.0929749Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146)
+2025-09-25T09:36:04.0931682Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108)
+2025-09-25T09:36:04.0933697Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyDataScripts(AbstractScriptDatabaseInitializer.java:102)
+2025-09-25T09:36:04.0937142Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:77)
+2025-09-25T09:36:04.0940707Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66)
+2025-09-25T09:36:04.0942836Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+2025-09-25T09:36:04.0946192Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+2025-09-25T09:36:04.0947962Z 	... 96 more
+2025-09-25T09:36:04.0948962Z Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+2025-09-25T09:36:04.0950867Z INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) [42104-214]
+2025-09-25T09:36:04.0952291Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+2025-09-25T09:36:04.0953196Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+2025-09-25T09:36:04.0953990Z 	at org.h2.message.DbException.get(DbException.java:223)
+2025-09-25T09:36:04.0954679Z 	at org.h2.message.DbException.get(DbException.java:199)
+2025-09-25T09:36:04.0955534Z 	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8385)
+2025-09-25T09:36:04.0956576Z 	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8369)
+2025-09-25T09:36:04.0957715Z 	at org.h2.command.Parser.readTableOrView(Parser.java:8358)
+2025-09-25T09:36:04.0960000Z 	at org.h2.command.Parser.readTableOrView(Parser.java:8328)
+2025-09-25T09:36:04.0960724Z 	at org.h2.command.Parser.parseInsert(Parser.java:1632)
+2025-09-25T09:36:04.0961415Z 	at org.h2.command.Parser.parsePrepared(Parser.java:814)
+2025-09-25T09:36:04.0962079Z 	at org.h2.command.Parser.parse(Parser.java:689)
+2025-09-25T09:36:04.0962693Z 	at org.h2.command.Parser.parse(Parser.java:661)
+2025-09-25T09:36:04.0963350Z 	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+2025-09-25T09:36:04.0964129Z 	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+2025-09-25T09:36:04.0964945Z 	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+2025-09-25T09:36:04.0965812Z 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+2025-09-25T09:36:04.0966676Z 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+2025-09-25T09:36:04.0968301Z 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+2025-09-25T09:36:04.0969176Z 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+2025-09-25T09:36:04.0970177Z 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+2025-09-25T09:36:04.0971407Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:261)
+2025-09-25T09:36:04.0972231Z 	... 106 more
+2025-09-25T09:36:04.0972404Z
+2025-09-25T09:36:04.1163720Z [INFO]
+2025-09-25T09:36:04.1165190Z [INFO] Results:
+2025-09-25T09:36:04.1166492Z [INFO]
+2025-09-25T09:36:04.1172202Z [ERROR] Errors:
+2025-09-25T09:36:04.1197589Z [ERROR]   UserControllerIntegrationTest.testLogin » IllegalState Failed to load ApplicationContext for [WebMergedContextConfiguration@d17d554 testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5426cb36, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@671ea6ff, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@1624775, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@1989e8c6, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@4d50b96c], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+2025-09-25T09:36:04.1209896Z [INFO]
+2025-09-25T09:36:04.1210416Z [ERROR] Tests run: 3, Failures: 0, Errors: 1, Skipped: 0
+2025-09-25T09:36:04.1210923Z [INFO]
+2025-09-25T09:36:04.1211515Z [INFO] ------------------------------------------------------------------------
+2025-09-25T09:36:04.1216164Z [INFO] Reactor Summary for ai-qa-backend 1.0-SNAPSHOT:
+2025-09-25T09:36:04.1220176Z [INFO]
+2025-09-25T09:36:04.1223081Z [INFO] ai-qa-backend ...................................... SUCCESS [  0.363 s]
+2025-09-25T09:36:04.1233083Z [INFO] user-service ....................................... FAILURE [ 21.890 s]
+2025-09-25T09:36:04.1234016Z [INFO] qa-service ......................................... SKIPPED
+2025-09-25T09:36:04.1234855Z [INFO] api-gateway ........................................ SKIPPED
+2025-09-25T09:36:04.1235674Z [INFO] ------------------------------------------------------------------------
+2025-09-25T09:36:04.1236278Z [INFO] BUILD FAILURE
+2025-09-25T09:36:04.1236872Z [INFO] ------------------------------------------------------------------------
+2025-09-25T09:36:04.1238849Z [INFO] Total time:  26.107 s
+2025-09-25T09:36:04.1239413Z [INFO] Finished at: 2025-09-25T09:36:04Z
+2025-09-25T09:36:04.1246272Z [INFO] ------------------------------------------------------------------------
+2025-09-25T09:36:04.1248341Z [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0:test (default-test) on project user-service:
+2025-09-25T09:36:04.1249281Z [ERROR]
+2025-09-25T09:36:04.1250568Z [ERROR] Please refer to /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/surefire-reports for the individual test results.
+2025-09-25T09:36:04.1252212Z [ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+2025-09-25T09:36:04.1252924Z [ERROR] -> [Help 1]
+2025-09-25T09:36:04.1253251Z [ERROR]
+2025-09-25T09:36:04.1253923Z [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+2025-09-25T09:36:04.1254847Z [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+2025-09-25T09:36:04.1255425Z [ERROR]
+2025-09-25T09:36:04.1256273Z [ERROR] For more information about the errors and possible solutions, please read the following articles:
+2025-09-25T09:36:04.1257681Z [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+2025-09-25T09:36:04.1258343Z [ERROR]
+2025-09-25T09:36:04.1259011Z [ERROR] After correcting the problems, you can resume the build with the command
+2025-09-25T09:36:04.1259734Z [ERROR]   mvn <args> -rf :user-service
+2025-09-25T09:36:04.1592500Z ##[error]Process completed with exit code 1.

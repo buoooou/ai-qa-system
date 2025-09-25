@@ -4,6 +4,10 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,7 +15,6 @@ spring:
     show-sql: true
     properties:
       hibernate:
-  format_sql: true
   data:
     redis:
       host: localhost
