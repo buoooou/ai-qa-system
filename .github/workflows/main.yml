@@ -113,7 +113,10 @@ jobs:
     - name: Build and Push Frontend
       run: |
         cd frontend-nextjs
-        npm ci
+        # 清理缓存
+        rm -rf .next node_modules package-lock.json
+        # 使用更稳定的 Node.js 版本兼容性设置
+        npm install --legacy-peer-deps
         npm run build
         
         docker build -t ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.FRONTEND_IMAGE }}:latest .
