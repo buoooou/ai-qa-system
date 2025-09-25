@@ -1,1 +1,1 @@
-INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', '$2a$10$7EqJtq98hPqEX7fNZaFWoOhi5gkY5r6v2F6l3eF8z4pQfQX0Cq9lO', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
