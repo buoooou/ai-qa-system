@@ -1,13 +1,12 @@
-
-Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.9.3/junit-platform-launcher-1.9.3.jar (169 kB at 9.4 MB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.9.3/junit-platform-launcher-1.9.3.jar (169 kB at 15 MB/s)
 [INFO]
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.ai.qa.user.api.controller.UserControllerTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-Error:  Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.158 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerTest
-Error:  com.ai.qa.user.api.controller.UserControllerTest.login_Success  Time elapsed: 1.113 s  <<< FAILURE!
+Error:  Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.183 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerTest
+Error:  com.ai.qa.user.api.controller.UserControllerTest.login_Success  Time elapsed: 1.14 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <200> but was: <401>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -15,7 +14,7 @@ org.opentest4j.AssertionFailedError: expected: <200> but was: <401>
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:528)
-	at com.ai.qa.user.api.controller.UserControllerTest.login_Success(UserControllerTest.java:47)
+	at com.ai.qa.user.api.controller.UserControllerTest.login_Success(UserControllerTest.java:48)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -89,57 +88,57 @@ org.opentest4j.AssertionFailedError: expected: <200> but was: <401>
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
 [INFO] Running com.ai.qa.user.api.controller.UserControllerIntegrationTest
-08:51:25.868 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
-08:51:25.873 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-08:51:26.508 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
-08:51:26.514 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
-08:51:26.535 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker:
+09:09:16.044 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+09:09:16.048 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+09:09:16.751 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+09:09:16.756 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+09:09:16.771 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker:
   Server Version: 28.0.4
   API Version: 1.48
   Operating System: Ubuntu 24.04.3 LTS
   Total Memory: 15995 MB
-08:51:26.559 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling docker image: testcontainers/ryuk:0.5.1. Please be patient; this may take some time but only needs to be done once.
-08:51:27.221 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Starting to pull image
-08:51:27.250 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-08:51:27.540 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (31 KB/? MB)
-08:51:27.579 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (59 KB/? MB)
-08:51:27.604 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (59 KB/5 MB)
-08:51:27.696 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (2 MB/5 MB)
-08:51:27.803 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (2 MB/5 MB)
-08:51:27.848 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
-08:51:27.856 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Image testcontainers/ryuk:0.5.1 pull took PT1.297177504S
-08:51:27.885 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
-08:51:27.956 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: 8313c475714c10656f6dd926917a610cce151ff91caef9fdf5983138bd687698
-08:51:28.274 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT0.388330705S
-08:51:28.279 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-08:51:28.280 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
-08:51:28.280 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
-08:51:28.283 [main] INFO tc.redis:latest -- Pulling docker image: redis:latest. Please be patient; this may take some time but only needs to be done once.
-08:51:28.750 [docker-java-stream-328759547] INFO tc.redis:latest -- Starting to pull image
-08:51:28.751 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-08:51:29.051 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (1 KB/? MB)
-08:51:29.071 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (1 KB/? MB)
-08:51:29.232 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (13 MB/? MB)
-08:51:29.240 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  3 pending,  4 downloaded,  0 extracted, (13 MB/? MB)
-08:51:29.382 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  2 pending,  5 downloaded,  0 extracted, (29 MB/? MB)
-08:51:29.402 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  0 extracted, (29 MB/? MB)
-08:51:29.414 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  0 extracted, (29 MB/49 MB)
-08:51:30.315 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  1 extracted, (42 MB/49 MB)
-08:51:30.434 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  2 extracted, (42 MB/49 MB)
-08:51:30.449 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  3 extracted, (42 MB/49 MB)
-08:51:30.770 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  4 extracted, (49 MB/49 MB)
-08:51:30.780 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  5 extracted, (49 MB/49 MB)
-08:51:30.788 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  6 extracted, (49 MB/49 MB)
-08:51:30.807 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  7 extracted, (49 MB/49 MB)
-08:51:30.814 [main] INFO tc.redis:latest -- Image redis:latest pull took PT2.530676271S
-08:51:30.814 [docker-java-stream-328759547] INFO tc.redis:latest -- Pull complete. 7 layers, pulled in 2s (downloaded 49 MB at 24 MB/s)
-08:51:30.816 [main] INFO tc.redis:latest -- Creating container for image: redis:latest
-08:51:30.831 [main] INFO tc.redis:latest -- Container redis:latest is starting: ccf4fa8863e22d9d466def703edfbc64dde9f9d1a4b9c6ef499940c5df009079
-08:51:31.037 [main] INFO tc.redis:latest -- Container redis:latest started in PT0.220885632S
-08:51:31.148 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ai.qa.user.api.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-08:51:31.365 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ai.qa.user.UserServiceApplication for test class com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T08:51:31.779Z  INFO 2235 --- [           main] c.a.n.client.env.SearchableProperties    : properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
-2025-09-25T08:51:31.780Z  WARN 2235 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
+09:09:16.807 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling docker image: testcontainers/ryuk:0.5.1. Please be patient; this may take some time but only needs to be done once.
+09:09:17.111 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Starting to pull image
+09:09:17.141 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+09:09:17.289 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (59 KB/? MB)
+09:09:17.298 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (59 KB/? MB)
+09:09:17.327 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (59 KB/5 MB)
+09:09:17.423 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (2 MB/5 MB)
+09:09:17.614 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (2 MB/5 MB)
+09:09:17.657 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
+09:09:17.663 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Image testcontainers/ryuk:0.5.1 pull took PT0.854908736S
+09:09:17.691 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
+09:09:17.767 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: 2d7d8e0b55edc0cde59530225d837b722576f9cd55f553e528646d769bb1a8a1
+09:09:18.759 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT1.06788135S
+09:09:18.767 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+09:09:18.767 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+09:09:18.768 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+09:09:18.771 [main] INFO tc.redis:latest -- Pulling docker image: redis:latest. Please be patient; this may take some time but only needs to be done once.
+09:09:18.988 [docker-java-stream-328759547] INFO tc.redis:latest -- Starting to pull image
+09:09:18.989 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+09:09:19.120 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (1 KB/? MB)
+09:09:19.131 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (1 KB/? MB)
+09:09:19.212 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (282 KB/? MB)
+09:09:19.275 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  3 pending,  4 downloaded,  0 extracted, (17 MB/? MB)
+09:09:19.283 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  2 pending,  5 downloaded,  0 extracted, (17 MB/? MB)
+09:09:19.356 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  0 extracted, (34 MB/? MB)
+09:09:19.369 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  0 extracted, (34 MB/49 MB)
+09:09:20.607 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  1 extracted, (43 MB/49 MB)
+09:09:20.719 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  2 extracted, (43 MB/49 MB)
+09:09:20.733 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  3 extracted, (43 MB/49 MB)
+09:09:21.051 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  4 extracted, (49 MB/49 MB)
+09:09:21.065 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  5 extracted, (49 MB/49 MB)
+09:09:21.075 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  6 extracted, (49 MB/49 MB)
+09:09:21.099 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  7 extracted, (49 MB/49 MB)
+09:09:21.105 [main] INFO tc.redis:latest -- Image redis:latest pull took PT2.334485649S
+09:09:21.105 [docker-java-stream-328759547] INFO tc.redis:latest -- Pull complete. 7 layers, pulled in 2s (downloaded 49 MB at 24 MB/s)
+09:09:21.108 [main] INFO tc.redis:latest -- Creating container for image: redis:latest
+09:09:21.122 [main] INFO tc.redis:latest -- Container redis:latest is starting: 08076e1efa65a0b45e85e19506aad736010bde451077d2e3438675cdc3c9d082
+09:09:21.333 [main] INFO tc.redis:latest -- Container redis:latest started in PT0.224775851S
+09:09:21.431 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ai.qa.user.api.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:09:21.651 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ai.qa.user.UserServiceApplication for test class com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T09:09:22.079Z  INFO 2333 --- [           main] c.a.n.client.env.SearchableProperties    : properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
+2025-09-25T09:09:22.080Z  WARN 2333 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -149,18 +148,18 @@ org.opentest4j.AssertionFailedError: expected: <200> but was: <401>
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.5)
 
-2025-09-25T08:51:31.830Z  WARN 2235 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
-2025-09-25T08:51:31.840Z  INFO 2235 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Starting UserControllerIntegrationTest using Java 17.0.16 with PID 2235 (started by runner in /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service)
-2025-09-25T08:51:31.841Z  INFO 2235 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : No active profile set, falling back to 1 default profile: "default"
-2025-09-25T08:51:32.595Z  INFO 2235 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-25T08:51:32.650Z  INFO 2235 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 1 JPA repository interfaces.
-2025-09-25T08:51:32.852Z  INFO 2235 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=23a416e6-732d-3a9f-9089-c4013f9a249d
-2025-09-25T08:51:33.139Z  INFO 2235 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-25T08:51:33.187Z  INFO 2235 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
-2025-09-25T08:51:33.189Z  INFO 2235 --- [           main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
-2025-09-25T08:51:33.337Z  INFO 2235 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-25T08:51:33.370Z  INFO 2235 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-09-25T08:51:34.433Z ERROR 2235 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+2025-09-25T09:09:22.119Z  WARN 2333 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
+2025-09-25T09:09:22.131Z  INFO 2333 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Starting UserControllerIntegrationTest using Java 17.0.16 with PID 2333 (started by runner in /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service)
+2025-09-25T09:09:22.132Z  INFO 2333 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : No active profile set, falling back to 1 default profile: "default"
+2025-09-25T09:09:22.925Z  INFO 2333 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-25T09:09:22.983Z  INFO 2333 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 1 JPA repository interfaces.
+2025-09-25T09:09:23.192Z  INFO 2333 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=23a416e6-732d-3a9f-9089-c4013f9a249d
+2025-09-25T09:09:23.480Z  INFO 2333 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-25T09:09:23.516Z  INFO 2333 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2025-09-25T09:09:23.518Z  INFO 2333 --- [           main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2025-09-25T09:09:23.657Z  INFO 2333 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-25T09:09:23.675Z  INFO 2333 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-25T09:09:24.710Z ERROR 2333 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
 
 org.postgresql.util.PSQLException: Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:342) ~[postgresql-42.6.0.jar:42.6.0]
@@ -305,7 +304,7 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258) ~[postgresql-42.6.0.jar:42.6.0]
 	... 128 common frames omitted
 
-2025-09-25T08:51:34.440Z  WARN 2235 --- [           main] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
+2025-09-25T09:09:24.715Z  WARN 2333 --- [           main] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
 
 java.lang.NullPointerException: Cannot invoke "org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(java.sql.SQLException, String)" because the return value of "org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.sqlExceptionHelper()" is null
 	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:116) ~[hibernate-core-6.2.13.Final.jar:6.2.13.Final]
@@ -424,10 +423,10 @@ java.lang.NullPointerException: Cannot invoke "org.hibernate.engine.jdbc.spi.Sql
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.0.0.jar:3.0.0]
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.0.0.jar:3.0.0]
 
-2025-09-25T08:51:34.453Z  WARN 2235 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-09-25T08:51:35.075Z  INFO 2235 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-25T08:51:35.090Z  INFO 2235 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-09-25T08:51:36.121Z ERROR 2235 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+2025-09-25T09:09:24.728Z  WARN 2333 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-25T09:09:25.233Z  INFO 2333 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-25T09:09:25.247Z  INFO 2333 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-25T09:09:26.254Z ERROR 2333 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
 
 org.postgresql.util.PSQLException: Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:342) ~[postgresql-42.6.0.jar:42.6.0]
@@ -512,6 +511,39 @@ org.postgresql.util.PSQLException: Connection to 3.84.225.222:5432 refused. Chec
 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+
+
+
+============================
+CONDITIONS EVALUATION REPORT
+============================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
 	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
@@ -576,47 +608,14 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258) ~[postgresql-42.6.0.jar:42.6.0]
 	... 132 common frames omitted
 
-2025-09-25T08:51:36.124Z  WARN 2235 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08001
-2025-09-25T08:51:36.124Z ERROR 2235 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
-2025-09-25T08:51:36.128Z ERROR 2235 --- [           main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.] [n/a]
-2025-09-25T08:51:36.129Z  WARN 2235 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.] [n/a]
-
-
-
-============================
-CONDITIONS EVALUATION REPORT
-============================
-
-
-Positive matches:
------------------
-
-    None
-
-
-Negative matches:
------------------
-
-    None
-
-
-Exclusions:
------------
-
-    None
-
-
-Unconditional classes:
-----------------------
-
-    None
-
-
-
-2025-09-25T08:51:36.145Z  INFO 2235 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger :
+2025-09-25T09:09:26.259Z  WARN 2333 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08001
+2025-09-25T09:09:26.259Z ERROR 2333 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2025-09-25T09:09:26.263Z ERROR 2333 --- [           main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.] [n/a]
+2025-09-25T09:09:26.264Z  WARN 2333 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.] [n/a]
+2025-09-25T09:09:26.276Z  INFO 2333 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger :
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-09-25T08:51:36.159Z ERROR 2235 --- [           main] o.s.boot.SpringApplication               : Application run failed
+2025-09-25T09:09:26.289Z ERROR 2333 --- [           main] o.s.boot.SpringApplication               : Application run failed
 
 org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Connection to 3.84.225.222:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.] [n/a]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770) ~[spring-beans-6.0.13.jar:6.0.13]
@@ -778,9 +777,9 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258) ~[postgresql-42.6.0.jar:42.6.0]
 	... 132 common frames omitted
 
-2025-09-25T08:51:36.166Z ERROR 2235 --- [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.ai.qa.user.api.controller.UserControllerIntegrationTest@684a34f4]
+2025-09-25T09:09:26.296Z ERROR 2333 --- [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.ai.qa.user.api.controller.UserControllerIntegrationTest@52ec5ba6]
 
-java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@7c74ef4a testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@63f9b562, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2b4d4327, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@10e5bf9c, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@41ef1ea2, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@ba5f09fe], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@54519d74 testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@20ead579, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@16da1abc, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@68c9e023, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@5dfe23e8, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@ba5f09fe], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:143) ~[spring-test-6.0.13.jar:6.0.13]
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127) ~[spring-test-6.0.13.jar:6.0.13]
 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191) ~[spring-test-6.0.13.jar:6.0.13]
@@ -943,9 +942,9 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258) ~[postgresql-42.6.0.jar:42.6.0]
 	... 132 common frames omitted
 
-Error:  Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 10.619 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerIntegrationTest
-Error:  com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@7c74ef4a testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@63f9b562, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2b4d4327, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@10e5bf9c, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@41ef1ea2, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@ba5f09fe], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+Error:  Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 10.491 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerIntegrationTest
+Error:  com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@54519d74 testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@20ead579, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@16da1abc, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@68c9e023, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@5dfe23e8, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@ba5f09fe], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:143)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
@@ -1112,24 +1111,24 @@ Caused by: java.net.ConnectException: Connection refused
 [INFO] Results:
 [INFO]
 Error:  Failures:
-Error:    UserControllerTest.login_Success:47 expected: <200> but was: <401>
+Error:    UserControllerTest.login_Success:48 expected: <200> but was: <401>
 Error:  Errors:
-Error:    UserControllerIntegrationTest.testLogin » IllegalState Failed to load ApplicationContext for [WebMergedContextConfiguration@7c74ef4a testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@63f9b562, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2b4d4327, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@10e5bf9c, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@41ef1ea2, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@ba5f09fe], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+Error:    UserControllerIntegrationTest.testLogin » IllegalState Failed to load ApplicationContext for [WebMergedContextConfiguration@54519d74 testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@20ead579, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@16da1abc, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@68c9e023, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@5dfe23e8, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@ba5f09fe], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
 [INFO]
 Error:  Tests run: 3, Failures: 1, Errors: 1, Skipped: 0
 [INFO]
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary for ai-qa-backend 1.0-SNAPSHOT:
 [INFO]
-[INFO] ai-qa-backend ...................................... SUCCESS [  0.426 s]
-[INFO] user-service ....................................... FAILURE [ 26.005 s]
+[INFO] ai-qa-backend ...................................... SUCCESS [  0.367 s]
+[INFO] user-service ....................................... FAILURE [ 24.311 s]
 [INFO] qa-service ......................................... SKIPPED
 [INFO] api-gateway ........................................ SKIPPED
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  30.924 s
-[INFO] Finished at: 2025-09-25T08:51:36Z
+[INFO] Total time:  30.044 s
+[INFO] Finished at: 2025-09-25T09:09:26Z
 [INFO] ------------------------------------------------------------------------
 Error:  Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0:test (default-test) on project user-service: There are test failures.
 Error:
