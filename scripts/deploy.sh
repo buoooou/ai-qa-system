@@ -31,24 +31,24 @@ ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST << EOF
     set -e
     echo "📁 进入项目目录: $PROJECT_DIR"
     cd $PROJECT_DIR
-    
+
     echo "📥 拉取最新代码..."
     git fetch origin
     git checkout feature/yulong
     git pull origin feature/yulong
-    
+
     echo "🐳 停止现有容器..."
     docker-compose down || true
-    
+
     echo "🔨 构建并启动新容器..."
     docker-compose up -d --build
-    
+
     echo "⏳ 等待服务启动..."
     sleep 30
-    
+
     echo "🏥 检查服务状态..."
     docker-compose ps
-    
+
     echo "✅ 部署完成!"
 EOF
 

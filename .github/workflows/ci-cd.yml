@@ -162,10 +162,10 @@ jobs:
       run: |
         echo "🏥 Running health checks..."
         echo "Checking if services are accessible..."
-        
+
         # 等待服务完全启动
         sleep 10
-        
+
         # 检查前端服务
         echo "🔍 检查前端服务 (端口 3000)..."
         if curl -f --max-time 30 http://3.84.225.222:3000/ > /dev/null 2>&1; then
@@ -174,7 +174,7 @@ jobs:
           echo "❌ 前端服务不可访问"
           exit 1
         fi
-        
+
         # 检查API网关
         echo "🔍 检查API网关 (端口 8080)..."
         if curl -f --max-time 30 http://3.84.225.222:8080/actuator/health > /dev/null 2>&1; then
@@ -182,7 +182,7 @@ jobs:
         else
           echo "⚠️  API网关健康检查不可用，但可能仍在运行"
         fi
-        
+
         echo "🎉 健康检查完成!"
 
   # 部署到生产环境
