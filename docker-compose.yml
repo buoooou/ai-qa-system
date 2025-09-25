@@ -29,6 +29,8 @@ services:
     build: ./backend-services/qa-service
     image: ${NAMESPACE}/qa-service:${TAG:-latest}
     container_name: qa-service
+    ports:
+      - "8082:8082" 
     restart: unless-stopped
     depends_on:
       - mysql
@@ -41,6 +43,8 @@ services:
     build: ./backend-services/user-service
     image: ${NAMESPACE}/user-service:${TAG:-latest}
     container_name: user-service
+    ports:
+      - "8081:8081" 
     restart: unless-stopped
     depends_on:
       - mysql
