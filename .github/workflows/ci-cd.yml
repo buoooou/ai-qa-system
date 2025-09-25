@@ -214,15 +214,63 @@ jobs:
     - name: Deploy to production
       run: |
         echo "🚀 Deploying to production environment..."
-        # 这里可以添加部署到生产环境的脚本
+        echo "📋 生产环境部署信息:"
+        echo "  - 服务器: 3.84.225.222"
+        echo "  - 分支: main"
+        echo "  - 镜像: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+        
+        echo "🔧 生产环境部署步骤:"
+        echo "1. 构建的Docker镜像已推送到GitHub Container Registry"
+        echo "2. 镜像标签: ${{ github.ref_name }}-${{ github.sha }}"
+        echo "3. 需要在服务器上手动执行以下命令:"
+        echo ""
+        echo "   # SSH到服务器"
+        echo "   ssh ubuntu@3.84.225.222"
+        echo ""
+        echo "   # 进入项目目录"
+        echo "   cd /home/ubuntu/ai-qa-system || (mkdir -p /home/ubuntu/ai-qa-system && cd /home/ubuntu/ai-qa-system)"
+        echo ""
+        echo "   # 克隆或更新代码"
+        echo "   if [ ! -d .git ]; then"
+        echo "     git clone https://github.com/pzone618/ai-qa-system.git ."
+        echo "   fi"
+        echo "   git fetch origin"
+        echo "   git checkout main"
+        echo "   git pull origin main"
+        echo ""
+        echo "   # 停止旧容器并启动新容器"
+        echo "   docker-compose down || true"
+        echo "   docker-compose up -d --build"
+        echo ""
+        echo "   # 检查服务状态"
+        echo "   docker-compose ps"
+        echo "   curl -f http://localhost:3000/ || echo '前端服务检查失败'"
+        echo ""
+        echo "✅ 生产环境部署指令已生成，请手动在服务器上执行上述命令"
 
     - name: Run health checks
       run: |
         echo "🏥 Running production health checks..."
+        echo "📋 生产环境健康检查说明:"
+        echo "由于部署需要手动执行，健康检查将在部署完成后进行"
+        echo ""
+        echo "🔍 手动健康检查命令:"
+        echo "   # 检查前端服务"
+        echo "   curl -f http://3.84.225.222:3000/ && echo '✅ 前端服务正常' || echo '❌ 前端服务异常'"
+        echo ""
+        echo "   # 检查API网关"
+        echo "   curl -f http://3.84.225.222:8080/actuator/health && echo '✅ API网关正常' || echo '⚠️  API网关异常'"
+        echo ""
+        echo "   # 检查所有容器状态"
+        echo "   docker-compose ps"
+        echo ""
+        echo "✅ 生产环境健康检查指令已生成"
 
     - name: Notify deployment success
       run: |
-        echo "✅ Production deployment completed successfully!"
+        echo "✅ Production deployment instructions generated successfully!"
+        echo "🌐 生产环境访问地址: http://3.84.225.222:3000"
+        echo "🔗 API网关地址: http://3.84.225.222:8080"
 
   # 性能测试
   performance-test:
