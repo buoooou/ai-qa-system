@@ -154,7 +154,7 @@ jobs:
         echo "  - 服务器: 3.84.225.222"
         echo "  - 分支: feature/yulong"
         echo "  - 镜像: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
-        
+
         echo "🔧 部署步骤:"
         echo "1. 构建的Docker镜像已推送到GitHub Container Registry"
         echo "2. 镜像标签: ${{ github.ref_name }}-${{ github.sha }}"
