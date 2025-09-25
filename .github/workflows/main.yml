@@ -114,7 +114,7 @@ jobs:
       run: |
         cd frontend-nextjs
         # 清理缓存
-        rm -rf .next node_modules package-lock.json
+        rm -rf node_modules
         # 使用更稳定的 Node.js 版本兼容性设置
         npm install --legacy-peer-deps
         npm run build
