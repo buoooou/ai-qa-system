@@ -113,12 +113,7 @@ jobs:
     - name: Build and Push Frontend
       run: |
         cd frontend-nextjs
-        # 清理缓存
-        rm -rf node_modules
-        # 使用更稳定的 Node.js 版本兼容性设置
-        npm install --legacy-peer-deps
-        npm run build
-        
+        # 直接构建Docker镜像，Dockerfile内部会处理依赖安装和构建
         docker build -t ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.FRONTEND_IMAGE }}:latest .
         docker push ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.FRONTEND_IMAGE }}:latest
 
