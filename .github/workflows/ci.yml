@@ -104,13 +104,6 @@ jobs:
           find ${{ github.workspace }}/database -type f | sort
           tar -cvf /tmp/test.tar docker-compose.yml database/init-scripts/*.sql
           tar -tf /tmp/test.tar
-      - name: Copy project files to EC2
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-          scp -o StrictHostKeyChecking=no -i private_key.pem docker-compose.yml ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/airline-cicd/
-          scp -o StrictHostKeyChecking=no -i private_key.pem -r database/init-scripts ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/airline-cicd/database/
-
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -118,10 +111,26 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            set -e               # 任何命令失败就退出
-            mkdir -p ~/airline-cicd
-            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+            set -e
+            mkdir -p ~/airline-cicd/database
+
+      - name: Copy project files to EC2
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          scp -o StrictHostKeyChecking=no -i private_key.pem docker-compose.yml ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/airline-cicd/
+          scp -o StrictHostKeyChecking=no -i private_key.pem -r database/init-scripts ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:~/airline-cicd/database/
+
+      - name: Run Docker Compose
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
             cd ~/airline-cicd
+            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
             docker-compose down -v
             docker-compose pull
             docker-compose up -d --remove-orphans
