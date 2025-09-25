@@ -92,7 +92,7 @@ jobs:
       - name: Build and push API Gateway image
         uses: docker/build-push-action@v5
         with:
-          context: ./backend-services/api-gateway
+          context: ./backend-services
           file: ./backend-services/api-gateway/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-api-gateway:latest
@@ -101,7 +101,7 @@ jobs:
       - name: Build and push User Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./backend-services/user-service
+          context: ./backend-services
           file: ./backend-services/user-service/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-user-service:latest
@@ -110,7 +110,7 @@ jobs:
       - name: Build and push QA Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./backend-services/qa-service
+          context: ./backend-services
           file: ./backend-services/qa-service/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-qa-service:latest

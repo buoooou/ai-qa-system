@@ -10,13 +10,18 @@ RUN microdnf update -y && microdnf install -y curl && microdnf clean all
 # 设置时区为上海时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
-# 复制 Maven 配置文件和源代码
-COPY pom.xml ./
-COPY src ./src
+# 复制整个 backend-services 目录以确保 Maven 多模块项目结构完整
+COPY ../pom.xml ./
+COPY ../api-gateway/pom.xml ./api-gateway/
+COPY ../api-gateway/src ./api-gateway/src
+COPY ../user-service/pom.xml ./user-service/
+COPY ../user-service/src ./user-service/src
+COPY ../qa-service/pom.xml ./qa-service/
+COPY ../qa-service/src ./qa-service/src
 
 # 构建应用
 RUN microdnf install -y maven && \
-    mvn clean package -DskipTests && \
+    mvn -pl ./user-service clean package -DskipTests && \
     microdnf remove -y maven && \
     microdnf clean all
 
@@ -25,7 +30,7 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser
 
 # 复制Maven构建的JAR文件到容器中
 # 注意：这里假设Maven构建后的JAR文件在target目录下
-COPY target/user-service-*.jar app.jar
+COPY user-service/target/user-service-*.jar app.jar
 
 # 更改文件所有者
 RUN chown appuser:appuser app.jar
