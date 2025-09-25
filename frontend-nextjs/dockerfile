@@ -24,7 +24,7 @@ COPY styles ./styles
 RUN npm run build
 
 # 生产阶段
-FROM node:22.18.0-alpine AS runner
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
