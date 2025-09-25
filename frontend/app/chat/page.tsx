@@ -47,13 +47,13 @@ export default function ChatPage() {
         nickname: nicknameInput,
         username: localStorage.getItem("username"),
       });
-      // if (response.code === 200) {
-      localStorage.setItem("nickname", nicknameInput);
-      setNickname(nicknameInput);
-      toast.success("昵称更新成功");
-      // } else {
-      //   toast.error(response.message || "昵称更新失败");
-      // }
+      if (response.data.code === 200) {
+        localStorage.setItem("nickname", nicknameInput);
+        setNickname(nicknameInput);
+        toast.success("昵称更新成功");
+      } else {
+        toast.error(response.data.message || "昵称更新失败");
+      }
     } catch (error) {
       toast.error("网络错误，请重试");
     } finally {
@@ -98,8 +98,8 @@ export default function ChatPage() {
         nickname: nickname,
       });
 
-      // console.log("after save Data:", response);
-      if (response.answer == null || response.answer == "") {
+      console.log("after save Data:", response);
+      if (response.status != 200 && response.data.data.answer === null) {
         const errorMessage = "发送消息失败";
         setIsThinking(false);
         toast.error(errorMessage);
@@ -113,7 +113,8 @@ export default function ChatPage() {
       }
 
       // 获取完整响应内容
-      const fullResponse = response.answer || response.message || "AI回复内容";
+      const fullResponse =
+        response.data.answer || response.data.message || "AI回复内容";
 
       // 创建AI回复的初始消息
       const aiMessageId = Date.now().toString();

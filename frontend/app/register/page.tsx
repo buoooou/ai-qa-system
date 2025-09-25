@@ -53,8 +53,8 @@ export default function RegisterPage() {
         password: password,
       });
       console.log(response);
-      if (response.code !== 200) {
-        throw new Error(`注册失败: ${response.message}`);
+      if (response.data.code !== 200) {
+        throw new Error(`注册失败: ${response.data.message}`);
       }
 
       toast.success("注册成功");

@@ -44,14 +44,14 @@ export default function LoginPage() {
         password: password,
       });
       console.log(response);
-      if (response.code !== 200) {
-        throw new Error(`登录失败: ${response.message}`);
+      if (response.data.code !== 200) {
+        throw new Error(`登录失败: ${response.data.message}`);
       }
 
       toast.success("登录成功");
       localStorage.setItem("username", username);
-      localStorage.setItem("userid", response.data.userId);
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userid", response.data.data.userId);
+      localStorage.setItem("token", response.data.data.token);
 
       await new Promise((resolve) => setTimeout(resolve, 1500));
       router.push("/chat");
