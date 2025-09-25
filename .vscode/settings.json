@@ -126,18 +126,18 @@
   "python.testing.pytestArgs": ["tests"],
   "python.envFile": "${workspaceFolder}/.env",
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-  // ****** Proxy Start ***********
-  "workbench.editor.enablePreview": false,
-  "http.proxy": "http://127.0.0.1:10809",
-  "https.proxy": "http://127.0.0.1:10809",
-  "http.proxyStrictSSL": false,
-  "http.proxySupport": "override",
-  "http.noProxy": ["127.0.0.1", "localhost", ".local"],
-  "cursor.general.disableHttp2": true,
-  "terminal.integrated.env.osx": {
-    // "HTTP_PROXY": "http://127.0.0.1:10809",
-    // "HTTPS_PROXY": "http://127.0.0.1:10809",
-    "NO_PROXY": "127.0.0.1,localhost,.local"
-  },
-  // ****** Proxy End *************
+  // // ****** Proxy Start ***********
+  // "workbench.editor.enablePreview": false,
+  // "http.proxy": "http://127.0.0.1:10809",
+  // "https.proxy": "http://127.0.0.1:10809",
+  // "http.proxyStrictSSL": false,
+  // "http.proxySupport": "override",
+  // "http.noProxy": ["127.0.0.1", "localhost", ".local"],
+  // "cursor.general.disableHttp2": true,
+  // "terminal.integrated.env.osx": {
+  //   // "HTTP_PROXY": "http://127.0.0.1:10809",
+  //   // "HTTPS_PROXY": "http://127.0.0.1:10809",
+  //   "NO_PROXY": "127.0.0.1,localhost,.local"
+  // },
+  // // ****** Proxy End *************
 }

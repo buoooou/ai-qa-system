@@ -1,5 +1,6 @@
 package com.ai.qa.service.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,9 +9,11 @@ import com.google.genai.Client;
 @Configuration
 public class GeminiConfig {
 
+    @Value("${gemini.api-key}")
+    private String apiKey;
+
     @Bean
     Client geminiClient() {
-        // 使用注入的 ApacheHttpClient 配置 Client
-        return Client.builder().apiKey(System.getenv("GOOGLE_API_KEY")).build();
+        return Client.builder().apiKey(apiKey).build();
     }
 }

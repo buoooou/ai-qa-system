@@ -325,23 +325,23 @@ export default function ChatPage() {
   };
 
   return (
-      <div className={`flex h-screen overflow-visible ${theme === 'dark' ? 'bg-gray-900 text-teal-50' : theme === 'light' ? 'bg-amber-50 text-gray-800' : theme === 'blue' ? 'bg-slate-900 text-sky-100' : 'bg-emerald-950 text-emerald-50'}`}>
+  <div className="flex h-screen overflow-visible bg-[#f4f6fb] text-[#1e293b]">
       {/* 侧边栏 */}
-      <div className={`w-64 p-4 border-r flex flex-col h-full ${theme === 'dark' ? 'bg-gray-800 border-teal-700/30' : theme === 'light' ? 'bg-amber-100 border-amber-300' : theme === 'blue' ? 'bg-slate-800 border-sky-700/30' : 'bg-emerald-900 border-emerald-700/30'}`}>
+  <div className="w-64 p-4 border-r flex flex-col h-full bg-white border-[#cbd5e1]">
 
         <button
           onClick={handleNewSession}
-          className={`w-full p-3 mb-4 rounded-lg hover:opacity-90 transition-colors ${theme === 'dark' ? 'bg-teal-600 text-white hover:bg-teal-700' : theme === 'light' ? 'bg-blue-500 text-white hover:bg-blue-600' : theme === 'blue' ? 'bg-sky-600 text-white hover:bg-sky-700' : 'bg-emerald-600 text-white hover:bg-emerald-700'}`}
+          className="w-full p-3 mb-4 rounded-lg bg-[#2563eb] text-white hover:bg-[#1d4ed8] transition-colors"
         >
           新加会话
         </button>
-        <div className={`mb-2 font-semibold ${theme === 'dark' ? 'text-teal-300/80' : theme === 'light' ? 'text-blue-600/80' : theme === 'blue' ? 'text-sky-300/80' : 'text-emerald-300/80'}`}>历史会话</div>
-        <div className="space-y-2 flex-grow whitespace-nowrap truncate">
+  <div className="mb-2 font-semibold text-[#2563eb]">历史会话</div>
+  <div className="space-y-2 flex-grow whitespace-nowrap truncate">
           {historySessions.length > 0 ? (
             historySessions.map((session) => (
               <div
                 key={session.id}
-                className={`p-3 rounded-lg cursor-pointer transition-colors ${theme === 'dark' ? 'bg-gray-700/60 hover:bg-gray-600/80 text-teal-100' : theme === 'light' ? 'bg-amber-200 hover:bg-amber-300 text-blue-800' : theme === 'blue' ? 'bg-slate-700/60 hover:bg-slate-600/80 text-sky-100' : 'bg-emerald-800/60 hover:bg-emerald-700/80 text-emerald-100'}`}
+                className="p-3 rounded-lg cursor-pointer transition-colors bg-[#e0e7ff] hover:bg-[#c7d2fe] text-[#1e293b]"
                 onClick={() => handleLoadHistory(session.id)}
               >
                 <div className="flex justify-between items-center">
@@ -353,7 +353,7 @@ export default function ChatPage() {
                         handleDeleteQAHistory(session.id);
                       }
                     }}
-                    className={`w-6 h-6 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-gray-600 hover:bg-gray-500 text-teal-100' : theme === 'light' ? 'bg-amber-300 hover:bg-amber-400 text-blue-800' : theme === 'blue' ? 'bg-slate-600 hover:bg-slate-500 text-sky-100' : 'bg-emerald-700 hover:bg-emerald-600 text-emerald-100'}`}
+                    className="w-6 h-6 rounded-full flex items-center justify-center bg-[#2563eb] text-white hover:bg-[#1d4ed8]"
                   >
                     ×
                   </button>
