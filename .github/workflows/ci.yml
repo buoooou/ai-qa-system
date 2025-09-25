@@ -112,9 +112,9 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: |
-            ${{ github.workspace }}/docker-compose.yml
-            ${{ github.workspace }}/database/init-scripts/01-init-database.sql
-            ${{ github.workspace }}/database/init-scripts/02-nacos-init.sql
+            docker-compose.yml
+            database/init-scripts/01-init-database.sql
+            database/init-scripts/02-nacos-init.sql
           target: ~/airline-cicd/
           strip_components: 1
           debug: true
