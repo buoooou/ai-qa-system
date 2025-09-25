@@ -36,15 +36,16 @@ public class UserControllerTest {
         request.setUsername("testUser");
         request.setPassword("password123");
 
-        UserDto userDto = new UserDto();
-        userDto.setUsername("testUser");
-        userDto.setPassword("encodedPassword");
+            // mock userService.login 返回有效 LoginDto
+            com.ai.qa.user.application.dto.LoginDto loginDto = new com.ai.qa.user.application.dto.LoginDto();
+            loginDto.setUserid("1");
+            loginDto.setUsername("testUser");
+            loginDto.setNickname("testNick");
+            loginDto.setToken("mockToken");
+            when(userService.login("testUser", "password123")).thenReturn(loginDto);
 
-        when(userService.findByUsername("testUser")).thenReturn(userDto);
-        when(passwordEncoder.matches("password123", "encodedPassword")).thenReturn(true);
-
-        Response<?> response = userController.login(request);
-        assertEquals(200, response.getCode());
+            Response<?> response = userController.login(request);
+            assertEquals(200, response.getCode());
     }
 
     @Test
