@@ -3,18 +3,18 @@ FROM docker.io/library/maven:3.8-openjdk-17 AS build
 WORKDIR /app
 
 # 复制父级pom.xml
-COPY ../pom.xml .
-COPY ../user-service/pom.xml ./user-service/
-COPY ../qa-service/pom.xml ./qa-service/
-COPY ../api-gateway/pom.xml ./api-gateway/
+COPY pom.xml .
+COPY user-service/pom.xml ./user-service/
+COPY qa-service/pom.xml ./qa-service/
+COPY api-gateway/pom.xml ./api-gateway/
 
 # 下载依赖
 RUN mvn dependency:go-offline -pl qa-service -am
 
 # 复制源代码
-COPY ../user-service ./user-service
-COPY ../qa-service ./qa-service
-COPY ../api-gateway ./api-gateway
+COPY user-service ./user-service
+COPY qa-service ./qa-service
+COPY api-gateway ./api-gateway
 
 # 构建qa-service
 RUN mvn clean package -pl qa-service -am -DskipTests
