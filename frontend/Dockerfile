@@ -1,5 +1,5 @@
 # 使用官方Node.js运行时作为基础镜像
-FROM node:18-alpine AS base
+FROM node:22-alpine AS base
 
 # 安装依赖阶段
 FROM base AS deps
@@ -10,7 +10,7 @@ WORKDIR /app
 # 复制package文件
 COPY package.json package-lock.json* ./
 RUN \
-  if [ -f package-lock.json ]; then npm ci --only=production; \
+  if [ -f package-lock.json ]; then npm install; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
