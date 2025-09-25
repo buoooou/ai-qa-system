@@ -40,11 +40,12 @@ public class UserControllerTest {
         userDto.setUsername("testUser");
         userDto.setPassword("encodedPassword");
 
+        // mock依赖
         when(userService.findByUsername("testUser")).thenReturn(userDto);
         when(passwordEncoder.matches("password123", "encodedPassword")).thenReturn(true);
 
-        Response<?> response = userController.login(request);
-        assertEquals(200, response.getCode());
+    Response<?> response = userController.login(request);
+    assertEquals(200, response.getCode());
     }
 
     @Test
