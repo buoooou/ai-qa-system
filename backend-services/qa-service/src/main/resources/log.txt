@@ -1,223 +1,896 @@
-2025-09-25T09:59:31.8723044Z [INFO] -------------------------------------------------------
-2025-09-25T09:59:31.8723742Z [INFO]  T E S T S
-2025-09-25T09:59:31.8724285Z [INFO] -------------------------------------------------------
-2025-09-25T09:59:32.5814641Z [INFO] Running com.ai.qa.user.api.controller.UserControllerTest
-2025-09-25T09:59:32.9886313Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-2025-09-25T09:59:33.7792787Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.156 s - in com.ai.qa.user.api.controller.UserControllerTest
-2025-09-25T09:59:33.7957955Z [INFO] Running com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:59:34.0041757Z 09:59:33.929 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
-2025-09-25T09:59:34.0043643Z 09:59:33.934 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-2025-09-25T09:59:34.6034251Z 09:59:34.568 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
-2025-09-25T09:59:34.6036430Z 09:59:34.575 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
-2025-09-25T09:59:34.6040812Z 09:59:34.592 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker:
-2025-09-25T09:59:34.6042090Z   Server Version: 28.0.4
-2025-09-25T09:59:34.6047286Z   API Version: 1.48
-2025-09-25T09:59:34.6047858Z   Operating System: Ubuntu 24.04.3 LTS
-2025-09-25T09:59:34.6048268Z   Total Memory: 15995 MB
-2025-09-25T09:59:34.7034707Z 09:59:34.616 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling docker image: testcontainers/ryuk:0.5.1. Please be patient; this may take some time but only needs to be done once.
-2025-09-25T09:59:35.2042729Z 09:59:35.105 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Starting to pull image
-2025-09-25T09:59:35.2044373Z 09:59:35.135 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2025-09-25T09:59:35.5049604Z 09:59:35.453 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (333 KB/? MB)
-2025-09-25T09:59:35.5051740Z 09:59:35.454 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (333 KB/? MB)
-2025-09-25T09:59:35.5054021Z 09:59:35.481 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (333 KB/5 MB)
-2025-09-25T09:59:35.6049887Z 09:59:35.571 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (2 MB/5 MB)
-2025-09-25T09:59:35.8053766Z 09:59:35.743 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (2 MB/5 MB)
-2025-09-25T09:59:35.8055724Z 09:59:35.799 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
-2025-09-25T09:59:35.9055599Z 09:59:35.805 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Image testcontainers/ryuk:0.5.1 pull took PT1.18931839S
-2025-09-25T09:59:35.9057335Z 09:59:35.834 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
-2025-09-25T09:59:36.0059890Z 09:59:35.908 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: 62694aa6ccb715271e5870ea497e452de6e2c463299bbe985599f1db51db729f
-2025-09-25T09:59:36.2062027Z 09:59:36.190 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT0.355789005S
-2025-09-25T09:59:36.2066194Z 09:59:36.196 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-2025-09-25T09:59:36.2069455Z 09:59:36.196 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
-2025-09-25T09:59:36.2071269Z 09:59:36.196 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
-2025-09-25T09:59:36.2074148Z 09:59:36.199 [main] INFO tc.redis:latest -- Pulling docker image: redis:latest. Please be patient; this may take some time but only needs to be done once.
-2025-09-25T09:59:36.7068286Z 09:59:36.700 [docker-java-stream-328759547] INFO tc.redis:latest -- Starting to pull image
-2025-09-25T09:59:36.7069641Z 09:59:36.701 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2025-09-25T09:59:37.1075990Z 09:59:37.019 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (1 KB/? MB)
-2025-09-25T09:59:37.1077743Z 09:59:37.021 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (1 KB/? MB)
-2025-09-25T09:59:37.2081557Z 09:59:37.198 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (13 MB/? MB)
-2025-09-25T09:59:37.2083734Z 09:59:37.206 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  3 pending,  4 downloaded,  0 extracted, (13 MB/? MB)
-2025-09-25T09:59:37.4080344Z 09:59:37.384 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  2 pending,  5 downloaded,  0 extracted, (25 MB/? MB)
-2025-09-25T09:59:37.4081839Z 09:59:37.389 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  0 extracted, (25 MB/? MB)
-2025-09-25T09:59:37.5082329Z 09:59:37.479 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  0 extracted, (33 MB/49 MB)
-2025-09-25T09:59:38.3094829Z 09:59:38.291 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  1 extracted, (47 MB/49 MB)
-2025-09-25T09:59:38.4101759Z 09:59:38.402 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  2 extracted, (47 MB/49 MB)
-2025-09-25T09:59:38.5100867Z 09:59:38.419 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  3 extracted, (47 MB/49 MB)
-2025-09-25T09:59:38.8106520Z 09:59:38.737 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  4 extracted, (49 MB/49 MB)
-2025-09-25T09:59:38.8108389Z 09:59:38.746 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  5 extracted, (49 MB/49 MB)
-2025-09-25T09:59:38.8109749Z 09:59:38.756 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  6 extracted, (49 MB/49 MB)
-2025-09-25T09:59:38.8111088Z 09:59:38.772 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  7 extracted, (49 MB/49 MB)
-2025-09-25T09:59:38.8112615Z 09:59:38.778 [main] INFO tc.redis:latest -- Image redis:latest pull took PT2.57877837S
-2025-09-25T09:59:38.8114006Z 09:59:38.778 [docker-java-stream-328759547] INFO tc.redis:latest -- Pull complete. 7 layers, pulled in 2s (downloaded 49 MB at 24 MB/s)
-2025-09-25T09:59:38.8115344Z 09:59:38.781 [main] INFO tc.redis:latest -- Creating container for image: redis:latest
-2025-09-25T09:59:38.8116684Z 09:59:38.799 [main] INFO tc.redis:latest -- Container redis:latest is starting: 3941d68312aed8b96bd017e028e1590b5410fb97cea6b1ae92389aec49e9457e
-2025-09-25T09:59:39.1109767Z 09:59:39.018 [main] INFO tc.redis:latest -- Container redis:latest started in PT0.23732147S
-2025-09-25T09:59:39.2114704Z 09:59:39.121 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ai.qa.user.api.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-09-25T09:59:39.4114636Z 09:59:39.355 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ai.qa.user.UserServiceApplication for test class com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:59:39.9146648Z 2025-09-25T09:59:39.852Z  INFO 2235 --- [           main] c.a.n.client.env.SearchableProperties    : properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
-2025-09-25T09:59:39.9195538Z 2025-09-25T09:59:39.854Z  WARN 2235 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
-2025-09-25T09:59:39.9196558Z
-2025-09-25T09:59:39.9196758Z   .   ____          _            __ _ _
-2025-09-25T09:59:39.9197173Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-2025-09-25T09:59:39.9197654Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-2025-09-25T09:59:39.9198112Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-2025-09-25T09:59:39.9198599Z   '  |____| .__|_| |_|_| |_\__, | / / / /
-2025-09-25T09:59:39.9199024Z  =========|_|==============|___/=/_/_/_/
-2025-09-25T09:59:39.9199640Z  :: Spring Boot ::                (v3.1.5)
-2025-09-25T09:59:39.9199937Z
-2025-09-25T09:59:39.9201102Z 2025-09-25T09:59:39.911Z  WARN 2235 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
-2025-09-25T09:59:40.0134038Z 2025-09-25T09:59:39.930Z  INFO 2235 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Starting UserControllerIntegrationTest using Java 17.0.16 with PID 2235 (started by runner in /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service)
-2025-09-25T09:59:40.0136275Z 2025-09-25T09:59:39.931Z  INFO 2235 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : The following 1 profile is active: "test"
-2025-09-25T09:59:40.7200240Z 2025-09-25T09:59:40.629Z  INFO 2235 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-25T09:59:40.7202968Z 2025-09-25T09:59:40.675Z  INFO 2235 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41 ms. Found 1 JPA repository interfaces.
-2025-09-25T09:59:40.9172540Z 2025-09-25T09:59:40.871Z  INFO 2235 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=c616384c-2762-30f2-9704-4e73246b641c
-2025-09-25T09:59:41.4182006Z 2025-09-25T09:59:41.371Z  INFO 2235 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
-2025-09-25T09:59:41.4185412Z 2025-09-25T09:59:41.389Z  INFO 2235 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-09-25T09:59:41.4187694Z 2025-09-25T09:59:41.389Z  INFO 2235 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
-2025-09-25T09:59:41.5191911Z 2025-09-25T09:59:41.493Z  INFO 2235 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-09-25T09:59:41.5196292Z 2025-09-25T09:59:41.495Z  INFO 2235 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1520 ms
-2025-09-25T09:59:41.6188429Z 2025-09-25T09:59:41.572Z  INFO 2235 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-09-25T09:59:41.8221424Z 2025-09-25T09:59:41.751Z  INFO 2235 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-2025-09-25T09:59:41.8230187Z 2025-09-25T09:59:41.753Z  INFO 2235 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-09-25T09:59:41.9224109Z 2025-09-25T09:59:41.867Z  INFO 2235 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-25T09:59:41.9230334Z 2025-09-25T09:59:41.915Z  INFO 2235 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
-2025-09-25T09:59:41.9231836Z 2025-09-25T09:59:41.917Z  INFO 2235 --- [           main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
-2025-09-25T09:59:42.1225673Z 2025-09-25T09:59:42.080Z  INFO 2235 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-25T09:59:42.1230617Z 2025-09-25T09:59:42.120Z  WARN 2235 --- [           main] org.hibernate.dialect.Dialect            : HHH000511: The 2.1.0 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.0.0. Check the community dialects project for available legacy versions.
-2025-09-25T09:59:42.2229821Z 2025-09-25T09:59:42.124Z  WARN 2235 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-09-25T09:59:42.6239679Z 2025-09-25T09:59:42.609Z  INFO 2235 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-25T09:59:42.7245639Z 2025-09-25T09:59:42.651Z DEBUG 2235 --- [           main] org.hibernate.SQL                        : create sequence users_seq start with 1 increment by 1
-2025-09-25T09:59:42.7249496Z Hibernate: create sequence users_seq start with 1 increment by 1
-2025-09-25T09:59:42.7251008Z 2025-09-25T09:59:42.654Z  INFO 2235 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25T09:59:43.1279304Z 2025-09-25T09:59:43.073Z  WARN 2235 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-25T09:59:43.4302650Z 2025-09-25T09:59:43.358Z  INFO 2235 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@35355074, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@290964bd, org.springframework.security.web.context.SecurityContextHolderFilter@7c5dbca5, org.springframework.security.web.header.HeaderWriterFilter@30b5225b, org.springframework.web.filter.CorsFilter@3411e0d7, org.springframework.security.web.authentication.logout.LogoutFilter@28f33810, com.ai.qa.user.infrastructure.filter.JwtRequestFilter@675c1335, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@44929971, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7ab5b01a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6a2d0632, org.springframework.security.web.session.SessionManagementFilter@3444ac8f, org.springframework.security.web.access.ExceptionTranslationFilter@7daecd21, org.springframework.security.web.access.intercept.AuthorizationFilter@22e7ec5f]
-2025-09-25T09:59:43.7147957Z 2025-09-25T09:59:43.688Z  INFO 2235 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 44579 (http) with context path ''
-2025-09-25T09:59:43.7150953Z 2025-09-25T09:59:43.705Z  INFO 2235 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Started UserControllerIntegrationTest in 4.224 seconds (process running for 11.737)
-2025-09-25T09:59:43.9325084Z 2025-09-25T09:59:43.920Z  INFO 2235 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-25T09:59:43.9332055Z 2025-09-25T09:59:43.920Z  INFO 2235 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-09-25T09:59:43.9338224Z 2025-09-25T09:59:43.922Z  INFO 2235 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2025-09-25T09:59:44.1232925Z 2025-09-25T09:59:44.073Z DEBUG 2235 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select u1_0.id,u1_0.update_date,u1_0.nickname,u1_0.password,u1_0.creation_date,u1_0.username from users u1_0 where u1_0.username=?
-2025-09-25T09:59:44.1237777Z Hibernate: select u1_0.id,u1_0.update_date,u1_0.nickname,u1_0.password,u1_0.creation_date,u1_0.username from users u1_0 where u1_0.username=?
-2025-09-25T09:59:44.1245775Z 2025-09-25T09:59:44.076Z  WARN 2235 --- [o-auto-1-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 42122, SQLState: 42S22
-2025-09-25T09:59:44.1253671Z 2025-09-25T09:59:44.076Z ERROR 2235 --- [o-auto-1-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : Column "U1_0.UPDATE_DATE" not found; SQL statement:
-2025-09-25T09:59:44.1255398Z select u1_0.id,u1_0.update_date,u1_0.nickname,u1_0.password,u1_0.creation_date,u1_0.username from users u1_0 where u1_0.username=? [42122-214]
-2025-09-25T09:59:44.2781528Z [ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 10.471 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:59:44.2783739Z [ERROR] com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin  Time elapsed: 0.404 s  <<< FAILURE!
-2025-09-25T09:59:44.2786068Z org.opentest4j.AssertionFailedError: expected: <200> but was: <500>
-2025-09-25T09:59:44.2787049Z 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-2025-09-25T09:59:44.2788241Z 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-2025-09-25T09:59:44.2789270Z 	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-2025-09-25T09:59:44.2790174Z 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
-2025-09-25T09:59:44.2791035Z 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
-2025-09-25T09:59:44.2791869Z 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:528)
-2025-09-25T09:59:44.2792955Z 	at com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin(UserControllerIntegrationTest.java:36)
-2025-09-25T09:59:44.2794297Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-2025-09-25T09:59:44.2795400Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-2025-09-25T09:59:44.2796676Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-2025-09-25T09:59:44.2797663Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-2025-09-25T09:59:44.2798535Z 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
-2025-09-25T09:59:44.2800122Z 	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-2025-09-25T09:59:44.2801512Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
-2025-09-25T09:59:44.2802895Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
-2025-09-25T09:59:44.2804242Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
-2025-09-25T09:59:44.2805490Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
-2025-09-25T09:59:44.2807082Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
-2025-09-25T09:59:44.2808892Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
-2025-09-25T09:59:44.2810667Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
-2025-09-25T09:59:44.2812287Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
-2025-09-25T09:59:44.2813958Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
-2025-09-25T09:59:44.2815455Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
-2025-09-25T09:59:44.2816934Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
-2025-09-25T09:59:44.2818460Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
-2025-09-25T09:59:44.2820124Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217)
-2025-09-25T09:59:44.2821723Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:59:44.2823197Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
-2025-09-25T09:59:44.2824805Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
-2025-09-25T09:59:44.2826186Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
-2025-09-25T09:59:44.2827613Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
-2025-09-25T09:59:44.2829032Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:59:44.2830465Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:59:44.2831649Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:59:44.2832844Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:59:44.2834385Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:59:44.2835752Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:59:44.2837009Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:59:44.2837916Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-2025-09-25T09:59:44.2839401Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-2025-09-25T09:59:44.2841228Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-2025-09-25T09:59:44.2843361Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:59:44.2844541Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:59:44.2845547Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:59:44.2846662Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:59:44.2847966Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:59:44.2849065Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:59:44.2850303Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:59:44.2851252Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-2025-09-25T09:59:44.2852751Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-2025-09-25T09:59:44.2854678Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-2025-09-25T09:59:44.2856046Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:59:44.2857407Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:59:44.2858587Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:59:44.2859729Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:59:44.2861077Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:59:44.2862384Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:59:44.2863837Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:59:44.2865622Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-2025-09-25T09:59:44.2867484Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-2025-09-25T09:59:44.2869006Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-2025-09-25T09:59:44.2870462Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
-2025-09-25T09:59:44.2871888Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
-2025-09-25T09:59:44.2873504Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
-2025-09-25T09:59:44.2875102Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
-2025-09-25T09:59:44.2876829Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
-2025-09-25T09:59:44.2878416Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
-2025-09-25T09:59:44.2879626Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
-2025-09-25T09:59:44.2880648Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
-2025-09-25T09:59:44.2881914Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
-2025-09-25T09:59:44.2883167Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
-2025-09-25T09:59:44.2905221Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
-2025-09-25T09:59:44.2906658Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
-2025-09-25T09:59:44.2911213Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
-2025-09-25T09:59:44.2912478Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
-2025-09-25T09:59:44.2913657Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
-2025-09-25T09:59:44.2914616Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
-2025-09-25T09:59:44.2915568Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
-2025-09-25T09:59:44.2916109Z
-2025-09-25T09:59:44.2916981Z 2025-09-25T09:59:44.285Z  INFO 2235 --- [ionShutdownHook] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2025-09-25T09:59:44.2918659Z 2025-09-25T09:59:44.287Z  INFO 2235 --- [ionShutdownHook] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
-2025-09-25T09:59:44.3581747Z [INFO]
-2025-09-25T09:59:44.3582113Z [INFO] Results:
-2025-09-25T09:59:44.3582409Z [INFO]
-2025-09-25T09:59:44.3582700Z [ERROR] Failures:
-2025-09-25T09:59:44.3583602Z [ERROR]   UserControllerIntegrationTest.testLogin:36 expected: <200> but was: <500>
-2025-09-25T09:59:44.3584252Z [INFO]
-2025-09-25T09:59:44.3584740Z [ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0
-2025-09-25T09:59:44.3585219Z [INFO]
-2025-09-25T09:59:44.3611356Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:59:44.3613842Z [INFO] Reactor Summary for ai-qa-backend 1.0-SNAPSHOT:
-2025-09-25T09:59:44.3614562Z [INFO]
-2025-09-25T09:59:44.3617414Z [INFO] ai-qa-backend ...................................... SUCCESS [  0.502 s]
-2025-09-25T09:59:44.3622051Z [INFO] user-service ....................................... FAILURE [ 26.745 s]
-2025-09-25T09:59:44.3623080Z [INFO] qa-service ......................................... SKIPPED
-2025-09-25T09:59:44.3628978Z [INFO] api-gateway ........................................ SKIPPED
-2025-09-25T09:59:44.3630043Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:59:44.3630780Z [INFO] BUILD FAILURE
-2025-09-25T09:59:44.3631578Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:59:44.3633553Z [INFO] Total time:  31.776 s
-2025-09-25T09:59:44.3634110Z [INFO] Finished at: 2025-09-25T09:59:44Z
-2025-09-25T09:59:44.3635288Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:59:44.3636752Z [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0:test (default-test) on project user-service: There are test failures.
-2025-09-25T09:59:44.3637791Z [ERROR]
-2025-09-25T09:59:44.3639010Z [ERROR] Please refer to /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/surefire-reports for the individual test results.
-2025-09-25T09:59:44.3640616Z [ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
-2025-09-25T09:59:44.3641377Z [ERROR] -> [Help 1]
-2025-09-25T09:59:44.3641689Z [ERROR]
-2025-09-25T09:59:44.3642338Z [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-2025-09-25T09:59:44.3643916Z [ERROR] Re-run Maven using the -X switch to enable full debug logging.
-2025-09-25T09:59:44.3644500Z [ERROR]
-2025-09-25T09:59:44.3645311Z [ERROR] For more information about the errors and possible solutions, please read the following articles:
-2025-09-25T09:59:44.3646455Z [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
-2025-09-25T09:59:44.3647099Z [ERROR]
-2025-09-25T09:59:44.3647769Z [ERROR] After correcting the problems, you can resume the build with the command
-2025-09-25T09:59:44.3649117Z [ERROR]   mvn <args> -rf :user-service
-2025-09-25T09:59:44.3988071Z ##[error]Process completed with exit code 1.
+2025-09-25T10:05:13.6042487Z [INFO] -------------------------------------------------------
+2025-09-25T10:05:13.6042873Z [INFO]  T E S T S
+2025-09-25T10:05:13.6043243Z [INFO] -------------------------------------------------------
+2025-09-25T10:05:14.3345205Z [INFO] Running com.ai.qa.user.api.controller.UserControllerTest
+2025-09-25T10:05:14.8289164Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2025-09-25T10:05:15.6092763Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.222 s - in com.ai.qa.user.api.controller.UserControllerTest
+2025-09-25T10:05:15.6094482Z [INFO] Running com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T10:05:15.8487350Z 10:05:15.745 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+2025-09-25T10:05:15.8488910Z 10:05:15.749 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2025-09-25T10:05:16.5499107Z 10:05:16.460 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2025-09-25T10:05:16.5500407Z 10:05:16.467 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+2025-09-25T10:05:16.5501242Z 10:05:16.483 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker:
+2025-09-25T10:05:16.5501647Z   Server Version: 28.0.4
+2025-09-25T10:05:16.5502152Z   API Version: 1.48
+2025-09-25T10:05:16.5502390Z   Operating System: Ubuntu 24.04.3 LTS
+2025-09-25T10:05:16.5502640Z   Total Memory: 15995 MB
+2025-09-25T10:05:16.5503436Z 10:05:16.502 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling docker image: testcontainers/ryuk:0.5.1. Please be patient; this may take some time but only needs to be done once.
+2025-09-25T10:05:17.4513853Z 10:05:17.391 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Starting to pull image
+2025-09-25T10:05:17.4515239Z 10:05:17.433 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2025-09-25T10:05:18.0523445Z 10:05:17.961 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (56 KB/? MB)
+2025-09-25T10:05:18.0524756Z 10:05:17.969 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (2 MB/? MB)
+2025-09-25T10:05:18.1523873Z 10:05:18.057 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  1 extracted, (5 MB/? MB)
+2025-09-25T10:05:18.1526009Z 10:05:18.069 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (5 MB/5 MB)
+2025-09-25T10:05:18.2525704Z 10:05:18.236 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (5 MB/5 MB)
+2025-09-25T10:05:18.3551704Z 10:05:18.281 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
+2025-09-25T10:05:18.3553538Z 10:05:18.288 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Image testcontainers/ryuk:0.5.1 pull took PT1.785309656S
+2025-09-25T10:05:18.3554902Z 10:05:18.318 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
+2025-09-25T10:05:18.4540413Z 10:05:18.397 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: 889215887ee0789f7cdf0352c9a96b3e410a1afb00a5e82ffea260c5d5945bfb
+2025-09-25T10:05:18.7558341Z 10:05:18.712 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT0.393644074S
+2025-09-25T10:05:18.7561405Z 10:05:18.717 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2025-09-25T10:05:18.7564309Z 10:05:18.717 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+2025-09-25T10:05:18.7567082Z 10:05:18.718 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+2025-09-25T10:05:18.7569140Z 10:05:18.721 [main] INFO tc.redis:latest -- Pulling docker image: redis:latest. Please be patient; this may take some time but only needs to be done once.
+2025-09-25T10:05:19.5568792Z 10:05:19.489 [docker-java-stream-328759547] INFO tc.redis:latest -- Starting to pull image
+2025-09-25T10:05:19.5569881Z 10:05:19.490 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2025-09-25T10:05:19.9574041Z 10:05:19.910 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (874 bytes/? MB)
+2025-09-25T10:05:20.0575706Z 10:05:20.032 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (281 KB/? MB)
+2025-09-25T10:05:20.2578094Z 10:05:20.179 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (25 MB/? MB)
+2025-09-25T10:05:20.3579960Z 10:05:20.263 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  3 pending,  4 downloaded,  0 extracted, (25 MB/? MB)
+2025-09-25T10:05:20.3582985Z 10:05:20.345 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  2 pending,  5 downloaded,  0 extracted, (35 MB/? MB)
+2025-09-25T10:05:20.4582282Z 10:05:20.405 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  0 extracted, (35 MB/? MB)
+2025-09-25T10:05:21.3593910Z 10:05:21.269 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  1 extracted, (37 MB/? MB)
+2025-09-25T10:05:21.4596147Z 10:05:21.374 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  2 extracted, (37 MB/? MB)
+2025-09-25T10:05:21.4597952Z 10:05:21.388 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  3 extracted, (37 MB/? MB)
+2025-09-25T10:05:21.7599797Z 10:05:21.703 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  4 extracted, (49 MB/? MB)
+2025-09-25T10:05:21.7601603Z 10:05:21.712 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  5 extracted, (49 MB/? MB)
+2025-09-25T10:05:21.7604018Z 10:05:21.722 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  6 extracted, (49 MB/? MB)
+2025-09-25T10:05:21.7605520Z 10:05:21.732 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  7 extracted, (49 MB/? MB)
+2025-09-25T10:05:21.7606684Z 10:05:21.738 [docker-java-stream-328759547] INFO tc.redis:latest -- Pull complete. 7 layers, pulled in 2s (downloaded 49 MB at 24 MB/s)
+2025-09-25T10:05:21.7607545Z 10:05:21.737 [main] INFO tc.redis:latest -- Image redis:latest pull took PT3.016598179S
+2025-09-25T10:05:21.7608196Z 10:05:21.740 [main] INFO tc.redis:latest -- Creating container for image: redis:latest
+2025-09-25T10:05:21.7609346Z 10:05:21.755 [main] INFO tc.redis:latest -- Container redis:latest is starting: 8153643ca54e44078453d98ce2e54bb8f9ba93fc433d7cc013d4dd2486c76142
+2025-09-25T10:05:21.9607918Z 10:05:21.959 [main] INFO tc.redis:latest -- Container redis:latest started in PT0.218686738S
+2025-09-25T10:05:22.0620972Z 10:05:22.042 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ai.qa.user.api.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-09-25T10:05:22.3622924Z 10:05:22.270 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ai.qa.user.UserServiceApplication for test class com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T10:05:22.7655116Z 2025-09-25T10:05:22.755Z  INFO 2289 --- [           main] c.a.n.client.env.SearchableProperties    : properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
+2025-09-25T10:05:22.7661952Z 2025-09-25T10:05:22.757Z  WARN 2289 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
+2025-09-25T10:05:22.7732643Z
+2025-09-25T10:05:22.7733150Z   .   ____          _            __ _ _
+2025-09-25T10:05:22.7733672Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2025-09-25T10:05:22.7734172Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2025-09-25T10:05:22.7734615Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2025-09-25T10:05:22.7735057Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2025-09-25T10:05:22.7735477Z  =========|_|==============|___/=/_/_/_/
+2025-09-25T10:05:22.7736104Z  :: Spring Boot ::                (v3.1.5)
+2025-09-25T10:05:22.7736384Z
+2025-09-25T10:05:22.8674258Z 2025-09-25T10:05:22.838Z  WARN 2289 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
+2025-09-25T10:05:22.9643162Z 2025-09-25T10:05:22.865Z  INFO 2289 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Starting UserControllerIntegrationTest using Java 17.0.16 with PID 2289 (started by runner in /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service)
+2025-09-25T10:05:22.9647300Z 2025-09-25T10:05:22.866Z  INFO 2289 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : The following 1 profile is active: "test"
+2025-09-25T10:05:23.6693417Z 2025-09-25T10:05:23.614Z  INFO 2289 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-25T10:05:23.6699724Z 2025-09-25T10:05:23.659Z  INFO 2289 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 1 JPA repository interfaces.
+2025-09-25T10:05:23.8691354Z 2025-09-25T10:05:23.858Z  INFO 2289 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=c616384c-2762-30f2-9704-4e73246b641c
+2025-09-25T10:05:24.4702713Z 2025-09-25T10:05:24.382Z  INFO 2289 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2025-09-25T10:05:24.4705160Z 2025-09-25T10:05:24.406Z  INFO 2289 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-25T10:05:24.4710194Z 2025-09-25T10:05:24.407Z  INFO 2289 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2025-09-25T10:05:24.5710402Z 2025-09-25T10:05:24.520Z  INFO 2289 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-25T10:05:24.5730052Z 2025-09-25T10:05:24.521Z  INFO 2289 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1631 ms
+2025-09-25T10:05:24.6725076Z 2025-09-25T10:05:24.591Z  INFO 2289 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-25T10:05:24.7730787Z 2025-09-25T10:05:24.761Z  INFO 2289 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-09-25T10:05:24.7735730Z 2025-09-25T10:05:24.762Z  INFO 2289 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-25T10:05:24.8801514Z 2025-09-25T10:05:24.792Z ERROR 2289 --- [           main] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtRequestFilter' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/filter/JwtRequestFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'customUserDetailsService' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/persistence/repositories/CustomUserDetailsService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:24.8810191Z
+2025-09-25T10:05:24.8810993Z 2025-09-25T10:05:24.815Z  INFO 2289 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-09-25T10:05:24.8813586Z 2025-09-25T10:05:24.818Z  WARN 2289 --- [           main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+2025-09-25T10:05:24.8827291Z
+2025-09-25T10:05:24.8827744Z  java.base@17.0.16/jdk.internal.misc.Unsafe.park(Native Method)
+2025-09-25T10:05:24.8828509Z
+2025-09-25T10:05:24.8829344Z  java.base@17.0.16/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+2025-09-25T10:05:24.8830588Z ============================
+2025-09-25T10:05:24.8837475Z  java.base@17.0.16/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1679)
+2025-09-25T10:05:24.8838965Z CONDITIONS EVALUATION REPORT
+2025-09-25T10:05:24.8840231Z  java.base@17.0.16/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+2025-09-25T10:05:24.8842329Z  java.base@17.0.16/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+2025-09-25T10:05:24.8843924Z  java.base@17.0.16/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+2025-09-25T10:05:24.8845170Z  java.base@17.0.16/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+2025-09-25T10:05:24.8846403Z  java.base@17.0.16/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+2025-09-25T10:05:24.8847332Z  java.base@17.0.16/java.lang.Thread.run(Thread.java:840)
+2025-09-25T10:05:24.8849686Z 2025-09-25T10:05:24.820Z  WARN 2289 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+2025-09-25T10:05:24.8871156Z 2025-09-25T10:05:24.820Z  INFO 2289 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-09-25T10:05:24.8872838Z 2025-09-25T10:05:24.822Z  INFO 2289 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-09-25T10:05:24.8874059Z 2025-09-25T10:05:24.837Z  INFO 2289 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger :
+2025-09-25T10:05:24.8874563Z
+2025-09-25T10:05:24.8875379Z Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-09-25T10:05:24.8876805Z 2025-09-25T10:05:24.852Z ERROR 2289 --- [           main] o.s.boot.SpringApplication               : Application run failed
+2025-09-25T10:05:24.8877369Z
+2025-09-25T10:05:24.8877957Z org.springframework.context.ApplicationContextException: Unable to start web server
+2025-09-25T10:05:24.8879725Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:164) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8882092Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:610) ~[spring-context-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8888177Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8890253Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8892361Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8893894Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8895864Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8898212Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8899802Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8902418Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8904775Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8907331Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8909429Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.8912077Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8924194Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8926471Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8928875Z 	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:141) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8931642Z 	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:97) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8934095Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8936068Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.8938363Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8940764Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8943407Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8945259Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+2025-09-25T10:05:24.8946446Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+2025-09-25T10:05:24.8947661Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
+2025-09-25T10:05:24.8948855Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+2025-09-25T10:05:24.8950061Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+2025-09-25T10:05:24.8951544Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310) ~[na:na]
+2025-09-25T10:05:24.8954130Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735) ~[na:na]
+2025-09-25T10:05:24.8955407Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734) ~[na:na]
+2025-09-25T10:05:24.8956592Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[na:na]
+2025-09-25T10:05:24.8958484Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8961058Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8963774Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.8966503Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8969021Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8970972Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+2025-09-25T10:05:24.8972755Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8974963Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8977062Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8979131Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.8981151Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8983346Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.8985622Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.8987791Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.8990200Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.8992533Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.8994173Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2025-09-25T10:05:24.8999114Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9001664Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9003902Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9005970Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9007751Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9009558Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9011587Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9013749Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9015653Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9017368Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2025-09-25T10:05:24.9019331Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9022161Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9024222Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9026256Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9028027Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9029875Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9034646Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9036745Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9038677Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9041048Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9043779Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9045989Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9048130Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9050244Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9052519Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9054676Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9057001Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9059265Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9061130Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9063004Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9065271Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9067186Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9069482Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9071565Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9073781Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9075820Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9077374Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9078801Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9080221Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9081656Z Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+2025-09-25T10:05:24.9083353Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:142) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9085105Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:104) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9088308Z 	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:489) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9090808Z 	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:211) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9093414Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:183) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9095902Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:161) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9097210Z 	... 87 common frames omitted
+2025-09-25T10:05:24.9105571Z Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtRequestFilter' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/filter/JwtRequestFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'customUserDetailsService' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/persistence/repositories/CustomUserDetailsService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:24.9113642Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9115746Z 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9118158Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9121279Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9124051Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9126563Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9128804Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9130946Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9133215Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9135113Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9137298Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:210) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9139698Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:173) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9142246Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:168) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9144567Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:153) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9146687Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9149195Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:261) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9152155Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:235) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9154339Z 	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9156050Z 	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4850) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9157501Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9158991Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9160547Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9162010Z 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+2025-09-25T10:05:24.9163429Z 	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9165425Z 	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145) ~[na:na]
+2025-09-25T10:05:24.9167284Z 	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9168846Z 	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:845) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9170704Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9172406Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9173960Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9175189Z 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+2025-09-25T10:05:24.9176604Z 	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9178196Z 	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145) ~[na:na]
+2025-09-25T10:05:24.9179650Z 	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9181296Z 	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:240) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9182876Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9184359Z 	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:433) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9185826Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9187260Z 	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:917) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9188703Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9189960Z 	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:488) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9191434Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:123) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9201388Z 	... 92 common frames omitted
+2025-09-25T10:05:24.9208004Z Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customUserDetailsService' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/persistence/repositories/CustomUserDetailsService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:24.9214225Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9216425Z 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9218781Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9221418Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9224077Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9226843Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9228979Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9231041Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9235433Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9237309Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9239272Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9241526Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9244117Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9246355Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9248499Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9249716Z 	... 133 common frames omitted
+2025-09-25T10:05:24.9253676Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:24.9257596Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9260026Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9262740Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1682) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9265727Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9268224Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9270641Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9272924Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9275978Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9278045Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9280361Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9282611Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9284873Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9287208Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9289513Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9291708Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9293286Z 	... 147 common frames omitted
+2025-09-25T10:05:24.9295469Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
+2025-09-25T10:05:24.9298109Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9300665Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9303625Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:688) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9306037Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:512) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9312600Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9315222Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9317655Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9319989Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9322222Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9324258Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9326206Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9328098Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9403775Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9405111Z 	... 161 common frames omitted
+2025-09-25T10:05:24.9409196Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of class path resource [data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T10:05:24.9414242Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9416711Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9419174Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9421335Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9423599Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9425640Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9427539Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9429453Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9431307Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9433682Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9435040Z 	... 173 common frames omitted
+2025-09-25T10:05:24.9437675Z Caused by: org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #1 of class path resource [data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T10:05:24.9440463Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:282) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9442537Z 	at org.springframework.jdbc.datasource.init.ResourceDatabasePopulator.populate(ResourceDatabasePopulator.java:254) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9444550Z 	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:54) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9446782Z 	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9449147Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9451501Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9454790Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyDataScripts(AbstractScriptDatabaseInitializer.java:102) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9457263Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:77) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9460058Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9462774Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9465361Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9466814Z 	... 182 common frames omitted
+2025-09-25T10:05:24.9467709Z Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "CREATE_TIME" not found; SQL statement:
+2025-09-25T10:05:24.9469531Z INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) [42122-214]
+2025-09-25T10:05:24.9471089Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9472399Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9473439Z 	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9474348Z 	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9475178Z 	at org.h2.table.Table.getColumn(Table.java:749) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9476028Z 	at org.h2.command.Parser.parseColumn(Parser.java:1256) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9476957Z 	at org.h2.command.Parser.parseColumnList(Parser.java:1241) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9477884Z 	at org.h2.command.Parser.parseInsert(Parser.java:1641) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9478792Z 	at org.h2.command.Parser.parsePrepared(Parser.java:814) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9479652Z 	at org.h2.command.Parser.parse(Parser.java:689) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9480455Z 	at org.h2.command.Parser.parse(Parser.java:661) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9481306Z 	at org.h2.command.Parser.prepareCommand(Parser.java:569) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9482467Z 	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9484004Z 	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9485121Z 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9486240Z 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9487273Z 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:24.9488363Z 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+2025-09-25T10:05:24.9489668Z 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+2025-09-25T10:05:24.9491228Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:261) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9492416Z 	... 192 common frames omitted
+2025-09-25T10:05:24.9492659Z
+2025-09-25T10:05:24.9495165Z 2025-09-25T10:05:24.871Z ERROR 2289 --- [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener] to prepare test instance [com.ai.qa.user.api.controller.UserControllerIntegrationTest@5f01361e]
+2025-09-25T10:05:24.9497158Z
+2025-09-25T10:05:24.9509793Z java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@7b44e98e testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true", "server.port=0"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@74024f3, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@760487aa, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@106b014e, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@27e2287c, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@f07ba1a3], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+2025-09-25T10:05:24.9522133Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:143) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9524410Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9526870Z 	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:141) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9529716Z 	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:97) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9532219Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9534267Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9536584Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9538951Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9541360Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9543378Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+2025-09-25T10:05:24.9544504Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+2025-09-25T10:05:24.9545690Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
+2025-09-25T10:05:24.9546887Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+2025-09-25T10:05:24.9548057Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+2025-09-25T10:05:24.9549485Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310) ~[na:na]
+2025-09-25T10:05:24.9550860Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735) ~[na:na]
+2025-09-25T10:05:24.9552254Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734) ~[na:na]
+2025-09-25T10:05:24.9553781Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[na:na]
+2025-09-25T10:05:24.9555674Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9558218Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9560482Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9562990Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9565396Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9566888Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+2025-09-25T10:05:24.9568412Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9570528Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9572686Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9574611Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9576541Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9578519Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.3.jar:5.9.3]
+2025-09-25T10:05:24.9580431Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9582558Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9584903Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9586690Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9587919Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2025-09-25T10:05:24.9589792Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9592416Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9594399Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9596359Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9598051Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9599826Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9602394Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9604295Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9606109Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9607366Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2025-09-25T10:05:24.9609222Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9611638Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9614055Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9616082Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9617818Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9619574Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9621591Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9623735Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9625606Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9628044Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9630660Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9633157Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9635360Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9637541Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9639672Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9642015Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9644358Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9646631Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9648897Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9650418Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9652396Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) ~[junit-platform-launcher-1.9.3.jar:1.9.3]
+2025-09-25T10:05:24.9654102Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9655859Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9657960Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9660310Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9662470Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9664177Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9665718Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9667233Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.0.0.jar:3.0.0]
+2025-09-25T10:05:24.9668729Z Caused by: org.springframework.context.ApplicationContextException: Unable to start web server
+2025-09-25T10:05:24.9670723Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:164) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9673425Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:610) ~[spring-context-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9675809Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9677855Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9679470Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9681062Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9683166Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9685613Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9687214Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9688786Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9692580Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9694902Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9697088Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9700082Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9703127Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119) ~[spring-test-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9704663Z 	... 73 common frames omitted
+2025-09-25T10:05:24.9705657Z Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+2025-09-25T10:05:24.9707267Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:142) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9709084Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:104) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9711305Z 	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:489) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9714034Z 	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:211) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9716600Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:183) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9719254Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:161) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9720696Z 	... 87 common frames omitted
+2025-09-25T10:05:24.9730058Z Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtRequestFilter' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/filter/JwtRequestFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'customUserDetailsService' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/persistence/repositories/CustomUserDetailsService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:24.9738145Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9740308Z 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9743776Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9746483Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9749022Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9751662Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9754260Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9758024Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9760262Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9762422Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9764694Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:210) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9767153Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:173) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9769728Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:168) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9772416Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:153) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9774728Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9777429Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:261) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9780389Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:235) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9782915Z 	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9784598Z 	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4850) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9786584Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9788168Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9789808Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9791126Z 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+2025-09-25T10:05:24.9792857Z 	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9794575Z 	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145) ~[na:na]
+2025-09-25T10:05:24.9796215Z 	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9797855Z 	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:845) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9799429Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9801014Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9802866Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9804160Z 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+2025-09-25T10:05:24.9805612Z 	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9807731Z 	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145) ~[na:na]
+2025-09-25T10:05:24.9809307Z 	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9810959Z 	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:240) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9812713Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9814326Z 	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:433) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9815949Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9817535Z 	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:917) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9819148Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9820558Z 	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:488) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+2025-09-25T10:05:24.9822394Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:123) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9823544Z 	... 92 common frames omitted
+2025-09-25T10:05:24.9830169Z Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customUserDetailsService' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/persistence/repositories/CustomUserDetailsService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:24.9836306Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9838364Z 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9840735Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9843513Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9846158Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9848737Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9851012Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9853374Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9855505Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9857781Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9859818Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9862253Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9864583Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9866910Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9869108Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9870388Z 	... 133 common frames omitted
+2025-09-25T10:05:24.9874335Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:24.9878397Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9880870Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9883685Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1682) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9886704Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9889300Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9892053Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9894344Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9896530Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9898694Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9900656Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9902860Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9905143Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9907694Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9910413Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9912785Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9914028Z 	... 147 common frames omitted
+2025-09-25T10:05:24.9915977Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
+2025-09-25T10:05:24.9918675Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9921260Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9923960Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:688) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9926398Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:512) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9929170Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9932384Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9935211Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9937937Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9940282Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9942739Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9944966Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9946980Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9949144Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9950514Z 	... 161 common frames omitted
+2025-09-25T10:05:24.9955015Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of class path resource [data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T10:05:24.9959588Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9962426Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9965407Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9967749Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9970005Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9972313Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9974254Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9976415Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9978390Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9980620Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9982181Z 	... 173 common frames omitted
+2025-09-25T10:05:24.9984882Z Caused by: org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #1 of class path resource [data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T10:05:24.9988050Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:282) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9989972Z 	at org.springframework.jdbc.datasource.init.ResourceDatabasePopulator.populate(ResourceDatabasePopulator.java:254) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9992172Z 	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:54) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T10:05:24.9994321Z 	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9996685Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:24.9999050Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:25.0001454Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyDataScripts(AbstractScriptDatabaseInitializer.java:102) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:25.0004207Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:77) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:25.0006595Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.1.5.jar:3.1.5]
+2025-09-25T10:05:25.0009004Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:25.0011525Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766) ~[spring-beans-6.0.13.jar:6.0.13]
+2025-09-25T10:05:25.0013102Z 	... 182 common frames omitted
+2025-09-25T10:05:25.0014289Z Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "CREATE_TIME" not found; SQL statement:
+2025-09-25T10:05:25.0016322Z INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) [42122-214]
+2025-09-25T10:05:25.0017941Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0019161Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0020227Z 	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0021184Z 	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0022260Z 	at org.h2.table.Table.getColumn(Table.java:749) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0023162Z 	at org.h2.command.Parser.parseColumn(Parser.java:1256) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0024133Z 	at org.h2.command.Parser.parseColumnList(Parser.java:1241) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0025118Z 	at org.h2.command.Parser.parseInsert(Parser.java:1641) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0026059Z 	at org.h2.command.Parser.parsePrepared(Parser.java:814) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0026938Z 	at org.h2.command.Parser.parse(Parser.java:689) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0027771Z 	at org.h2.command.Parser.parse(Parser.java:661) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0028759Z 	at org.h2.command.Parser.prepareCommand(Parser.java:569) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0042051Z 	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0043322Z 	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0044514Z 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0045852Z 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0046938Z 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223) ~[h2-2.1.214.jar:2.1.214]
+2025-09-25T10:05:25.0048089Z 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+2025-09-25T10:05:25.0049448Z 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+2025-09-25T10:05:25.0051064Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:261) ~[spring-jdbc-6.0.13.jar:6.0.13]
+2025-09-25T10:05:25.0052298Z 	... 192 common frames omitted
+2025-09-25T10:05:25.0052546Z
+2025-09-25T10:05:25.0052797Z ============================
+2025-09-25T10:05:25.0053034Z
+2025-09-25T10:05:25.0053044Z
+2025-09-25T10:05:25.0053198Z Positive matches:
+2025-09-25T10:05:25.0053532Z -----------------
+2025-09-25T10:05:25.0079196Z
+2025-09-25T10:05:25.0079373Z     None
+2025-09-25T10:05:25.0079561Z
+2025-09-25T10:05:25.0079571Z
+2025-09-25T10:05:25.0079735Z Negative matches:
+2025-09-25T10:05:25.0080082Z -----------------
+2025-09-25T10:05:25.0080279Z
+2025-09-25T10:05:25.0080399Z     None
+2025-09-25T10:05:25.0080558Z
+2025-09-25T10:05:25.0080567Z
+2025-09-25T10:05:25.0080688Z Exclusions:
+2025-09-25T10:05:25.0080961Z -----------
+2025-09-25T10:05:25.0081123Z
+2025-09-25T10:05:25.0081238Z     None
+2025-09-25T10:05:25.0081393Z
+2025-09-25T10:05:25.0081403Z
+2025-09-25T10:05:25.0081564Z Unconditional classes:
+2025-09-25T10:05:25.0090352Z ----------------------
+2025-09-25T10:05:25.0090623Z
+2025-09-25T10:05:25.0090743Z     None
+2025-09-25T10:05:25.0090915Z
+2025-09-25T10:05:25.0090926Z
+2025-09-25T10:05:25.0090935Z
+2025-09-25T10:05:25.0671651Z [ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 9.451 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T10:05:25.0682122Z [ERROR] com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin  Time elapsed: 0.001 s  <<< ERROR!
+2025-09-25T10:05:25.0697863Z java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@7b44e98e testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true", "server.port=0"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@74024f3, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@760487aa, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@106b014e, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@27e2287c, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@f07ba1a3], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+2025-09-25T10:05:25.0710371Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:143)
+2025-09-25T10:05:25.0712474Z 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
+2025-09-25T10:05:25.0714579Z 	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:141)
+2025-09-25T10:05:25.0717091Z 	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:97)
+2025-09-25T10:05:25.0719059Z 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241)
+2025-09-25T10:05:25.0720672Z 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138)
+2025-09-25T10:05:25.0722725Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377)
+2025-09-25T10:05:25.0724649Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382)
+2025-09-25T10:05:25.0726589Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377)
+2025-09-25T10:05:25.0728120Z 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+2025-09-25T10:05:25.0729179Z 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+2025-09-25T10:05:25.0730291Z 	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+2025-09-25T10:05:25.0731390Z 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+2025-09-25T10:05:25.0732618Z 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+2025-09-25T10:05:25.0733962Z 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
+2025-09-25T10:05:25.0735254Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
+2025-09-25T10:05:25.0736359Z 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
+2025-09-25T10:05:25.0737488Z 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+2025-09-25T10:05:25.0739613Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376)
+2025-09-25T10:05:25.0741709Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289)
+2025-09-25T10:05:25.0743680Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T10:05:25.0745505Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288)
+2025-09-25T10:05:25.0747497Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278)
+2025-09-25T10:05:25.0748739Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+2025-09-25T10:05:25.0750046Z 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277)
+2025-09-25T10:05:25.0751730Z 	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
+2025-09-25T10:05:25.0753477Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105)
+2025-09-25T10:05:25.0754930Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T10:05:25.0756452Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
+2025-09-25T10:05:25.0781405Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
+2025-09-25T10:05:25.0783092Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
+2025-09-25T10:05:25.0784517Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T10:05:25.0785928Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
+2025-09-25T10:05:25.0787182Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
+2025-09-25T10:05:25.0788165Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+2025-09-25T10:05:25.0789757Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+2025-09-25T10:05:25.0791675Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+2025-09-25T10:05:25.0797865Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T10:05:25.0799378Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+2025-09-25T10:05:25.0800616Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+2025-09-25T10:05:25.0802466Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+2025-09-25T10:05:25.0805911Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T10:05:25.0807897Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+2025-09-25T10:05:25.0809436Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+2025-09-25T10:05:25.0810643Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+2025-09-25T10:05:25.0819251Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+2025-09-25T10:05:25.0821341Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+2025-09-25T10:05:25.0823105Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T10:05:25.0825191Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+2025-09-25T10:05:25.0826527Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+2025-09-25T10:05:25.0827891Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+2025-09-25T10:05:25.0829492Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T10:05:25.0831054Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+2025-09-25T10:05:25.0832679Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+2025-09-25T10:05:25.0834601Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+2025-09-25T10:05:25.0836703Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+2025-09-25T10:05:25.0838423Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+2025-09-25T10:05:25.0840079Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
+2025-09-25T10:05:25.0841706Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
+2025-09-25T10:05:25.0844039Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
+2025-09-25T10:05:25.0845685Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
+2025-09-25T10:05:25.0847505Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
+2025-09-25T10:05:25.0849257Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
+2025-09-25T10:05:25.0850643Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+2025-09-25T10:05:25.0852012Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+2025-09-25T10:05:25.0853473Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+2025-09-25T10:05:25.0854988Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
+2025-09-25T10:05:25.0856407Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+2025-09-25T10:05:25.0858079Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+2025-09-25T10:05:25.0859771Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+2025-09-25T10:05:25.0861213Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+2025-09-25T10:05:25.0862638Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+2025-09-25T10:05:25.0863735Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+2025-09-25T10:05:25.0864741Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2025-09-25T10:05:25.0866044Z Caused by: org.springframework.context.ApplicationContextException: Unable to start web server
+2025-09-25T10:05:25.0867878Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:164)
+2025-09-25T10:05:25.0869854Z 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:610)
+2025-09-25T10:05:25.0872013Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+2025-09-25T10:05:25.0874130Z 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+2025-09-25T10:05:25.0875398Z 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+2025-09-25T10:05:25.0876626Z 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+2025-09-25T10:05:25.0878115Z 	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
+2025-09-25T10:05:25.0879631Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+2025-09-25T10:05:25.0881055Z 	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+2025-09-25T10:05:25.0883415Z 	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1406)
+2025-09-25T10:05:25.0886794Z 	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:545)
+2025-09-25T10:05:25.0888378Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
+2025-09-25T10:05:25.0889864Z 	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
+2025-09-25T10:05:25.0891924Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:187)
+2025-09-25T10:05:25.0894057Z 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:119)
+2025-09-25T10:05:25.0895275Z 	... 73 more
+2025-09-25T10:05:25.0896356Z Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+2025-09-25T10:05:25.0897789Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:142)
+2025-09-25T10:05:25.0899222Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:104)
+2025-09-25T10:05:25.0900983Z 	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:489)
+2025-09-25T10:05:25.0905137Z 	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:211)
+2025-09-25T10:05:25.0908588Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:183)
+2025-09-25T10:05:25.0912167Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:161)
+2025-09-25T10:05:25.0913887Z 	... 87 more
+2025-09-25T10:05:25.0925615Z Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtRequestFilter' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/filter/JwtRequestFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'customUserDetailsService' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/persistence/repositories/CustomUserDetailsService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:25.0936175Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801)
+2025-09-25T10:05:25.0937915Z 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+2025-09-25T10:05:25.0940503Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352)
+2025-09-25T10:05:25.0943197Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189)
+2025-09-25T10:05:25.0944445Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+2025-09-25T10:05:25.0945572Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+2025-09-25T10:05:25.0946549Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+2025-09-25T10:05:25.0947712Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+2025-09-25T10:05:25.0949407Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+2025-09-25T10:05:25.0950929Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
+2025-09-25T10:05:25.0952671Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:210)
+2025-09-25T10:05:25.0953965Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:173)
+2025-09-25T10:05:25.0955256Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:168)
+2025-09-25T10:05:25.0956404Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:153)
+2025-09-25T10:05:25.0957730Z 	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86)
+2025-09-25T10:05:25.0959552Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:261)
+2025-09-25T10:05:25.0962178Z 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:235)
+2025-09-25T10:05:25.0963888Z 	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
+2025-09-25T10:05:25.0965093Z 	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4850)
+2025-09-25T10:05:25.0966099Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
+2025-09-25T10:05:25.0966661Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
+2025-09-25T10:05:25.0967220Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
+2025-09-25T10:05:25.0967794Z 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+2025-09-25T10:05:25.0968758Z 	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+2025-09-25T10:05:25.0969972Z 	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+2025-09-25T10:05:25.0971303Z 	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
+2025-09-25T10:05:25.0972498Z 	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:845)
+2025-09-25T10:05:25.0973353Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
+2025-09-25T10:05:25.0973918Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
+2025-09-25T10:05:25.0974481Z 	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
+2025-09-25T10:05:25.0975001Z 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+2025-09-25T10:05:25.0975583Z 	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+2025-09-25T10:05:25.0976645Z 	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+2025-09-25T10:05:25.0977285Z 	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
+2025-09-25T10:05:25.0977850Z 	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:240)
+2025-09-25T10:05:25.0978387Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
+2025-09-25T10:05:25.0978930Z 	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:433)
+2025-09-25T10:05:25.0979471Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
+2025-09-25T10:05:25.0980003Z 	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:917)
+2025-09-25T10:05:25.0980527Z 	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
+2025-09-25T10:05:25.0980986Z 	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:488)
+2025-09-25T10:05:25.0981585Z 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:123)
+2025-09-25T10:05:25.0982271Z 	... 92 more
+2025-09-25T10:05:25.0985721Z Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customUserDetailsService' defined in file [/home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/classes/com/ai/qa/user/infrastructure/persistence/repositories/CustomUserDetailsService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:25.0988847Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:801)
+2025-09-25T10:05:25.0989750Z 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+2025-09-25T10:05:25.0990817Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352)
+2025-09-25T10:05:25.0992524Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189)
+2025-09-25T10:05:25.0994347Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+2025-09-25T10:05:25.0995463Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+2025-09-25T10:05:25.0996427Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+2025-09-25T10:05:25.0997350Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+2025-09-25T10:05:25.0998255Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+2025-09-25T10:05:25.0999245Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+2025-09-25T10:05:25.1000059Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+2025-09-25T10:05:25.1001014Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+2025-09-25T10:05:25.1002487Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+2025-09-25T10:05:25.1003605Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910)
+2025-09-25T10:05:25.1005017Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788)
+2025-09-25T10:05:25.1005554Z 	... 133 more
+2025-09-25T10:05:25.1008869Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaUserRepository' defined in com.ai.qa.user.infrastructure.persistence.repositories.JpaUserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2025-09-25T10:05:25.1012675Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+2025-09-25T10:05:25.1014631Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+2025-09-25T10:05:25.1015822Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1682)
+2025-09-25T10:05:25.1017006Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+2025-09-25T10:05:25.1018125Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597)
+2025-09-25T10:05:25.1019213Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+2025-09-25T10:05:25.1020174Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+2025-09-25T10:05:25.1021092Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+2025-09-25T10:05:25.1022667Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+2025-09-25T10:05:25.1024090Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+2025-09-25T10:05:25.1025603Z 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+2025-09-25T10:05:25.1027320Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+2025-09-25T10:05:25.1028531Z 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+2025-09-25T10:05:25.1029599Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:910)
+2025-09-25T10:05:25.1030946Z 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:788)
+2025-09-25T10:05:25.1032791Z 	... 147 more
+2025-09-25T10:05:25.1034849Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
+2025-09-25T10:05:25.1037264Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+2025-09-25T10:05:25.1038899Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+2025-09-25T10:05:25.1040761Z 	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:688)
+2025-09-25T10:05:25.1042761Z 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:512)
+2025-09-25T10:05:25.1044451Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1332)
+2025-09-25T10:05:25.1046842Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1162)
+2025-09-25T10:05:25.1048798Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+2025-09-25T10:05:25.1050952Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+2025-09-25T10:05:25.1052691Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+2025-09-25T10:05:25.1053806Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+2025-09-25T10:05:25.1054801Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+2025-09-25T10:05:25.1056117Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+2025-09-25T10:05:25.1057745Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+2025-09-25T10:05:25.1058807Z 	... 161 more
+2025-09-25T10:05:25.1063166Z Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of class path resource [data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T10:05:25.1067544Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+2025-09-25T10:05:25.1069752Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+2025-09-25T10:05:25.1072049Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+2025-09-25T10:05:25.1073884Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+2025-09-25T10:05:25.1075627Z 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+2025-09-25T10:05:25.1077293Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+2025-09-25T10:05:25.1079693Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+2025-09-25T10:05:25.1081176Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312)
+2025-09-25T10:05:25.1082851Z 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+2025-09-25T10:05:25.1084547Z 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+2025-09-25T10:05:25.1085590Z 	... 173 more
+2025-09-25T10:05:25.1088259Z Caused by: org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #1 of class path resource [data.sql]: INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+2025-09-25T10:05:25.1090858Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:282)
+2025-09-25T10:05:25.1092534Z 	at org.springframework.jdbc.datasource.init.ResourceDatabasePopulator.populate(ResourceDatabasePopulator.java:254)
+2025-09-25T10:05:25.1094148Z 	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:54)
+2025-09-25T10:05:25.1096271Z 	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87)
+2025-09-25T10:05:25.1098204Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146)
+2025-09-25T10:05:25.1100099Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108)
+2025-09-25T10:05:25.1102164Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyDataScripts(AbstractScriptDatabaseInitializer.java:102)
+2025-09-25T10:05:25.1104174Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:77)
+2025-09-25T10:05:25.1106199Z 	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66)
+2025-09-25T10:05:25.1108394Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+2025-09-25T10:05:25.1110628Z 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+2025-09-25T10:05:25.1111949Z 	... 182 more
+2025-09-25T10:05:25.1112797Z Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "CREATE_TIME" not found; SQL statement:
+2025-09-25T10:05:25.1114849Z INSERT INTO users (id, username, password, nickname, create_time, update_time) VALUES (1, 'testUser', 'encodedPassword', 'Test Nick', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) [42122-214]
+2025-09-25T10:05:25.1116296Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+2025-09-25T10:05:25.1117193Z 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+2025-09-25T10:05:25.1117974Z 	at org.h2.message.DbException.get(DbException.java:223)
+2025-09-25T10:05:25.1118644Z 	at org.h2.message.DbException.get(DbException.java:199)
+2025-09-25T10:05:25.1119224Z 	at org.h2.table.Table.getColumn(Table.java:749)
+2025-09-25T10:05:25.1119812Z 	at org.h2.command.Parser.parseColumn(Parser.java:1256)
+2025-09-25T10:05:25.1120496Z 	at org.h2.command.Parser.parseColumnList(Parser.java:1241)
+2025-09-25T10:05:25.1121156Z 	at org.h2.command.Parser.parseInsert(Parser.java:1641)
+2025-09-25T10:05:25.1121919Z 	at org.h2.command.Parser.parsePrepared(Parser.java:814)
+2025-09-25T10:05:25.1122565Z 	at org.h2.command.Parser.parse(Parser.java:689)
+2025-09-25T10:05:25.1123146Z 	at org.h2.command.Parser.parse(Parser.java:661)
+2025-09-25T10:05:25.1123775Z 	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+2025-09-25T10:05:25.1124526Z 	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+2025-09-25T10:05:25.1125346Z 	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+2025-09-25T10:05:25.1126191Z 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+2025-09-25T10:05:25.1127034Z 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+2025-09-25T10:05:25.1127793Z 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+2025-09-25T10:05:25.1128636Z 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+2025-09-25T10:05:25.1129643Z 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+2025-09-25T10:05:25.1130843Z 	at org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(ScriptUtils.java:261)
+2025-09-25T10:05:25.1131637Z 	... 192 more
+2025-09-25T10:05:25.1131936Z
+2025-09-25T10:05:25.1282927Z [INFO]
+2025-09-25T10:05:25.1283327Z [INFO] Results:
+2025-09-25T10:05:25.1284652Z [INFO]
+2025-09-25T10:05:25.1286378Z [ERROR] Errors:
+2025-09-25T10:05:25.1305530Z [ERROR]   UserControllerIntegrationTest.testLogin » IllegalState Failed to load ApplicationContext for [WebMergedContextConfiguration@7b44e98e testClass = com.ai.qa.user.api.controller.UserControllerIntegrationTest, locations = [], classes = [com.ai.qa.user.UserServiceApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true", "server.port=0"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@74024f3, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@760487aa, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@106b014e, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@27e2287c, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d315aea, org.springframework.boot.test.context.SpringBootTestAnnotation@f07ba1a3], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+2025-09-25T10:05:25.1317200Z [INFO]
+2025-09-25T10:05:25.1317760Z [ERROR] Tests run: 3, Failures: 0, Errors: 1, Skipped: 0
+2025-09-25T10:05:25.1318279Z [INFO]
+2025-09-25T10:05:25.1318861Z [INFO] ------------------------------------------------------------------------
+2025-09-25T10:05:25.1319627Z [INFO] Reactor Summary for ai-qa-backend 1.0-SNAPSHOT:
+2025-09-25T10:05:25.1320130Z [INFO]
+2025-09-25T10:05:25.1320674Z [INFO] ai-qa-backend ...................................... SUCCESS [  0.465 s]
+2025-09-25T10:05:25.1321520Z [INFO] user-service ....................................... FAILURE [ 27.344 s]
+2025-09-25T10:05:25.1322834Z [INFO] qa-service ......................................... SKIPPED
+2025-09-25T10:05:25.1323557Z [INFO] api-gateway ........................................ SKIPPED
+2025-09-25T10:05:25.1324217Z [INFO] ------------------------------------------------------------------------
+2025-09-25T10:05:25.1324746Z [INFO] BUILD FAILURE
+2025-09-25T10:05:25.1325284Z [INFO] ------------------------------------------------------------------------
+2025-09-25T10:05:25.1325837Z [INFO] Total time:  33.477 s
+2025-09-25T10:05:25.1326346Z [INFO] Finished at: 2025-09-25T10:05:25Z
+2025-09-25T10:05:25.1327031Z [INFO] ------------------------------------------------------------------------
+2025-09-25T10:05:25.1329956Z [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0:test (default-test) on project user-service:
+2025-09-25T10:05:25.1330958Z [ERROR]
+2025-09-25T10:05:25.1332493Z [ERROR] Please refer to /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/surefire-reports for the individual test results.
+2025-09-25T10:05:25.1334139Z [ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+2025-09-25T10:05:25.1334934Z [ERROR] -> [Help 1]
+2025-09-25T10:05:25.1335261Z [ERROR]
+2025-09-25T10:05:25.1335899Z [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+2025-09-25T10:05:25.1336819Z [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+2025-09-25T10:05:25.1337371Z [ERROR]
+2025-09-25T10:05:25.1338226Z [ERROR] For more information about the errors and possible solutions, please read the following articles:
+2025-09-25T10:05:25.1339468Z [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+2025-09-25T10:05:25.1340129Z [ERROR]
+2025-09-25T10:05:25.1340789Z [ERROR] After correcting the problems, you can resume the build with the command
+2025-09-25T10:05:25.1341489Z [ERROR]   mvn <args> -rf :user-service
+2025-09-25T10:05:25.1572381Z ##[error]Process completed with exit code 1.
