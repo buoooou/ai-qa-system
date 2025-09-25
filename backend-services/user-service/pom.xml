@@ -113,7 +113,7 @@
         </dependency>
     </dependencies>
 
-    <!-- 3. 添加构建插件，用于打包 --><!-- 
+    <!-- 3. 添加构建插件，用于打包 --><!--
     <build>
         <plugins>
             <plugin>
