@@ -105,18 +105,37 @@ jobs:
           tar -cvf /tmp/test.tar docker-compose.yml database/init-scripts/*.sql
           tar -tf /tmp/test.tar
       # 把同版本的 docker-compose.yml 和 database 目录复制到 EC2
-      - name: Copy docker-compose.yml and database to EC2
+      - name: Copy docker-compose.yml to EC2
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source:
-            - docker-compose.yml
-            - database/init-scripts/01-init-database.sql
-            - database/init-scripts/02-nacos-init.sql
+          source: ${{ github.workspace }}/docker-compose.yml
           target: ~/airline-cicd/
-          strip_components: 0
+          strip_components: 1
+          debug: true
+
+      - name: Copy 01-init-database.sql to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ${{ github.workspace }}/database/init-scripts/01-init-database.sql
+          target: ~/airline-cicd/
+          strip_components: 1
+          debug: true
+
+      - name: Copy 02-nacos-init.sql to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ${{ github.workspace }}/database/init-scripts/02-nacos-init.sql
+          target: ~/airline-cicd/
+          strip_components: 1
           debug: true
 
       - name: Deploy to EC2
