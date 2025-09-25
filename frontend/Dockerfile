@@ -44,7 +44,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next  
 
 # 设置正确的权限
-RUN mkdir .next
+# RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
 # 复制构建产物，自动利用输出文件跟踪来减少镜像大小
