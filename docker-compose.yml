@@ -19,7 +19,7 @@ services:
     networks:
       - ai-qa-network
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -proot123 && sleep 10"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p aiqa123 && sleep 10"]
       timeout: 20s
       retries: 10
       start_period: 40s
@@ -36,7 +36,7 @@ services:
       - MYSQL_SERVICE_PORT=3306
       - MYSQL_SERVICE_DB_NAME=nacos_config
       - MYSQL_SERVICE_USER=root
-      - MYSQL_SERVICE_PASSWORD=root123
+      - MYSQL_SERVICE_PASSWORD=aiqa123
       - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
       - NACOS_AUTH_ENABLE=true
     ports:
