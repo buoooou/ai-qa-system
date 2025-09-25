@@ -112,11 +112,12 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: |
-            docker-compose.yml
-            database/init-scripts/01-init-database.sql
-            database/init-scripts/02-nacos-init.sql
+            ${{ github.workspace }}/docker-compose.yml
+            ${{ github.workspace }}/database/init-scripts/01-init-database.sql
+            ${{ github.workspace }}/database/init-scripts/02-nacos-init.sql
           target: ~/airline-cicd/
-          strip_components: 0
+          strip_components: 1
+          debug: true
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
