@@ -45,15 +45,6 @@ public class QAHistoryPO {
      */
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
-
-    @Column(name = "session_id", nullable = false)
-    private String sessionId;
-
-    @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
-    
-    @Column(name = "update_time", nullable = false)
-    private LocalDateTime updateTime;
     
     /**
      * 在持久化之前自动设置创建时间

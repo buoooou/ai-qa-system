@@ -6,10 +6,10 @@ import com.ai.qa.user.domain.entity.User;
 public interface UserService {
     
 
-//    /**
-//     * 用户登录
-//     */
-//    User login(UserRequestDto loginRequest);
+    /**
+     * 用户登录
+     */
+    User login(UserRequestDto loginRequest);
 
     /**
      * 用户注册

@@ -24,7 +24,7 @@ public interface QAHistoryMapper {
     // 从PO转换到领域对象时，使用构造函数注入createTime
     @Mapping(target = "id", source = "id")
     @Mapping(target = "userId", source = "userId")
-    @Mapping(target = "sessionId", source = "sessionId")
+//    @Mapping(target = "sessionId", source = "sessionId")
     @Mapping(target = "question", source = "question")
     @Mapping(target = "answer", source = "answer")
     @Mapping(target = "createTime", source = "createTime")

@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class QAHistoryQuery {
     private Long userId;
-    private String sessionId;
+//    private String sessionId;
 
 }

@@ -13,5 +13,5 @@ public interface QAHistoryRepo {
     
     List<QAHistory> findHistoryByUserId(Long userId);
     
-    List<QAHistory> findHistoryBySessionId(String sessionId);
+//    List<QAHistory> findHistoryBySessionId(String sessionId);
 }

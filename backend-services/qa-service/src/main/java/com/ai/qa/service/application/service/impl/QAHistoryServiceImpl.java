@@ -11,6 +11,7 @@ import com.ai.qa.service.application.dto.SaveHistoryCommand;
 import com.ai.qa.service.application.service.QAHistoryService;
 import com.ai.qa.service.domain.model.QAHistory;
 import com.ai.qa.service.domain.repo.QAHistoryRepo;
+import com.ai.qa.service.infrastructure.feign.GeminiClient;
 import com.ai.qa.service.infrastructure.persistence.mappers.QAHistoryMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,11 @@ public class QAHistoryServiceImpl implements QAHistoryService  {
     private final QAHistoryRepo qaHistoryRepo;
     private final QAHistoryMapper qaMapper;
     
+    /**
+     * Gemini AI客户端
+     */
+    private final GeminiClient geminiClient;
+    
     //保存问答
     public QAHistoryDto saveHistory(SaveHistoryCommand command){
         log.info("开始处理问答请求，用户ID: {}, 问题: {}", 
@@ -33,7 +39,7 @@ public class QAHistoryServiceImpl implements QAHistoryService  {
             throw new IllegalArgumentException("用户ID不能为空");
         }
         // 2. 调用AI服务获取回答
-        String answer = "";//TODO
+        String answer = geminiClient.askQuestion(command.getQuestion());
 
         command.setAnswer(answer);
 
@@ -41,8 +47,8 @@ public class QAHistoryServiceImpl implements QAHistoryService  {
         QAHistory history = QAHistory.createNew(
                 command.getUserId(),
                 command.getQuestion(),
-                answer,
-                command.getSessionId()
+                answer
+//                command.getSessionId()
 //                rag
         );
         
@@ -59,11 +65,11 @@ public class QAHistoryServiceImpl implements QAHistoryService  {
         log.info("查询用户问答历史，用户ID: {}", query.getUserId());
         List<QAHistory> histories;
 
-        if (query.getSessionId() != null) {
-        	histories = qaHistoryRepo.findHistoryBySessionId(query.getSessionId());
-        } else {
+//        if (query.getSessionId() != null) {
+//        	histories = qaHistoryRepo.findHistoryBySessionId(query.getSessionId());
+//        } else {
         	histories = qaHistoryRepo.findHistoryByUserId(query.getUserId());
-        }
+//        }
         log.info("查询用户问答历史完成，用户ID: {}, 记录数: {}", query.getUserId(), histories.size());
 
         List<QAHistoryDto> responses = histories.stream()

@@ -1,6 +1,7 @@
 package com.ai.qa.user.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -12,8 +13,9 @@ import io.swagger.v3.oas.models.servers.Server;
 
 /**
  * Swagger3配置类
- * 访问地址: http://localhost:8082/swagger-ui/index.html
+ * 访问地址: http://localhost:8081/swagger-ui/index.html
  */
+@Configuration
 public class SwaggerConfig {
 
     @Bean
@@ -28,7 +30,7 @@ public class SwaggerConfig {
                        .email("cryue@cn.ibm.com")
                        .url("https://github.com/YUECAIRONG")))
         .servers(java.util.Arrays.asList(
-            new Server().url("http://localhost:8082/").description("本地测试环境")
+            new Server().url("http://localhost:8081/").description("本地测试环境")
 //            new Server().url("http://api.airline.com/").description("生产环境")
             ))
         .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))

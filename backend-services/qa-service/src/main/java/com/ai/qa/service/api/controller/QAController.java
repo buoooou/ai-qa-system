@@ -6,6 +6,7 @@ import com.ai.qa.service.application.dto.QAHistoryQuery;
 import com.ai.qa.service.application.dto.SaveHistoryCommand;
 import com.ai.qa.service.application.service.QAHistoryService;
 import com.ai.qa.service.domain.service.QAService;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -39,12 +40,21 @@ public class QAController {
 
     @GetMapping("/history")
     public ResponseEntity<List<QAHistoryDto>> queryHistory(
-            @RequestParam Long userId,
-            @RequestParam(required = false) String sessionId) {
+            @RequestParam Long userId) {
         QAHistoryQuery query = new QAHistoryQuery();
         query.setUserId(userId);
-        query.setSessionId(sessionId);
 
         return ResponseEntity.ok(qaHistoryService.queryUserHistory(query));
+    }
+    /**
+     * 健康检查接口
+     * 
+     * 用于检查用户服务是否正常运行
+     * 
+     * @return Response<String> 服务状态
+     */
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("User Service is running\", \"User Service is running");
     }
 }

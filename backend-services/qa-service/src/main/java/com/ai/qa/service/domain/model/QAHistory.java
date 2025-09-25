@@ -11,27 +11,27 @@ public class QAHistory {
     @Id
     private Long id;
     private Long userId;
-    private String sessionId;
+//    private String sessionId;
     private String question;
     private String answer;
     private LocalDateTime createTime;
 
-    public QAHistory(Long userId, String question, String answer,String sessionId, LocalDateTime createTime) {
+    public QAHistory(Long userId, String question, String answer, LocalDateTime createTime) {
 //        this.id = id;
         this.userId = userId;
         this.question = question;
         this.answer = answer;
-        this.sessionId = sessionId;
+//        this.sessionId = sessionId;
         this.createTime = createTime;
     }
 
-    public static QAHistory createNew(Long userId, String question, String answer, String sessionId) {
+    public static QAHistory createNew(Long userId, String question, String answer) {
         return new QAHistory(
 //                id,
                 userId,
                 question,
                 answer,
-                sessionId,
+//                sessionId,
                 LocalDateTime.now()
         );
     }

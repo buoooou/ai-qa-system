@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestConfigController {
 
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
-
-    @GetMapping("/config")
-    public String login() {
-        System.out.println("测试config");
-        return "测试JWT："+jwtSecret;
-    }
+//    @Value("${jwt.secret}")
+//    private String jwtSecret;
+//
+//    @GetMapping("/config")
+//    public String login() {
+//        System.out.println("测试config");
+//        return "测试JWT："+jwtSecret;
+//    }
 }

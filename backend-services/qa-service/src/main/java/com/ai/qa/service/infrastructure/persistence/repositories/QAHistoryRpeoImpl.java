@@ -32,12 +32,12 @@ public class QAHistoryRpeoImpl implements QAHistoryRepo {
                 .map(qaMapper::toDomain);
     }
 
-    @Override
-    public List<QAHistory> findHistoryBySessionId(String sessionId) {
-        return jpaRepository.findBySessionId(sessionId).stream()
-                .map(qaMapper::toDomain)
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<QAHistory> findHistoryBySessionId(String sessionId) {
+//        return jpaRepository.findBySessionId(sessionId).stream()
+//                .map(qaMapper::toDomain)
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     public List<QAHistory> findHistoryByUserId(Long userId) {

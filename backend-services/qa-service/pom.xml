@@ -37,10 +37,10 @@
         </dependency>
         
         <!-- Nacos服务发现 -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
+        </dependency> -->
         <!-- OpenFeign用于服务间调用 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -79,6 +79,12 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.7.0</version> 
+        </dependency>
+        <!-- Google GenAI SDK -->
+        <dependency>
+            <groupId>com.google.genai</groupId>
+            <artifactId>google-genai</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

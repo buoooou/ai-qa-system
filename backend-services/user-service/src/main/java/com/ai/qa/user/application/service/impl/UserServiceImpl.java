@@ -34,26 +34,24 @@ public class UserServiceImpl implements UserService {
 //        this.userRepository = userRepository;
 //      }
     
-//    public User login(UserRequestDto loginRequest){
-//  	   log.info("开始处理登录请求");
-//       // 1. 检查用户名是否已存在
-//       Optional<User> existingUser = userRepository.findByUsername(loginRequest.getUsername());
-//       if (existingUser.isEmpty()) {
-//           throw new BussinessException(HttpStatus.BAD_REQUEST,"用户不存在");
-//       }
-//
-//        if (!loginRequest.getPassword().equals(existingUser.get().getPassword())) {
-//            throw new BussinessException(HttpStatus.BAD_REQUEST,"密码不正确");
-//        }
-//
-//   	   log.info("{}登录成功",loginRequest.getUsername());
-//   	   
-//        User user  = new User();
-//        user.setUsername(existingUser.get().getUsername());
-//        user.setPassword(existingUser.get().getPassword());
-//		return user;
-//            
-//    };
+    public User login(UserRequestDto loginRequest){
+  	   log.info("开始处理登录请求");
+       // 1. 检查用户名是否已存在
+       Optional<User> existingUser = userRepository.findByUsername(loginRequest.getUsername());
+       if (existingUser.isEmpty()) {
+           throw new BussinessException(HttpStatus.BAD_REQUEST,"用户不存在");
+       }
+   	   log.info("{}登录成功",loginRequest.getUsername());
+   	   
+        User user  = new User();
+        user.setUsername(existingUser.get().getUsername());
+        user.setPassword(existingUser.get().getPassword());
+        user.setId(existingUser.get().getId());
+        user.setRole(existingUser.get().getRole());
+        user.setNickname(existingUser.get().getNickname());
+		return user;
+            
+    };
 
     /**
      * 注册逻辑实现

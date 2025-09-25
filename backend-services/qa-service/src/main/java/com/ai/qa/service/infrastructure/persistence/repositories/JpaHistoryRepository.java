@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface JpaHistoryRepository extends JpaRepository<QAHistoryPO, Long> {
     List<QAHistoryPO> findByUserId(Long userId);
-    List<QAHistoryPO> findBySessionId(String sessionId);
+//    List<QAHistoryPO> findBySessionId(String sessionId);
 }
