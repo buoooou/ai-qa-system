@@ -113,7 +113,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: |
             docker-compose.yml
-            database/
+            database/init-scripts/01-init-database.sql
+            database/init-scripts/02-nacos-init.sql
           target: ~/airline-cicd/
           strip_components: 0
 
