@@ -55,17 +55,17 @@ jobs:
         mvn -B -DskipTests package
     - name: Install frontend dependencies
       run: |
-        cd frontend
+        cd fronted
         npm ci
 
     - name: Run frontend linting
       run: |
-        cd frontend
+        cd fronted
         npm run lint
 
     - name: Run frontend build
       run: |
-        cd frontend
+        cd fronted
         npm run build
 
   # 构建Docker镜像
