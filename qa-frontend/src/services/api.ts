@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 // API基础配置
-const API_USER_BASE_URL = process.env.NEXT_PUBLIC_USER_API_BASE_URL || 'http://localhost:8081';
+const API_USER_BASE_URL = process.env.NEXT_PUBLIC_USER_API_BASE_URL || 'http://50.19.151.48:8081';
 
-const API_QA_BASE_URL = process.env.NEXT_PUBLIC_QA_API_BASE_URL || 'http://localhost:8082';
+const API_QA_BASE_URL = process.env.NEXT_PUBLIC_QA_API_BASE_URL || 'http://50.19.151.48:8082';
 
 // 创建axios实例
 const apiUserClient = axios.create({
