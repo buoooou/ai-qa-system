@@ -186,11 +186,11 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
 
-    steps:
-    - name: Delete old container images
-      uses: actions/delete-package-versions@v4
-      with:
-        package-name: ${{ env.IMAGE_NAME }}-api-gateway-yulong
-        package-type: container
-        min-versions-to-keep: 5
-        delete-only-untagged-versions: true
+    # steps:
+    # - name: Delete old container images
+    #   uses: actions/delete-package-versions@v4
+    #   with:
+    #     package-name: ${{ env.IMAGE_NAME }}-api-gateway-yulong
+    #     package-type: container
+    #     min-versions-to-keep: 5
+    #     delete-only-untagged-versions: true
