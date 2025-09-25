@@ -37,7 +37,7 @@ public class SwaggerConfig {
                         .description("用户管理相关的REST API接口文档")
                         .version("1.0")
                         .contact(new Contact()
-                                .name("Qiao Zhe")
+                                .name("David")
                                 .url("https://github.com/your-username")
                                 .email("support@ai-qa-system.com"))
                         .license(new License()

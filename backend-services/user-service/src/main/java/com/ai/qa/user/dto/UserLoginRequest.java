@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
  *
  * 用于用户登录的请求参数
  *
- * @author Qiao Zhe
+ * @author David
  * @version 1.0
  * @since 2025-09-08
  */
