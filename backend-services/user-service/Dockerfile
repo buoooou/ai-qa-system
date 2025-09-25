@@ -10,6 +10,16 @@ RUN microdnf update -y && microdnf install -y curl && microdnf clean all
 # 设置时区为上海时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
+# 复制 Maven 配置文件和源代码
+COPY pom.xml ./
+COPY src ./src
+
+# 构建应用
+RUN microdnf install -y maven && \
+    mvn clean package -DskipTests && \
+    microdnf remove -y maven && \
+    microdnf clean all
+
 # 创建应用用户（安全最佳实践）
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 
