@@ -27,7 +27,7 @@ export default function ChatPage() {
   );
   const [isEditingNickname, setIsEditingNickname] = useState(false);
   const [nicknameInput, setNicknameInput] = useState(nickname);
-  // const [isThinking, setIsThinking] = useState(false); // 暂时未使用
+  const [, setIsThinking] = useState(false);
 
   const handleLogout = async () => {
     try{
@@ -174,7 +174,7 @@ export default function ChatPage() {
           )
         );
       }, 100); // 每100毫秒更新一次
-    } catch (error) {
+    } catch {
       toast.error('网络错误，请重试');
       // 添加网络错误提示到消息列表
       const errorMessageObj: ChatMessage = {

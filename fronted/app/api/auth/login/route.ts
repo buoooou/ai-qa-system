@@ -10,14 +10,14 @@ export async function POST(request: Request) {
     });
 
     const data = await backendResponse.json();
-    return NextResponse.json({ 
+    return NextResponse.json({
       code: data.code,
       message: data.message,
       data: data.data
     }, { status: data.code });
 
   } catch (error: unknown) {
-    return NextResponse.json({ 
+    return NextResponse.json({
       message: error instanceof Error ? error.message : '服务器错误'
     }, { status: 500 });
   }

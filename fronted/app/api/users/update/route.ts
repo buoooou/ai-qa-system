@@ -11,7 +11,7 @@ export async function PUT(request: Request) {
     });
 
     const data = await backendResponse.json();
-    return NextResponse.json({ 
+    return NextResponse.json({
       code: data.code,
       message: data.message,
       data: data.data

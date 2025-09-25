@@ -39,7 +39,7 @@ export async function DELETE(req: Request) {
     } else {
       data = await response.text();
     }
-    
+
     return NextResponse.json({
       status: response.status,
       content: data,

@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     } else {
       data = await response.text();
     }
-    
+
     return NextResponse.json({
       status: response.status,
       content: data,
