@@ -3,6 +3,6 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     nickname VARCHAR(255),
-    create_time TIMESTAMP,
-    update_time TIMESTAMP
+    creation_date TIMESTAMP,
+    update_date TIMESTAMP
 );
