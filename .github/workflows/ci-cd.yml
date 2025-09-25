@@ -5,10 +5,16 @@ on:
     branches: [ main, develop, feature/yulong ]
   pull_request:
     branches: [ main ]
-
+  workflow_dispatch:
+    inputs:
+      skip_tests:
+        description: 'Skip unit tests'
+        type: boolean
+        default: false
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  SHOULD_SKIP_TESTS: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_tests == 'true') || contains(github.event.head_commit.message, '[skip tests]') || vars.SKIP_TESTS == 'true' }}
 
 jobs:
   # 代码质量检查
@@ -36,12 +42,17 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-
     - name: Run backend tests
+      if: ${{ env.SHOULD_SKIP_TESTS != 'true' }}
       run: |
         cd backend-services
-        mvn clean test
+        mvn -B clean test
 
+    - name: Build backend without tests
+      if: ${{ env.SHOULD_SKIP_TESTS == 'true' }}
+      run: |
+        cd backend-services
+        mvn -B -DskipTests package
     - name: Install frontend dependencies
       run: |
         cd frontend
