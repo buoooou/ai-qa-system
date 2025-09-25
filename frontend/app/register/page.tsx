@@ -59,8 +59,9 @@ export default function RegisterPage() {
 
       toast.success("注册成功");
       router.push("/login");
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      toast.error("注册失败");
+      console.error("注册失败:", error);
     } finally {
       setIsLoading(false);
     }

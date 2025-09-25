@@ -22,8 +22,6 @@ export default function ChatPage() {
     { id: "1", role: "assistant", content: "您好！请输入消息。" },
   ]);
   const [input, setInput] = useState("");
-  const [historySessions, setHistorySessions] = useState<HistorySession[]>([]);
-
   const [nickname, setNickname] = useState<string>(
     typeof window !== "undefined"
       ? localStorage.getItem("nickname") || "用户"
@@ -102,7 +100,6 @@ export default function ChatPage() {
 
       // console.log("after save Data:", response);
       if (response.answer == null || response.answer == "") {
-        const errorData = await response.json();
         const errorMessage = "发送消息失败";
         setIsThinking(false);
         toast.error(errorMessage);
@@ -204,27 +201,27 @@ export default function ChatPage() {
       });
 
       console.log("after load Data:", response);
-      if (response != null) {
-        toast.success("会话加载成功");
-        const formattedMessages: ChatMessage[] = [];
-        response.forEach((q: string, index: number) => {
-          formattedMessages.push({
-            id: `q-${index + 1}`,
-            role: "user",
-            answer: q,
-          });
-          if (response[index]) {
-            formattedMessages.push({
-              id: `a-${index + 1}`,
-              role: "assistant",
-              answer: response[index],
-            });
-          }
-        });
-        setMessages(formattedMessages);
-      } else {
-        toast.error("加载会话失败");
-      }
+      // if (response != null) {
+      //   toast.success("会话加载成功");
+      //   const formattedMessages: ChatMessage[] = [];
+      //   response.forEach((q: string, index: number) => {
+      //     formattedMessages.push({
+      //       id: `q-${index + 1}`,
+      //       role: "user",
+      //       answer: q,
+      //     });
+      //     if (response[index]) {
+      //       formattedMessages.push({
+      //         id: `a-${index + 1}`,
+      //         role: "assistant",
+      //         answer: response[index],
+      //       });
+      //     }
+      //   });
+      //   setMessages(formattedMessages);
+      // } else {
+      //   toast.error("加载会话失败");
+      // }
     } catch (error) {
       toast.error("网络错误，请重试");
       console.log(error);

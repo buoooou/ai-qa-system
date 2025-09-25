@@ -55,8 +55,8 @@ export default function LoginPage() {
 
       await new Promise((resolve) => setTimeout(resolve, 1500));
       router.push("/chat");
-    } catch (error: any) {
-      toast.error(`${error.message}`);
+    } catch (error) {
+      toast.error(`登录失败`);
       console.error("登录接口错误:", error);
     } finally {
       setIsLoading(false);
