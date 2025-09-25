@@ -17,6 +17,12 @@
     <!-- version 和 groupId 会从父模块继承 -->
 
     <dependencies>
+        <!-- H2 Database for test profile -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- Test Containers -->
         <dependency>
             <groupId>org.testcontainers</groupId>
