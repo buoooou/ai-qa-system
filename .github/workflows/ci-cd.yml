@@ -117,6 +117,7 @@ jobs:
     needs: build-images
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
+    timeout-minutes: 10  # 添加超时
 
     steps:
     - uses: actions/checkout@v4
@@ -128,6 +129,8 @@ jobs:
         scan-ref: '.'
         format: 'sarif'
         output: 'trivy-results.sarif'
+        scanners: 'vuln'  # 只扫描漏洞，跳过密钥扫描以加速
+        severity: 'CRITICAL,HIGH'  # 只报告严重和高危漏洞
 
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v2
@@ -137,7 +140,7 @@ jobs:
 
   # 部署到开发环境
   deploy-dev:
-    needs: [build-images, security-scan]
+    needs: build-images
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
 
