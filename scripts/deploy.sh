@@ -29,26 +29,53 @@ echo "🔧 在服务器上执行部署..."
 
 ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST << EOF
     set -e
-    echo "📁 进入项目目录: $PROJECT_DIR"
-    cd $PROJECT_DIR
+    echo "📁 检查项目目录: $PROJECT_DIR"
+    
+    # 检查项目目录是否存在
+    if [ ! -d "$PROJECT_DIR" ]; then
+        echo "📂 项目目录不存在，正在创建..."
+        mkdir -p $PROJECT_DIR
+        cd $PROJECT_DIR
+        
+        echo "📥 克隆项目仓库..."
+        git clone https://github.com/pzone618/ai-qa-system.git .
+        git checkout feature/yulong
+    else
+        echo "📁 进入项目目录: $PROJECT_DIR"
+        cd $PROJECT_DIR
+        
+        echo "📥 拉取最新代码..."
+        git fetch origin
+        git checkout feature/yulong
+        git pull origin feature/yulong
+    fi
 
-    echo "📥 拉取最新代码..."
-    git fetch origin
-    git checkout feature/yulong
-    git pull origin feature/yulong
-
+    echo "🔍 检查Docker和Docker Compose..."
+    if ! command -v docker &> /dev/null; then
+        echo "❌ Docker未安装，请先安装Docker"
+        exit 1
+    fi
+    
+    if ! command -v docker-compose &> /dev/null; then
+        echo "❌ Docker Compose未安装，请先安装Docker Compose"
+        exit 1
+    fi
+    
     echo "🐳 停止现有容器..."
     docker-compose down || true
-
+    
     echo "🔨 构建并启动新容器..."
     docker-compose up -d --build
-
+    
     echo "⏳ 等待服务启动..."
     sleep 30
-
+    
     echo "🏥 检查服务状态..."
     docker-compose ps
-
+    
+    echo "🌐 检查端口占用..."
+    netstat -tlnp | grep -E ':(3000|8080|8081|8082|5432|6379)' || echo "⚠️  无法检查端口状态"
+    
     echo "✅ 部署完成!"
 EOF
 
