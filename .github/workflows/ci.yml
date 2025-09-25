@@ -93,6 +93,16 @@ jobs:
           file: ./database/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-mysql:latest
+      #把同版本的 docker-compose.yml 复制到 EC2
+      - name: Copy docker-compose.yml to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ./docker-compose.yml
+          target: ~/airline-cicd/
+          strip_components: 0
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
