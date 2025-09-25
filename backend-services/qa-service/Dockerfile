@@ -5,6 +5,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /build
 
 COPY pom.xml .
+COPY api-gateway/pom.xml api-gateway/
+COPY user-service/pom.xml user-service/
 COPY qa-service/pom.xml         qa-service/
 COPY qa-service/src             qa-service/src
 RUN mvn -pl qa-service clean package -DskipTests

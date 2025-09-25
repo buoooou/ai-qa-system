@@ -6,6 +6,10 @@ WORKDIR /build
 
 # 复制总 pom + 本模块源码
 COPY pom.xml .
+# 2. 所有子模块“壳子”：只拷 pom.xml，让 Maven 校验通过
+COPY user-service/pom.xml user-service/
+COPY qa-service/pom.xml   qa-service/
+
 COPY api-gateway/pom.xml        api-gateway/
 COPY api-gateway/src            api-gateway/src
 # 如有依赖其它内部模块，继续 COPY 即可
