@@ -28,7 +28,7 @@ public class UserService {
         if (authService.validateCredentials(username, password)) {
             UserDto userDto = userRepositoryRepo.findByUsername(username);
             LoginDto loginDto = new LoginDto();
-            loginDto.setUserid(userDto.getUserid());
+            loginDto.setUserid(userDto.getId() != null ? userDto.getId().toString() : null);
             loginDto.setUsername(userDto.getUsername());
             loginDto.setNickname(userDto.getNickname());
             loginDto.setToken(jwtUtil.generateToken(userDto.getUsername()));

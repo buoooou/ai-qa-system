@@ -18,7 +18,7 @@ public interface UserMapper {
      * @param user the user entity to convert
      * @return the converted user DTO
      */
-    @Mapping(source = "id", target = "userid")
+    @Mapping(source = "id", target = "id")
     UserDto toUserDto(User user);
 
     /**
