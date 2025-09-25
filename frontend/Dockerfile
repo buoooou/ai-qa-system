@@ -39,6 +39,7 @@ RUN adduser --system --uid 1001 nextjs
 
 # 复制构建产物
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.ts ./
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next  
@@ -58,4 +59,4 @@ ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
 # 启动应用
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start"]
