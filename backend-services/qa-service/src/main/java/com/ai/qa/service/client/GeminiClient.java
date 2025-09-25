@@ -30,39 +30,39 @@ import java.util.Map;
 @Component      // Spring注解：标识这是一个组件，由Spring管理
 public class GeminiClient {
 
-    /**
+   /* *//**
      * Gemini API的基础URL
      * 从配置文件中读取，便于环境切换
-     */
+     *//*
     @Value("${gemini.api.base-url:https://generativelanguage.googleapis.com/v1beta}")
     private String baseUrl;
 
-    /**
+    *//**
      * Gemini API Key
      * 从配置文件中读取，需要在Google AI Studio获取
      * 如果未配置，将使用默认提示信息
-     */
+     *//*
     //@Value("${gemini.api.key:YOUR_API_KEY_HERE}")
     private String apiKey="AIzaSyD246BGbklt-FtwygwPYKam_b6N6Sjxdtc";
 
-    /**
+    *//**
      * 使用的模型名称
      * 默认使用gemini-pro模型
-     */
+     *//*
     @Value("${gemini.api.model:gemini-pro}")
     private String model;
 
-    /**
+    *//**
      * HTTP客户端
      * 用于发送HTTP请求
-     */
-    private final RestTemplate restTemplate;
+     *//*
+    //private final RestTemplate restTemplate;
 
-    /**
+    *//**
      * 构造函数
      * 初始化RestTemplate，配置代理支持和超时设置
-     */
-    public GeminiClient() {
+     *//*
+    *//*public GeminiClient() {
         // 创建带代理的RestTemplate
         this.restTemplate = createRestTemplateWithProxy();
 
@@ -70,12 +70,12 @@ public class GeminiClient {
         configureSystemProxy();
 
         log.info("GeminiClient初始化完成，已配置代理支持和超时设置");
-    }
+    }*//*
 
-    /**
+    *//**
      * 创建带代理配置的RestTemplate
-     */
-    private RestTemplate createRestTemplateWithProxy() {
+     *//*
+   *//* private RestTemplate createRestTemplateWithProxy() {
         // 创建代理对象
         String proxyHost = "9.36.235.13";
         int proxyPort = 8080;
@@ -96,9 +96,9 @@ public class GeminiClient {
         return restTemplate;
     }
 
-    /**
+    *//**//**
      * 配置系统代理属性（备用方案）
-     */
+     *//**//*
     private void configureSystemProxy() {
         // 启用系统代理
         System.setProperty("java.net.useSystemProxies", "true");
@@ -121,13 +121,13 @@ public class GeminiClient {
         log.info("系统代理属性配置完成: {}:{}", proxyHost, proxyPort);
     }
 
-    /**
+    *//**//**
      * 向Gemini AI发送问题并获取回答
      *
      * @param question 用户问题
      * @return String AI的回答
      * @throws RuntimeException 当API调用失败时抛出异常
-     */
+     *//**//*
     public String askQuestion(String question) {
         log.info("开始调用Gemini API，问题长度: {}", question.length());
 
@@ -171,12 +171,12 @@ public class GeminiClient {
         }
     }
 
-    /**
+    *//**//**
      * 构建Gemini API请求体
      *
      * @param question 用户问题
      * @return Map<String, Object> 请求体
-     */
+     *//**//*
     private Map<String, Object> buildRequestBody(String question) {
         Map<String, Object> requestBody = new HashMap<>();
 
@@ -197,12 +197,12 @@ public class GeminiClient {
         return requestBody;
     }
 
-    /**
+    *//**//**
      * 解析Gemini API响应
      *
      * @param responseBody API响应体
      * @return String 提取的AI回答
-     */
+     *//**//*
     @SuppressWarnings("unchecked")
     private String parseResponse(Map<String, Object> responseBody) {
         try {
@@ -241,12 +241,12 @@ public class GeminiClient {
         }
     }
 
-    /**
+    *//**//**
      * 生成模拟回答（当API调用失败或未配置时使用）
      *
      * @param question 用户问题
      * @return String 模拟的AI回答
-     */
+     *//*
     private String generateMockResponse(String question) {
         // 简单的关键词匹配，生成相应的模拟回答
         String lowerQuestion = question.toLowerCase();
@@ -290,14 +290,14 @@ public class GeminiClient {
         }
     }
 
-    /**
+    *//**
      * 调用 user-service 的 Feign 客户端
-     */
+     *//*
     // name/value 属性值必须与目标服务在 Nacos 上注册的服务名完全一致！
     @FeignClient(name = "user-service-cdw")
     public static interface UserClient {
 
-        /**
+        *//**
          * 根据用户ID获取用户信息
          *
          * @param userId 用户ID
@@ -306,7 +306,7 @@ public class GeminiClient {
          * 注意：
          * 1. @GetMapping 里的路径必须与 user-service 中 Controller 方法的完整路径匹配。
          * 2. 方法签名 (方法名、参数) 可以自定义，但 @PathVariable, @RequestParam 等注解必须和远程接口保持一致。
-         */
+         *//*
         @GetMapping("/api/user/{userId}") // <-- 这个路径要和 user-service 的接口完全匹配
         String getUserById(@PathVariable("userId") Long userId);
 
@@ -314,5 +314,7 @@ public class GeminiClient {
         // 例如:
         // @PostMapping("/api/user/internal/check-status")
         // StatusDTO checkUserStatus(@RequestBody CheckRequest request);
-    }
+    }*/
+
+
 }

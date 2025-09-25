@@ -2,6 +2,7 @@ package com.ai.qa.service.service;
 
 import com.ai.qa.service.client.GeminiClient;
 //import com.ai.qa.service.client.UserServiceClient;
+import com.ai.qa.service.client.GeminiRawClient;
 import com.ai.qa.service.dto.ApiResponse;
 import com.ai.qa.service.dto.QaRequest;
 import com.ai.qa.service.dto.QaResponse;
@@ -10,6 +11,7 @@ import com.ai.qa.service.entity.QaHistory;
 import com.ai.qa.service.repository.QaHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +58,9 @@ public class QaServiceImpl implements QaService {
      */
     private final QaHistoryRepository qaHistoryRepository;
 
+    @Autowired
+    private GeminiRawClient geminiRawClient;
+
     /**
      * 处理用户问答请求
      *
@@ -78,21 +83,10 @@ public class QaServiceImpl implements QaService {
         long startTime = System.currentTimeMillis();
 
         try {
-            // 1. 获取用户信息（通过Feign Client调用user-service）
             UserInfoDto userInfo = getUserInfo(request.getUserId());
 
-            // 2. 构建包含用户信息的完整问题
-            String fullQuestion = buildQuestionWithUserContext(request, userInfo);
 
-            // 3. 调用AI服务获取回答
-            String answer = geminiClient.askQuestion(fullQuestion);
-
-            // 4. 个性化回答（包含用户信息）
-            String personalizedAnswer = personalizeAnswer(answer, userInfo);
-
-            // 5. 计算响应时间
-            long responseTime = System.currentTimeMillis() - startTime;
-
+            String personalizedAnswer = geminiRawClient.askQuestion(request.getQuestion());
             // 6. 保存问答历史
             QaHistory qaHistory = new QaHistory(
                     request.getUserId(),
@@ -110,10 +104,10 @@ public class QaServiceImpl implements QaService {
                     savedHistory.getCreateTime()
             );
             response.setModel("gemini-pro");
-            response.setResponseTime(responseTime);
+            //response.setResponseTime(responseTime);
 
-            log.info("问答处理完成，用户ID: {}, 用户名: {}, 响应时间: {}ms",
-                    request.getUserId(), userInfo != null ? userInfo.getUserName() : "未知", responseTime);
+            log.info("问答处理完成，用户ID: {}, 用户名: {},",
+                    request.getUserId(), userInfo != null ? userInfo.getUserName() : "未知");
 
             return response;
 
