@@ -104,7 +104,7 @@ jobs:
           find ${{ github.workspace }}/database -type f | sort
           tar -cvf /tmp/test.tar docker-compose.yml database/init-scripts/*.sql
           tar -tf /tmp/test.tar
-      - name: Deploy to EC2
+      - name: Prepare EC2 directories
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -113,6 +113,8 @@ jobs:
           script: |
             set -e
             mkdir -p ~/airline-cicd/database
+            chmod 755 ~/airline-cicd
+            chmod 755 ~/airline-cicd/database
 
       - name: Copy project files to EC2
         run: |
