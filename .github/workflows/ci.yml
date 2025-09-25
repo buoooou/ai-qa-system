@@ -99,8 +99,9 @@ jobs:
       - name: Print workspace content
         run: |
           echo "==== GitHub workspace content ===="
-          find /github/workspace -type f -name '*.sql' -o -name 'docker-compose.yml' sort
+          find ${{ github.workspace }} -type f \( -name '*.sql' -o -name 'docker-compose.yml' \) | sort
           echo "==== tar test ===="
+          find ${{ github.workspace }}/database -type f | sort
           tar -cvf /tmp/test.tar docker-compose.yml database/init-scripts/*.sql
           tar -tf /tmp/test.tar
       # 把同版本的 docker-compose.yml 和 database 目录复制到 EC2
