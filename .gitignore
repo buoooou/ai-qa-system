@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 .lingma/rules/javaRule.md
+backend-services/user-service/target/
+backend-services/api-gateway/target/
+backend-services/qa-service/target/

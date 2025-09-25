@@ -1,0 +1,76 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: user-service
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ai-qa-nacos:8848
+        username: nacos
+        password: nacos
+        # 增加连接超时配置
+        timeout: 30000
+        heart-beat-timeout: 30000
+        heart-beat-interval: 5000
+        # 启用失败重试
+        fail-fast: false
+        # 延迟注册，等待Nacos客户端完全启动
+        register-enabled: true
+        # 添加额外的稳定性配置
+        watch:
+          enabled: true
+        # 服务实例配置
+        instance:
+          # 设置实例权重
+          weight: 1.0
+          # 启用实例
+          enabled: true
+          # 设置实例元数据
+          metadata:
+            version: "1.0"
+            zone: "default"
+      # 添加配置中心配置（即使不使用也有助于连接稳定性）
+      config:
+        server-addr: ai-qa-nacos:8848
+        username: nacos
+        password: nacos
+        timeout: 30000
+        # 禁用配置中心功能但保持连接配置
+        enabled: false
+  datasource:
+    url: jdbc:mysql://ai-qa-mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    username: aiqa
+    password: aiqa123
+    # 添加连接池配置
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
+      initialization-fail-timeout: 60000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show-sql: true
+
+# Actuator配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  security:
+    enabled: false

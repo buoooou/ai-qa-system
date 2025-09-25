@@ -1,0 +1,61 @@
+server:
+  port: 8080 # 所有后端请求的入口
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ai-qa-nacos:8848
+        # 增加连接超时配置
+        timeout: 30000
+        heart-beat-timeout: 30000
+        heart-beat-interval: 5000
+        # 启用失败重试
+        fail-fast: false
+        # 延迟注册，等待Nacos客户端完全启动
+        register-enabled: true
+        # 添加额外的稳定性配置
+        watch:
+          enabled: true
+        # 服务实例配置
+        instance:
+          # 设置实例权重
+          weight: 1.0
+          # 启用实例
+          enabled: true
+          # 设置实例元数据
+          metadata:
+            version: "1.0"
+            zone: "default"
+      # 添加配置中心配置（即使不使用也有助于连接稳定性）
+      config:
+        server-addr: ai-qa-nacos:8848
+        timeout: 30000
+        # 禁用配置中心功能但保持连接配置
+        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 开启基于服务发现的路由功能
+          lower-case-service-id: true
+      routes:
+        - id: user_service_route
+          uri: http://user-service:8081 # 直接指向user-service容器
+          predicates:
+            - Path=/api/users/** # 匹配所有/api/users/开头的请求
+          filters:
+            - name: JwtAuthentication
+        - id: qa_service_route
+          uri: http://qa-service:8082
+          predicates:
+            - Path=/api/qa/**
+          filters:
+            - name: JwtAuthentication
+jwt:
+  # 开发环境密钥
+  secret-key-dev: "mySecretKeyForDevelopmentEnvironment12345"
+  # 生产环境密钥
+  secret-key-prod: "mySecretKeyForProductionEnvironment67890"
+  # 是否为生产环境，默认为false即开发环境
+  production: false
