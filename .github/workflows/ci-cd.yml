@@ -75,7 +75,7 @@ jobs:
     if: github.event_name == 'push'
     strategy:
       matrix:
-        service: [api-gateway-yulong, user-service-yulong, qa-service-yulong, frontend]
+        service: [api-gateway, user-service, qa-service, frontend]
 
     steps:
     - uses: actions/checkout@v4
