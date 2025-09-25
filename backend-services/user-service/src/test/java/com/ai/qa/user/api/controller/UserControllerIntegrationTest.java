@@ -27,11 +27,11 @@ public class UserControllerIntegrationTest extends AbstractIntegrationTest {
         request.setUsername("testUser");
         request.setPassword("password123");
 
-        Response<?> response = restTemplate.postForObject(
-                "/api/users/login",
-                request,
-                Response.class
-        );
+    Response<?> response = restTemplate.postForObject(
+        "/api/users/auth/login",
+        request,
+        Response.class
+    );
 
         assertEquals(200, response.getCode());
     }
