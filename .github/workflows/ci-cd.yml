@@ -142,7 +142,7 @@ jobs:
   deploy-dev:
     needs: build-images
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
 
     steps:
     - uses: actions/checkout@v4
@@ -184,7 +184,7 @@ jobs:
   performance-test:
     needs: deploy-dev
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
 
     steps:
     - uses: actions/checkout@v4
