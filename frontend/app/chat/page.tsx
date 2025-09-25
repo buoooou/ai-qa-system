@@ -47,13 +47,13 @@ export default function ChatPage() {
         nickname: nicknameInput,
         username: localStorage.getItem("username"),
       });
-      if (response.code === 200) {
-        localStorage.setItem("nickname", nicknameInput);
-        setNickname(nicknameInput);
-        toast.success("昵称更新成功");
-      } else {
-        toast.error(response.message || "昵称更新失败");
-      }
+      // if (response.code === 200) {
+      localStorage.setItem("nickname", nicknameInput);
+      setNickname(nicknameInput);
+      toast.success("昵称更新成功");
+      // } else {
+      //   toast.error(response.message || "昵称更新失败");
+      // }
     } catch (error) {
       toast.error("网络错误，请重试");
     } finally {
