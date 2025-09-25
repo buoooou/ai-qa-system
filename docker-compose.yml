@@ -24,9 +24,10 @@ services:
 
   # 用户服务
   user-service:
-    build:
-      context: ./backend-services/user-service
-      dockerfile: Dockerfile
+    image: yuecr387/ai-qa-user-service:latest
+    # build:
+    #   context: ./backend-services/user-service
+    #   dockerfile: Dockerfile
     container_name: ai-qa-user-service
     environment:
       SPRING_PROFILES_ACTIVE: docker
@@ -40,17 +41,18 @@ services:
         condition: service_healthy
     networks:
       - ai-qa-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
 
   # 问答服务
   qa-service:
-    build:
-      context: ./backend-services/qa-service
-      dockerfile: Dockerfile
+    image: yuecr387/ai-qa-qa-service:latest
+    # build:
+    #   context: ./backend-services/qa-service
+    #   dockerfile: Dockerfile
     container_name: ai-qa-qa-service
     environment:
       SPRING_PROFILES_ACTIVE: docker
@@ -61,24 +63,25 @@ services:
       USER_SERVICE_URL: http://user-service:8081
     ports:
       - "8082:8082"
-    depends_on:
-      mysql:
-        condition: service_healthy
-      user-service:
-        condition: service_healthy
+    # depends_on:
+    #   mysql:
+    #     condition: service_healthy
+    #   user-service:
+    #     condition: service_healthy
     networks:
       - ai-qa-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
 
   # API网关
   api-gateway:
-    build:
-      context: ./backend-services/api-gateway
-      dockerfile: Dockerfile
+    image: wangxlisonglm/ai-qa-api-gateway:latest
+    # build:
+    #   context: ./backend-services/api-gateway
+    #   dockerfile: Dockerfile
     container_name: ai-qa-api-gateway
     environment:
       SPRING_PROFILES_ACTIVE: docker
@@ -86,31 +89,32 @@ services:
       QA_SERVICE_URL: http://qa-service:8082
     ports:
       - "8080:8080"
-    depends_on:
-      user-service:
-        condition: service_healthy
-      qa-service:
-        condition: service_healthy
+    # depends_on:
+    #   user-service:
+    #     condition: service_healthy
+    #   qa-service:
+    #     condition: service_healthy
     networks:
       - ai-qa-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
 
   # 前端应用
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: yuecr387/ai-qa-frontend:latest
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
     container_name: ai-qa-frontend
     environment:
       NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
     ports:
       - "3000:3000"
-    depends_on:
-      - api-gateway
+    # depends_on:
+    #   - api-gateway
     networks:
       - ai-qa-network
 

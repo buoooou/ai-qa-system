@@ -1,21 +1,26 @@
-# 使用官方OpenJDK运行时作为基础镜像
-FROM openjdk:17-jdk-slim
-
-# 设置工作目录
+# 第一阶段：构建JAR包（使用Maven镜像）
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 
-# 复制Maven构建产物
-COPY target/*.jar app.jar
+# 复制整个后端服务目录（包含父POM和所有子模块）
+COPY ../pom.xml /app/pom.xml
+COPY ../api-gateway /app/api-gateway
 
-# 暴露端口
+# 进入当前服务目录，基于父POM构建
+WORKDIR /app/api-gateway
+RUN mvn -B clean package -DskipTests
+
+
+# 第二阶段：运行JAR包（使用轻量JRE镜像）
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+# 从构建阶段复制生成的JAR包
+COPY --from=builder /app/api-gateway/target/*.jar app.jar
+
+# 暴露服务端口（api-gateway使用8080）
 EXPOSE 8080
 
-# 设置JVM参数
-ENV JAVA_OPTS="-Xmx512m -Xms256m"
-
-# 健康检查
-HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-  CMD curl -f http://localhost:8080/actuator/health || exit 1
-
-# 启动应用
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+# 启动命令
+ENTRYPOINT ["java", "-jar", "app.jar"]
+    
