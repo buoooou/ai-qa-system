@@ -42,8 +42,7 @@ services:
     ports:
       - "8848:8848"
       - "9848:9848"
-    entrypoint:
-      - sh -c "sleep 30 && /home/nacos/bin/docker-startup.sh"
+    entrypoint: ["/bin/sh", "-c", "sleep 30 && /home/nacos/bin/docker-startup.sh"]
     depends_on:
       mysql:
         condition: service_healthy
