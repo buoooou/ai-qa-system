@@ -27,7 +27,7 @@ export default function ChatPage() {
   );
   const [isEditingNickname, setIsEditingNickname] = useState(false);
   const [nicknameInput, setNicknameInput] = useState(nickname);
-  const [isThinking, setIsThinking] = useState(false);
+  // const [isThinking, setIsThinking] = useState(false); // 暂时未使用
 
   const handleLogout = async () => {
     try{
@@ -47,7 +47,7 @@ export default function ChatPage() {
       await new Promise(resolve => setTimeout(resolve, 2000));
       localStorage.clear();
       router.push('/login');
-    } catch (error) {
+    } catch {
       toast.error('网络错误，请重试');
     }
   }
@@ -72,7 +72,7 @@ export default function ChatPage() {
       } else {
         toast.error(data.message || '昵称更新失败');
       }
-    } catch (error) {
+    } catch {
       toast.error('网络错误，请重试');
     } finally {
       setIsEditingNickname(false);
@@ -93,12 +93,12 @@ export default function ChatPage() {
     }
   }, []);
 
-  const toggleTheme = () => {
-    const themes: ('dark' | 'light' | 'blue' | 'green')[] = ['dark', 'light', 'blue', 'green'];
-    const currentIndex = themes.indexOf(theme);
-    const nextIndex = (currentIndex + 1) % themes.length;
-    setTheme(themes[nextIndex]);
-  };
+  // const toggleTheme = () => {
+  //   const themes: ('dark' | 'light' | 'blue' | 'green')[] = ['dark', 'light', 'blue', 'green'];
+  //   const currentIndex = themes.indexOf(theme);
+  //   const nextIndex = (currentIndex + 1) % themes.length;
+  //   setTheme(themes[nextIndex]);
+  // }; // 暂时未使用
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -216,7 +216,7 @@ export default function ChatPage() {
       } else {
         toast.error(data.error || '创建会话失败');
       }
-    } catch (error) {
+    } catch {
       toast.error('网络错误，请重试');
     }
   };
@@ -248,7 +248,7 @@ export default function ChatPage() {
       } else {
         toast.error(data.message || '新会话创建失败');
       }
-    } catch (error) {
+    } catch {
       toast.error('网络错误，请重试');
     }
   };
@@ -319,7 +319,7 @@ export default function ChatPage() {
       } else {
         toast.error(data.error || '删除会话失败');
       }
-    } catch (error) {
+    } catch {
       toast.error('网络错误，请重试');
     }
   };

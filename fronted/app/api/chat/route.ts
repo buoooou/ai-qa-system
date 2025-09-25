@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     });
     const data = await response.json();
     return NextResponse.json(data);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to create session' },
       { status: 500 }
@@ -45,7 +45,7 @@ export async function DELETE(req: Request) {
       content: data,
     });
 
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to delete session' },
       { status: 500 }

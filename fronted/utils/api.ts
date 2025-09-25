@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 type RequestOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   headers?: Record<string, string>;
-  body?: any;
+  body?: unknown;
 };
 
 export async function apiFetch(url: string, options: RequestOptions = {}) {
@@ -35,9 +35,9 @@ export async function apiFetch(url: string, options: RequestOptions = {}) {
     }
 
     return data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     // 统一错误处理
-    toast.error(error.message || '网络错误');
+    toast.error(error instanceof Error ? error.message : '网络错误');
     throw error;
   }
 }

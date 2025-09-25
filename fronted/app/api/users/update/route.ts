@@ -17,7 +17,7 @@ export async function PUT(request: Request) {
       data: data.data
     }, { status: data.code });
 
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message || '服务器错误' }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ message: error instanceof Error ? error.message : '服务器错误' }, { status: 500 });
   }
 }

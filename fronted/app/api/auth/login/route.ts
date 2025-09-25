@@ -16,9 +16,9 @@ export async function POST(request: Request) {
       data: data.data
     }, { status: data.code });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json({ 
-      message: error.message || '服务器错误'
+      message: error instanceof Error ? error.message : '服务器错误'
     }, { status: 500 });
   }
 }
