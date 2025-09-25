@@ -1,34 +1,5 @@
 services:
-  # Nacos服务注册中心
-  nacos:
-    image: nacos/nacos-server:v2.2.0
-    container_name: ai-qa-nacos
-    environment:
-      - MODE=standalone
-      - SPRING_DATASOURCE_PLATFORM=mysql
-      - MYSQL_SERVICE_HOST=mysql
-      - MYSQL_SERVICE_PORT=3306
-      - MYSQL_SERVICE_DB_NAME=nacos_config
-      - MYSQL_SERVICE_USER=root
-      - MYSQL_SERVICE_PASSWORD=root123
-      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
-      - NACOS_AUTH_ENABLE=true
-    ports:
-      - "8848:8848"
-      - "9848:9848"
-    depends_on:
-      mysql:
-        condition: service_healthy
-    networks:
-      - ai-qa-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8848/nacos/"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 60s
-
-  # MySQL数据库服务
+# MySQL数据库服务
   mysql:
     image: zhoudeqiang/ai-qa-mysql:latest
     build:
@@ -48,12 +19,44 @@ services:
     networks:
       - ai-qa-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -proot123 && sleep 10"]
       timeout: 20s
       retries: 10
       start_period: 40s
       interval: 10s
 
+  # Nacos服务注册中心
+  nacos:
+    image: nacos/nacos-server:v2.2.0
+    container_name: ai-qa-nacos
+    environment:
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=mysql
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_DB_NAME=nacos_config
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=root123
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+      - NACOS_AUTH_ENABLE=true
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    entrypoint:
+      - sh -c "sleep 30 && /home/nacos/bin/docker-startup.sh"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - ai-qa-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8848/nacos/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  
   # API网关服务
   api-gateway:
     image: zhoudeqiang/ai-qa-api-gateway:latest
