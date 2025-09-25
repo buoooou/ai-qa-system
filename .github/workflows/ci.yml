@@ -112,9 +112,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-            mkdir -p ~/airline-cicd/database
-            chmod 755 ~/airline-cicd
-            chmod 755 ~/airline-cicd/database
+            # 删除现有目录并重新创建，确保权限正确
+            rm -rf ~/airline-cicd
+            mkdir -p ~/airline-cicd/database/init-scripts
 
       - name: Copy project files to EC2
         run: |
