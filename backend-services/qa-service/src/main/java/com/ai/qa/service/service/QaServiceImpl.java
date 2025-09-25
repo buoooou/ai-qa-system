@@ -1,7 +1,7 @@
 package com.ai.qa.service.service;
 
 import com.ai.qa.service.client.GeminiClient;
-import com.ai.qa.service.client.UserServiceClient;
+//import com.ai.qa.service.client.UserServiceClient;
 import com.ai.qa.service.dto.ApiResponse;
 import com.ai.qa.service.dto.QaRequest;
 import com.ai.qa.service.dto.QaResponse;
@@ -49,7 +49,7 @@ public class QaServiceImpl implements QaService {
     /**
      * 用户服务客户端
      */
-    private final UserServiceClient userServiceClient;
+    //private final UserServiceClient userServiceClient;
 
     /**
      * 问答历史数据访问层

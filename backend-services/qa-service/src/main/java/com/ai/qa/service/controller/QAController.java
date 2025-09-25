@@ -1,6 +1,6 @@
 package com.ai.qa.service.controller;
 
-import com.ai.qa.service.client.UserServiceClient;
+//import com.ai.qa.service.client.UserServiceClient;
 import com.ai.qa.service.dto.ApiResponse;
 import com.ai.qa.service.dto.QaRequest;
 import com.ai.qa.service.dto.QaResponse;
@@ -57,7 +57,7 @@ public class QAController {
      *
      * 通过Feign Client调用user-service
      */
-    private final UserServiceClient userServiceClient;
+    //private final UserServiceClient userServiceClient;
 
     /**
      * 提交问题并获取AI回答
@@ -342,7 +342,7 @@ public class QAController {
         log.info("测试Feign Client获取用户信息，用户ID: {}", userId);
 
         try {
-            ApiResponse<UserInfoDto> response = userServiceClient.getUserById(userId);
+            ApiResponse<UserInfoDto> response =  new ApiResponse<>();//userServiceClient.getUserById(userId);
 
             if (response != null && response.getCode() == 200 && response.getData() != null) {
                 log.info("Feign Client调用成功，用户ID: {}, 用户名: {}",
@@ -371,7 +371,7 @@ public class QAController {
         log.info("测试Feign Client调用用户服务健康检查");
 
         try {
-            ApiResponse<String> response = userServiceClient.checkHealth();
+            ApiResponse<String> response = new ApiResponse<>();//userServiceClient.checkHealth();
 
             if (response != null && response.getCode() == 200) {
                 log.info("用户服务健康检查成功，响应: {}", response.getMessage());

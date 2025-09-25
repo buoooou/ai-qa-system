@@ -1,11 +1,6 @@
 server:
   port: 8082
 spring:
-  application:
-    name: qa-service-cdw
-  cloud:
-    nacos:
-      server-addr: 54.219.180.170:8848
   datasource:
     url: jdbc:mysql://localhost:3306/ai_qa?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
