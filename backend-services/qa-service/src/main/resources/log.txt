@@ -1,216 +1,223 @@
-2025-09-25T09:45:18.8213999Z [INFO] -------------------------------------------------------
-2025-09-25T09:45:18.8214610Z [INFO]  T E S T S
-2025-09-25T09:45:18.8215150Z [INFO] -------------------------------------------------------
-2025-09-25T09:45:19.4848406Z [INFO] Running com.ai.qa.user.api.controller.UserControllerTest
-2025-09-25T09:45:19.8790651Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-2025-09-25T09:45:20.6403635Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.107 s - in com.ai.qa.user.api.controller.UserControllerTest
-2025-09-25T09:45:20.6524537Z [INFO] Running com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:45:20.8052426Z 09:45:20.772 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
-2025-09-25T09:45:20.8058677Z 09:45:20.778 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-2025-09-25T09:45:21.4053551Z 09:45:21.373 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
-2025-09-25T09:45:21.4056206Z 09:45:21.379 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
-2025-09-25T09:45:21.4057727Z 09:45:21.394 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker:
-2025-09-25T09:45:21.4058423Z   Server Version: 28.0.4
-2025-09-25T09:45:21.4058726Z   API Version: 1.48
-2025-09-25T09:45:21.4059009Z   Operating System: Ubuntu 24.04.3 LTS
-2025-09-25T09:45:21.4059258Z   Total Memory: 15995 MB
-2025-09-25T09:45:21.5055707Z 09:45:21.418 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling docker image: testcontainers/ryuk:0.5.1. Please be patient; this may take some time but only needs to be done once.
-2025-09-25T09:45:21.7057715Z 09:45:21.688 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Starting to pull image
-2025-09-25T09:45:21.8059464Z 09:45:21.712 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2025-09-25T09:45:21.9062969Z 09:45:21.844 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (59 KB/? MB)
-2025-09-25T09:45:21.9065088Z 09:45:21.859 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (59 KB/? MB)
-2025-09-25T09:45:21.9067647Z 09:45:21.874 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (63 KB/5 MB)
-2025-09-25T09:45:22.0063624Z 09:45:21.952 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (2 MB/5 MB)
-2025-09-25T09:45:22.2066247Z 09:45:22.127 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (2 MB/5 MB)
-2025-09-25T09:45:22.2069943Z 09:45:22.174 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
-2025-09-25T09:45:22.2071697Z 09:45:22.182 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Image testcontainers/ryuk:0.5.1 pull took PT0.763578045S
-2025-09-25T09:45:22.2073304Z 09:45:22.200 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
-2025-09-25T09:45:22.3071729Z 09:45:22.265 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: cafe5d618bc4d2a43addaaa7e87bb030a6394948746a8c38ac0c79a173860990
-2025-09-25T09:45:22.6100422Z 09:45:22.559 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT0.358384309S
-2025-09-25T09:45:22.6102236Z 09:45:22.563 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-2025-09-25T09:45:22.6103735Z 09:45:22.564 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
-2025-09-25T09:45:22.6105424Z 09:45:22.564 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
-2025-09-25T09:45:22.6107332Z 09:45:22.566 [main] INFO tc.redis:latest -- Pulling docker image: redis:latest. Please be patient; this may take some time but only needs to be done once.
-2025-09-25T09:45:22.8097460Z 09:45:22.777 [docker-java-stream-328759547] INFO tc.redis:latest -- Starting to pull image
-2025-09-25T09:45:22.8098718Z 09:45:22.778 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
-2025-09-25T09:45:23.0101983Z 09:45:22.909 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (874 bytes/? MB)
-2025-09-25T09:45:23.0105212Z 09:45:22.929 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (281 KB/? MB)
-2025-09-25T09:45:23.1103072Z 09:45:23.014 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (526 KB/? MB)
-2025-09-25T09:45:23.1105463Z 09:45:23.048 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  3 pending,  4 downloaded,  0 extracted, (21 MB/? MB)
-2025-09-25T09:45:23.1108074Z 09:45:23.088 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  2 pending,  5 downloaded,  0 extracted, (21 MB/? MB)
-2025-09-25T09:45:23.2103673Z 09:45:23.129 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  0 extracted, (37 MB/? MB)
-2025-09-25T09:45:23.2106953Z 09:45:23.141 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  0 extracted, (37 MB/49 MB)
-2025-09-25T09:45:24.2116874Z 09:45:24.121 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  1 extracted, (43 MB/49 MB)
-2025-09-25T09:45:24.3119013Z 09:45:24.220 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  2 extracted, (43 MB/49 MB)
-2025-09-25T09:45:24.3120889Z 09:45:24.235 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  3 extracted, (43 MB/49 MB)
-2025-09-25T09:45:24.6122816Z 09:45:24.555 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  4 extracted, (49 MB/49 MB)
-2025-09-25T09:45:24.6124503Z 09:45:24.566 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  5 extracted, (49 MB/49 MB)
-2025-09-25T09:45:24.6125594Z 09:45:24.576 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  6 extracted, (49 MB/49 MB)
-2025-09-25T09:45:24.6126930Z 09:45:24.588 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  7 extracted, (49 MB/49 MB)
-2025-09-25T09:45:24.6127688Z 09:45:24.595 [main] INFO tc.redis:latest -- Image redis:latest pull took PT2.028255329S
-2025-09-25T09:45:24.6128699Z 09:45:24.595 [docker-java-stream-328759547] INFO tc.redis:latest -- Pull complete. 7 layers, pulled in 1s (downloaded 49 MB at 49 MB/s)
-2025-09-25T09:45:24.6129522Z 09:45:24.598 [main] INFO tc.redis:latest -- Creating container for image: redis:latest
-2025-09-25T09:45:24.7123353Z 09:45:24.615 [main] INFO tc.redis:latest -- Container redis:latest is starting: cbd10555a65080b8c4872f1177aada2e46d0aa756f2255ebe5d3ed2f23157b13
-2025-09-25T09:45:24.9128249Z 09:45:24.823 [main] INFO tc.redis:latest -- Container redis:latest started in PT0.225600673S
-2025-09-25T09:45:25.0130445Z 09:45:24.915 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ai.qa.user.api.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-09-25T09:45:25.1140092Z 09:45:25.071 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ai.qa.user.UserServiceApplication for test class com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:45:25.5198674Z 2025-09-25T09:45:25.482Z  INFO 2239 --- [           main] c.a.n.client.env.SearchableProperties    : properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
-2025-09-25T09:45:25.5200836Z 2025-09-25T09:45:25.484Z  WARN 2239 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
-2025-09-25T09:45:25.5201809Z
-2025-09-25T09:45:25.5201988Z   .   ____          _            __ _ _
-2025-09-25T09:45:25.5202626Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-2025-09-25T09:45:25.5203111Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-2025-09-25T09:45:25.5203546Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-2025-09-25T09:45:25.5204101Z   '  |____| .__|_| |_|_| |_\__, | / / / /
-2025-09-25T09:45:25.5204617Z  =========|_|==============|___/=/_/_/_/
-2025-09-25T09:45:25.5205204Z  :: Spring Boot ::                (v3.1.5)
-2025-09-25T09:45:25.5205580Z
-2025-09-25T09:45:25.6154501Z 2025-09-25T09:45:25.574Z  WARN 2239 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
-2025-09-25T09:45:25.6158062Z 2025-09-25T09:45:25.596Z  INFO 2239 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Starting UserControllerIntegrationTest using Java 17.0.16 with PID 2239 (started by runner in /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service)
-2025-09-25T09:45:25.6160774Z 2025-09-25T09:45:25.597Z  INFO 2239 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : The following 1 profile is active: "test"
-2025-09-25T09:45:26.3214031Z 2025-09-25T09:45:26.302Z  INFO 2239 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-25T09:45:26.4198157Z 2025-09-25T09:45:26.355Z  INFO 2239 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 1 JPA repository interfaces.
-2025-09-25T09:45:26.6277143Z 2025-09-25T09:45:26.570Z  INFO 2239 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=c616384c-2762-30f2-9704-4e73246b641c
-2025-09-25T09:45:27.0283094Z 2025-09-25T09:45:26.998Z  INFO 2239 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
-2025-09-25T09:45:27.0292493Z 2025-09-25T09:45:27.018Z  INFO 2239 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-09-25T09:45:27.0299816Z 2025-09-25T09:45:27.018Z  INFO 2239 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
-2025-09-25T09:45:27.1284568Z 2025-09-25T09:45:27.112Z  INFO 2239 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-09-25T09:45:27.1291751Z 2025-09-25T09:45:27.113Z  INFO 2239 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1496 ms
-2025-09-25T09:45:27.2291872Z 2025-09-25T09:45:27.196Z  INFO 2239 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-09-25T09:45:27.4299029Z 2025-09-25T09:45:27.351Z  INFO 2239 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-2025-09-25T09:45:27.4303364Z 2025-09-25T09:45:27.353Z  INFO 2239 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-09-25T09:45:27.5300158Z 2025-09-25T09:45:27.452Z  INFO 2239 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-25T09:45:27.5303950Z 2025-09-25T09:45:27.497Z  INFO 2239 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
-2025-09-25T09:45:27.5306035Z 2025-09-25T09:45:27.499Z  INFO 2239 --- [           main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
-2025-09-25T09:45:27.7304310Z 2025-09-25T09:45:27.648Z  INFO 2239 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-25T09:45:27.7309925Z 2025-09-25T09:45:27.690Z  WARN 2239 --- [           main] org.hibernate.dialect.Dialect            : HHH000511: The 2.1.0 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.0.0. Check the community dialects project for available legacy versions.
-2025-09-25T09:45:27.7315033Z 2025-09-25T09:45:27.694Z  WARN 2239 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-09-25T09:45:28.3336489Z 2025-09-25T09:45:28.274Z  INFO 2239 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-25T09:45:28.3338866Z 2025-09-25T09:45:28.314Z DEBUG 2239 --- [           main] org.hibernate.SQL                        : create sequence users_seq start with 1 increment by 1
-2025-09-25T09:45:28.3340794Z Hibernate: create sequence users_seq start with 1 increment by 1
-2025-09-25T09:45:28.3342792Z 2025-09-25T09:45:28.317Z  INFO 2239 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25T09:45:28.8424690Z 2025-09-25T09:45:28.795Z  WARN 2239 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-25T09:45:29.1444934Z 2025-09-25T09:45:29.086Z  INFO 2239 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6cd8aee2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@28f33810, org.springframework.security.web.context.SecurityContextHolderFilter@35b97c69, org.springframework.security.web.header.HeaderWriterFilter@1193d400, org.springframework.web.filter.CorsFilter@476d5f2e, org.springframework.security.web.authentication.logout.LogoutFilter@591e27f1, com.ai.qa.user.infrastructure.filter.JwtRequestFilter@78405f00, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d4df4ce, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4e881e14, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6e56f5d4, org.springframework.security.web.session.SessionManagementFilter@30b5225b, org.springframework.security.web.access.ExceptionTranslationFilter@382e7f70, org.springframework.security.web.access.intercept.AuthorizationFilter@2fa81b23]
-2025-09-25T09:45:29.4402315Z 2025-09-25T09:45:29.413Z  INFO 2239 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 42655 (http) with context path ''
-2025-09-25T09:45:29.4404563Z 2025-09-25T09:45:29.431Z  INFO 2239 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Started UserControllerIntegrationTest in 4.237 seconds (process running for 10.536)
-2025-09-25T09:45:29.6451463Z 2025-09-25T09:45:29.585Z  INFO 2239 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-25T09:45:29.6453186Z 2025-09-25T09:45:29.585Z  INFO 2239 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-09-25T09:45:29.6454712Z 2025-09-25T09:45:29.586Z  INFO 2239 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-09-25T09:45:29.8465071Z [ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 9.177 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerIntegrationTest
-2025-09-25T09:45:29.8476143Z [ERROR] com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin  Time elapsed: 0.238 s  <<< FAILURE!
-2025-09-25T09:45:29.8479472Z org.opentest4j.AssertionFailedError: expected: <200> but was: <0>
-2025-09-25T09:45:29.8480593Z 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-2025-09-25T09:45:29.8481954Z 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-2025-09-25T09:45:29.8483205Z 	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-2025-09-25T09:45:29.8484217Z 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
-2025-09-25T09:45:29.8485200Z 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
-2025-09-25T09:45:29.8486153Z 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:528)
-2025-09-25T09:45:29.8487667Z 	at com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin(UserControllerIntegrationTest.java:36)
-2025-09-25T09:45:29.8489002Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-2025-09-25T09:45:29.8490272Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-2025-09-25T09:45:29.8491753Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-2025-09-25T09:45:29.8492906Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-2025-09-25T09:45:29.8493919Z 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
-2025-09-25T09:45:29.8495136Z 	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-2025-09-25T09:45:29.8496888Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
-2025-09-25T09:45:29.8499162Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
-2025-09-25T09:45:29.8500608Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
-2025-09-25T09:45:29.8502140Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
-2025-09-25T09:45:29.8504065Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
-2025-09-25T09:45:29.8506082Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
-2025-09-25T09:45:29.8508266Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
-2025-09-25T09:45:29.8510117Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
-2025-09-25T09:45:29.8511869Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
-2025-09-25T09:45:29.8513607Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
-2025-09-25T09:45:29.8515332Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
-2025-09-25T09:45:29.8517282Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
-2025-09-25T09:45:29.8519054Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217)
-2025-09-25T09:45:29.8520741Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:45:29.8522329Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
-2025-09-25T09:45:29.8524170Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
-2025-09-25T09:45:29.8525708Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
-2025-09-25T09:45:29.8527405Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
-2025-09-25T09:45:29.8528782Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:45:29.8530167Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:45:29.8531345Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:45:29.8532624Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:45:29.8534070Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:45:29.8535625Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:45:29.8568137Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:45:29.8569538Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-2025-09-25T09:45:29.8571383Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-2025-09-25T09:45:29.8574089Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-2025-09-25T09:45:29.8575958Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:45:29.8584749Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:45:29.8587711Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:45:29.8588961Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:45:29.8590380Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:45:29.8591748Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:45:29.8592969Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:45:29.8593889Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-2025-09-25T09:45:29.8595459Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-2025-09-25T09:45:29.8597455Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-2025-09-25T09:45:29.8598899Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:45:29.8600330Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-2025-09-25T09:45:29.8601507Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-2025-09-25T09:45:29.8602721Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-2025-09-25T09:45:29.8604117Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-2025-09-25T09:45:29.8605498Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-2025-09-25T09:45:29.8607057Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-2025-09-25T09:45:29.8608860Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-2025-09-25T09:45:29.8610839Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-2025-09-25T09:45:29.8612441Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-2025-09-25T09:45:29.8613949Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
-2025-09-25T09:45:29.8615464Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
-2025-09-25T09:45:29.8617146Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
-2025-09-25T09:45:29.8619783Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
-2025-09-25T09:45:29.8621565Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
-2025-09-25T09:45:29.8623259Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
-2025-09-25T09:45:29.8624560Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
-2025-09-25T09:45:29.8625716Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
-2025-09-25T09:45:29.8627312Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
-2025-09-25T09:45:29.8628721Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
-2025-09-25T09:45:29.8630036Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
-2025-09-25T09:45:29.8631561Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
-2025-09-25T09:45:29.8633541Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
-2025-09-25T09:45:29.8635123Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
-2025-09-25T09:45:29.8636252Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
-2025-09-25T09:45:29.8637404Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
-2025-09-25T09:45:29.8638405Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
-2025-09-25T09:45:29.8638956Z
-2025-09-25T09:45:29.9199331Z [INFO]
-2025-09-25T09:45:29.9199668Z [INFO] Results:
-2025-09-25T09:45:29.9200212Z [INFO]
-2025-09-25T09:45:29.9200941Z [ERROR] Failures:
-2025-09-25T09:45:29.9201789Z [ERROR]   UserControllerIntegrationTest.testLogin:36 expected: <200> but was: <0>
-2025-09-25T09:45:29.9202459Z [INFO]
-2025-09-25T09:45:29.9204270Z [ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0
-2025-09-25T09:45:29.9205026Z [INFO]
-2025-09-25T09:45:29.9229100Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:45:29.9230294Z [INFO] Reactor Summary for ai-qa-backend 1.0-SNAPSHOT:
-2025-09-25T09:45:29.9231713Z [INFO]
-2025-09-25T09:45:29.9232775Z [INFO] ai-qa-backend ...................................... SUCCESS [  0.257 s]
-2025-09-25T09:45:29.9233965Z [INFO] user-service ....................................... FAILURE [ 20.342 s]
-2025-09-25T09:45:29.9234908Z [INFO] qa-service ......................................... SKIPPED
-2025-09-25T09:45:29.9235765Z [INFO] api-gateway ........................................ SKIPPED
-2025-09-25T09:45:29.9240885Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:45:29.9241749Z [INFO] BUILD FAILURE
-2025-09-25T09:45:29.9242531Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:45:29.9243387Z [INFO] Total time:  22.725 s
-2025-09-25T09:45:29.9244095Z [INFO] Finished at: 2025-09-25T09:45:29Z
-2025-09-25T09:45:29.9244956Z [INFO] ------------------------------------------------------------------------
-2025-09-25T09:45:29.9247924Z [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0:test (default-test) on project user-service: There are test failures.
-2025-09-25T09:45:29.9249608Z [ERROR]
-2025-09-25T09:45:29.9260312Z [ERROR] Please refer to /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/surefire-reports for the individual test results.
-2025-09-25T09:45:29.9261992Z [ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
-2025-09-25T09:45:29.9262811Z [ERROR] -> [Help 1]
-2025-09-25T09:45:29.9263133Z [ERROR]
-2025-09-25T09:45:29.9263805Z [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-2025-09-25T09:45:29.9264709Z [ERROR] Re-run Maven using the -X switch to enable full debug logging.
-2025-09-25T09:45:29.9265260Z [ERROR]
-2025-09-25T09:45:29.9266122Z [ERROR] For more information about the errors and possible solutions, please read the following articles:
-2025-09-25T09:45:29.9267586Z [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
-2025-09-25T09:45:29.9268325Z [ERROR]
-2025-09-25T09:45:29.9269021Z [ERROR] After correcting the problems, you can resume the build with the command
-2025-09-25T09:45:29.9269784Z [ERROR]   mvn <args> -rf :user-service
-2025-09-25T09:45:29.9606158Z ##[error]Process completed with exit code 1.
+2025-09-25T09:49:47.3638847Z [INFO] -------------------------------------------------------
+2025-09-25T09:49:47.3639335Z [INFO]  T E S T S
+2025-09-25T09:49:47.3639816Z [INFO] -------------------------------------------------------
+2025-09-25T09:49:48.3702517Z [INFO] Running com.ai.qa.user.api.controller.UserControllerTest
+2025-09-25T09:49:49.0706810Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2025-09-25T09:49:49.8000742Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.391 s - in com.ai.qa.user.api.controller.UserControllerTest
+2025-09-25T09:49:49.8219017Z [INFO] Running com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T09:49:49.9887129Z 09:49:49.905 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+2025-09-25T09:49:49.9890197Z 09:49:49.909 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2025-09-25T09:49:50.7897872Z 09:49:50.770 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2025-09-25T09:49:50.7900190Z 09:49:50.777 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+2025-09-25T09:49:50.8896831Z 09:49:50.792 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker:
+2025-09-25T09:49:50.8897441Z   Server Version: 28.0.4
+2025-09-25T09:49:50.8897719Z   API Version: 1.48
+2025-09-25T09:49:50.8898018Z   Operating System: Ubuntu 24.04.3 LTS
+2025-09-25T09:49:50.8898332Z   Total Memory: 15995 MB
+2025-09-25T09:49:50.8899427Z 09:49:50.813 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling docker image: testcontainers/ryuk:0.5.1. Please be patient; this may take some time but only needs to be done once.
+2025-09-25T09:49:51.0900564Z 09:49:51.088 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Starting to pull image
+2025-09-25T09:49:51.1901421Z 09:49:51.162 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2025-09-25T09:49:51.2904002Z 09:49:51.283 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (59 KB/? MB)
+2025-09-25T09:49:51.3907396Z 09:49:51.292 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (59 KB/? MB)
+2025-09-25T09:49:51.3909297Z 09:49:51.298 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (63 KB/5 MB)
+2025-09-25T09:49:51.3912006Z 09:49:51.386 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (2 MB/5 MB)
+2025-09-25T09:49:51.5909291Z 09:49:51.563 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (2 MB/5 MB)
+2025-09-25T09:49:51.6924579Z 09:49:51.611 [docker-java-stream--1729979775] INFO tc.testcontainers/ryuk:0.5.1 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
+2025-09-25T09:49:51.6931450Z 09:49:51.618 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Image testcontainers/ryuk:0.5.1 pull took PT0.804462523S
+2025-09-25T09:49:51.6933181Z 09:49:51.637 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
+2025-09-25T09:49:51.7911264Z 09:49:51.708 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: 1470d468e6830a4d07c9f73c8a5d0904df1adf32ce7b6cf575fe6b6d8519622f
+2025-09-25T09:49:52.1929606Z 09:49:52.170 [main] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT0.533048111S
+2025-09-25T09:49:52.1931588Z 09:49:52.175 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2025-09-25T09:49:52.1933082Z 09:49:52.176 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+2025-09-25T09:49:52.1934771Z 09:49:52.176 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+2025-09-25T09:49:52.1935852Z 09:49:52.179 [main] INFO tc.redis:latest -- Pulling docker image: redis:latest. Please be patient; this may take some time but only needs to be done once.
+2025-09-25T09:49:52.3931324Z 09:49:52.381 [docker-java-stream-328759547] INFO tc.redis:latest -- Starting to pull image
+2025-09-25T09:49:52.3932949Z 09:49:52.382 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2025-09-25T09:49:52.5933733Z 09:49:52.550 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (1 KB/? MB)
+2025-09-25T09:49:52.5935369Z 09:49:52.563 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (278 KB/? MB)
+2025-09-25T09:49:52.6937596Z 09:49:52.667 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (14 MB/? MB)
+2025-09-25T09:49:52.7940044Z 09:49:52.701 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  3 pending,  4 downloaded,  0 extracted, (14 MB/? MB)
+2025-09-25T09:49:52.7942975Z 09:49:52.717 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  2 pending,  5 downloaded,  0 extracted, (14 MB/? MB)
+2025-09-25T09:49:52.7944676Z 09:49:52.740 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  1 pending,  6 downloaded,  0 extracted, (14 MB/? MB)
+2025-09-25T09:49:52.7946440Z 09:49:52.771 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  0 extracted, (14 MB/49 MB)
+2025-09-25T09:49:53.7950626Z 09:49:53.765 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  1 extracted, (27 MB/49 MB)
+2025-09-25T09:49:53.8952560Z 09:49:53.874 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  2 extracted, (27 MB/49 MB)
+2025-09-25T09:49:53.8953665Z 09:49:53.893 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  3 extracted, (27 MB/49 MB)
+2025-09-25T09:49:54.2961804Z 09:49:54.219 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  4 extracted, (49 MB/49 MB)
+2025-09-25T09:49:54.2963671Z 09:49:54.230 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  5 extracted, (49 MB/49 MB)
+2025-09-25T09:49:54.2965607Z 09:49:54.241 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  6 extracted, (49 MB/49 MB)
+2025-09-25T09:49:54.2966835Z 09:49:54.261 [docker-java-stream-328759547] INFO tc.redis:latest -- Pulling image layers:  0 pending,  7 downloaded,  7 extracted, (49 MB/49 MB)
+2025-09-25T09:49:54.2967641Z 09:49:54.271 [main] INFO tc.redis:latest -- Image redis:latest pull took PT2.091871442S
+2025-09-25T09:49:54.2969035Z 09:49:54.271 [docker-java-stream-328759547] INFO tc.redis:latest -- Pull complete. 7 layers, pulled in 1s (downloaded 49 MB at 49 MB/s)
+2025-09-25T09:49:54.2969874Z 09:49:54.274 [main] INFO tc.redis:latest -- Creating container for image: redis:latest
+2025-09-25T09:49:54.2970825Z 09:49:54.290 [main] INFO tc.redis:latest -- Container redis:latest is starting: 9e45da767a49ee6b6eaee004c1d5f2a6ef8d4ec21b23d9ac4ff63075c1fe06c7
+2025-09-25T09:49:54.4961566Z 09:49:54.488 [main] INFO tc.redis:latest -- Container redis:latest started in PT0.213786669S
+2025-09-25T09:49:54.6966232Z 09:49:54.636 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ai.qa.user.api.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-09-25T09:49:55.0985840Z 09:49:55.080 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ai.qa.user.UserServiceApplication for test class com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T09:49:55.4992195Z 2025-09-25T09:49:55.455Z  INFO 2300 --- [           main] c.a.n.client.env.SearchableProperties    : properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
+2025-09-25T09:49:55.4995289Z 2025-09-25T09:49:55.456Z  WARN 2300 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
+2025-09-25T09:49:55.4996519Z
+2025-09-25T09:49:55.4996855Z   .   ____          _            __ _ _
+2025-09-25T09:49:55.4997620Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2025-09-25T09:49:55.4998479Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2025-09-25T09:49:55.4999100Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2025-09-25T09:49:55.5004354Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2025-09-25T09:49:55.5005217Z  =========|_|==============|___/=/_/_/_/
+2025-09-25T09:49:55.5005948Z  :: Spring Boot ::                (v3.1.5)
+2025-09-25T09:49:55.5006256Z
+2025-09-25T09:49:55.6165992Z 2025-09-25T09:49:55.531Z  WARN 2300 --- [           main] c.a.nacos.client.logging.NacosLogging    : Load Logback Configuration of Nacos fail, message: org/slf4j/impl/StaticLoggerBinder
+2025-09-25T09:49:55.6172182Z 2025-09-25T09:49:55.578Z  INFO 2300 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Starting UserControllerIntegrationTest using Java 17.0.16 with PID 2300 (started by runner in /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service)
+2025-09-25T09:49:55.6174612Z 2025-09-25T09:49:55.579Z  INFO 2300 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : The following 1 profile is active: "test"
+2025-09-25T09:49:56.4208555Z 2025-09-25T09:49:56.382Z  INFO 2300 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-25T09:49:56.5203062Z 2025-09-25T09:49:56.434Z  INFO 2300 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 1 JPA repository interfaces.
+2025-09-25T09:49:56.7276442Z 2025-09-25T09:49:56.642Z  INFO 2300 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=c616384c-2762-30f2-9704-4e73246b641c
+2025-09-25T09:49:57.1283404Z 2025-09-25T09:49:57.079Z  INFO 2300 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2025-09-25T09:49:57.1288630Z 2025-09-25T09:49:57.102Z  INFO 2300 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-25T09:49:57.1293865Z 2025-09-25T09:49:57.102Z  INFO 2300 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2025-09-25T09:49:57.2286111Z 2025-09-25T09:49:57.196Z  INFO 2300 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-25T09:49:57.2290462Z 2025-09-25T09:49:57.197Z  INFO 2300 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1569 ms
+2025-09-25T09:49:57.3290823Z 2025-09-25T09:49:57.268Z  INFO 2300 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-25T09:49:57.5314730Z 2025-09-25T09:49:57.440Z  INFO 2300 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-09-25T09:49:57.5325972Z 2025-09-25T09:49:57.441Z  INFO 2300 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-25T09:49:57.6301258Z 2025-09-25T09:49:57.540Z  INFO 2300 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-25T09:49:57.6314112Z 2025-09-25T09:49:57.587Z  INFO 2300 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2025-09-25T09:49:57.6315970Z 2025-09-25T09:49:57.589Z  INFO 2300 --- [           main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2025-09-25T09:49:57.8324268Z 2025-09-25T09:49:57.775Z  INFO 2300 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-25T09:49:57.8332388Z 2025-09-25T09:49:57.816Z  WARN 2300 --- [           main] org.hibernate.dialect.Dialect            : HHH000511: The 2.1.0 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.0.0. Check the community dialects project for available legacy versions.
+2025-09-25T09:49:57.8337248Z 2025-09-25T09:49:57.821Z  WARN 2300 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-25T09:49:58.4367300Z 2025-09-25T09:49:58.374Z  INFO 2300 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-25T09:49:58.4372315Z 2025-09-25T09:49:58.409Z DEBUG 2300 --- [           main] org.hibernate.SQL                        : create sequence users_seq start with 1 increment by 1
+2025-09-25T09:49:58.4384850Z Hibernate: create sequence users_seq start with 1 increment by 1
+2025-09-25T09:49:58.4386448Z 2025-09-25T09:49:58.412Z  INFO 2300 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-25T09:49:58.8380031Z 2025-09-25T09:49:58.782Z  WARN 2300 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-25T09:49:59.0391625Z 2025-09-25T09:49:59.032Z  INFO 2300 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2fa81b23, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@155788a7, org.springframework.security.web.context.SecurityContextHolderFilter@3b035d0c, org.springframework.security.web.header.HeaderWriterFilter@382e7f70, org.springframework.web.filter.CorsFilter@6cd8aee2, org.springframework.security.web.authentication.logout.LogoutFilter@1cb58c8a, com.ai.qa.user.infrastructure.filter.JwtRequestFilter@4e4ee99, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35b97c69, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@39a8905b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@28f33810, org.springframework.security.web.session.SessionManagementFilter@7daecd21, org.springframework.security.web.access.ExceptionTranslationFilter@42fa1554, org.springframework.security.web.access.intercept.AuthorizationFilter@60232aad]
+2025-09-25T09:49:59.3133800Z 2025-09-25T09:49:59.293Z  INFO 2300 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 43967 (http) with context path ''
+2025-09-25T09:49:59.3139366Z 2025-09-25T09:49:59.306Z  INFO 2300 --- [           main] .a.q.u.a.c.UserControllerIntegrationTest : Started UserControllerIntegrationTest in 4.13 seconds (process running for 11.839)
+2025-09-25T09:49:59.5406589Z 2025-09-25T09:49:59.491Z  INFO 2300 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-25T09:49:59.5410722Z 2025-09-25T09:49:59.492Z  INFO 2300 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-09-25T09:49:59.5412511Z 2025-09-25T09:49:59.493Z  INFO 2300 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-09-25T09:49:59.6870125Z 2025-09-25T09:49:59.642Z DEBUG 2300 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select u1_0.id,u1_0.update_date,u1_0.nickname,u1_0.password,u1_0.creation_date,u1_0.username from users u1_0 where u1_0.username=?
+2025-09-25T09:49:59.6876632Z Hibernate: select u1_0.id,u1_0.update_date,u1_0.nickname,u1_0.password,u1_0.creation_date,u1_0.username from users u1_0 where u1_0.username=?
+2025-09-25T09:49:59.6884823Z 2025-09-25T09:49:59.645Z  WARN 2300 --- [o-auto-1-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 42122, SQLState: 42S22
+2025-09-25T09:49:59.6890508Z 2025-09-25T09:49:59.645Z ERROR 2300 --- [o-auto-1-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : Column "U1_0.UPDATE_DATE" not found; SQL statement:
+2025-09-25T09:49:59.6894261Z select u1_0.id,u1_0.update_date,u1_0.nickname,u1_0.password,u1_0.creation_date,u1_0.username from users u1_0 where u1_0.username=? [42122-214]
+2025-09-25T09:49:59.8477533Z [ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 10.013 s <<< FAILURE! - in com.ai.qa.user.api.controller.UserControllerIntegrationTest
+2025-09-25T09:49:59.8483556Z [ERROR] com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin  Time elapsed: 0.372 s  <<< FAILURE!
+2025-09-25T09:49:59.8485156Z org.opentest4j.AssertionFailedError: expected: <200> but was: <500>
+2025-09-25T09:49:59.8486490Z 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+2025-09-25T09:49:59.8488026Z 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+2025-09-25T09:49:59.8489402Z 	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+2025-09-25T09:49:59.8490677Z 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+2025-09-25T09:49:59.8492388Z 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+2025-09-25T09:49:59.8493677Z 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:528)
+2025-09-25T09:49:59.8499053Z 	at com.ai.qa.user.api.controller.UserControllerIntegrationTest.testLogin(UserControllerIntegrationTest.java:36)
+2025-09-25T09:49:59.8500421Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+2025-09-25T09:49:59.8501896Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+2025-09-25T09:49:59.8503362Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2025-09-25T09:49:59.8504529Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+2025-09-25T09:49:59.8505550Z 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
+2025-09-25T09:49:59.8506706Z 	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+2025-09-25T09:49:59.8508912Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+2025-09-25T09:49:59.8510546Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+2025-09-25T09:49:59.8512182Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+2025-09-25T09:49:59.8513673Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+2025-09-25T09:49:59.8515526Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+2025-09-25T09:49:59.8517482Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+2025-09-25T09:49:59.8521442Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+2025-09-25T09:49:59.8523128Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+2025-09-25T09:49:59.8524625Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+2025-09-25T09:49:59.8526097Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+2025-09-25T09:49:59.8527491Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+2025-09-25T09:49:59.8528967Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+2025-09-25T09:49:59.8530572Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217)
+2025-09-25T09:49:59.8532262Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:49:59.8533855Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+2025-09-25T09:49:59.8535411Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+2025-09-25T09:49:59.8536784Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+2025-09-25T09:49:59.8538193Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+2025-09-25T09:49:59.8539693Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:49:59.8541322Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+2025-09-25T09:49:59.8542460Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+2025-09-25T09:49:59.8543702Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+2025-09-25T09:49:59.8545083Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:49:59.8546442Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+2025-09-25T09:49:59.8547682Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+2025-09-25T09:49:59.8548589Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+2025-09-25T09:49:59.8550099Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+2025-09-25T09:49:59.8552469Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+2025-09-25T09:49:59.8553949Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:49:59.8555934Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+2025-09-25T09:49:59.8557231Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+2025-09-25T09:49:59.8558482Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+2025-09-25T09:49:59.8559947Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:49:59.8561663Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+2025-09-25T09:49:59.8563030Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+2025-09-25T09:49:59.8563959Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+2025-09-25T09:49:59.8565470Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+2025-09-25T09:49:59.8567358Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+2025-09-25T09:49:59.8568794Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:49:59.8570219Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+2025-09-25T09:49:59.8571787Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+2025-09-25T09:49:59.8573024Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+2025-09-25T09:49:59.8574465Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+2025-09-25T09:49:59.8575898Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+2025-09-25T09:49:59.8577278Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+2025-09-25T09:49:59.8579039Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+2025-09-25T09:49:59.8580839Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+2025-09-25T09:49:59.8582602Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+2025-09-25T09:49:59.8584099Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
+2025-09-25T09:49:59.8585542Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
+2025-09-25T09:49:59.8586987Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
+2025-09-25T09:49:59.8588555Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
+2025-09-25T09:49:59.8590187Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
+2025-09-25T09:49:59.8592066Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
+2025-09-25T09:49:59.8593321Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+2025-09-25T09:49:59.8594385Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+2025-09-25T09:49:59.8595724Z 	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+2025-09-25T09:49:59.8597062Z 	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
+2025-09-25T09:49:59.8598316Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+2025-09-25T09:49:59.8600310Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+2025-09-25T09:49:59.8602036Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+2025-09-25T09:49:59.8603345Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+2025-09-25T09:49:59.8604394Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+2025-09-25T09:49:59.8605308Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+2025-09-25T09:49:59.8606190Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2025-09-25T09:49:59.8606685Z
+2025-09-25T09:49:59.8655978Z 2025-09-25T09:49:59.858Z  INFO 2300 --- [ionShutdownHook] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-09-25T09:49:59.8669636Z 2025-09-25T09:49:59.859Z  INFO 2300 --- [ionShutdownHook] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2025-09-25T09:49:59.9213116Z [INFO]
+2025-09-25T09:49:59.9213444Z [INFO] Results:
+2025-09-25T09:49:59.9213707Z [INFO]
+2025-09-25T09:49:59.9213931Z [ERROR] Failures:
+2025-09-25T09:49:59.9214560Z [ERROR]   UserControllerIntegrationTest.testLogin:36 expected: <200> but was: <500>
+2025-09-25T09:49:59.9215275Z [INFO]
+2025-09-25T09:49:59.9215796Z [ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0
+2025-09-25T09:49:59.9216283Z [INFO]
+2025-09-25T09:49:59.9238304Z [INFO] ------------------------------------------------------------------------
+2025-09-25T09:49:59.9239099Z [INFO] Reactor Summary for ai-qa-backend 1.0-SNAPSHOT:
+2025-09-25T09:49:59.9239622Z [INFO]
+2025-09-25T09:49:59.9245340Z [INFO] ai-qa-backend ...................................... SUCCESS [  0.390 s]
+2025-09-25T09:49:59.9249750Z [INFO] user-service ....................................... FAILURE [ 27.227 s]
+2025-09-25T09:49:59.9250713Z [INFO] qa-service ......................................... SKIPPED
+2025-09-25T09:49:59.9258878Z [INFO] api-gateway ........................................ SKIPPED
+2025-09-25T09:49:59.9259809Z [INFO] ------------------------------------------------------------------------
+2025-09-25T09:49:59.9260351Z [INFO] BUILD FAILURE
+2025-09-25T09:49:59.9260963Z [INFO] ------------------------------------------------------------------------
+2025-09-25T09:49:59.9264886Z [INFO] Total time:  30.763 s
+2025-09-25T09:49:59.9265466Z [INFO] Finished at: 2025-09-25T09:49:59Z
+2025-09-25T09:49:59.9266179Z [INFO] ------------------------------------------------------------------------
+2025-09-25T09:49:59.9267671Z [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0:test (default-test) on project user-service: There are test failures.
+2025-09-25T09:49:59.9268734Z [ERROR]
+2025-09-25T09:49:59.9270017Z [ERROR] Please refer to /home/runner/work/ai-qa-system/ai-qa-system/backend-services/user-service/target/surefire-reports for the individual test results.
+2025-09-25T09:49:59.9271886Z [ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+2025-09-25T09:49:59.9272575Z [ERROR] -> [Help 1]
+2025-09-25T09:49:59.9272865Z [ERROR]
+2025-09-25T09:49:59.9273483Z [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+2025-09-25T09:49:59.9274330Z [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+2025-09-25T09:49:59.9274845Z [ERROR]
+2025-09-25T09:49:59.9275687Z [ERROR] For more information about the errors and possible solutions, please read the following articles:
+2025-09-25T09:49:59.9276942Z [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+2025-09-25T09:49:59.9277691Z [ERROR]
+2025-09-25T09:49:59.9278367Z [ERROR] After correcting the problems, you can resume the build with the command
+2025-09-25T09:49:59.9279125Z [ERROR]   mvn <args> -rf :user-service
+2025-09-25T09:49:59.9495824Z ##[error]Process completed with exit code 1.
