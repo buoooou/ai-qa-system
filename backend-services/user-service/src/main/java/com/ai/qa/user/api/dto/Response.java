@@ -1,20 +1,19 @@
 package com.ai.qa.user.api.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-@ApiModel(description = "统一响应格式")
+@Schema(description = "统一响应格式")
 @Data
 public class Response<T> {
-    
-    @ApiModelProperty(value = "响应状态码", example = "200")
+
+    @Schema(description = "响应状态码", example = "200")
     private int code;
-    
-    @ApiModelProperty(value = "响应消息", example = "Success")
+
+    @Schema(description = "响应消息", example = "Success")
     private String message;
-    
-    @ApiModelProperty(value = "响应数据")
+
+    @Schema(description = "响应数据")
     private T data;
 
     public Response() {}
@@ -24,6 +23,16 @@ public class Response<T> {
         this.message = message;
         this.data = data;
     }
+
+    // Explicit getters and setters for compatibility
+    public int getCode() { return code; }
+    public void setCode(int code) { this.code = code; }
+
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
+
+    public T getData() { return data; }
+    public void setData(T data) { this.data = data; }
 
     public static <T> Response<T> success(T data) {
         return new Response<>(200, "Success", data);

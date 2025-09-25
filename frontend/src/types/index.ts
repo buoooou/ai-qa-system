@@ -12,6 +12,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  userInfo(userInfo: any): unknown;
   user: User;
   token: string;
 }

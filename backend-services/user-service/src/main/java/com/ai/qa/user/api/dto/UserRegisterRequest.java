@@ -1,20 +1,19 @@
 package com.ai.qa.user.api.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-@ApiModel(description = "用户注册请求")
+@Schema(description = "用户注册请求")
 @Data
 public class UserRegisterRequest {
     
-    @ApiModelProperty(value = "用户名", required = true, example = "newuser")
+    @Schema(description = "用户名", required = true, example = "newuser")
     private String username;
     
-    @ApiModelProperty(value = "密码", required = true, example = "password123")
+    @Schema(description = "密码", required = true, example = "password123")
     private String password;
     
-    @ApiModelProperty(value = "昵称", required = false, example = "我的昵称")
+    @Schema(description = "昵称", required = false, example = "我的昵称")
     private String nickname;
     
     public String getUsername() {

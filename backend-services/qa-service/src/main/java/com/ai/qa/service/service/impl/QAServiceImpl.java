@@ -57,7 +57,7 @@ public class QAServiceImpl implements QAService {
             qaRecord.setSessionId(request.getSessionId());
             qaRecord.setQuestionType(request.getQuestionType());
             qaRecord.setResponseTime(responseTime);
-            qaRecord.setModelVersion("gpt-3.5-turbo");
+            qaRecord.setModelVersion("gemini-pro");
             qaRecord.setCreateTime(LocalDateTime.now());
 
             // 保存到数据库

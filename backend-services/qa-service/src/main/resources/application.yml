@@ -3,13 +3,15 @@ server:
 
 spring:
   application:
-    name: qa-service
+    name: qa-service-zj
+  main:
+    allow-bean-definition-overriding: true
 
-  # 数据库配置
+  # MySQL 数据库配置
   datasource:
-    url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-    username: root
-    password: password
+    url: jdbc:mysql://mysql3.sqlpub.com:3308/airline_order_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: airline_lhy
+    password: JxC55d1F7NBBl7aO
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # JPA配置
@@ -22,25 +24,21 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
 
-  # 启用Nacos服务注册发现，连接公网服务器
+  # 启用Nacos服务注册发现
   cloud:
     nacos:
       discovery:
         enabled: true
-        server-addr: nacos.io:8848 # 使用公网测试Nacos服务器
+        server-addr: localhost:8848
         username: nacos
         password: nacos
         namespace: public
 
-# AI模型配置
-ai:
-  model:
-    api:
-      url: https://api.openai.com/v1/chat/completions
-      key: ${AI_API_KEY:your-api-key-here}
-    timeout: 30000
-    max-tokens: 1000
-    temperature: 0.7
+# Google Gemini AI 配置
+chat:
+  api:
+    url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
+    key: AIzaSyBErgAI6VJIhz3G9DN14aBHxYW7y-EiU2w
 
 # 日志配置
 logging:
@@ -49,6 +47,7 @@ logging:
     org.springframework.web: INFO
     com.alibaba.cloud: INFO
     com.alibaba.nacos: INFO
+    com.ai.qa.service.client: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 

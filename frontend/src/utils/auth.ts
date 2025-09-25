@@ -20,7 +20,7 @@ export const AuthUtils = {
 
   getUser: (): User | null => {
     const userStr = localStorage.getItem('user');
-    return userStr ? JSON.parse(userStr) : null;
+    return userStr && userStr !== "undefined" ? JSON.parse(userStr) : null;
   },
 
   isAuthenticated: (): boolean => {

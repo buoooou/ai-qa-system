@@ -49,4 +49,38 @@ public class QARecord {
 
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
+
+    // Getters and Setters (fallback for Lombok issues)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getQuestion() { return question; }
+    public void setQuestion(String question) { this.question = question; }
+
+    public String getAnswer() { return answer; }
+    public void setAnswer(String answer) { this.answer = answer; }
+
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
+
+    public String getSessionId() { return sessionId; }
+    public void setSessionId(String sessionId) { this.sessionId = sessionId; }
+
+    public String getQuestionType() { return questionType; }
+    public void setQuestionType(String questionType) { this.questionType = questionType; }
+
+    public Long getResponseTime() { return responseTime; }
+    public void setResponseTime(Long responseTime) { this.responseTime = responseTime; }
+
+    public String getModelVersion() { return modelVersion; }
+    public void setModelVersion(String modelVersion) { this.modelVersion = modelVersion; }
+
+    public LocalDateTime getCreateTime() { return createTime; }
+    public void setCreateTime(LocalDateTime createTime) { this.createTime = createTime; }
+
+    public LocalDateTime getUpdateTime() { return updateTime; }
+    public void setUpdateTime(LocalDateTime updateTime) { this.updateTime = updateTime; }
+
+    public Boolean getIsDeleted() { return isDeleted; }
+    public void setIsDeleted(Boolean isDeleted) { this.isDeleted = isDeleted; }
 }

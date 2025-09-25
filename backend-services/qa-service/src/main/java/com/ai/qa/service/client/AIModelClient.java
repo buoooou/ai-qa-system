@@ -19,10 +19,10 @@ public class AIModelClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${ai.model.api.url}")
-    private String aiModelApiUrl;
+    @Value("${chat.api.url}")
+    private String chatApiUrl;
 
-    @Value("${ai.model.api.key}")
+    @Value("${chat.api.key}")
     private String apiKey;
 
     public AIModelClient(RestTemplate restTemplate) {
@@ -30,39 +30,46 @@ public class AIModelClient {
     }
 
     /**
-     * 调用AI模型获取回答
+     * 调用Google Gemini AI获取回答
      * @param question 用户问题
      * @return AI生成的回答
      */
     public String getAIResponse(String question) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(apiKey);
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("model", "gpt-3.5-turbo");
-        requestBody.put("messages", new Object[]{
-            Map.of("role", "user", "content", question)
-        });
-        requestBody.put("max_tokens", 1000);
-        requestBody.put("temperature", 0.7);
+
+        // 构建Google Gemini API请求格式
+        Map<String, Object> content = new HashMap<>();
+        Map<String, Object> part = new HashMap<>();
+        part.put("text", question);
+        content.put("parts", new Object[]{part});
+        requestBody.put("contents", new Object[]{content});
 
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
 
         try {
-            ResponseEntity<Map> response = restTemplate.postForEntity(aiModelApiUrl, request, Map.class);
+            // 在URL中添加API密钥参数
+            String urlWithKey = chatApiUrl + "?key=" + apiKey;
+            ResponseEntity<Map> response = restTemplate.postForEntity(urlWithKey, request, Map.class);
             Map<String, Object> responseBody = response.getBody();
 
-            if (responseBody != null && responseBody.containsKey("choices")) {
-                Object[] choices = (Object[]) responseBody.get("choices");
-                if (choices.length > 0) {
-                    Map<String, Object> firstChoice = (Map<String, Object>) choices[0];
-                    Map<String, Object> message = (Map<String, Object>) firstChoice.get("message");
-                    return (String) message.get("content");
+            if (responseBody != null && responseBody.containsKey("candidates")) {
+                java.util.List candidates = (java.util.List) responseBody.get("candidates");
+                if (!candidates.isEmpty()) {
+                    Map<String, Object> firstCandidate = (Map<String, Object>) candidates.get(0);
+                    Map<String, Object> content_response = (Map<String, Object>) firstCandidate.get("content");
+                    java.util.List parts = (java.util.List) content_response.get("parts");
+                    if (!parts.isEmpty()) {
+                        Map<String, Object> firstPart = (Map<String, Object>) parts.get(0);
+                        return (String) firstPart.get("text");
+                    }
                 }
             }
             return "抱歉，AI服务暂时无法回答您的问题。";
         } catch (Exception e) {
+            System.err.println("Google Gemini API调用异常: " + e.getMessage());
             return "抱歉，AI服务出现异常，请稍后重试。";
         }
     }

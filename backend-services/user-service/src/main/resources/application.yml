@@ -3,13 +3,13 @@ server:
 
 spring:
   application:
-    name: user-service
+    name: user-service-zj
 
-  # 数据库配置
+  # MySQL 数据库配置
   datasource:
-    url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-    username: root
-    password: password
+    url: jdbc:mysql://mysql3.sqlpub.com:3308/airline_order_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: airline_lhy
+    password: JxC55d1F7NBBl7aO
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # JPA配置
@@ -20,20 +20,21 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
 
-  # 启用Nacos服务注册发现，连接公网服务器
+  # 启用Nacos服务注册发现
   cloud:
     nacos:
       discovery:
         enabled: true
-        server-addr: nacos.io:8848 # 使用公网测试Nacos服务器
+        server-addr: localhost:8848
         username: nacos
         password: nacos
         namespace: public
 
 # JWT配置
 jwt:
-  secret: mySecretKey
+  secret: mySecretKeyForAiQaSystemMustBe256BitsLongForSecurityPurposes
   expiration: 86400000 # 24小时
 
 # 日志配置
