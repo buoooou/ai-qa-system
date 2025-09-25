@@ -111,12 +111,12 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: |
-            docker-compose.yml
-            database/init-scripts/01-init-database.sql
-            database/init-scripts/02-nacos-init.sql
+          source:
+            - docker-compose.yml
+            - database/init-scripts/01-init-database.sql
+            - database/init-scripts/02-nacos-init.sql
           target: ~/airline-cicd/
-          strip_components: 1
+          strip_components: 0
           debug: true
 
       - name: Deploy to EC2
