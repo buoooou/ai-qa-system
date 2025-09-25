@@ -180,11 +180,11 @@ jobs:
         echo "⚡ Running performance tests..."
         # 可以集成 k6, JMeter 或其他性能测试工具
 
-  # 清理旧镜像
-  cleanup:
-    needs: [deploy-dev, deploy-prod]
-    runs-on: ubuntu-latest
-    if: always()
+  # # 清理旧镜像
+  # cleanup:
+  #   needs: [deploy-dev, deploy-prod]
+  #   runs-on: ubuntu-latest
+  #   if: always()
 
     # steps:
     # - name: Delete old container images
