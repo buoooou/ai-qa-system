@@ -30,6 +30,7 @@ services:
 
   # MySQL数据库服务
   mysql:
+    image: zhoudeqiang/ai-qa-mysql:latest
     build:
       context: ./database
       dockerfile: Dockerfile
@@ -55,6 +56,7 @@ services:
 
   # API网关服务
   api-gateway:
+    image: zhoudeqiang/ai-qa-api-gateway:latest
     build:
       context: ./backend-services/api-gateway
       dockerfile: Dockerfile
@@ -85,6 +87,7 @@ services:
 
   # 用户服务
   user-service:
+    image: zhoudeqiang/ai-qa-user-service:latest
     build:
       context: ./backend-services/user-service
       dockerfile: Dockerfile
@@ -115,6 +118,7 @@ services:
 
   # QA服务
   qa-service:
+    image: zhoudeqiang/ai-qa-qa-service:latest
     build:
       context: ./backend-services/qa-service
       dockerfile: Dockerfile
@@ -145,6 +149,7 @@ services:
 
   # 前端服务
   frontend:
+    image: zhoudeqiang/ai-qa-frontend:latest
     build:
       context: ./frontend
       dockerfile: Dockerfile
