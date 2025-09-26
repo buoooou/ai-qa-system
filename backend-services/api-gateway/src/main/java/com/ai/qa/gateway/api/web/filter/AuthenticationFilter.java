@@ -35,7 +35,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
 
-        List<String> whiteList = List.of("/api/user/login", "/api/user/register");
+        List<String> whiteList = List.of("/api/gateway/auth/login", "/api/gateway/auth/register");
         if (whiteList.contains(request.getURI().getPath())) {
             return chain.filter(exchange);
         }
