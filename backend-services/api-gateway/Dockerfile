@@ -6,6 +6,10 @@ WORKDIR /workspace
 COPY pom.xml ./pom.xml
 COPY api-gateway/pom.xml ./api-gateway/pom.xml
 COPY api-gateway/src ./api-gateway/src
+COPY user-service/pom.xml ./user-service/pom.xml
+COPY user-service/src ./user-service/src
+COPY qa-service/pom.xml ./qa-service/pom.xml
+COPY qa-service/src ./qa-service/src
 
 RUN mvn -pl api-gateway -am -B clean package -DskipTests
 
