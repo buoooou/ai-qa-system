@@ -48,16 +48,11 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
-                    "/**"
-                ).permitAll() // 允许Swagger UI和所有OPTIONS请求
-                .requestMatchers(
-                    "/api/**", //开放性的API接口免认证
-                    "/swagger-ui.html", "/swagger-ui/**",
-                    "/v3/api-docs", "/v3/api-docs/**",
-                    "/webjars/**", "/swagger-resources/**",
-                    "/favicon.ico",
-                    "/actuator/**"  // 显式放行Actuator监控路径
-                ).permitAll()
+                    "/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/favicon.ico",
+                    "/actuator/**"
+                ).permitAll() // 允许Swagger和监控路径匿名访问
+                .requestMatchers("/auth/register").permitAll() // 注册接口允许匿名访问
+                .requestMatchers("/api/**").permitAll() // 其他API接口可根据实际需求调整
                 .anyRequest().authenticated()
             )
             // .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())

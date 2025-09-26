@@ -7,6 +7,7 @@ spring:
     nacos:
       discovery:
         server-addr: 3.84.225.222:8848
+        ip: 3.84.225.222
   datasource:
     url: jdbc:postgresql://3.84.225.222:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
     username: postgres
