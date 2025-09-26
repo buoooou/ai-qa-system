@@ -1,7 +1,7 @@
 "use client"
 
 import { useChat } from "@ai-sdk/react"
-import { DefaultChatTransport } from "ai"
+import { DefaultChatTransport, type UIMessageContent } from "ai"
 import { MessageBubble } from "./message-bubble"
 import { ChatInput } from "./chat-input"
 import { ChatHeader } from "./chat-header"
@@ -49,7 +49,7 @@ export function ChatWindow({
     }),
     onFinish({ message }) {
       if (onMessageAdded && message) {
-        const assistantContent = message.content
+        const assistantContent = message.content as UIMessageContent
         const text = Array.isArray(assistantContent)
           ? assistantContent
               .map((part) => (typeof part === "string" ? part : part.text ?? ""))
