@@ -1,15 +1,12 @@
 version: '3.8'
 
 services:
-  # 后端服务
-  backend:
+  api-gateway:
     build:
       context: ./backend-services
-      dockerfile: Dockerfile
+      dockerfile: api-gateway/Dockerfile
     ports:
-      - "8080:8080"  # API网关端口
-      - "8081:8081"  # User服务端口
-      - "8082:8082"  # QA服务端口
+      - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     depends_on:
@@ -18,19 +15,47 @@ services:
     networks:
       - ai-network
 
-  # 前端服务
+  user-service:
+    build:
+      context: ./backend-services
+      dockerfile: user-service/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - ai-network
+
+  qa-service:
+    build:
+      context: ./backend-services
+      dockerfile: qa-service/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - ai-network
+
   frontend:
     build:
       context: ./fronted
       dockerfile: Dockerfile
     ports:
-      - "3000:80"  # 映射到宿主机的3000端口
+      - "3000:80"
     depends_on:
-      - backend
+      - api-gateway
+      - user-service
+      - qa-service
     networks:
       - ai-network
 
-  # PostgreSQL数据库
   postgres:
     image: postgres:13
     environment:
@@ -44,7 +69,6 @@ services:
     networks:
       - ai-network
 
-  # Redis缓存
   redis:
     image: redis:7-alpine
     ports:
@@ -52,7 +76,6 @@ services:
     networks:
       - ai-network
 
-# 网络和卷配置
 networks:
   ai-network:
     driver: bridge

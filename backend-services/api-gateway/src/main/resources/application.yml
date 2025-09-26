@@ -35,9 +35,8 @@ spring:
           uri: lb://qa-service-yl
           predicates:
             - Path=/api/qa/**
-      default-filters:
-        # 配置默认的限流过滤器
-        - name: RequestRateLimiter
+      # default-filters:
+      #   - name: RequestRateLimiter
 jwt:
   secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
   expiration:

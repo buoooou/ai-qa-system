@@ -1,0 +1,84 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+/build/
+
+# Node
+node_modules/
+dist/
+.next/
+
+# VS Code
+# .vscode/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+# .env
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Frontend
+fronted/.next/
+fronted/node_modules/
+fronted/dist/
+
+# Backend
+backend-services/*/target/
+backend-services/*/build/
+backend-services/*/out/
+backend-services/*/logs/
+
+# Scripts
+scripts/*.log
+
+# Others
+.idea/
+*.iml
+*.bak
+*.swp
+
+# Ignore test output
+backend-services/*/test-output/
+
+# Ignore generated sources
+backend-services/*/generated-sources/
+backend-services/*/generated-test-sources/
+
+# Ignore coverage
+coverage/
+
+# Ignore npm debug log
+npm-debug.log*
+
+# Ignore yarn
+.yarn/
+.yarnrc
+
+# Ignore package-lock
+# package-lock.json
+
+# Ignore fronted build artifacts
+fronted/.turbo/
+
+# Ignore backup files
+*~
