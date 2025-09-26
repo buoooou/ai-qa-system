@@ -29,8 +29,8 @@ spring:
 #          uri: http://192.168.31.186:8081
           predicates:
             - Path=/api/users/** # 匹配所有/api/users/开头的请求
-          # filters:
-          #   - StripPrefix=1
+          filters:
+            - StripPrefix=2
         - id: qa_service_route
           uri: lb://qa-service-yl
           predicates:
