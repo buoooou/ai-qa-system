@@ -3,7 +3,9 @@ FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 
 WORKDIR /workspace
 
-COPY . .
+COPY pom.xml ./
+COPY user-service/pom.xml ./user-service/pom.xml
+COPY user-service/src ./user-service/src
 
 RUN mvn -pl user-service -am -B clean package -DskipTests
 

@@ -3,7 +3,9 @@ FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 
 WORKDIR /workspace
 
-COPY . .
+COPY pom.xml ./
+COPY api-gateway/pom.xml ./api-gateway/pom.xml
+COPY api-gateway/src ./api-gateway/src
 
 RUN mvn -pl api-gateway -am -B clean package -DskipTests
 
