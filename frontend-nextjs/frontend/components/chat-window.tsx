@@ -47,9 +47,20 @@ export function ChatWindow({
       api: "/api/chat",
       headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     }),
-    onFinish: (message) => {
-      if (onMessageAdded) {
-        onMessageAdded({ role: "assistant", content: message.content })
+    onFinish({ message }) {
+      if (onMessageAdded && message) {
+        const assistantContent = message.content
+        const text = Array.isArray(assistantContent)
+          ? assistantContent
+              .map((part) => (typeof part === "string" ? part : part.text ?? ""))
+              .join("")
+          : typeof assistantContent === "string"
+            ? assistantContent
+            : ""
+
+        if (text) {
+          onMessageAdded({ role: "assistant", content: text })
+        }
       }
     },
   })
@@ -74,8 +85,7 @@ export function ChatWindow({
   const handleSendMessage = useCallback(
     (content: string) => {
       if (
-        messages.length === 0 &&
-        normalizedInitialMessages.length === 0 &&
+        combinedMessages.length === 0 &&
         onFirstMessage
       ) {
         onFirstMessage(content)
@@ -87,7 +97,7 @@ export function ChatWindow({
 
       sendMessage({ content })
     },
-    [messages.length, onFirstMessage, onMessageAdded, sendMessage],
+    [combinedMessages.length, onFirstMessage, onMessageAdded, sendMessage],
   )
 
   if (!conversationId && combinedMessages.length === 0) {
