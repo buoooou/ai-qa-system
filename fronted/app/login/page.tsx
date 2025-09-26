@@ -95,12 +95,12 @@ export default function LoginPage() {
         </form>
         <div className="mt-4 text-center">
           <span className="text-sm text-gray-600">没有账号？</span>
-          <button
-            onClick={() => router.push('/register')}
-            className="text-sm text-blue-600 hover:underline cursor-pointer"
+          <a
+            href="/register/"
+            className="text-sm text-blue-600 hover:underline"
           >
             立即注册
-          </button>
+          </a>
         </div>
       </div>
     </div>

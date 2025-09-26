@@ -107,12 +107,12 @@ export default function RegisterPage() {
         </form>
         <div className="mt-4 text-center">
           <span className="text-sm text-gray-600">已有账号？</span>
-          <button
-            onClick={() => router.push('/login')}
-            className="text-sm text-blue-600 hover:underline cursor-pointer"
+          <a
+            href="/login/"
+            className="text-sm text-blue-600 hover:underline"
           >
             立即登录
-          </button>
+          </a>
         </div>
       </div>
     </div>
