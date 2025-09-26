@@ -48,7 +48,7 @@ services:
       context: ./fronted
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "80:80"
     depends_on:
       - api-gateway
       - user-service
@@ -73,6 +73,22 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+    networks:
+      - ai-network
+
+  nacos:
+    image: nacos/nacos-server:v2.2.3
+    ports:
+      - "8848:8848"
+    environment:
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=postgres
+      - MYSQL_SERVICE_DB_NAME=nacos
+      - MYSQL_SERVICE_USER=postgres
+      - MYSQL_SERVICE_PASSWORD=root
+    depends_on:
+      - postgres
     networks:
       - ai-network
 

@@ -15,4 +15,4 @@ spring:
 jwt:
   secret: test-secret
   expiration:
-    ms: 3600000
+    ms: 86400000

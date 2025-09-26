@@ -74,11 +74,11 @@ ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST << EOF
     docker-compose ps
 
     echo "🌐 检查端口占用..."
-    netstat -tlnp | grep -E ':(3000|8080|8081|8082|5432|6379)' || echo "⚠️  无法检查端口状态"
+    netstat -tlnp | grep -E ':(80|8080|8081|8082|5432|6379)' || echo "⚠️  无法检查端口状态"
 
     echo "✅ 部署完成!"
 EOF
 
 echo "🎉 部署成功完成!"
-echo "🌐 前端访问地址: http://$SERVER_HOST:3000"
+echo "🌐 前端访问地址: http://$SERVER_HOST"
 echo "🔗 API网关地址: http://$SERVER_HOST:8080"
