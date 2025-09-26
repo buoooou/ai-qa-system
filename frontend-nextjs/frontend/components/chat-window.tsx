@@ -5,7 +5,7 @@ import { DefaultChatTransport } from "ai"
 import { MessageBubble } from "./message-bubble"
 import { ChatInput } from "./chat-input"
 import { ChatHeader } from "./chat-header"
-import { useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef, useCallback, useMemo } from "react"
 import { Bot, Sparkles } from "lucide-react"
 import { useAuth } from "@/contexts/auth-context"
 
@@ -32,16 +32,21 @@ export function ChatWindow({
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { token } = useAuth()
 
+  const normalizedInitialMessages = useMemo(
+    () =>
+      initialMessages.map((msg) => ({
+        id: msg.id,
+        role: msg.role,
+        content: msg.content,
+      })),
+    [initialMessages],
+  )
+
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
       headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     }),
-    initialMessages: initialMessages.map((msg) => ({
-      id: msg.id,
-      role: msg.role,
-      content: msg.content,
-    })),
     onFinish: (message) => {
       if (onMessageAdded) {
         onMessageAdded({ role: "assistant", content: message.content })
@@ -49,14 +54,30 @@ export function ChatWindow({
     },
   })
 
+  const combinedMessages = useMemo(() => {
+    if (normalizedInitialMessages.length === 0) {
+      return messages
+    }
+
+    if (messages.length === 0) {
+      return normalizedInitialMessages
+    }
+
+    return [...normalizedInitialMessages, ...messages]
+  }, [messages, normalizedInitialMessages])
+
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [messages])
+  }, [combinedMessages])
 
   const handleSendMessage = useCallback(
     (content: string) => {
-      if (messages.length === 0 && onFirstMessage) {
+      if (
+        messages.length === 0 &&
+        normalizedInitialMessages.length === 0 &&
+        onFirstMessage
+      ) {
         onFirstMessage(content)
       }
 
@@ -69,7 +90,7 @@ export function ChatWindow({
     [messages.length, onFirstMessage, onMessageAdded, sendMessage],
   )
 
-  if (!conversationId && messages.length === 0) {
+  if (!conversationId && combinedMessages.length === 0) {
     return (
       <div className="flex-1 flex flex-col">
         <ChatHeader />
@@ -124,7 +145,7 @@ export function ChatWindow({
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
+        {combinedMessages.map((message) => (
           <MessageBubble key={message.id} role={message.role} content={message.content} timestamp={new Date()} />
         ))}
 
