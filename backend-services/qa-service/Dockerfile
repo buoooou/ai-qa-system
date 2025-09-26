@@ -3,7 +3,7 @@ FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 
 WORKDIR /workspace
 
-COPY pom.xml ./
+COPY pom.xml ./pom.xml
 COPY qa-service/pom.xml ./qa-service/pom.xml
 COPY qa-service/src ./qa-service/src
 
