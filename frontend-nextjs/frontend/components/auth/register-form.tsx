@@ -20,6 +20,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [nickname, setNickname] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const { register, isLoading } = useAuth()
@@ -33,7 +34,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     }
 
     try {
-      await register({ username, email, password })
+      await register({ username, email, password, nickname })
       router.push("/")
     } catch (error) {
       // Error is handled by the auth context
@@ -102,6 +103,18 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </Button>
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="nickname">昵称（可选）</Label>
+            <Input
+              id="nickname"
+              type="text"
+              placeholder="用于展示的昵称"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              disabled={isLoading}
+            />
           </div>
 
           <div className="space-y-2">

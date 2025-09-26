@@ -2,12 +2,24 @@ server:
   port: 8082
 spring:
   application:
-    name: qa-service
+    name: qa-service-fyb
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      server-addr: ${NACOS_SERVER_ADDR:3.101.113.38:8848}
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ${MYSQL_USER:ai_user}
+    password: ${MYSQL_PASSWORD:ai_user_pass}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+gemini:
+  api:
+    key: ${GEMINI_API_KEY:}
 logging:
   level:
-    # 将你的FeignClient接口所在的包路径设置为DEBUG
-    # 假设 UserClient 在 com.ai.qa.qaservice.feign 包下
-    com.ai.qa.qaservice.feign: DEBUG
+    com.ai.qa.service.infrastructure.feign: DEBUG

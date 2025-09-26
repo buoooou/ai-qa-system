@@ -1,4 +1,4 @@
-import type { LoginRequest, RegisterRequest, AuthResponse, User } from "@/types/auth"
+import type { LoginRequest, RegisterRequest, AuthResponse, UserProfile } from "@/types/auth"
 
 const API_BASE_URL = "http://localhost:8080"
 
@@ -16,7 +16,7 @@ class AuthAPI {
   }
 
   async login(credentials: LoginRequest): Promise<AuthResponse> {
-    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+    const response = await fetch(`${API_BASE_URL}/api/gateway/auth/login`, {
       method: "POST",
       headers: this.getAuthHeaders(),
       body: JSON.stringify(credentials),
@@ -31,7 +31,7 @@ class AuthAPI {
   }
 
   async register(userData: RegisterRequest): Promise<AuthResponse> {
-    const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+    const response = await fetch(`${API_BASE_URL}/api/gateway/auth/register`, {
       method: "POST",
       headers: this.getAuthHeaders(),
       body: JSON.stringify(userData),
@@ -45,8 +45,8 @@ class AuthAPI {
     return response.json()
   }
 
-  async getCurrentUser(token: string): Promise<User> {
-    const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
+  async getCurrentUser(userId: number, token: string): Promise<UserProfile> {
+    const response = await fetch(`${API_BASE_URL}/api/user/${userId}/profile`, {
       method: "GET",
       headers: this.getAuthHeaders(token),
     })

@@ -16,7 +16,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
-  const [username, setUsername] = useState("")
+  const [usernameOrEmail, setUsernameOrEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const { login, isLoading } = useAuth()
@@ -25,7 +25,7 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      await login({ username, password })
+      await login({ usernameOrEmail, password })
       router.push("/")
     } catch (error) {
       // Error is handled by the auth context
@@ -46,13 +46,13 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="username">用户名</Label>
+            <Label htmlFor="usernameOrEmail">用户名或邮箱</Label>
             <Input
-              id="username"
+              id="usernameOrEmail"
               type="text"
-              placeholder="请输入用户名"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="请输入用户名或邮箱"
+              value={usernameOrEmail}
+              onChange={(e) => setUsernameOrEmail(e.target.value)}
               required
               disabled={isLoading}
             />

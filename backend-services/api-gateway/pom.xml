@@ -15,6 +15,10 @@
     <!-- 2. 定义自己的artifactId -->
     <artifactId>api-gateway</artifactId>
 
+    <properties>
+        <springdoc.version>2.5.0</springdoc.version>
+    </properties>
+
     <dependencies>
         <!-- Spring Cloud Gateway核心依赖 -->
         <dependency>
@@ -59,6 +63,11 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>0.11.5</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+            <version>${springdoc.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.nacos</groupId>

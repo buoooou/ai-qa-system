@@ -1,69 +1,88 @@
 package com.ai.qa.user.api.controller;
 
 import com.ai.qa.user.api.dto.ApiResponse;
-import com.ai.qa.user.api.dto.AuthRequest;
 import com.ai.qa.user.api.dto.AuthResponse;
+import com.ai.qa.user.api.dto.LoginRequest;
+import com.ai.qa.user.api.dto.RegisterRequest;
+import com.ai.qa.user.application.dto.ChatMessageDTO;
+import com.ai.qa.user.application.dto.ChatSessionDTO;
 import com.ai.qa.user.application.dto.UpdateNicknameRequest;
+import com.ai.qa.user.application.dto.UserProfileDTO;
+import com.ai.qa.user.application.service.AuthApplicationService;
 import com.ai.qa.user.application.service.UserApplicationService;
 import com.ai.qa.user.domain.model.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-/***
- * 为什么user-service必须也要自己做安全限制？
- * 1。零信任网络 (Zero Trust Network)：在微服务架构中，你必须假设内部网络是不安全的。不能因为一个请求来自API Gateway就完全信任它。万一有其他内部服务被攻破，它可能会伪造请求直接调用user-service，绕过Gateway。如果user-service没有自己的安全防线，它就会被完全暴露。
- * 2。职责分离 (Separation of Concerns)：Gateway的核心职责是路由、限流、熔断和边缘认证。而user-service的核心职责是处理用户相关的业务逻辑，业务逻辑与谁能执行它是密不可分的。授权逻辑是业务逻辑的一部分，必须放在离业务最近的地方。
- * 3。细粒度授权 (Fine-Grained Authorization)：Gateway通常只做粗粒度的授权，比如“USER角色的用户可以访问/api/users/**这个路径”。但它无法知道更精细的业务规则，例如：
- * GET /api/users/{userId}: 用户123是否有权查看用户456的资料？
- * PUT /api/users/{userId}: 只有用户自己或者管理员才能修改用户信息。
- * 这些判断必须由user-service结合自身的业务逻辑和数据来完成。
+import java.util.List;
+
+/**
+ * REST endpoints providing user registration, authentication, profile, and chat history operations.
  */
+@Tag(name = "User APIs", description = "User authentication, profile, and chat history endpoints")
 @RestController
 @RequestMapping("/api/user")
+@Validated
 public class UserController {
 
     private final UserApplicationService userApplicationService;
+    private final AuthApplicationService authApplicationService;
 
-    @Autowired
-    public UserController(UserApplicationService userApplicationService) {
+    public UserController(UserApplicationService userApplicationService, AuthApplicationService authApplicationService) {
         this.userApplicationService = userApplicationService;
+        this.authApplicationService = authApplicationService;
     }
 
-    /**
-     * 更新用户昵称的API端点
-     *
-     * @param userId  从URL路径中获取的用户ID
-     * @param request 包含新昵称的请求体
-     * @return 返回更新后的用户信息和HTTP状态码200 (OK)
-     */
-    @PostMapping("/{userId}/nickname")
-    public ApiResponse<User> updateNickname(
-            @PathVariable Long userId,
-            @RequestBody UpdateNicknameRequest request) {
-        //校验。。。
-
-        // 控制器只负责调用应用层，不处理业务逻辑
-        User updatedUser = userApplicationService.updateNickname(userId, request.getNickname());
-        // 为了安全，最佳实践是返回一个DTO而不是直接返回领域实体，这里为了简化直接返回
-        return ApiResponse.success(updatedUser);
-    }
-    @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        System.out.println("测试login");
-        return new AuthResponse("token");
-    }
-
+    @Operation(summary = "Register new user", description = "Registers a new user account and returns a JWT token.")
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody AuthRequest request) {
-        System.out.println("测试register");
-        return new AuthResponse("register");
+    public ResponseEntity<ApiResponse<AuthResponse>> register(@RequestBody @Validated RegisterRequest request) {
+        AuthResponse response = authApplicationService.register(request);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
-    @GetMapping("/{userId}")
-    public String getUserById(@PathVariable("userId") Long userId) {
-        System.out.println("测试userid");
-        return "userid:"+userId;
+    @Operation(summary = "User login", description = "Authenticates user credentials and returns a JWT token.")
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@RequestBody @Validated LoginRequest request) {
+        AuthResponse response = authApplicationService.login(request.getUsernameOrEmail(), request.getPassword());
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    @Operation(summary = "Get user profile", description = "Fetches profile information for the specified user.")
+    @GetMapping("/{userId}/profile")
+    public ResponseEntity<ApiResponse<UserProfileDTO>> profile(@Parameter(description = "ID of the user") @PathVariable Long userId) {
+        UserProfileDTO profile = userApplicationService.getProfile(userId);
+        return ResponseEntity.ok(ApiResponse.success(profile));
+    }
+
+    @Operation(summary = "Update nickname", description = "Updates the nickname for the specified user.")
+    @PostMapping("/{userId}/nickname")
+    public ResponseEntity<ApiResponse<User>> updateNickname(@Parameter(description = "ID of the user") @PathVariable Long userId,
+                                                             @RequestBody @Validated UpdateNicknameRequest request) {
+        User updated = userApplicationService.updateNickname(userId, request.getNickname());
+        return ResponseEntity.ok(ApiResponse.success(updated));
+    }
+
+    @Operation(summary = "List chat sessions", description = "Returns chat sessions belonging to the specified user.")
+    @GetMapping("/{userId}/sessions")
+    public ResponseEntity<ApiResponse<List<ChatSessionDTO>>> listSessions(@Parameter(description = "ID of the user") @PathVariable Long userId) {
+        List<ChatSessionDTO> sessions = userApplicationService.listSessions(userId);
+        return ResponseEntity.ok(ApiResponse.success(sessions));
+    }
+
+    @Operation(summary = "List chat history", description = "Retrieves chat history for a given session and user.")
+    @GetMapping("/{userId}/sessions/{sessionId}/history")
+    public ResponseEntity<ApiResponse<List<ChatMessageDTO>>> listHistory(@Parameter(description = "ID of the user") @PathVariable Long userId,
+                                                                         @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
+        List<ChatMessageDTO> messages = userApplicationService.listHistoryBySession(userId, sessionId);
+        return ResponseEntity.ok(ApiResponse.success(messages));
     }
 }

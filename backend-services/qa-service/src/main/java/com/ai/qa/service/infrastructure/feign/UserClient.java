@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * 调用 user-service 的 Feign 客户端
  */
 // name/value 属性值必须与目标服务在 Nacos 上注册的服务名完全一致！
-@FeignClient(name = "user-service")
+@FeignClient(name = "user-service-fyb")
 public interface UserClient {
 
     /**

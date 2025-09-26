@@ -4,9 +4,12 @@ import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO> {
+public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long> {
 
-    QAHistoryPO findHistoryById(String userId);
+    List<QAHistoryPO> findByUserIdOrderByCreatedAtDesc(Long userId);
 
+    List<QAHistoryPO> findBySessionIdOrderByCreatedAtAsc(Long sessionId);
 }

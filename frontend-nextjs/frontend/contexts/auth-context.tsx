@@ -1,14 +1,14 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
-import type { User, LoginRequest, RegisterRequest, AuthContextType } from "@/types/auth"
+import type { UserProfile, LoginRequest, RegisterRequest, AuthContextType } from "@/types/auth"
 import { authAPI } from "@/lib/auth-api"
 import { useToast } from "@/hooks/use-toast"
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<UserProfile | null>(null)
   const [token, setToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const { toast } = useToast()
@@ -16,16 +16,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Load token from localStorage on mount
   useEffect(() => {
     const savedToken = localStorage.getItem("auth_token")
-    if (savedToken) {
+    const savedUser = localStorage.getItem("auth_user")
+    if (savedToken && savedUser) {
       setToken(savedToken)
+      setUser(JSON.parse(savedUser))
       // Try to get user info with saved token
       authAPI
-        .getCurrentUser(savedToken)
-        .then(setUser)
+        .getCurrentUser(JSON.parse(savedUser).id, savedToken)
+        .then((profile) => {
+          setUser(profile)
+          localStorage.setItem("auth_user", JSON.stringify(profile))
+        })
         .catch(() => {
           // Token is invalid, remove it
           localStorage.removeItem("auth_token")
+          localStorage.removeItem("auth_user")
           setToken(null)
+          setUser(null)
         })
         .finally(() => setIsLoading(false))
     } else {
@@ -39,12 +46,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await authAPI.login(credentials)
 
       setToken(response.token)
-      setUser(response.user)
+      setUser(response.profile)
       localStorage.setItem("auth_token", response.token)
+      localStorage.setItem("auth_user", JSON.stringify(response.profile))
 
       toast({
         title: "登录成功",
-        description: `欢迎回来，${response.user.username}！`,
+        description: `欢迎回来，${response.profile.username}！`,
       })
     } catch (error) {
       toast({
@@ -64,12 +72,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await authAPI.register(userData)
 
       setToken(response.token)
-      setUser(response.user)
+      setUser(response.profile)
       localStorage.setItem("auth_token", response.token)
+      localStorage.setItem("auth_user", JSON.stringify(response.profile))
 
       toast({
         title: "注册成功",
-        description: `欢迎加入，${response.user.username}！`,
+        description: `欢迎加入，${response.profile.username}！`,
       })
     } catch (error) {
       toast({

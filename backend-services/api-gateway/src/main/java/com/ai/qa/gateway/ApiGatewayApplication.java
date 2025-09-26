@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.ai.qa.gateway.infrastructure.feign")
 public class ApiGatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);
