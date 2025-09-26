@@ -3,13 +3,19 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-COPY package*.json ./
+ENV PNPM_HOME=/usr/local/share/pnpm
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
-RUN npm install --frozen-lockfile || npm install
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN npm run build
+RUN pnpm run build
+
+RUN pnpm prune --prod
 
 # === Runtime stage ===
 FROM node:20-alpine
@@ -20,11 +26,11 @@ ENV NODE_ENV=production
 
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
-COPY --from=build /app/package*.json ./
-
-RUN npm install --omit=dev --frozen-lockfile || npm install --omit=dev
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=build /app/node_modules ./node_modules
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["node", "node_modules/.bin/next", "start"]
 
