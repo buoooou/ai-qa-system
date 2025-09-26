@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server';
 
-const BACKEND_API_URL = process.env.BACKEND_QA_API_URL || 'http://localhost:8082';
-
 // 发送消息并获取 AI 回复
 export async function POST(req: Request) {
   const { sessionId, userId, question } = await req.json();
   try {
-    const response = await fetch(`${BACKEND_API_URL}/api/qa/messages`, {
+    const response = await fetch('http://qa-service:8082/api/qa/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionId, userId, question }),

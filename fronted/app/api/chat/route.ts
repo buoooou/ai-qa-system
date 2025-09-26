@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server';
 
-const BACKEND_API_URL = process.env.BACKEND_QA_API_URL || 'http://localhost:8082';
-
 // 创建新会话
 export async function POST(req: Request) {
   const { userid } = await req.json();
   try {
-    const response = await fetch(`${BACKEND_API_URL}/api/qa/sessions`, {
+    const response = await fetch('http://qa-service:8082/api/qa/sessions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userid }),
@@ -25,7 +23,7 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   const { sessionId } = await req.json();
   try {
-    const response = await fetch(`${BACKEND_API_URL}/api/qa/sessions`, {
+    const response = await fetch('http://qa-service:8082/api/qa/sessions', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionId }),
