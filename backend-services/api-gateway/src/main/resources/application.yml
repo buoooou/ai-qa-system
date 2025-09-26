@@ -14,9 +14,12 @@ spring:
     import: "nacos:share-config-yulong.yml"
   cloud:
     nacos:
-      server-addr: http://3.84.225.222:8848
+      server-addr: 3.84.225.222:8848
       config:
         file-extension: yml
+        group: DEFAULT_GROUP
+      discovery:
+        server-addr: 3.84.225.222:8848
         group: DEFAULT_GROUP
     gateway:
       discovery:
