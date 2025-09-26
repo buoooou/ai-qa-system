@@ -2,70 +2,28 @@
 
 services:
   api-gateway:
-    image: chatbox-api-gateway:latest
-    container_name: chatbox-api-gateway
+    image: suifm/chatbox-api-gateway:latest
     ports:
       - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - NACOS_SERVER_ADDR=3.101.113.38:8848
-    networks:
-      - chatbox-network
-    restart: unless-stopped
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+    restart: always
 
   user-service:
-    image: chatbox-user-service:latest
-    container_name: chatbox-user-service
+    image: suifm/chatbox-user-service:latest
     ports:
       - "8081:8081"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - NACOS_SERVER_ADDR=3.101.113.38:8848
-    networks:
-      - chatbox-network
-    restart: unless-stopped
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+    restart: always
 
   qa-service:
-    image: chatbox-qa-service:latest
-    container_name: chatbox-qa-service
+    image: suifm/chatbox-qa-service:latest
     ports:
       - "8082:8082"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - NACOS_SERVER_ADDR=3.101.113.38:8848
-    networks:
-      - chatbox-network
-    restart: unless-stopped
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+    restart: always
 
   frontend:
-    image: chatbox-frontend:latest
-    container_name: chatbox-frontend
+    image: suifm/chatbox-frontend:latest
     ports:
       - "3000:3000"
-    networks:
-      - chatbox-network
-    restart: unless-stopped
-    depends_on:
-      api-gateway:
-        condition: service_healthy
+    restart: always
 
 networks:
   chatbox-network:

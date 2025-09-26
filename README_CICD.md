@@ -53,7 +53,7 @@ chmod 600 ai-qa-system-sfm.pem
 ls -ld ai-qa-system-sfm.pem         
 
 5. 连接 EC2, 在authorized_keys下生成私钥
-ssh -i ai-qa-system-sfm.pem ubuntu@54.253.103.253
+ssh -i ai-qa-system-sfm.pem ubuntu@3.26.56.14
 
 6. 确认 ~/.ssh 目录权限 700(drwx------)
 ls -ld ~/.ssh
@@ -88,8 +88,8 @@ cat ~/.ssh/authorized_keys
 15. 在客户端ubuntu上验证 SSH 连接
 touch github_actions_deploy_key
 chmod 600 ./github_actions_deploy_key
-nano github_actions_deploy_key  # 输入私钥内容
-ssh -i github_actions_deploy_key ubuntu@54.253.103.253
+nano github_actions_deploy_key  # 输入私钥内容，Ctrl+X保存退出。
+ssh -i github_actions_deploy_key ubuntu@3.26.56.14
 
 
 ### 二、CI/CD 流程设计
@@ -144,9 +144,9 @@ cp docker-compose.yml /home/ubuntu/
 # 设置600的权限，确保只有当前用户可读写
 chmod 600 /home/ubuntu/docker-compose.yml
 # 通过scp命令传输文件到EC2实例
-scp -i github_actions_deploy_key docker-compose.yml ubuntu@54.253.103.253:/home/ubuntu/
+scp -i github_actions_deploy_key docker-compose.yml ubuntu@3.26.56.14:/home/ubuntu/
 # 登录EC2实例确认文件是否传输成功
-ssh -i github_actions_deploy_key ubuntu@54.253.103.253
+ssh -i github_actions_deploy_key ubuntu@3.26.56.14
 
 使用ubuntu的ubuntu用户登录到 EC2 实例。
 在 EC2 实例的 /home/ubuntu 目录下，创建 docker-compose.yml 文件。

@@ -166,6 +166,7 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
+        port: 22
         script: |
           # 安装 docker-compose
           echo "安装 docker-compose..."
@@ -174,14 +175,19 @@ jobs:
           docker-compose --version
           
           # 拉取最新镜像
-          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          # docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/chatbox-api-gateway:latest
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/chatbox-user-service:latest
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/chatbox-qa-service:latest
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/chatbox-frontend:latest
           
           # 停止并删除旧容器
-          docker-compose down
+          # 停止现有服务
+          if [ -f docker-compose.yml ]; then
+            echo "停止现有服务..."
+            docker-compose down
+          fi          
+          # docker-compose down
           
           # 启动新容器
           docker-compose up -d
