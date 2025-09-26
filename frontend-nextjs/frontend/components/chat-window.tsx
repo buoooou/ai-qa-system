@@ -1,7 +1,7 @@
 "use client"
 
 import { useChat } from "@ai-sdk/react"
-import { DefaultChatTransport, type UIMessageContent } from "ai"
+import { DefaultChatTransport } from "ai"
 import { MessageBubble } from "./message-bubble"
 import { ChatInput } from "./chat-input"
 import { ChatHeader } from "./chat-header"
@@ -49,14 +49,27 @@ export function ChatWindow({
     }),
     onFinish({ message }) {
       if (onMessageAdded && message) {
-        const assistantContent = message.content as UIMessageContent
-        const text = Array.isArray(assistantContent)
-          ? assistantContent
-              .map((part) => (typeof part === "string" ? part : part.text ?? ""))
-              .join("")
-          : typeof assistantContent === "string"
-            ? assistantContent
-            : ""
+        const assistantPayload = Array.isArray(message.parts)
+          ? message.parts
+          : []
+
+        const text = assistantPayload
+          .map((part) => {
+            if (typeof part === "string") {
+              return part
+            }
+
+            if (part.type === "assistant_message") {
+              return part.text ?? ""
+            }
+
+            if ("text" in part) {
+              return part.text ?? ""
+            }
+
+            return ""
+          })
+          .join("")
 
         if (text) {
           onMessageAdded({ role: "assistant", content: text })
