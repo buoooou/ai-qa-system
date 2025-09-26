@@ -94,6 +94,7 @@ export function ChatInterface({ user, onLogout }: ChatInterfaceProps) {
 
           // 如果是新对话并且发送了第一条消息，设置刷新标志
           if (isNewConversationRef.current) {
+            console.log("setRefreshTrigger...")
             // shouldRefreshRef.current = true
             setRefreshTrigger((prev) => prev + 1)
             isNewConversationRef.current = false // 重置标志
@@ -164,8 +165,12 @@ export function ChatInterface({ user, onLogout }: ChatInterfaceProps) {
           const firstQuestion = data.data[0].question
           setConversationTitle(firstQuestion.length > 30 ? firstQuestion.substring(0, 30) + "..." : firstQuestion)
         }
+
         if (isMobile) {
           setShowSidebar(false)
+        } else {
+          console.log("setRefreshTrigger...")
+          setRefreshTrigger((prev) => prev + 1)
         }
       } else {
         console.error("Failed to load conversation:", data.message)

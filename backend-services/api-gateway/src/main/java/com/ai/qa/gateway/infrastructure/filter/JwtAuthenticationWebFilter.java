@@ -51,10 +51,12 @@ public class JwtAuthenticationWebFilter extends AuthenticationWebFilter {
 
         // OpenDoc、Actuator等路径的场合，直接放行
         if (uri.equals("/swagger-ui.html") ||
-                uri.startsWith("/swagger-ui/") ||
-                uri.startsWith("/v3/api-docs/") ||
+                uri.contains("/swagger-ui/") ||
+                uri.contains("/api-docs") ||
                 // Actuator健康检查相关路径
-                uri.startsWith("/actuator/")) {
+                uri.startsWith("/actuator/") ||
+                // 静态资源文件
+                uri.equals("/favicon.ico")) {
             log.info("========== JwtAuthenticationFilter skip for path: {}", uri);
 
             // 放行

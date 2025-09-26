@@ -16,7 +16,7 @@ spring:
       - "nacos:shared-config_fm.yml"
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      server-addr: 3.101.113.38:8848
       config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
@@ -54,9 +54,16 @@ management:
         enabled: true
 
 # OpenAPI 文档配置
+# 配置Swagger UI显示的服务文档
 springdoc:
-  api-docs:
-    path: /api-docs
   swagger-ui:
+    urls:
+      - name: user-service
+        url: /user/v3/api-docs
+      - name: qa-service
+        url: /qa/v3/api-docs
+    # 配置Swagger UI的路径
     path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
 

@@ -28,7 +28,7 @@ public class GeminiClient {
     @Value("${google.ai.endpoint}")
     private String endpoint;
 
-    @Value("${google.ai.model:gemini-1.5-flash}")
+    @Value("${google.ai.model}")
     private String model;
 
     /**

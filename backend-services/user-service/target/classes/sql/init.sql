@@ -50,3 +50,4 @@ CREATE TABLE `qa_history` (
 
 -- 插入一些测试数据 (可选)
 INSERT INTO `user` (`username`, `password`) VALUES ('testuser', '$2a$10$abcdefghijklmnopqrstuv'); -- 密码是加密的，请通过注册接口创建用户
+

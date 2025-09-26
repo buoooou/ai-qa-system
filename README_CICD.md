@@ -110,10 +110,11 @@ CI/CD 流程设计，包括：
 ### 2.1 编辑CICD脚本
 输入项目概要，交给AI生成脚本。内容如下：
 为了构建chatbox的前后端项目ai-qa-system。
-后端backend-services是java 17、spring boot 2.7.17、Maven的构建的3个微服务（api-gateway:8080, user-service:8081, qa-service:8082）。后端使用nacos来注册发现微服务，其IP和端口是54.219.180.170:8848。后端有代码健康检查和OpenAPI文档。
+后端backend-services是java 17、spring boot 2.7.17、Maven的构建的3个微服务（api-gateway:8080, user-service:8081, qa-service:8082）。后端使用nacos来注册发现微服务，其IP和端口是3.101.113.38:8848。后端有代码健康检查和OpenAPI文档。
 前端frontend-nextjs是nextjs构建的构建的前端网页，端口为3000(node --version: v22.18.0)。
 
-现在要通过workflows实现CICD（代码推送到github，镜像推送到dockerhub，部署到AWS的EC2上）。
+现在要通过workflows实现CICD。
+（代码推送到github，镜像推送到dockerhub，部署到AWS的EC2的ubuntu-24.04-amd64-server上）
 
 关于镜像名字，固定，后端为：chatbox-各自的微服务名, 前端为chatbox-frontend。
 
@@ -125,7 +126,7 @@ ai-qa-system
 │       ├──qa-service
 ├──frontend-nextjs
 
-请按照最佳实践，帮我生成dockerfile(后端每个微服务一个dockerfile), docker-compose.yml，workflows的main.yml。后端没有添加代码健康检查。
+请按照最佳实践，帮我生成dockerfile(后端每个微服务一个dockerfile), docker-compose.yml，workflows的main.yml。
 
 
 ### 2.2 GitHub Actions 配置

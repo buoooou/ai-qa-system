@@ -11,14 +11,14 @@ spring:
       - "nacos:shared-config_fm.yml"
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      server-addr: 3.101.113.38:8848
       config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
         group: DEFAULT_GROUP
 
   datasource:
-    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://ai-qa-system-sfm.cj6gcogsidzt.ap-southeast-2.rds.amazonaws.com:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: ai_qa_system
   jpa:

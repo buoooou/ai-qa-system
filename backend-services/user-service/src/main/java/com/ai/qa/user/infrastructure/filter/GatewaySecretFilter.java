@@ -24,11 +24,12 @@ public class GatewaySecretFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String path = request.getRequestURI();
+        log.info("网关密钥验证，路径: {}", path);
 
         // OpenDoc、Actuator等路径的场合，直接放行
         if (path.equals("/swagger-ui.html") ||
-                path.startsWith("/swagger-ui/") ||
-                path.startsWith("/v3/api-docs/") ||
+                path.contains("/swagger-ui/") ||
+                path.contains("/api-docs") ||
                 // Actuator健康检查相关路径
                 path.startsWith("/actuator/")) {
             filterChain.doFilter(request, response);

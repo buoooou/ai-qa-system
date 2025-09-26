@@ -42,10 +42,13 @@ public class SecurityConfig { // 不再继承WebSecurityConfigurerAdapter
                         // 放行OpenAPI文档路径
                         .antMatchers("/swagger-ui.html",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**")
+                                "/api-docs/**")
                         .permitAll()
                         // 放行Actuator健康检查路径
                         .antMatchers("/actuator/**")
+                        .permitAll()
+                        // 放行静态资源路径
+                        .antMatchers("/static/**", "/favicon.ico")
                         .permitAll()
                         // 其他所有请求需要认证
                         .anyRequest().authenticated())

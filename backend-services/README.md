@@ -25,7 +25,7 @@ https://nacos.io/docs/latest/overview/
 
 # 本作业使用的 nacos 服务器，可确认服务
 nacos服务器：
-http://54.219.180.170:8080/#/login
+http://3.101.113.38:8080/#/login
 
 apikey 申请网站：
 https://aistudio.google.com/apikey

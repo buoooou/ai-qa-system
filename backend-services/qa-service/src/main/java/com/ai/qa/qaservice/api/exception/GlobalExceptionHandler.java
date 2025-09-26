@@ -15,14 +15,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ApiResponse<Object>> handleBusinessException(BusinessException ex) {
-        log.error("业务异常: {}", ex.getMessage());
+        log.error("handleBusinessException 业务异常: {}", ex.getMessage());
         ApiResponse<Object> apiResponse = ApiResponse.error(ex.getStatus().value(), ex.getMessage());
         return new ResponseEntity<>(apiResponse, ex.getStatus());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleGlobalException(Exception ex) {
-        log.error("未捕获的系统异常: {}", ex.getMessage(), ex);
+        log.error("handleGlobalException 未捕获的系统异常: {}", ex.getMessage(), ex);
         ApiResponse<Object> apiResponse = ApiResponse.error(500, ex.getMessage());
         return new ResponseEntity<>(apiResponse, org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR);
     }

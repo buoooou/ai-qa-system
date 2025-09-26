@@ -40,7 +40,7 @@ public class SecurityConfig {
                                                 // 放行OpenAPI文档路径
                                                 .pathMatchers("/swagger-ui.html",
                                                                 "/swagger-ui/**",
-                                                                "/v3/api-docs/**")
+                                                                "/api-docs/**")
                                                 .permitAll()
                                                 // 放行Actuator健康检查路径
                                                 .pathMatchers("/actuator/**")

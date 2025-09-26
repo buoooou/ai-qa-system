@@ -19,13 +19,13 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate() {
         // 设置不需要代理的主机
-        System.setProperty("http.nonProxyHosts", "localhost|127.0.0.1|54.219.180.170");
-        System.setProperty("https.nonProxyHosts", "localhost|127.0.0.1|54.219.180.170");
+        System.setProperty("http.nonProxyHosts", "localhost|127.0.0.1|3.101.113.38");
+        System.setProperty("https.nonProxyHosts", "localhost|127.0.0.1|3.101.113.38");
 
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
 
         // 配置代理
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("9.36.235.13", 8080));
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyIp, 8080));
         requestFactory.setProxy(proxy);
 
         // 增加超时设置，避免无限等待

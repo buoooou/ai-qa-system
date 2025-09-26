@@ -107,7 +107,10 @@ export const ConversationSidebar = memo(function ConversationSidebar({
 
   useEffect(() => {
     // 只在首次加载或 refreshTrigger 变化时加载对话历史
-    if (!globalHasLoaded || (refreshTrigger && refreshTrigger > 0)) {
+    console.log("useEffect globalHasLoaded: ", globalHasLoaded)
+    console.log("useEffect refreshTrigger: ", refreshTrigger)
+
+    if (!globalHasLoaded || (refreshTrigger && refreshTrigger > 0) || (globalHasLoaded && refreshTrigger === 0)) {
       globalHasLoaded = true
       loadConversations()
     }
