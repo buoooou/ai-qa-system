@@ -28,7 +28,7 @@ spring:
           uri: lb://user-service-yl # lb:// 表示从Nacos负载均衡地选择一个user-service实例
 #          uri: http://192.168.31.186:8081
           predicates:
-            - Path=/api/user/** # 匹配所有/api/user/开头的请求
+            - Path=/api/users/** # 匹配所有/api/users/开头的请求
           # filters:
           #   - StripPrefix=1
         - id: qa_service_route
