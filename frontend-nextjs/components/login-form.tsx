@@ -33,7 +33,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
 
     try {
       const endpoint = isRegister ? "/api/user/register" : "/api/user/login"
-      const response = await fetch(`http://localhost:8080${endpoint}`, {
+      const response = await fetch(`http://3.26.56.14:8080${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

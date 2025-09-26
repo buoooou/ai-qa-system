@@ -70,7 +70,7 @@ export function ChatInterface({ user, onLogout }: ChatInterfaceProps) {
     setIsLoading(true)
 
     try {
-      const response = await fetch("http://localhost:8080/api/qa/question", {
+      const response = await fetch("http://3.26.56.14:8080/api/qa/question", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -147,7 +147,7 @@ export function ChatInterface({ user, onLogout }: ChatInterfaceProps) {
   const loadConversation = useCallback(async (conversationId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/qa/conversation/history?conversationId=${conversationId}`,
+        `http://3.26.56.14:8080/api/qa/conversation/history?conversationId=${conversationId}`,
         {
           headers: {
             "Content-Type": "application/json",

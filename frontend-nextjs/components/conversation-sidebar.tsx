@@ -50,7 +50,7 @@ export const ConversationSidebar = memo(function ConversationSidebar({
 
     setIsLoading(true)
     try {
-      const response = await fetch("http://localhost:8080/api/qa/conversations/allHistory", {
+      const response = await fetch("http://3.26.56.14:8080/api/qa/conversations/allHistory", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
@@ -82,7 +82,7 @@ export const ConversationSidebar = memo(function ConversationSidebar({
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/qa/conversation/delete?conversationId=${conversationId}`,
+        `http://3.26.56.14:8080/api/qa/conversation/delete?conversationId=${conversationId}`,
         {
           method: "DELETE",
           headers: {
