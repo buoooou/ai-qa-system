@@ -192,7 +192,7 @@ jobs:
         echo ""
         echo "🔍 手动健康检查命令:"
         echo "   # 检查前端服务"
-        echo "   curl -f http://3.84.225.222:3000/ && echo '✅ 前端服务正常' || echo '❌ 前端服务异常'"
+        echo "   curl -f http://3.84.225.222:3000/login/ && echo '✅ 前端服务正常' || echo '❌ 前端服务异常'"
         echo ""
         echo "   # 检查API网关"
         echo "   curl -f http://3.84.225.222:8080/actuator/health && echo '✅ API网关正常' || echo '⚠️  API网关异常'"
@@ -221,15 +221,19 @@ jobs:
         script: |
           cd /home/ubuntu/ai-qa-system || (mkdir -p /home/ubuntu/ai-qa-system && cd /home/ubuntu/ai-qa-system)
           if [ ! -d .git ]; then
-            git clone https://github.com/pzone618/ai-qa-system.git .
+            git clone https://github.com/${{ github.repository }}.git .
           fi
           git fetch origin
           git checkout main
           git pull origin main
           docker-compose down || true
+          docker system prune -f
           docker-compose up -d --build
+          sleep 90
           docker-compose ps
-          curl -f http://localhost:3000/ || echo '前端服务检查失败'
+          ss -tlnp | grep -E ':(3000|8080|8081|8082|5432|6379)' || echo "⚠️  端口检查失败"
+          curl -f http://localhost:3000/login/ || echo '前端服务检查失败'
+          curl -f http://localhost:8080/actuator/health || echo 'API Gateway检查失败'
 
     - name: Run health checks
       run: |
@@ -239,7 +243,7 @@ jobs:
         echo ""
         echo "🔍 手动健康检查命令:"
         echo "   # 检查前端服务"
-        echo "   curl -f http://3.84.225.222:3000/ && echo '✅ 前端服务正常' || echo '❌ 前端服务异常'"
+        echo "   curl -f http://3.84.225.222:3000/login/ && echo '✅ 前端服务正常' || echo '❌ 前端服务异常'"
         echo ""
         echo "   # 检查API网关"
         echo "   curl -f http://3.84.225.222:8080/actuator/health && echo '✅ API网关正常' || echo '⚠️  API网关异常'"

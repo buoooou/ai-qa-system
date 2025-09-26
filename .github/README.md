@@ -1,29 +1,20 @@
-# GitHub Actions 工作流配置
+# GitHub Actions CI/CD 工作流配置
 
-本项目包含两个主要的 GitHub Actions 工作流：
+本项目包含一个综合的 CI/CD 工作流：`ci-cd.yml`
 
-## 1. CI 工作流 (`ci.yml`)
-
-**触发条件：**
-- 推送到 `main`、`develop` 或 `feature/*` 分支
-- 创建 Pull Request 到 `main` 或 `develop` 分支
-
-**功能：**
-- 构建和测试前端应用
-- 编译和测试后端服务
-- 构建 Docker 镜像
-- 验证容器启动
-
-## 2. 部署工作流 (`deploy.yml`)
+## 工作流功能
 
 **触发条件：**
-- 推送到 `main` 分支
+- 推送到 `main`、`develop` 或 `feature/yulong` 分支
+- 创建 Pull Request 到 `main` 分支
 - 手动触发（workflow_dispatch）
 
-**功能：**
-- 自动部署到 AWS EC2
-- 健康检查
-- 部署验证
+**包含的步骤：**
+1. **代码质量检查** - 构建和测试前端/后端
+2. **Docker 镜像构建** - 构建并推送到 GitHub Container Registry
+3. **安全扫描** - 使用 Trivy 进行漏洞扫描
+4. **自动部署** - 根据分支自动部署到不同环境
+5. **健康检查** - 验证部署结果
 
 ## 配置要求
 
@@ -32,7 +23,9 @@
 在 GitHub 仓库设置中添加以下 Secrets：
 
 ```
-SSH_PRIVATE_KEY: EC2 实例的 SSH 私钥
+EC2_HOST: 3.84.225.222
+EC2_USER: ubuntu
+EC2_KEY: EC2 实例的 SSH 私钥内容
 ```
 
 ### 2. EC2 实例准备

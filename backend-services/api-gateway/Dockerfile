@@ -13,4 +13,4 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=build /app/api-gateway/target/*SNAPSHOT.jar app.jar
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "-Dmanagement.metrics.enabled=false", "-Dmanagement.endpoints.web.exposure.include=health", "app.jar"]
