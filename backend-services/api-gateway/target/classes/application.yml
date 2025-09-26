@@ -42,16 +42,16 @@ spring:
 #            key-resolver: '#{@ipKeyResolver}'
 
 # 健康检查配置
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info  # 暴露health（健康）和info（基本信息）端点
-  endpoint:
-    health:
-      show-details: always  # 总是显示详细健康信息（生产环境可改为when_authorized）
-      probes:
-        enabled: true
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: health,info
+#   endpoint:
+#     health:
+#       show-details: always
+#       probes:
+#         enabled: true
 
 # OpenAPI 文档配置
 # 配置Swagger UI显示的服务文档

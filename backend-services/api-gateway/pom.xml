@@ -105,10 +105,11 @@
         </dependency>
         
         <!-- Actuator -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>          
+        </dependency>     -->
+
     </dependencies>
 
     <!-- 3. 添加构建插件，用于打包成可执行jar -->
