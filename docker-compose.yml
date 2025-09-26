@@ -6,10 +6,12 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_PROFILES_ACTIVE=local
     depends_on:
       - postgres
       - redis
+      - user-service
+      - qa-service
     networks:
       - ai-network
 
@@ -41,12 +43,12 @@ services:
     networks:
       - ai-network
 
-  frontend:
-    build:
-      context: ./fronted
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"
+         frontend:
+           build:
+             context: ./fronted
+             dockerfile: Dockerfile
+           ports:
+             - "3000:3000"
     depends_on:
       - api-gateway
       - user-service

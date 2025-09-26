@@ -39,11 +39,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-        <!-- Actuator 依赖，确保健康检查可用 -->
-        <dependency>
+        <!-- 移除 Actuator 依赖以避免 Cgroup 问题 -->
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        </dependency> -->
         <!-- Swagger 依赖 -->
          <!-- 与gateway依赖包冲突
         <dependency>

@@ -7,7 +7,12 @@ COPY . .
 RUN npm run build
 
 # 运行时镜像
-FROM nginx:alpine
-COPY --from=build /app/out /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=build /app/package*.json ./
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+COPY --from=build /app/next.config.ts ./
+EXPOSE 3000
+CMD ["npm", "start"]

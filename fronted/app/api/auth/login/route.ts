@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {const { username, password } = await request.json();
     // 调用后端登录接口
-    const backendResponse = await fetch('http://localhost:8081/api/users/auth/login', {
+    const backendResponse = await fetch('http://user-service:8081/api/users/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
