@@ -48,7 +48,7 @@ services:
       context: ./fronted
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "3000:80"
     depends_on:
       - api-gateway
       - user-service
