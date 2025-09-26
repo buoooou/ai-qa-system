@@ -26,7 +26,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
     <div className="prose prose-sm max-w-none dark:prose-invert">
       <ReactMarkdown
         components={{
-        code({ node, className, children, ...props }) {
+        code({ className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "")
           const codeString = String(children).replace(/\n$/, "")
 
@@ -56,9 +56,6 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
               {children}
             </code>
           )
-        },
-        pre({ children }) {
-          return <>{children}</>
         },
         h1({ children }) {
           return <h1 className="text-xl font-semibold mt-6 mb-4 first:mt-0">{children}</h1>

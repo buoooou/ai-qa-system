@@ -2,11 +2,6 @@
 
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-import {
-  NameType,
-  Payload,
-  ValueType,
-} from "recharts/types/component/DefaultTooltipContent"
 
 import { cn } from "@/lib/utils"
 
@@ -322,37 +317,39 @@ const ChartLegendContent = React.forwardRef<
 ChartLegendContent.displayName = "ChartLegend"
 
 // Helper to extract item config from a payload.
+type ChartPayload = {
+  dataKey?: string
+  name?: string
+  payload?: Record<string, unknown>
+  value?: number
+  color?: string
+}
+
 function getPayloadConfigFromPayload(
   config: ChartConfig,
-  payload: unknown,
+  payload: ChartPayload,
   key: string
 ) {
-  if (typeof payload !== "object" || payload === null) {
+  if (!payload || typeof payload !== "object") {
     return undefined
   }
 
-  const payloadPayload =
-  "payload" in payload &&
-  typeof (payload as any).payload === "object" &&
-  (payload as any).payload !== null
-    ? (payload as any).payload
-    : undefined;
+  const payloadPayload = payload.payload && typeof payload.payload === "object"
+    ? (payload.payload as Record<string, unknown>)
+    : undefined
 
   let configLabelKey: string = key
 
-  if (
-    key in payload &&
-    typeof payload[key as keyof typeof payload] === "string"
-  ) {
-    configLabelKey = payload[key as keyof typeof payload] as string
-  } else if (
-    payloadPayload &&
-    key in payloadPayload &&
-    typeof payloadPayload[key as keyof typeof payloadPayload] === "string"
-  ) {
-    configLabelKey = payloadPayload[
-      key as keyof typeof payloadPayload
-    ] as string
+  if (payload && key in payload) {
+    const potentialKey = payload[key as keyof ChartPayload]
+    if (typeof potentialKey === "string") {
+      configLabelKey = potentialKey
+    }
+  } else if (payloadPayload && key in payloadPayload) {
+    const potentialPayloadKey = payloadPayload[key]
+    if (typeof potentialPayloadKey === "string") {
+      configLabelKey = potentialPayloadKey
+    }
   }
 
   return configLabelKey in config

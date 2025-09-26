@@ -27,7 +27,7 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
     try {
       await login({ usernameOrEmail, password })
       router.push("/")
-    } catch (error) {
+    } catch {
       // Error is handled by the auth context
     }
   }
