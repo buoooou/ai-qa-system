@@ -1,0 +1,65 @@
+{
+  "servers": {
+    "claude-code": {
+      "command": "claude",
+      "args": ["mcp", "serve"],
+      "env": {}
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "env": {
+        "CONTEXT7_API_KEY": ""   // 如需私有额度/更稳可填；留空也能用
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "--dir", "docs", "--readOnly"]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@mseep/git-mcp-server"]
+    },
+    "openapi": {
+      "command": "npx",
+      "args": ["-y", "@reapi/mcp-openapi@latest", "--dir", "./specs"]
+    },
+    "db_sqlite": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/database-server", "./sql/dev.sqlite3"]
+    },
+    "db_postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/database-server",
+        "--postgresql",
+        "--host", "127.0.0.1",
+        "--database", "appdb",
+        "--user", "appuser",
+        "--password", "secret"
+      ]
+    },
+    "db_mysql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/database-server",
+        "--mysql",
+        "--host", "127.0.0.1",
+        "--port", "3306",
+        "--database", "appdb",
+        "--user", "appuser",
+        "--password", "secret",
+        "--ssl", "false"
+      ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "env": {
+        "memory.jsonl": ".mcp-memory.jsonl"
+      }
+    }
+  }
+}

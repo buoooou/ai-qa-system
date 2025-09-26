@@ -1,12 +1,16 @@
 package com.ai.qa.service.infrastructure.persistence.repositories;
 
-import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
+
 @Repository
-public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO> {
+public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long> {
 
-    QAHistoryPO findHistoryById(String userId);
+    List<QAHistoryPO> findBySessionId(String sessionId);
 
+    int deleteBySessionId(String sessionId);
 }

@@ -1,0 +1,17 @@
+# 构建阶段
+FROM node:18 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --unsafe-perm
+COPY . .
+RUN npm run build
+
+# 检查构建结果
+RUN ls -la /app/
+RUN ls -la /app/out/ || echo "out directory not found"
+
+# 运行时镜像
+FROM nginx:alpine
+COPY --from=build /app/out /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
