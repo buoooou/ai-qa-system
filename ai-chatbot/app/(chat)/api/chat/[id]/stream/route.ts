@@ -5,7 +5,7 @@ import { gatewayGet } from "@/lib/api/gateway";
 import { ChatSDKError } from "@/lib/errors";
 import type { GatewayChatMessage, GatewayChatSession } from "@/lib/api/types";
 import type { ChatMessage } from "@/lib/types";
-import { getStreamContext } from "../../route";
+import { getStreamContext } from "../../stream-context";
 
 export async function GET(
   _: Request,

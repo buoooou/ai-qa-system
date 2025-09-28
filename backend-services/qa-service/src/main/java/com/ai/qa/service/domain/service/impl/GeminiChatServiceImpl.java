@@ -1,8 +1,13 @@
 package com.ai.qa.service.domain.service.impl;
 
+import com.ai.qa.service.domain.model.GeminiSsePayload;
+import com.ai.qa.service.domain.model.GeminiStreamRawChunk;
+import com.ai.qa.service.domain.model.GeminiStreamChunk;
+import com.ai.qa.service.domain.model.GeminiChatResponse;
+import com.ai.qa.service.domain.model.GeminiChatRequest;
 import com.ai.qa.service.application.dto.ChatCompletionCommand;
 import com.ai.qa.service.domain.service.GeminiChatService;
-import com.ai.qa.service.domain.service.StreamingChatResult;
+import com.ai.qa.service.domain.model.StreamingChatResult;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;

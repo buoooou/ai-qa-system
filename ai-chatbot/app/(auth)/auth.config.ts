@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
+import type { UserType } from "./auth";
 
 export const authConfig = {
   pages: {
@@ -17,7 +18,7 @@ export const authConfig = {
     session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub ?? "";
-        session.user.type = (token as { type?: string }).type ?? "guest";
+        session.user.type = ((token as { type?: string }).type ?? "guest") as UserType;
         session.user.accessToken = (
           token as { accessToken?: string }
         ).accessToken;
@@ -35,7 +36,7 @@ export const authConfig = {
       if (user) {
         token.sub = user.id ?? token.sub;
         token.id = user.id ?? token.id;
-        token.type = (user as { type?: string }).type ?? "guest";
+        token.type = ((user as { type?: string }).type ?? "guest") as UserType;
         token.accessToken = (user as { accessToken?: string }).accessToken;
         token.role = (user as { role?: string }).role;
         token.username = (user as { username?: string }).username;

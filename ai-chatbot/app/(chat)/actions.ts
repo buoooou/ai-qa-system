@@ -29,3 +29,14 @@ export async function updateChatVisibility({
     { accessToken: session.user.accessToken }
   );
 }
+
+export async function deleteTrailingMessages({
+  chatId,
+  fromId,
+}: {
+  chatId: string;
+  fromId: string;
+}) {
+  // TODO: Implement via Gateway API when available
+  console.log("deleteTrailingMessages not yet implemented", { chatId, fromId });
+}

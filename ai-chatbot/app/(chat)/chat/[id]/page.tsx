@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 
 import { auth } from "@/app/(auth)/auth";
 import { Chat } from "@/components/chat";
-import { DataStreamHandler } from "@/components/data-stream-handler";
+// import { DataStreamHandler } from "@/components/data-stream-handler"; // Disabled artifact system
 import { DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
 import { gatewayGet } from "@/lib/api/gateway";
 import type {
@@ -58,7 +58,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           initialVisibilityType={chat.status === "private" ? "private" : "public"}
           isReadonly={session?.user?.id !== String(chat.id)}
         />
-        <DataStreamHandler />
+        {/* <DataStreamHandler /> */}
       </>
     );
   }

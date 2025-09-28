@@ -144,7 +144,7 @@ function mapGatewayAuthResponse(response: GatewayAuthResponse) {
     role: response.profile.role,
   } satisfies {
     id: string;
-    email: string;
+    email: string | null;
     username: string;
     nickname: string | null;
     type: UserType;

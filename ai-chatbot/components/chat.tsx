@@ -17,18 +17,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useArtifactSelector } from "@/hooks/use-artifact";
+// import { useArtifactSelector } from "@/hooks/use-artifact"; // Disabled artifact system
 import { useAutoResume } from "@/hooks/use-auto-resume";
 import { useChatVisibility } from "@/hooks/use-chat-visibility";
-import type { Vote } from "@/lib/db/schema";
+// import type { Vote } from "@/lib/db/schema"; // TODO: Replace with Gateway vote types
 import { ChatSDKError } from "@/lib/errors";
 import type { Attachment, ChatMessage } from "@/lib/types";
 import type { AppUsage } from "@/lib/usage";
 import { fetcher, fetchWithErrorHandlers, generateUUID } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import { createUserSession } from "@/lib/api/gateway";
-import { Artifact } from "./artifact";
-import { useDataStream } from "./data-stream-provider";
+// import { Artifact } from "./artifact"; // Disabled artifact system
+// import { useDataStream } from "./data-stream-provider"; // Disabled artifact system
 import { Messages } from "./messages";
 import { MultimodalInput } from "./multimodal-input";
 import { getChatHistoryPaginationKey } from "./sidebar-history";
@@ -58,7 +58,7 @@ export function Chat({
   });
 
   const { mutate } = useSWRConfig();
-  const { setDataStream } = useDataStream();
+  // const { setDataStream } = useDataStream(); // Disabled artifact system
   const { data: session } = useSession();
 
   const [input, setInput] = useState<string>("");
@@ -113,7 +113,7 @@ export function Chat({
       },
     }),
     onData: (dataPart) => {
-      setDataStream((ds) => (ds ? [...ds, dataPart] : []));
+      // setDataStream((ds) => (ds ? [...ds, dataPart] : [])); // Disabled artifact system
       if (dataPart.type === "data-usage") {
         setUsage(dataPart.data);
       }
@@ -155,13 +155,15 @@ export function Chat({
     }
   }, [query, sendMessage, hasAppendedQuery, id]);
 
-  const { data: votes } = useSWR<Vote[]>(
-    messages.length >= 2 ? `/api/vote?chatId=${id}` : null,
-    fetcher
-  );
+  // const { data: votes } = useSWR<Vote[]>(
+  //   messages.length >= 2 ? `/api/vote?chatId=${id}` : null,
+  //   fetcher
+  // );
+  const votes = undefined; // TODO: Implement votes via Gateway
 
   const [attachments, setAttachments] = useState<Attachment[]>([]);
-  const isArtifactVisible = useArtifactSelector((state) => state.isVisible);
+  // const isArtifactVisible = useArtifactSelector((state) => state.isVisible); // Disabled artifact system
+  const isArtifactVisible = false;
 
   useAutoResume({
     autoResume,
@@ -213,7 +215,7 @@ export function Chat({
         </div>
       </div>
 
-      <Artifact
+      {/* <Artifact
         attachments={attachments}
         chatId={id}
         input={input}
@@ -229,7 +231,7 @@ export function Chat({
         status={status}
         stop={stop}
         votes={votes}
-      />
+      /> */}
 
       <AlertDialog
         onOpenChange={setShowCreditCardAlert}
