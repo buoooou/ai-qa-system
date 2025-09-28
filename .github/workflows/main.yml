@@ -156,6 +156,10 @@ jobs:
             fi
             cd ~/ai-qa-system
             git pull origin main
+
+            docker compose -f docker-compose.prod.yml down -v --remove-orphans
+            docker system prune -af --volumes
+  
             docker compose -f docker-compose.prod.yml pull
             docker compose -f docker-compose.prod.yml up -d --remove-orphans
             docker image prune -f
