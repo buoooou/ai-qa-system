@@ -32,11 +32,11 @@ export function useChatVisibility({
     if (!history) {
       return localVisibility;
     }
-    const chat = history.chats.find((currentChat) => currentChat.id === chatId);
+    const chat = history.chats.find((currentChat) => currentChat.id.toString() === chatId);
     if (!chat) {
       return "private";
     }
-    return chat.visibility;
+    return chat.status === "private" ? "private" : "public";
   }, [history, chatId, localVisibility]);
 
   const setVisibilityType = (updatedVisibilityType: VisibilityType) => {

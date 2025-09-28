@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { memo } from "react";
 import { useChatVisibility } from "@/hooks/use-chat-visibility";
-import type { Chat } from "@/lib/db/schema";
+import type { GatewayChatSession } from "@/lib/api/types";
 import {
   CheckCircleFillIcon,
   GlobeIcon,
@@ -32,14 +32,14 @@ const PureChatItem = ({
   onDelete,
   setOpenMobile,
 }: {
-  chat: Chat;
+  chat: GatewayChatSession;
   isActive: boolean;
   onDelete: (chatId: string) => void;
   setOpenMobile: (open: boolean) => void;
 }) => {
   const { visibilityType, setVisibilityType } = useChatVisibility({
-    chatId: chat.id,
-    initialVisibilityType: chat.visibility,
+    chatId: chat.id.toString(),
+    initialVisibilityType: chat.status === "private" ? "private" : "public",
   });
 
   return (
@@ -101,7 +101,7 @@ const PureChatItem = ({
 
           <DropdownMenuItem
             className="cursor-pointer text-destructive focus:bg-destructive/15 focus:text-destructive dark:text-red-500"
-            onSelect={() => onDelete(chat.id)}
+            onSelect={() => onDelete(chat.id.toString())}
           >
             <TrashIcon />
             <span>Delete</span>
