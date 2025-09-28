@@ -1,54 +1,54 @@
 package com.ai.qa.service.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
 
+import lombok.Getter;
 
-
+/**
+ * 问答历史记录实体类，用于存储用户问答历史信息。
+ */
+@Getter
 public class QAHistory {
 
-    private String id;
-    private String userId;
-    private String question;
-    private String answer;
-    private LocalDateTime timestamp;
-    private String sessionId;
-
-    private Object rag;
-
-    public String getId(){
-        return this.id;
-    }
-
     /**
-     *
-     * @param question
-     * @return
+     * 用户ID
      */
-    public String getAnswer(String question) {
-        String response = rag.getContext();
-        return answer+response;
+    private String userId;
+    /**
+     * 会话ID
+     */
+    private String sessionId;
+    /**
+     * 问题内容
+     */
+    private String question;
+    /**
+     * 回答内容
+     */
+    private String answer;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    private QAHistory(String userId, String sessionId, String question, String answer, LocalDateTime createTime) {
+        this.userId = userId;
+        this.sessionId = sessionId;
+        this.question = question;
+        this.answer = answer;
+        this.createTime = createTime;
     }
 
-    private QAHistory(String id){
-
+    public static QAHistory getInstance(String userId, String sessionId, String question, String answer, LocalDateTime createTime){
+        return new QAHistory(userId, sessionId, question, answer, createTime);
     }
 
-    public String getUserId(){
-
-    }
-
-    public String getRAGAnswer(){
-
-        getAnswer();
-        serivice.sss();
-        return  "";
-    }
-    public static QAHistory createNew(String userId, String question, String answer,...){
-
-
-        return new QAHistory();
+    public void validate() {
+        if (question == null || question.isBlank()) {
+            throw new IllegalArgumentException("问题不能为空");
+        }
+        if (answer == null || answer.isBlank()) {
+            throw new IllegalArgumentException("答案不能为空");
+        }
     }
 }

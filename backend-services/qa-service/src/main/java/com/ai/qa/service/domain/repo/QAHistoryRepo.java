@@ -1,14 +1,15 @@
 package com.ai.qa.service.domain.repo;
 
-import com.ai.qa.service.domain.model.QAHistory;
-
 import java.util.List;
-import java.util.Optional;
+
+import com.ai.qa.service.domain.model.QAHistory;
+import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
 
 public interface QAHistoryRepo {
-
+    // 保存QA会话
     void save(QAHistory history);
-    Optional<QAHistory> findHistoryById(String id);
-    List<QAHistory> findHistoryBySession(String sessionId);
-
+    // 删除QA会话
+    int delete(String sessionId);
+    // 根据SessionID查询问答历史
+    List<QAHistoryPO> findBySessionId(String sessionId);
 }
