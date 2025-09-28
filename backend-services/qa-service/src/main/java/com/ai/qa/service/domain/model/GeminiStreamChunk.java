@@ -1,4 +1,4 @@
-package com.ai.qa.service.domain.service;
+package com.ai.qa.service.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
