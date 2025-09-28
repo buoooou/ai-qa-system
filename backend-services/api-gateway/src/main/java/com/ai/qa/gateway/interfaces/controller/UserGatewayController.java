@@ -80,4 +80,18 @@ public class UserGatewayController {
                                                                                 @RequestParam(required = false) Integer limit) {
         return ResponseEntity.ok(ApiResponseDTO.success(authFacade.history(userId, sessionId, limit)));
     }
+
+    @Operation(summary = "Gateway check session ownership", description = "Checks if a user owns a specific chat session via user-service-fyb.")
+    @GetMapping("/sessions/{sessionId}/ownership")
+    public ResponseEntity<ApiResponseDTO<Boolean>> isSessionOwnedBy(@PathVariable Long sessionId,
+                                                                    @RequestParam Long userId) {
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.isSessionOwnedBy(sessionId, userId)));
+    }
+
+    @Operation(summary = "Gateway list latest chat history", description = "Retrieves the latest chat messages for a given session via user-service-fyb.")
+    @GetMapping("/sessions/{sessionId}/history/latest")
+    public ResponseEntity<ApiResponseDTO<List<ChatHistoryResponseDTO>>> listLatestHistory(@PathVariable Long sessionId,
+                                                                                          @RequestParam(required = false) Integer limit) {
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.listLatestHistory(sessionId, limit)));
+    }
 }
