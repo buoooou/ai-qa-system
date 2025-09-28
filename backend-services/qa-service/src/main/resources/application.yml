@@ -2,7 +2,7 @@ server:
   port: 8082
 spring:
   application:
-    name: qa-service-yl
+    name: qa-service-wss
   cloud:
     nacos:
       discovery:
@@ -12,7 +12,7 @@ spring:
       host: redis  # Docker 服务名
       port: 6379
   datasource:
-    url: jdbc:postgresql://3.84.225.222:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
+    url: jdbc:postgresql://18.234.219.18:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver

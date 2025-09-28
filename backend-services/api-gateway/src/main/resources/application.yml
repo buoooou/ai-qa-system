@@ -9,9 +9,9 @@ logging:
     com.alibaba.nacos.client: DEBUG
 spring:
   application:
-    name: api-gateway-yl
+    name: api-gateway-wss
   config:
-    import: "nacos:share-config-yulong.yml"
+    import: "nacos:share-config-wss.yml"
   cloud:
     nacos:
       server-addr: 3.84.225.222:8848
@@ -28,14 +28,14 @@ spring:
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
       routes:
         - id: user_service_route
-          uri: lb://user-service-yl # lb:// 表示从Nacos负载均衡地选择一个user-service实例
+          uri: lb://user-service-wss # lb:// 表示从Nacos负载均衡地选择一个user-service实例
 #          uri: http://192.168.31.186:8081
           predicates:
             - Path=/api/users/** # 匹配所有/api/users/开头的请求
           filters:
             - StripPrefix=2
         - id: qa_service_route
-          uri: lb://qa-service-yl
+          uri: lb://qa-service-wss
           predicates:
             - Path=/api/qa/**
       # default-filters:

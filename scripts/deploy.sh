@@ -7,7 +7,7 @@
 set -e  # 遇到错误立即退出
 
 ENVIRONMENT=${1:-dev}
-SERVER_HOST="3.84.225.222"
+SERVER_HOST="18.234.219.18
 SERVER_USER="ubuntu"  # 根据实际情况修改
 PROJECT_DIR="/home/ubuntu/ai-qa-system"  # 根据实际情况修改
 
@@ -39,15 +39,15 @@ ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST << EOF
 
         echo "📥 克隆项目仓库..."
         git clone https://github.com/pzone618/ai-qa-system.git .
-        git checkout feature/yulong
+        git checkout feature/wss
     else
         echo "📁 进入项目目录: $PROJECT_DIR"
         cd $PROJECT_DIR
 
         echo "📥 拉取最新代码..."
         git fetch origin
-        git checkout feature/yulong
-        git pull origin feature/yulong
+        git checkout feature/wss
+        git pull origin feature/wss
     fi
 
     echo "🔍 检查Docker和Docker Compose..."

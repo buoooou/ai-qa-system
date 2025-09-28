@@ -1,6 +1,6 @@
 spring:
   application:
-    name: qa-service-yl
+    name: qa-service-wss
   cloud:
     nacos:
       discovery:

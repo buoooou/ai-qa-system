@@ -5,7 +5,7 @@
 ## 工作流功能
 
 **触发条件：**
-- 推送到 `main`、`develop` 或 `feature/yulong` 分支
+- 推送到 `main`、`develop` 或 `feature/wss` 分支
 - 创建 Pull Request 到 `main` 分支
 - 手动触发（workflow_dispatch）
 
@@ -23,7 +23,7 @@
 在 GitHub 仓库设置中添加以下 Secrets：
 
 ```
-EC2_HOST: 3.84.225.222
+EC2_HOST: 18.234.219.18
 EC2_USER: ubuntu
 EC2_KEY: EC2 实例的 SSH 私钥内容
 ```
@@ -44,7 +44,7 @@ ssh-keygen -t rsa -b 4096 -C "your-email@example.com"
 
 2. 将公钥添加到 EC2 实例的 `~/.ssh/authorized_keys`：
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@3.84.225.222
+ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@18.234.219.18
 ```
 
 3. 将私钥内容复制到 GitHub Secrets 中的 `SSH_PRIVATE_KEY`
@@ -75,7 +75,7 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@3.84.225.222
 ### 查看部署状态
 - 在 Actions 页面查看工作流执行状态
 - 查看日志了解部署详情
-- 部署成功后访问 `http://3.84.225.222`
+- 部署成功后访问 `http://18.234.219.18`
 
 ## 故障排除
 
