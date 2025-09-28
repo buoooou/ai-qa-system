@@ -2,6 +2,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 3.84.225.222:8848
+        # server-addr: 3.84.225.222:8848
         group: DEFAULT_GROUP
-        ip: 3.84.225.222
+        # ip: 3.84.225.222
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        ip: ${SPRING_CLOUD_NACOS_DISCOVERY_IP}

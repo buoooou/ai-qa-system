@@ -6,7 +6,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=local
+      # Nacos 服务器的地址和端口
+      - NACOS_SERVER_ADDR=3.84.225.222:8848
+      # 当前环境的公网IP，用于服务注册
+      - SPRING_CLOUD_NACOS_DISCOVERY_IP=54.234.25.135
+      # - SPRING_PROFILES_ACTIVE=local
     depends_on:
       - postgres
       - redis
@@ -22,7 +26,11 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
+      # Nacos 服务器的地址和端口
+      - NACOS_SERVER_ADDR=3.84.225.222:8848
+      # 当前环境的公网IP，用于服务注册
+      - SPRING_CLOUD_NACOS_DISCOVERY_IP=54.234.25.135
+      # - SPRING_PROFILES_ACTIVE=prod
     depends_on:
       - postgres
       - redis
@@ -36,19 +44,23 @@ services:
     ports:
       - "8082:8082"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
+      # Nacos 服务器的地址和端口
+      - NACOS_SERVER_ADDR=3.84.225.222:8848
+      # 当前环境的公网IP，用于服务注册
+      - SPRING_CLOUD_NACOS_DISCOVERY_IP=54.234.25.135
+      # - SPRING_PROFILES_ACTIVE=prod
     depends_on:
       - postgres
       - redis
     networks:
       - ai-network
 
-         frontend:
-           build:
-             context: ./fronted
-             dockerfile: Dockerfile
-           ports:
-             - "3000:3000"
+  frontend:
+    build:
+     context: ./fronted
+     dockerfile: Dockerfile
+    ports:
+     - "3000:3000"
     depends_on:
       - api-gateway
       - user-service
