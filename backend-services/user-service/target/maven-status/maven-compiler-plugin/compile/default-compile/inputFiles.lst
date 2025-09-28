@@ -1,3 +1,4 @@
+/Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/model/Document.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/infrastructure/persistence/repositories/QaSessionJpaRepository.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/repositories/UserRepository.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/model/User.java
@@ -12,6 +13,7 @@
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/application/dto/UserProfileDTO.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/repositories/QaHistoryRepository.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/model/QaSession.java
+/Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/repositories/DocumentRepository.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/UserServiceApplication.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/api/exception/BusinessException.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/api/dto/AuthResponse.java
@@ -25,12 +27,15 @@
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/application/service/UserApplicationService.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/application/service/AuthApplicationService.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/common/PasswordService.java
+/Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/repositories/SuggestionRepository.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/application/dto/ChatSessionDTO.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/infrastructure/config/SecurityConfig.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/infrastructure/persistence/repositories/UserJpaRepository.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/common/CommonUtil.java
+/Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/model/Suggestion.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/infrastructure/config/SwaggerConfig.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/application/dto/ChatMessageDTO.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/api/controller/UserController.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/api/exception/ErrorCode.java
 /Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/infrastructure/persistence/repositories/QaHistoryJpaRepository.java
+/Users/jack.yan/codestaff/ai-qa/ai-qa-system/backend-services/user-service/src/main/java/com/ai/qa/user/domain/model/DocumentId.java

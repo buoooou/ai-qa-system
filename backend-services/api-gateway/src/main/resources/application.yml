@@ -11,9 +11,9 @@ spring:
   application:
     name: api-gateway-fyb
   config:
-    import:
+    import: optional:nacos:shared-config.yml
       # 引入共享配置
-      - "nacos:shared-config.yml"
+      # - "nacos:shared-config.yml"
   cloud:
     nacos:
       server-addr: 3.113.113.164:8848
