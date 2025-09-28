@@ -43,12 +43,12 @@ services:
     networks:
       - ai-network
 
-         frontend:
-           build:
-             context: ./fronted
-             dockerfile: Dockerfile
-           ports:
-             - "3000:3000"
+  frontend:
+    build:
+      context: ./fronted
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
     depends_on:
       - api-gateway
       - user-service

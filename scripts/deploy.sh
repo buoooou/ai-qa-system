@@ -7,7 +7,7 @@
 set -e  # 遇到错误立即退出
 
 ENVIRONMENT=${1:-dev}
-SERVER_HOST="18.234.219.18
+SERVER_HOST="18.234.219.18"
 SERVER_USER="ubuntu"  # 根据实际情况修改
 PROJECT_DIR="/home/ubuntu/ai-qa-system"  # 根据实际情况修改
 
