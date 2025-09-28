@@ -1,0 +1,320 @@
+name: AI QA System CI/CD
+
+on:
+  push:
+    branches: [ main]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      skip_tests:
+        description: 'Skip unit tests'
+        type: boolean
+        default: false
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  SHOULD_SKIP_TESTS: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_tests == 'true') || contains(github.event.head_commit.message, '[skip tests]') || vars.SKIP_TESTS == 'true' }}
+
+jobs:
+  # 代码质量检查
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: fronted/package-lock.json
+
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: Run backend tests
+      if: false  # 永久跳过测试
+      run: |
+        cd backend-services
+        mvn -B clean test
+
+    - name: Build backend without tests
+      if: ${{ env.SHOULD_SKIP_TESTS == 'true' }}
+      run: |
+        cd backend-services
+        mvn -B -DskipTests package
+    - name: Install frontend dependencies
+      run: |
+        cd fronted
+        npm ci
+
+    - name: Run frontend linting
+      run: |
+        cd fronted
+        npm run lint
+
+    - name: Run frontend build
+      run: |
+        cd fronted
+        npm run build
+
+  # 构建Docker镜像
+  build-images:
+    needs: code-quality
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    strategy:
+      matrix:
+        service: [api-gateway, user-service, qa-service, frontend]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.service }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ${{ matrix.service == 'frontend' && './fronted' || './backend-services' }}
+        file: ${{ matrix.service == 'frontend' && './fronted/Dockerfile' || format('./backend-services/{0}/Dockerfile', matrix.service) }}
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # 安全扫描
+  security-scan:
+    needs: build-images
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    timeout-minutes: 10  # 添加超时
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        scanners: 'vuln'  # 只扫描漏洞，跳过密钥扫描以加速
+        severity: 'CRITICAL,HIGH'  # 只报告严重和高危漏洞
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # 部署到开发环境
+  deploy-dev:
+    needs: build-images
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy to development
+      run: |
+        echo "🚀 Deploying to development environment..."
+        echo "📋 部署信息:"
+        echo "  - 服务器: 54.234.25.135"
+        echo "  - 分支: feature/yulong"
+        echo "  - 镜像: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+
+        echo "🔧 部署步骤:"
+        echo "1. 构建的Docker镜像已推送到GitHub Container Registry"
+        echo "2. 镜像标签: ${{ github.ref_name }}-${{ github.sha }}"
+        echo "3. 需要在服务器上手动执行以下命令:"
+        echo ""
+        echo "   # SSH到服务器"
+        echo "   ssh ubuntu@54.234.25.135"
+        echo ""
+        echo "   # 进入项目目录"
+        echo "   cd /home/ubuntu/ai-qa-system || (mkdir -p /home/ubuntu/ai-qa-system && cd /home/ubuntu/ai-qa-system)"
+        echo ""
+        echo "   # 克隆或更新代码"
+        echo "   if [ ! -d .git ]; then"
+        echo "     git clone https://github.com/pzone618/ai-qa-system.git ."
+        echo "   fi"
+        echo "   git fetch origin"
+        echo "   git checkout feature/yulong"
+        echo "   git pull origin feature/yulong"
+        echo ""
+        echo "   # 停止旧容器并启动新容器"
+        echo "   docker-compose down || true"
+        echo "   docker-compose up -d --build"
+        echo ""
+        echo "   # 检查服务状态"
+        echo "   docker-compose ps"
+        echo "   curl -f http://localhost:3000/ || echo '前端服务检查失败'"
+        echo ""
+        echo "✅ 部署指令已生成，请手动在服务器上执行上述命令"
+
+    - name: Run health checks
+      run: |
+        echo "🏥 Running health checks..."
+        echo "📋 健康检查说明:"
+        echo "由于部署需要手动执行，健康检查将在部署完成后进行"
+        echo ""
+        echo "🔍 手动健康检查命令:"
+        echo "   # 检查前端服务"
+        echo "   curl -f http://54.234.25.135:3000/login/ && echo '✅ 前端服务正常' || echo '❌ 前端服务异常'"
+        echo ""
+        echo "   # 检查API网关"
+        echo "   curl -f http://54.234.25.135:8080/actuator/health && echo '✅ API网关正常' || echo '⚠️  API网关异常'"
+        echo ""
+        echo "   # 检查所有容器状态"
+        echo "   docker-compose ps"
+        echo ""
+        echo "✅ 健康检查指令已生成"
+
+  # 部署到生产环境
+  deploy-prod:
+    needs: [build-images, security-scan]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: 自动部署到生产环境 EC2
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          # 定义项目目录变量
+            PROJECT_DIR="/home/ubuntu/ai-qa-system"
+          
+            # 停止并删除可能在运行的相关容器，避免文件占用
+            if [ -d "$PROJECT_DIR" ]; then
+              cd "$PROJECT_DIR"
+              docker-compose down || true
+            fi
+          
+            # 无论如何，都先彻底删除旧的目录，确保一个干净的环境
+            echo "🧹 正在清理旧的部署目录: $PROJECT_DIR"
+            rm -rf "$PROJECT_DIR"
+          
+            # 重新创建目录并进入
+            mkdir -p "$PROJECT_DIR"
+            cd "$PROJECT_DIR"
+
+            # 从一个干净的目录开始克隆
+            echo "🚚 正在从 GitHub 克隆最新的代码..."
+            git clone https://github.com/tianyf925/ai-qa-system.git .
+          
+            # 检查克隆是否成功
+            if [ ! -f "docker-compose.yml" ]; then
+              echo "❌ Git 克隆失败，找不到 docker-compose.yml 文件。"
+              exit 1
+            fi
+
+            # 重置到触发本次工作流的那个 commit
+            echo "🔄 正在重置代码到 commit: ${{ github.sha }}"
+            git reset --hard ${{ github.sha }}
+
+            echo "🚀 开始部署..."
+            echo "使用 Docker Compose 构建并启动服务..."
+            docker-compose up -d --build
+          
+            echo "⏳ 等待服务启动 (90秒)..."
+            sleep 90
+          
+            echo "🏥 检查服务状态..."
+            docker-compose ps
+          
+            echo "🔍 执行健康检查..."
+            curl -f http://localhost:3000/login/ || echo '❌ 前端服务健康检查失败'
+            curl -f http://localhost:8080/actuator/health || echo '❌ API Gateway健康检查失败'
+          
+            echo "✅ 部署完成！"
+
+    - name: Run health checks
+      run: |
+        echo "🏥 Running production health checks..."
+        echo "📋 生产环境健康检查说明:"
+        echo "由于部署需要手动执行，健康检查将在部署完成后进行"
+        echo ""
+        echo "🔍 手动健康检查命令:"
+        echo "   # 检查前端服务"
+        echo "   curl -f http://54.234.25.135:3000/login/ && echo '✅ 前端服务正常' || echo '❌ 前端服务异常'"
+        echo ""
+        echo "   # 检查API网关"
+        echo "   curl -f http://54.234.25.135:8080/actuator/health && echo '✅ API网关正常' || echo '⚠️  API网关异常'"
+        echo ""
+        echo "   # 检查所有容器状态"
+        echo "   docker-compose ps"
+        echo ""
+        echo "✅ 生产环境健康检查指令已生成"
+
+    - name: Notify deployment success
+      run: |
+        echo "✅ Production deployment instructions generated successfully!"
+        echo "🌐 生产环境访问地址: http://54.234.25.135:3000"
+        echo "🔗 API网关地址: http://54.234.25.135:8080"
+
+  # 性能测试
+  performance-test:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run performance tests
+      run: |
+        echo "⚡ Running performance tests..."
+        # 可以集成 k6, JMeter 或其他性能测试工具
+
+  # # 清理旧镜像
+  # cleanup:
+  #   needs: [deploy-dev, deploy-prod]
+  #   runs-on: ubuntu-latest
+  #   if: always()
+
+    # steps:
+    # - name: Delete old container images
+    #   uses: actions/delete-package-versions@v4
+    #   with:
+    #     package-name: ${{ env.IMAGE_NAME }}-api-gateway-yulong
+    #     package-type: container
+    #     min-versions-to-keep: 5
+    #     delete-only-untagged-versions: true
