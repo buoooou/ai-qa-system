@@ -1,8 +1,8 @@
 services:
   api-gateway:
     build:
-      context: ./backend-services
-      dockerfile: api-gateway/Dockerfile
+      context: .
+      dockerfile: backend-services/api-gateway/Dockerfile
     ports:
       - "8080:8080"
     environment:
@@ -17,8 +17,8 @@ services:
 
   user-service:
     build:
-      context: ./backend-services
-      dockerfile: user-service/Dockerfile
+      context: .
+      dockerfile: backend-services/user-service/Dockerfile
     ports:
       - "8081:8081"
     environment:
@@ -31,8 +31,8 @@ services:
 
   qa-service:
     build:
-      context: ./backend-services
-      dockerfile: qa-service/Dockerfile
+      context: .
+      dockerfile: backend-services/qa-service/Dockerfile
     ports:
       - "8082:8082"
     environment:
