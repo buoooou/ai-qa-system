@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   const { sessionId, userId, question } = await req.json();
   try {
     console.log('Sending request to QA service:', { sessionId, userId, question });
-    const response = await fetch('http://172.18.0.5:8082/api/qa/messages', {
+    const response = await fetch('http://qa-service:8082/api/qa/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionId, userId, question }),
