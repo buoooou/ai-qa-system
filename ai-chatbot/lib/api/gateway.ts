@@ -1,4 +1,4 @@
-import axios, { AxiosError, type AxiosRequestConfig } from "axios";
+import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from "axios";
 import type {
   GatewayAuthResponse,
   GatewayChatHistoryEntry,
@@ -29,7 +29,7 @@ const withAuth = <_T>(
   config: AxiosRequestConfig = {},
   session?: GatewaySession
 ) => {
-  const headers = { ...config.headers };
+  const headers: Record<string, string> = { ...(config.headers || {}) } as Record<string, string>;
 
   if (session?.accessToken) {
     headers.Authorization = `Bearer ${session.accessToken}`;
