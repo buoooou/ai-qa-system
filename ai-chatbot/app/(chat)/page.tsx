@@ -46,7 +46,7 @@ export default async function Page() {
         isReadonly={false}
         key={id}
       />
-      <DataStreamHandler />
+      {/* <DataStreamHandler /> */}
     </>
   );
 }

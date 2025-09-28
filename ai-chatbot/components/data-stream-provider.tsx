@@ -1,36 +1,15 @@
 "use client";
 
-import type { DataUIPart } from "ai";
-import type React from "react";
-import { createContext, useContext, useMemo, useState } from "react";
-import type { CustomUIDataTypes } from "@/lib/types";
+import { createContext, useContext, type ReactNode } from "react";
 
-type DataStreamContextValue = {
-  dataStream: DataUIPart<CustomUIDataTypes>[];
-  setDataStream: React.Dispatch<
-    React.SetStateAction<DataUIPart<CustomUIDataTypes>[]>
-  >;
+type DataStreamProviderType = {
+  dataStream: unknown[] | undefined;
+  setDataStream: (stream: unknown[] | undefined) => void;
 };
 
-const DataStreamContext = createContext<DataStreamContextValue | null>(null);
-
-export function DataStreamProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [dataStream, setDataStream] = useState<DataUIPart<CustomUIDataTypes>[]>(
-    []
-  );
-
-  const value = useMemo(() => ({ dataStream, setDataStream }), [dataStream]);
-
-  return (
-    <DataStreamContext.Provider value={value}>
-      {children}
-    </DataStreamContext.Provider>
-  );
-}
+const DataStreamContext = createContext<DataStreamProviderType | undefined>(
+  undefined
+);
 
 export function useDataStream() {
   const context = useContext(DataStreamContext);
@@ -38,4 +17,18 @@ export function useDataStream() {
     throw new Error("useDataStream must be used within a DataStreamProvider");
   }
   return context;
+}
+
+export function DataStreamProvider({ children }: { children: ReactNode }) {
+  // Minimal stub implementation
+  const dataStream = undefined;
+  const setDataStream = () => {
+    // No-op for now since artifacts are disabled
+  };
+
+  return (
+    <DataStreamContext.Provider value={{ dataStream, setDataStream }}>
+      {children}
+    </DataStreamContext.Provider>
+  );
 }

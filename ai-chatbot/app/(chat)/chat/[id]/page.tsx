@@ -73,10 +73,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         initialMessages={uiMessages}
         initialVisibilityType={chat.status === "private" ? "private" : "public"}
         isReadonly={false}
-        initialVisibilityType={chat.status === "private" ? "private" : "public"}
-        isReadonly={false}
       />
-      <DataStreamHandler />
+      {/* <DataStreamHandler /> */}
     </>
   );
 }
