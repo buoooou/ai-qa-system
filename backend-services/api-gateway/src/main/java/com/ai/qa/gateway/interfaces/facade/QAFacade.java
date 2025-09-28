@@ -1,8 +1,8 @@
 package com.ai.qa.gateway.interfaces.facade;
 
 import com.ai.qa.gateway.infrastructure.feign.QAServiceClient;
+import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatRequestDTO;
-import com.ai.qa.gateway.interfaces.dto.QAHistoryResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -19,7 +19,7 @@ public class QAFacade {
         return qaServiceClient.chat(request);
     }
 
-    public List<QAHistoryResponseDTO> history(Long userId, Long sessionId, Integer limit) {
+    public List<ChatHistoryResponseDTO> history(Long userId, Long sessionId, Integer limit) {
         return qaServiceClient.history(userId, sessionId, limit).getData();
     }
 }

@@ -35,11 +35,7 @@ export async function POST(request: Request) {
       session.user.accessToken
     );
 
-    return new Response(JSON.stringify(response), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return Response.json(response);
   } catch (error) {
     console.error(error);
 

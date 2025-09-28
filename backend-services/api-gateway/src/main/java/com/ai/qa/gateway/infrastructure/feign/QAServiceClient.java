@@ -1,7 +1,7 @@
 package com.ai.qa.gateway.infrastructure.feign;
 
 import com.ai.qa.gateway.interfaces.dto.ChatRequestDTO;
-import com.ai.qa.gateway.interfaces.dto.QAHistoryResponseDTO;
+import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.common.ApiResponseDTO;
 import org.springframework.http.MediaType;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -20,7 +20,7 @@ public interface QAServiceClient {
     Flux<String> chat(@RequestBody ChatRequestDTO request);
 
     @GetMapping("/api/qa/history")
-    ApiResponseDTO<List<QAHistoryResponseDTO>> history(@RequestParam("userId") Long userId,
+    ApiResponseDTO<List<ChatHistoryResponseDTO>> history(@RequestParam("userId") Long userId,
                                                        @RequestParam(value = "sessionId", required = false) Long sessionId,
                                                        @RequestParam(value = "limit", required = false) Integer limit);
 }
