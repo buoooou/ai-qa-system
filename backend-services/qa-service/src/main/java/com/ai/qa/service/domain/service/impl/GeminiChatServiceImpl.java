@@ -16,13 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,9 +29,6 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-/**
- * Gemini integration service responsible for calling Gemini API to generate chat responses.
- */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -51,12 +46,6 @@ public class GeminiChatServiceImpl implements GeminiChatService {
     @Value("${gemini.api.key}")
     private String apiKey;
 
-    /**
-     * Calls Gemini API with the provided chat command and returns the response summary.
-     *
-     * @param command chat completion command containing user prompt
-     * @return chat result with answer, token consumption, and latency
-     */
     @Override
     public GeminiChatService.ChatResult generateAnswer(ChatCompletionCommand command) {
         try {
@@ -188,8 +177,6 @@ public class GeminiChatServiceImpl implements GeminiChatService {
         }
     }
 
-    // --- Internal DTOs ---
-
     @Builder
     private record GeminiChatRequest(
             List<Content> contents,
@@ -260,55 +247,47 @@ public class GeminiChatServiceImpl implements GeminiChatService {
         }
     }
 
-    private static class GeminiStreamRawChunk {
-        public List<GeminiStreamChunk.CandidateChunk> candidates;
-        public GeminiStreamChunk.ErrorChunk error;
-        public GeminiStreamChunk.UsageChunk usageMetadata;
+    private record GeminiStreamChunk(List<Candidate> candidates, ErrorMessage error, Usage usageMetadata) {
 
-        GeminiStreamChunk toChunk(ObjectMapper mapper) {
-            if (candidates == null && error == null && usageMetadata == null) {
-                return GeminiStreamChunk.empty();
-            }
-            return new GeminiStreamChunk(candidates, error, usageMetadata);
-        }
-    }
-
-    private record GeminiStreamChunk(
-            List<CandidateChunk> candidates,
-            ErrorChunk error,
-            UsageChunk usageMetadata
-    ) {
         static GeminiStreamChunk empty() {
-            return new GeminiStreamChunk(null, null, null);
+            return new GeminiStreamChunk(Collections.emptyList(), null, null);
         }
 
-        record CandidateChunk(List<ChunkContent> content) {
+        record Candidate(List<Delta> delta) {
             List<String> textParts() {
-                if (content == null) {
-                    return List.of();
+                if (delta == null) {
+                    return Collections.emptyList();
                 }
-                return content.stream()
-                        .flatMap(c -> c.parts.stream())
-                        .map(part -> part.text)
+                return delta.stream()
+                        .map(Delta::parts)
+                        .filter(Objects::nonNull)
+                        .flatMap(List::stream)
+                        .map(Part::text)
                         .filter(StringUtils::hasText)
                         .collect(Collectors.toList());
             }
         }
 
-        record ChunkContent(List<ChunkPart> parts) {
+        record Delta(List<Part> parts) {
         }
 
-        record ChunkPart(String text) {
+        record Part(String text) {
         }
 
-        record ErrorChunk(String message) {
+        record ErrorMessage(String message) {
         }
 
-        record UsageChunk(@JsonProperty("inputTokenCount") int inputTokens,
-                          @JsonProperty("outputTokenCount") int outputTokens) {
+        record Usage(@JsonProperty("inputTokenCount") int inputTokens,
+                     @JsonProperty("outputTokenCount") int outputTokens) {
         }
     }
 
-    private record GeminiSsePayload(String type, String text) {
+    private record GeminiStreamRawChunk(List<GeminiStreamChunk.Candidate> candidates, GeminiStreamChunk.ErrorMessage error, GeminiStreamChunk.Usage usageMetadata) {
+        GeminiStreamChunk toChunk(ObjectMapper objectMapper) {
+            if (candidates == null && error == null && usageMetadata == null) {
+                return GeminiStreamChunk.empty();
+            }
+            return new GeminiStreamChunk(candidates, error, usageMetadata);
+        }
     }
 }

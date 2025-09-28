@@ -18,6 +18,7 @@ export type GatewayErrorResponse = {
 
 export type GatewayChatSession = {
   id: number;
+  userId: number;
   title: string;
   status: string;
   createdAt: string;
@@ -27,7 +28,6 @@ export type GatewayChatSession = {
 export type GatewayChatMessage = {
   id: number;
   sessionId: number;
-  userId: number;
   question: string;
   answer: string;
   createdAt: string;
@@ -43,3 +43,9 @@ export type GatewayUserProfile = {
 };
 
 export type GatewayChatHistoryEntry = GatewayChatMessage;
+
+export type GatewayStreamResponse = {
+  streamId: string;
+  sessionId: number;
+  streamUrl: string;
+};

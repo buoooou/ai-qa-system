@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { auth } from "@/app/(auth)/auth";
-import { getChatsByUserId } from "@/lib/db/queries";
+import { gatewayGet } from "@/lib/api/gateway";
+import type { GatewayChatSession } from "@/lib/api/types";
 import { ChatSDKError } from "@/lib/errors";
 
 export async function GET(request: NextRequest) {
@@ -23,12 +24,20 @@ export async function GET(request: NextRequest) {
     return new ChatSDKError("unauthorized:chat").toResponse();
   }
 
-  const chats = await getChatsByUserId({
-    id: session.user.id,
-    limit,
-    startingAfter,
-    endingBefore,
-  });
+  const chats = await gatewayGet<{
+    chats: GatewayChatSession[];
+    hasMore: boolean;
+  }>(
+    `/api/gateway/user/${session.user.id}/sessions`,
+    {
+      params: {
+        limit,
+        startingAfter: startingAfter ?? undefined,
+        endingBefore: endingBefore ?? undefined,
+      },
+    },
+    { accessToken: session.user.accessToken }
+  );
 
   return Response.json(chats);
 }

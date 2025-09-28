@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'http://localhost:8083';
 
 const mockProfile = {
   id: 1,

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ChatSessionResponseDTO {
     private Long id;
+    private Long userId;
     private String title;
     private String status;
     private LocalDateTime createdAt;

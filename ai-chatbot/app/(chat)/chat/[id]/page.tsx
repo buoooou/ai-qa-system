@@ -5,37 +5,41 @@ import { auth } from "@/app/(auth)/auth";
 import { Chat } from "@/components/chat";
 import { DataStreamHandler } from "@/components/data-stream-handler";
 import { DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
-import { getChatById, getMessagesByChatId } from "@/lib/db/queries";
+import { gatewayGet } from "@/lib/api/gateway";
+import type {
+  GatewayChatMessage,
+  GatewayChatSession,
+} from "@/lib/api/types";
 import { convertToUIMessages } from "@/lib/utils";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const { id } = params;
-  const chat = await getChatById({ id });
-
-  if (!chat) {
-    notFound();
-  }
-
   const session = await auth();
 
   if (!session) {
     redirect("/api/auth/guest");
   }
 
-  if (chat.visibility === "private") {
-    if (!session.user) {
-      return notFound();
-    }
+  const chat = await gatewayGet<GatewayChatSession>(
+    `/api/gateway/user/${session.user.id}/sessions/${id}`,
+    undefined,
+    { accessToken: session.user.accessToken }
+  ).catch(() => null);
 
-    if (session.user.id !== chat.userId) {
-      return notFound();
-    }
+  if (!chat) {
+    notFound();
   }
 
-  const messagesFromDb = await getMessagesByChatId({
-    id,
-  });
+  if (!session.user || session.user.id !== String(chat.id)) {
+    return notFound();
+  }
+
+  const messagesFromDb = await gatewayGet<GatewayChatMessage[]>(
+    `/api/gateway/user/${session.user.id}/sessions/${id}/history`,
+    undefined,
+    { accessToken: session.user.accessToken }
+  );
 
   const uiMessages = convertToUIMessages(messagesFromDb);
 
@@ -49,10 +53,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           autoResume={true}
           id={chat.id}
           initialChatModel={DEFAULT_CHAT_MODEL}
-          initialLastContext={chat.lastContext ?? undefined}
+          initialLastContext={undefined}
           initialMessages={uiMessages}
-          initialVisibilityType={chat.visibility}
-          isReadonly={session?.user?.id !== chat.userId}
+          initialVisibilityType={chat.status === "private" ? "private" : "public"}
+          isReadonly={session?.user?.id !== String(chat.id)}
         />
         <DataStreamHandler />
       </>
@@ -65,10 +69,12 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         autoResume={true}
         id={chat.id}
         initialChatModel={chatModelFromCookie.value}
-        initialLastContext={chat.lastContext ?? undefined}
+        initialLastContext={undefined}
         initialMessages={uiMessages}
-        initialVisibilityType={chat.visibility}
-        isReadonly={session?.user?.id !== chat.userId}
+        initialVisibilityType={chat.status === "private" ? "private" : "public"}
+        isReadonly={false}
+        initialVisibilityType={chat.status === "private" ? "private" : "public"}
+        isReadonly={false}
       />
       <DataStreamHandler />
     </>

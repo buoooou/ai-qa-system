@@ -96,6 +96,13 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     }
 
     @Override
+    public boolean isSessionOwnedBy(Long sessionId, Long userId) {
+        return sessionRepository.findById(sessionId)
+                .map(session -> session.getUserId().equals(userId))
+                .orElse(false);
+    }
+
+    @Override
     @Transactional
     public void deleteSession(Long userId, Long sessionId) {
         QaSession session = sessionRepository.findById(sessionId)

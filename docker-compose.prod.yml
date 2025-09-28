@@ -17,7 +17,7 @@ services:
       - "3306:3306"
 
   user-service:
-    image: ${DOCKERHUB_USERNAME:-youruser}/ai-qa-user-service:latest
+    image: ${DOCKERHUB_USERNAME}/ai-qa-user-service:latest
     container_name: ai-qa-user-service
     depends_on:
       - mysql
@@ -53,7 +53,7 @@ services:
       NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR}
       SECURITY_JWT_SECRET: ${JWT_SECRET}
     ports:
-      - "8080:8080"
+      - "8083:8083"
 
   # frontend:
   #   image: ${DOCKERHUB_USERNAME:-youruser}/ai-qa-frontend:latest
@@ -61,7 +61,7 @@ services:
   #   depends_on:
   #     - api-gateway
   #   environment:
-  #     NEXT_PUBLIC_API_BASE_URL: ${FRONTEND_API_BASE_URL:-http://api-gateway:8080}
+  #     NEXT_PUBLIC_API_BASE_URL: ${FRONTEND_API_BASE_URL:-http://api-gateway:8083}
   #     NODE_ENV: production
   #   ports:
   #     - "3000:3000"

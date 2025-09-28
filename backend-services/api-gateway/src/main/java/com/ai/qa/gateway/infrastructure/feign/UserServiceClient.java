@@ -53,4 +53,8 @@ public interface UserServiceClient {
     ApiResponseDTO<List<ChatHistoryResponseDTO>> history(@PathVariable("userId") Long userId,
                                                          @PathVariable("sessionId") Long sessionId,
                                                          @RequestParam(value = "limit", required = false) Integer limit);
+
+    @GetMapping("/api/user/sessions/{sessionId}/ownership")
+    ApiResponseDTO<Boolean> isSessionOwnedBy(@PathVariable("sessionId") Long sessionId,
+                                             @RequestParam("userId") Long userId);
 }

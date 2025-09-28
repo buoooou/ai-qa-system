@@ -5,6 +5,7 @@ import com.ai.qa.gateway.interfaces.dto.ChatSessionResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.CreateSessionGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.UpdateNicknameGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.UserProfileGatewayResponse;
+import com.ai.qa.gateway.interfaces.dto.common.ApiResponseDTO;
 import com.ai.qa.gateway.interfaces.facade.AuthFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,50 +34,50 @@ public class UserGatewayController {
 
     @Operation(summary = "Gateway user profile", description = "Delegates profile retrieval to user-service-fyb.")
     @GetMapping("/{userId}/profile")
-    public ResponseEntity<UserProfileGatewayResponse> profile(@PathVariable Long userId) {
-        return ResponseEntity.ok(authFacade.profile(userId));
+    public ResponseEntity<ApiResponseDTO<UserProfileGatewayResponse>> profile(@PathVariable Long userId) {
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.profile(userId)));
     }
 
     @Operation(summary = "Gateway update nickname", description = "Delegates nickname update to user-service-fyb.")
     @PostMapping("/{userId}/nickname")
-    public ResponseEntity<UserProfileGatewayResponse> updateNickname(@PathVariable Long userId,
-                                                                     @RequestBody @Validated UpdateNicknameGatewayRequest request) {
-        return ResponseEntity.ok(authFacade.updateNickname(userId, request));
+    public ResponseEntity<ApiResponseDTO<UserProfileGatewayResponse>> updateNickname(@PathVariable Long userId,
+                                                                                    @RequestBody @Validated UpdateNicknameGatewayRequest request) {
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.updateNickname(userId, request)));
     }
 
     @Operation(summary = "Gateway chat sessions", description = "Delegates chat session listing to user-service-fyb.")
     @GetMapping("/{userId}/sessions")
-    public ResponseEntity<List<ChatSessionResponseDTO>> sessions(@PathVariable Long userId) {
-        return ResponseEntity.ok(authFacade.sessions(userId));
+    public ResponseEntity<ApiResponseDTO<List<ChatSessionResponseDTO>>> sessions(@PathVariable Long userId) {
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.sessions(userId)));
     }
 
     @Operation(summary = "Gateway create session", description = "Delegates session creation to user-service-fyb.")
     @PostMapping("/{userId}/sessions")
-    public ResponseEntity<ChatSessionResponseDTO> createSession(@PathVariable Long userId,
-                                                                @RequestBody @Validated CreateSessionGatewayRequest request) {
-        return ResponseEntity.ok(authFacade.createSession(userId, request));
+    public ResponseEntity<ApiResponseDTO<ChatSessionResponseDTO>> createSession(@PathVariable Long userId,
+                                                                                @RequestBody @Validated CreateSessionGatewayRequest request) {
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.createSession(userId, request)));
     }
 
     @Operation(summary = "Gateway get session", description = "Retrieves a specific chat session from user-service-fyb.")
     @GetMapping("/{userId}/sessions/{sessionId}")
-    public ResponseEntity<ChatSessionResponseDTO> getSession(@PathVariable Long userId,
-                                                             @PathVariable Long sessionId) {
-        return ResponseEntity.ok(authFacade.getSession(userId, sessionId));
+    public ResponseEntity<ApiResponseDTO<ChatSessionResponseDTO>> getSession(@PathVariable Long userId,
+                                                                             @PathVariable Long sessionId) {
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.getSession(userId, sessionId)));
     }
 
     @Operation(summary = "Gateway delete session", description = "Deletes a chat session using user-service-fyb.")
     @DeleteMapping("/{userId}/sessions/{sessionId}")
-    public ResponseEntity<Void> deleteSession(@PathVariable Long userId,
-                                              @PathVariable Long sessionId) {
+    public ResponseEntity<ApiResponseDTO<Void>> deleteSession(@PathVariable Long userId,
+                                                              @PathVariable Long sessionId) {
         authFacade.deleteSession(userId, sessionId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(ApiResponseDTO.success(null));
     }
 
     @Operation(summary = "Gateway chat history", description = "Delegates chat history retrieval to user-service-fyb.")
     @GetMapping("/{userId}/sessions/{sessionId}/history")
-    public ResponseEntity<List<ChatHistoryResponseDTO>> history(@PathVariable Long userId,
-                                                                @PathVariable Long sessionId,
-                                                                @RequestParam(required = false) Integer limit) {
-        return ResponseEntity.ok(authFacade.history(userId, sessionId, limit));
+    public ResponseEntity<ApiResponseDTO<List<ChatHistoryResponseDTO>>> history(@PathVariable Long userId,
+                                                                                @PathVariable Long sessionId,
+                                                                                @RequestParam(required = false) Integer limit) {
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.history(userId, sessionId, limit)));
     }
 }

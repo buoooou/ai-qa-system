@@ -1,13 +1,9 @@
 import { createUIMessageStream, JsonToSseTransformStream } from "ai";
-import { differenceInSeconds } from "date-fns";
+import { differenceInSeconds, parseISO } from "date-fns";
 import { auth } from "@/app/(auth)/auth";
-import {
-  getChatById,
-  getMessagesByChatId,
-  getStreamIdsByChatId,
-} from "@/lib/db/queries";
-import type { Chat } from "@/lib/db/schema";
+import { gatewayGet } from "@/lib/api/gateway";
 import { ChatSDKError } from "@/lib/errors";
+import type { GatewayChatMessage, GatewayChatSession } from "@/lib/api/types";
 import type { ChatMessage } from "@/lib/types";
 import { getStreamContext } from "../../route";
 
@@ -34,31 +30,23 @@ export async function GET(
     return new ChatSDKError("unauthorized:chat").toResponse();
   }
 
-  let chat: Chat | null;
-
-  try {
-    chat = await getChatById({ id: chatId });
-  } catch {
-    return new ChatSDKError("not_found:chat").toResponse();
-  }
+  const chat = await gatewayGet<GatewayChatSession>(
+    `/api/gateway/user/${session.user.id}/sessions/${chatId}`,
+    undefined,
+    { accessToken: session.user.accessToken }
+  ).catch(() => null);
 
   if (!chat) {
     return new ChatSDKError("not_found:chat").toResponse();
   }
 
-  if (chat.visibility === "private" && chat.userId !== session.user.id) {
+  if (chat.status === "private" && session.user.id !== String(chat.userId ?? "")) {
     return new ChatSDKError("forbidden:chat").toResponse();
   }
 
-  const streamIds = await getStreamIdsByChatId({ chatId });
+  const streamId = getStreamContext()?.latestStreamId ?? null;
 
-  if (!streamIds.length) {
-    return new ChatSDKError("not_found:stream").toResponse();
-  }
-
-  const recentStreamId = streamIds.at(-1);
-
-  if (!recentStreamId) {
+  if (!streamId) {
     return new ChatSDKError("not_found:stream").toResponse();
   }
 
@@ -67,7 +55,7 @@ export async function GET(
     execute: () => {},
   });
 
-  const stream = await streamContext.resumableStream(recentStreamId, () =>
+  const stream = await streamContext.resumableStream(streamId, () =>
     emptyDataStream.pipeThrough(new JsonToSseTransformStream())
   );
 
@@ -76,7 +64,11 @@ export async function GET(
    * but the resumable stream has concluded at this point.
    */
   if (!stream) {
-    const messages = await getMessagesByChatId({ id: chatId });
+    const messages = await gatewayGet<GatewayChatMessage[]>(
+      `/api/gateway/user/${session.user.id}/sessions/${chatId}/history`,
+      { params: { limit: 1 } },
+      { accessToken: session.user.accessToken }
+    ).catch(() => []);
     const mostRecentMessage = messages.at(-1);
 
     if (!mostRecentMessage) {
@@ -87,7 +79,7 @@ export async function GET(
       return new Response(emptyDataStream, { status: 200 });
     }
 
-    const messageCreatedAt = new Date(mostRecentMessage.createdAt);
+    const messageCreatedAt = parseISO(mostRecentMessage.updatedAt ?? mostRecentMessage.createdAt);
 
     if (differenceInSeconds(resumeRequestedAt, messageCreatedAt) > 15) {
       return new Response(emptyDataStream, { status: 200 });

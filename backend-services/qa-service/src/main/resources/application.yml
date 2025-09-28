@@ -5,7 +5,7 @@ spring:
     name: qa-service-fyb
   cloud:
     nacos:
-      server-addr: ${NACOS_SERVER_ADDR:3.101.113.38:8848}
+      server-addr: ${NACOS_SERVER_ADDR:3.113.113.164:8848}
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: ${MYSQL_USER:ai_user}

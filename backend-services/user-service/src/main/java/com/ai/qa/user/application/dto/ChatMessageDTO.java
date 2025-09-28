@@ -16,4 +16,5 @@ public class ChatMessageDTO {
     private final Integer completionTokens;
     private final Integer latencyMs;
     private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
 }

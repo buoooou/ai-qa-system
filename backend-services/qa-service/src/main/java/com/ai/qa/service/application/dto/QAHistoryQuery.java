@@ -9,4 +9,8 @@ public class QAHistoryQuery {
     Long userId;
     Long sessionId;
     Integer limit;
+
+    public boolean requiresOwnershipCheck() {
+        return userId != null && sessionId != null;
+    }
 }

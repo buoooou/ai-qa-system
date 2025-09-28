@@ -1,5 +1,7 @@
+import { headers } from "next/headers";
+
 import { auth } from "@/app/(auth)/auth";
-import { gatewayPost } from "@/lib/api/gateway";
+import { streamGatewayChat } from "@/lib/api/gateway";
 import { ChatSDKError } from "@/lib/errors";
 import { type PostRequestBody, postRequestBodySchema } from "./schema";
 
@@ -22,20 +24,20 @@ export async function POST(request: Request) {
       return new ChatSDKError("unauthorized:chat").toResponse();
     }
 
-    const stream = await gatewayPost<ReadableStream>(
-      "/api/gateway/qa/chat",
-      { ...requestBody, userId: Number.parseInt(session.user.id, 10) },
+    const forwardedFor = headers().get("x-forwarded-for") ?? undefined;
+
+    const response = await streamGatewayChat(
       {
-        responseType: "stream",
+        ...requestBody,
+        userId: Number.parseInt(session.user.id, 10),
+        clientIp: forwardedFor,
       },
-      {
-        accessToken: session.user.accessToken,
-      }
+      session.user.accessToken
     );
 
-    return new Response(stream, {
+    return new Response(JSON.stringify(response), {
       headers: {
-        "Content-Type": "text/event-stream",
+        "Content-Type": "application/json",
       },
     });
   } catch (error) {

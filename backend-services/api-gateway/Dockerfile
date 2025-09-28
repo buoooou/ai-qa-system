@@ -22,7 +22,7 @@ ENV JAVA_OPTS=""
 
 COPY --from=build /workspace/api-gateway/target/*.jar app.jar
 
-EXPOSE 8080
+EXPOSE 8083
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
 

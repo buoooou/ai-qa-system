@@ -7,6 +7,8 @@ USE `ai_qa_system`;
 -- ----------------------------
 -- 用户相关表
 -- ----------------------------
+DROP TABLE IF EXISTS `suggestion`;
+DROP TABLE IF EXISTS `document`;
 DROP TABLE IF EXISTS `qa_history`;
 DROP TABLE IF EXISTS `qa_session`;
 DROP TABLE IF EXISTS `users`;
@@ -59,6 +61,34 @@ CREATE TABLE `qa_history` (
   CONSTRAINT `fk_history_session` FOREIGN KEY (`session_id`) REFERENCES `qa_session` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_history_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='问答历史表';
+
+CREATE TABLE `document` (
+  `document_id` CHAR(36) NOT NULL COMMENT '文档ID',
+  `created_at` DATETIME NOT NULL COMMENT '版本创建时间',
+  `title` VARCHAR(255) NOT NULL COMMENT '标题',
+  `content` LONGTEXT COMMENT '内容',
+  `kind` ENUM('TEXT','CODE','IMAGE','SHEET') NOT NULL DEFAULT 'TEXT' COMMENT '类型',
+  `user_id` BIGINT NOT NULL COMMENT '所属用户ID',
+  PRIMARY KEY (`document_id`, `created_at`),
+  KEY `idx_document_user` (`user_id`),
+  CONSTRAINT `fk_document_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='版本化文档表';
+
+CREATE TABLE `suggestion` (
+  `id` CHAR(36) NOT NULL COMMENT '建议ID',
+  `document_id` CHAR(36) NOT NULL COMMENT '文档ID',
+  `document_created_at` DATETIME NOT NULL COMMENT '文档版本创建时间',
+  `original_text` TEXT NOT NULL COMMENT '原始文本',
+  `suggested_text` TEXT NOT NULL COMMENT '建议文本',
+  `description` TEXT COMMENT '建议说明',
+  `is_resolved` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否已处理',
+  `user_id` BIGINT NOT NULL COMMENT '所属用户ID',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_suggestion_doc` (`document_id`, `document_created_at`),
+  CONSTRAINT `fk_suggestion_document` FOREIGN KEY (`document_id`, `document_created_at`) REFERENCES `document` (`document_id`, `created_at`) ON DELETE CASCADE,
+  CONSTRAINT `fk_suggestion_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文档建议表';
 
 -- 插入一些测试数据 (可选)
 INSERT INTO `users` (`username`, `email`, `password_hash`, `nickname`, `role`)

@@ -32,6 +32,7 @@ public interface UserMapper {
     default ChatSessionDTO toSessionDto(QaSession session) {
         return new ChatSessionDTO(
                 session.getId(),
+                session.getUserId(),
                 session.getTitle(),
                 session.getStatus().name(),
                 session.getCreatedAt(),
@@ -48,7 +49,8 @@ public interface UserMapper {
                 history.getPromptTokens(),
                 history.getCompletionTokens(),
                 history.getLatencyMs(),
-                history.getCreatedAt()
+                history.getCreatedAt(),
+                history.getUpdatedAt()
         );
     }
 }

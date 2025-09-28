@@ -54,4 +54,8 @@ public class AuthFacade {
     public List<ChatHistoryResponseDTO> history(Long userId, Long sessionId, Integer limit) {
         return userServiceClient.history(userId, sessionId, limit).getData();
     }
+
+    public boolean isSessionOwnedBy(Long sessionId, Long userId) {
+        return Boolean.TRUE.equals(userServiceClient.isSessionOwnedBy(sessionId, userId).getData());
+    }
 }

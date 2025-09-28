@@ -34,10 +34,10 @@ Services rely on environment variables for database connections, Nacos, JWT secr
 | `MYSQL_ROOT_PASSWORD` | Root password for MySQL |
 | `MYSQL_DATABASE` | Schema name (default `ai_qa_system`) |
 | `MYSQL_USER`, `MYSQL_PASSWORD` | Application DB user credentials |
-| `NACOS_SERVER_ADDR` | Nacos server address (e.g., `3.101.113.38:8848`) |
+| `NACOS_SERVER_ADDR` | Nacos server address (e.g., `3.113.113.164:8848`) |
 | `JWT_SECRET` | Shared JWT signing secret |
 | `GEMINI_API_KEY` | Google Gemini API key |
-| `FRONTEND_API_BASE_URL` | Used by frontend (default `http://api-gateway:8080`) |
+| `FRONTEND_API_BASE_URL` | Used by frontend (default `http://api-gateway:8083`) |
 | `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN` | Docker Hub credentials |
 | `EC2_HOST`, `EC2_USERNAME`, `SSH_PRIVATE_KEY` | Needed for SSH deploy step |
 
@@ -75,7 +75,7 @@ Ensure all required secrets are set in GitHub before running the workflow.
   ```
 - Accessible URLs:
   - Frontend: http://localhost:3000
-  - Gateway: http://localhost:8080
+  - Gateway: http://localhost:8083
   - User Service: http://localhost:8081
   - QA Service: http://localhost:8082
 

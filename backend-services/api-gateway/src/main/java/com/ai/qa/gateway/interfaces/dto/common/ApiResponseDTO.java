@@ -10,4 +10,13 @@ public class ApiResponseDTO<T> {
     private String message;
     private boolean success;
     private T data;
+
+    public static <T> ApiResponseDTO<T> success(T data) {
+        ApiResponseDTO<T> response = new ApiResponseDTO<>();
+        response.setCode(0);
+        response.setMessage("success");
+        response.setSuccess(true);
+        response.setData(data);
+        return response;
+    }
 }

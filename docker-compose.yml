@@ -29,8 +29,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ai_qa_system}
       MYSQL_USER: ${MYSQL_USER:-ai_user}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ai_user_pass}
-      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR:-3.101.113.38:8848}
-      JWT_SECRET: ${JWT_SECRET:-changeme}
+      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR:-3.113.113.164:8848}
+      JWT_SECRET: ${JWT_SECRET:-7zmKiI4PToMYMC9G5nuAcL5JBRBYFZCzrn7PIM4zPZY=}
     ports:
       - "8081:8081"
 
@@ -42,8 +42,8 @@ services:
     depends_on:
       - mysql
     environment:
-      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR:-3.101.113.38:8848}
-      GEMINI_API_KEY: ${GEMINI_API_KEY:-your-gemini-key}
+      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR:-3.113.113.164:8848}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-AIzaSyD246BGbklt-FtwygwPYKam_b6N6Sjxdtc}
     ports:
       - "8082:8082"
 
@@ -56,10 +56,10 @@ services:
       - user-service
       - qa-service
     environment:
-      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR:-3.101.113.38:8848}
-      SECURITY_JWT_SECRET: ${JWT_SECRET:-changeme}
+      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR:-3.113.113.164:8848}
+      SECURITY_JWT_SECRET: ${JWT_SECRET:-7zmKiI4PToMYMC9G5nuAcL5JBRBYFZCzrn7PIM4zPZY=}
     ports:
-      - "8080:8080"
+      - "8083:8083"
 
   frontend:
     build:
@@ -69,7 +69,7 @@ services:
     depends_on:
       - api-gateway
     environment:
-      NEXT_PUBLIC_API_BASE_URL: ${FRONTEND_API_BASE_URL:-http://localhost:8080}
+      NEXT_PUBLIC_API_BASE_URL: ${FRONTEND_API_BASE_URL:-http://localhost:8083}
       NODE_ENV: production
     ports:
       - "3000:3000"

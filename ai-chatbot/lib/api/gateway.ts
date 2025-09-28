@@ -4,6 +4,7 @@ import type {
   GatewayChatHistoryEntry,
   GatewayChatSession,
   GatewayErrorResponse,
+  GatewayStreamResponse,
   GatewayUserProfile,
 } from "@/lib/api/types";
 
@@ -188,15 +189,19 @@ export const updateNicknameViaGateway = async (
     session
   );
 
-export const streamChatCompletion = (
+export const streamGatewayChat = async (
   payload: Record<string, unknown>,
   accessToken?: string
 ) =>
-  gatewayClient.post<ReadableStream>(
+  gatewayClient.post<GatewayStreamResponse>(
     "/api/gateway/qa/chat",
     payload,
     withAuth(
-      { responseType: "stream" },
+      {
+        headers: {
+          Accept: "text/event-stream",
+        },
+      },
       accessToken ? { accessToken } : undefined
     )
   );

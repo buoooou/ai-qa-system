@@ -22,4 +22,6 @@ public interface UserApplicationService {
     ChatSessionDTO getSession(Long userId, Long sessionId);
 
     void deleteSession(Long userId, Long sessionId);
+
+    boolean isSessionOwnedBy(Long sessionId, Long userId);
 }

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ChatSessionDTO {
     private final Long id;
+    private final Long userId;
     private final String title;
     private final String status;
     private final LocalDateTime createdAt;

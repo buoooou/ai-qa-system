@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 public class ChatHistoryResponseDTO {
     private Long id;
     private Long sessionId;
-    private Long userId;
     private String question;
     private String answer;
     private LocalDateTime createdAt;

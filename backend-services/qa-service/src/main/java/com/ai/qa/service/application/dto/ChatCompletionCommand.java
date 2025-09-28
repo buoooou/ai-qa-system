@@ -15,6 +15,16 @@ public class ChatCompletionCommand {
     @Builder.Default
     List<HistoryMessage> history = List.of();
 
+    public ChatCompletionCommand withSessionId(Long resolvedSessionId) {
+        return ChatCompletionCommand.builder()
+                .userId(userId)
+                .sessionId(resolvedSessionId)
+                .sessionTitle(sessionTitle)
+                .question(question)
+                .history(history)
+                .build();
+    }
+
     @Value
     @Builder
     public static class HistoryMessage {
