@@ -116,13 +116,13 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-qa-service:latest
 
       # 步骤 7: 构建并推送 Frontend 镜像
-      - name: Build and push Frontend image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./ai-chatbot
-          file: ./ai-chatbot/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-frontend:latest
+      # - name: Build and push Frontend image
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: ./ai-chatbot
+      #     file: ./ai-chatbot/Dockerfile
+      #     push: true
+      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-frontend:latest
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
