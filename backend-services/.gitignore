@@ -1,0 +1,29 @@
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Build
+**/target/
+**/build/
+**/bin/
+**/out/
+
+# Dependencies
+**/node_modules/
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Others
+*.swp
+*.swo

@@ -17,25 +17,22 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InMemoryRateLimiterConfig {
 
     private static final Logger log = LoggerFactory.getLogger(InMemoryRateLimiterConfig.class);
-    // ipKeyResolver Bean 保持不变
+
     @Bean
-    public KeyResolver ipKeyResolver() {
+    KeyResolver ipKeyResolver() {
         return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
     }
 
-    /**
-     * 自定义的内存限流器 Bean (完整版)
-     */
+    
     @Bean
     @Primary
-    public org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<InMemoryRateLimiterConfig.RateLimiterConfig> inMemoryRateLimiter() {
+    org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<InMemoryRateLimiterConfig.RateLimiterConfig> inMemoryRateLimiter() {
 
         // 定义默认的限流速率
         final double defaultReplenishRate = 5.0; // 每秒生成的令牌数
         final int defaultBurstCapacity = 100;     // 令牌桶总容量
 
         return new org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<RateLimiterConfig>() {
-
             private final ConcurrentHashMap<String, RateLimiter> limiters = new ConcurrentHashMap<>();
             private final ConcurrentHashMap<String, RateLimiterConfig> configs = new ConcurrentHashMap<>();
 
