@@ -9,7 +9,7 @@ spring:
         server-addr: 3.84.225.222:8848
         ip: 3.84.225.222
   datasource:
-    url: jdbc:postgresql://18.234.219.18:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
+    url: jdbc:postgresql://postgres:5432/ai_qa_system?useUnicode=true&characterEncoding=utf8
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
