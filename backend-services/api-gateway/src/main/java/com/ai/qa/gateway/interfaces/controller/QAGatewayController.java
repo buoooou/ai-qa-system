@@ -1,7 +1,7 @@
 package com.ai.qa.gateway.interfaces.controller;
 
+import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatRequestDTO;
-import com.ai.qa.gateway.interfaces.dto.QAHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.common.ApiResponseDTO;
 import com.ai.qa.gateway.interfaces.facade.QAFacade;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,9 +39,9 @@ public class QAGatewayController {
 
     @Operation(summary = "Proxy history", description = "Retrieves chat history from qa-service-fyb.")
     @GetMapping("/history")
-    public ResponseEntity<ApiResponseDTO<List<QAHistoryResponseDTO>>> history(@Parameter(description = "User ID") @RequestParam Long userId,
-                                                                              @Parameter(description = "Session ID") @RequestParam(required = false) Long sessionId,
-                                                                              @Parameter(description = "Maximum items") @RequestParam(required = false) Integer limit) {
+    public ResponseEntity<ApiResponseDTO<List<ChatHistoryResponseDTO>>> history(@Parameter(description = "User ID") @RequestParam Long userId,
+                                                                                @Parameter(description = "Session ID") @RequestParam(required = false) Long sessionId,
+                                                                                @Parameter(description = "Maximum items") @RequestParam(required = false) Integer limit) {
         return ResponseEntity.ok(ApiResponseDTO.success(qaFacade.history(userId, sessionId, limit)));
     }
 }
