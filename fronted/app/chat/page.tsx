@@ -123,7 +123,7 @@ export default function ChatPage() {
         body: JSON.stringify({
           sessionId: localStorage.getItem('sessionId'),
           userId: localStorage.getItem('userid'),
-          question: input,
+          message: input,
         }),
       });
 
