@@ -3,8 +3,8 @@ package com.ai.qa.user.api.dto.request;
 import lombok.Data;
 
 /**
- * 用户登录请求 DTO
- * 接收前端传来的账号、密码信息
+ * 用户登录请求数据传输对象
+ * 用于接收前端传递的用户登录信息
  *
  * @author Chen Guoping
  * @version 1.0
@@ -13,19 +13,21 @@ import lombok.Data;
 public class LoginRequest {
 
     /**
-     * 用户名（唯一标识）
-     * 必填，不可为空
+     * 用户名
+     * 用户的唯一标识，用于登录认证
+     * 必填字段，不能为空
      *
-     * @apiNote 示例：admin
+     * @apiNote 示例值: "admin" 或 "testuser"
      */
     private String username;
 
     /**
-     * 登录密码
-     * 必填，建议前端先进行强度校验
+     * 密码
+     * 用户的登录密码，需要进行加密传输
+     * 必填字段，不能为空
      *
-     * @apiNote 示例：password123
-     * @security 需加密传输
+     * @apiNote 示例值: "password123"
+     * @security 建议在前端进行初步的密码强度验证
      */
     private String password;
 }
