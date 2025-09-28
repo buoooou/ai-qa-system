@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -37,22 +37,8 @@ public class QAController {
 
     @Operation(summary = "Gemini chat", description = "Handles a chat request by proxying to Gemini and persisting history.")
     @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<StreamingResponseBody> chat(@RequestBody @Validated ChatCompletionRequest request) {
-        var stream = chatApplicationService.chatStream(request.toCommand());
-        StreamingResponseBody body = outputStream -> stream.subscribe(
-                chunk -> {
-                    try {
-                        outputStream.write(chunk.getBytes());
-                        outputStream.flush();
-                    } catch (Exception e) {
-                        throw new IllegalStateException("Failed to stream QA response", e);
-                    }
-                },
-                ex -> {
-                    throw new IllegalStateException("Streaming error from QA service", ex);
-                }
-        );
-        return ResponseEntity.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(body);
+    public Flux<String> chat(@RequestBody @Validated ChatCompletionRequest request) {
+        return chatApplicationService.chatStream(request.toCommand());
     }
 
     @Operation(summary = "Save history", description = "Persists a chat message and returns the saved entity.")

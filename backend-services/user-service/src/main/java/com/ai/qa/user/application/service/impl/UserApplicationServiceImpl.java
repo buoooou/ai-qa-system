@@ -81,6 +81,11 @@ public class UserApplicationServiceImpl implements UserApplicationService {
                 .filter(current -> !current.isBlank())
                 .orElse("New Conversation");
 
+        Optional<QaSession> existing = sessionRepository.findByUserIdAndTitle(userId, resolvedTitle);
+        if (existing.isPresent()) {
+            return userMapper.toSessionDto(existing.get());
+        }
+
         QaSession session = sessionRepository.save(QaSession.create(user.getId(), resolvedTitle));
         return userMapper.toSessionDto(session);
     }
