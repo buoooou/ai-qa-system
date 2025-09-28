@@ -9,9 +9,11 @@ spring:
       - "nacos:shared-config-xuwei.yml"
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      server-addr: 3.113.113.164:8848
+      username: nacos  # Nacos控制台登录用户名
+      password: nacos  # Nacos控制台登录密码
       discovery:
-        server-addr: 54.219.180.170:8848
+        server-addr: 3.113.113.164:8848
       config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
@@ -30,3 +32,11 @@ spring:
   springdoc:
     swagger-ui:
       path: /swagger-ui.html
+  datasource:
+    url: jdbc:mysql://${DB_HOST:3.113.113.164}:${DB_PORT:3306}/${DB_NAME:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ${DB_USER:root}
+    password: ${DB_PASS:ai_qa_system}
+jwt:
+  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  expiration:
+    ms: 86400000

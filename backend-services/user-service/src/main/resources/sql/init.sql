@@ -4,6 +4,7 @@ CREATE DATABASE IF NOT EXISTS `ai_qa_system` DEFAULT CHARACTER SET utf8mb4 COLLA
 -- 切换到该数据库
 USE `ai_qa_system`;
 
+drop table if exists `user`;
 -- ----------------------------
 -- 用户表 (user)
 -- ----------------------------
@@ -11,6 +12,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `username` VARCHAR(255) NOT NULL COMMENT '用户名',
   `password` VARCHAR(255) NOT NULL COMMENT '加密后的密码',
+  `email` VARCHAR(255) DEFAULT NULL COMMENT '用户邮箱',
+  `avatar` VARCHAR(255) DEFAULT NULL COMMENT '用户头像',
   `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -32,4 +35,4 @@ CREATE TABLE IF NOT EXISTS `qa_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='问答历史表';
 
 -- 插入一些测试数据 (可选)
--- INSERT INTO `user` (`username`, `password`) VALUES ('testuser', '$2a$10$abcdefghijklmnopqrstuv'); -- 密码是加密的，请通过注册接口创建用户
+INSERT INTO `user` (`username`, `password`,`email`) VALUES ('xuwei', '$2a$10$YtoTkTTZCQ6V7Pgk2N4N8uR4Z6IWPBahEUmhq8svQTHK.8CTSYvRC','maxvsmax@126.com'); -- 密码是加密的，请通过注册接口创建用户

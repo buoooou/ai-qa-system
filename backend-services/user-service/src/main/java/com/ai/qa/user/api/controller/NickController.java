@@ -46,7 +46,7 @@ public class NickController {
             @ApiResponse(responseCode = "200", description = "成功获得昵称")
     })
     public ResponseEntity<Response<String>> getUserName(@PathVariable("userid") Long userId) {
-        String result = userService.getUserName(userId);
+        String result = userService.getUserNamebyId(userId);
         return ResponseEntity.ok(Response.success(result));
     }
 }

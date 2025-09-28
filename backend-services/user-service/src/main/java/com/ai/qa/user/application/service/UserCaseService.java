@@ -1,5 +1,8 @@
 package com.ai.qa.user.application.service;
 
+import com.ai.qa.user.api.dto.response.LoginRsponse;
+import com.ai.qa.user.api.dto.response.RegisterResponse;
+import com.ai.qa.user.api.dto.response.UserInfo;
 import com.ai.qa.user.application.dto.SaveRegisterCommand;
 
 public interface UserCaseService {
@@ -7,17 +10,17 @@ public interface UserCaseService {
      * 登录
      * 
      * @param username 登录用户名
-     * @return String token
+     * @return LoginRsponse
      */
-    String login(String username);
+    LoginRsponse login(String username);
 
     /**
      * 注册
      * 
      * @param SaveRegisterCommand 注册DTO
-     * @return boolean
+     * @return RegisterResponse
      */
-    boolean register(SaveRegisterCommand command);
+    RegisterResponse register(SaveRegisterCommand command);
 
     /**
      * 更新用户名
@@ -29,10 +32,18 @@ public interface UserCaseService {
     boolean updateNick(String username, String updatename);
 
     /**
+     * 取得用户信息
+     * 
+     * @param token
+     * @return UserInfo
+     */
+    UserInfo getUserName(String token);
+    
+    /**
      * 取得用户名
      * 
-     * @param userId  用户名ID
-     * @return String
+     * @param userId
+     * @return UserInfo
      */
-    String getUserName(Long userId);
+    String getUserNamebyId(Long userId);
 }

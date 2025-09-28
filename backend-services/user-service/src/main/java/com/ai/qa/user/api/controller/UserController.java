@@ -1,7 +1,9 @@
 package com.ai.qa.user.api.controller;
 
-import org.springframework.http.HttpStatus;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ai.qa.user.api.dto.request.LoginRequest;
 import com.ai.qa.user.api.dto.request.RegisterRequest;
+import com.ai.qa.user.api.dto.response.LoginRsponse;
+import com.ai.qa.user.api.dto.response.RegisterResponse;
 import com.ai.qa.user.api.dto.response.Response;
-import com.ai.qa.user.api.exception.ErrCode;
+import com.ai.qa.user.api.dto.response.UserInfo;
 import com.ai.qa.user.application.service.UserCaseService;
 import com.ai.qa.user.infrastructure.mapper.UserMapper;
 
@@ -19,6 +23,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
     private final UserCaseService userService;
-    private UserMapper mapper;
+    private final UserMapper mapper;
 
 	@PostMapping("/login")
 	@Operation(summary = "登录请求", description = "根据用户名密码验证登录")
@@ -38,10 +43,9 @@ public class UserController {
 	        @ApiResponse(responseCode = "403", description = "密码错误"),
 	        @ApiResponse(responseCode = "404", description = "用户不存在")
 	})
-	public ResponseEntity<Response<String>> login(@RequestBody LoginRequest loginRequest) {
-		String token = userService.login(loginRequest.getUsername());
-		return ResponseEntity.ok(Response.success(token));
-	}
+    public ResponseEntity<Response<LoginRsponse>> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(Response.success(userService.login(loginRequest.getUsername())));
+    }
 
     @PostMapping("/register")
     @Operation(summary = "注册请求", description = "根据输入内容进行注册")
@@ -50,12 +54,19 @@ public class UserController {
                     content = @Content(mediaType = "application/json", 
                             schema = @Schema(implementation = RegisterRequest.class)))
     })
-    public ResponseEntity<Response<String>> register(@RequestBody RegisterRequest registerRequest) {
-        boolean result = userService.register(mapper.toCommand(registerRequest));
-        if (result) {
-            Response<String> message = Response.success(ErrCode.REGISTER_SUCCESS);
-            return ResponseEntity.status(HttpStatus.OK).body(message);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Response.error(400, ErrCode.REGISTER_FAILED));
+    public ResponseEntity<Response<RegisterResponse>> register(@RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.ok(Response.success(userService.register(mapper.toCommand(registerRequest))));
+    }
+    
+    @GetMapping("/me")
+    @Operation(summary = "用户查询请求", description = "根据token查询用户信息")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "用户查询",
+                    content = @Content(mediaType = "application/json"))
+    })
+    public ResponseEntity<Response<UserInfo>> getUser(HttpServletRequest request) {
+    	String authorizationHeader = request.getHeader("Authorization");
+		String token = authorizationHeader.substring(7);
+        return ResponseEntity.ok(Response.success(userService.getUserName(token)));
     }
 }

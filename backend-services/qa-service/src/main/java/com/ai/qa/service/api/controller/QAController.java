@@ -63,7 +63,7 @@ public class QAController {
         return ResponseEntity.ok(dtoList);
     }
 
-    @GetMapping("/session/{sessionid}")
+    @GetMapping("/gethistory/{sessionid}")
     @Operation(summary = "获取历史列表请求", description = "根据会话ID获取历史列表")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "注册登录")

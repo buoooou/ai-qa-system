@@ -1,9 +1,9 @@
+
 package com.ai.qa.gateway.infrastructure.config;
 
 import com.google.common.util.concurrent.RateLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +16,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Configuration
 public class InMemoryRateLimiterConfig {
-    // 定义默认的限流速率
-    @Value("${default-limiter.defaultReplenishRate}")
-    private double defaultReplenishRate; // 每秒生成的令牌数
-    @Value("${default-limiter.defaultBurstCapacity}")
-    private int defaultBurstCapacity; // 令牌桶总容量
 
     private static final Logger log = LoggerFactory.getLogger(InMemoryRateLimiterConfig.class);
     // ipKeyResolver Bean 保持不变
@@ -35,6 +30,10 @@ public class InMemoryRateLimiterConfig {
     @Bean
     @Primary
     public org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<InMemoryRateLimiterConfig.RateLimiterConfig> inMemoryRateLimiter() {
+
+        // 定义默认的限流速率
+        final double defaultReplenishRate = 5.0; // 每秒生成的令牌数
+        final int defaultBurstCapacity = 100;     // 令牌桶总容量
 
         return new org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<RateLimiterConfig>() {
 

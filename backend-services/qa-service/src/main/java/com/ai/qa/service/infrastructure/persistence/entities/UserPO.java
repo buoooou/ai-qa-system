@@ -19,6 +19,8 @@ public class UserPO {
     private Long id;
     private String username;
     private String password;
+    private String email;
+    private String avatar;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 }
