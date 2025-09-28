@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server';
 
 // 发送消息并获取 AI 回复
 export async function POST(req: Request) {
-  const { sessionId, userId, question } = await req.json();
+  const { sessionId, userId, message } = await req.json();
   try {
-    console.log('Sending request to QA service:', { sessionId, userId, question });
+    console.log('Sending request to QA service:', { sessionId, userId, message });
     const response = await fetch('http://qa-service:8082/api/qa/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId, userId, question }),
+      body: JSON.stringify({ sessionId, userId, question: message }),
     });
 
     console.log('QA service response status:', response.status);
