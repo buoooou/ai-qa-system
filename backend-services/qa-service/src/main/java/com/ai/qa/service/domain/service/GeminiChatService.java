@@ -1,7 +1,7 @@
 package com.ai.qa.service.domain.service;
 
 import com.ai.qa.service.application.dto.ChatCompletionCommand;
-import com.ai.qa.service.domain.domain.StreamingChatResult;
+import com.ai.qa.service.domain.model.StreamingChatResult;
 
 /**
  * Domain service abstraction for Gemini chat operations.
