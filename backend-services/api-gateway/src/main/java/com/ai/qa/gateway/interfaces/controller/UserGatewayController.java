@@ -89,9 +89,10 @@ public class UserGatewayController {
     }
 
     @Operation(summary = "Gateway list latest chat history", description = "Retrieves the latest chat messages for a given session via user-service-fyb.")
-    @GetMapping("/sessions/{sessionId}/history/latest")
-    public ResponseEntity<ApiResponseDTO<List<ChatHistoryResponseDTO>>> listLatestHistory(@PathVariable Long sessionId,
+    @GetMapping("/{userId}/sessions/{sessionId}/history/latest")
+    public ResponseEntity<ApiResponseDTO<List<ChatHistoryResponseDTO>>> listLatestHistory(@PathVariable Long userId,
+                                                                                          @PathVariable Long sessionId,
                                                                                           @RequestParam(required = false) Integer limit) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.listLatestHistory(sessionId, limit)));
+        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.history(userId, sessionId, limit)));
     }
 }
