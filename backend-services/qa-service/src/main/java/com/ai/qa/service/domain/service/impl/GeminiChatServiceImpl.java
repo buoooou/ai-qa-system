@@ -6,7 +6,6 @@ import com.ai.qa.service.domain.service.StreamingChatResult;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -145,11 +144,11 @@ public class GeminiChatServiceImpl implements GeminiChatService {
     }
 
     private GeminiChatRequest buildRequestPayload(ChatCompletionCommand command) {
-        return GeminiChatRequest.builder()
-                .contents(buildConversation(command))
-                .generationConfig(null)
-                .safetySettings(GeminiChatRequest.defaultSafetySettings())
-                .build();
+        return new GeminiChatRequest(
+                buildConversation(command),
+                null,
+                GeminiChatRequest.defaultSafetySettings()
+        );
     }
 
     private GeminiChatRequest buildStreamingRequest(ChatCompletionCommand command) {
@@ -177,7 +176,6 @@ public class GeminiChatServiceImpl implements GeminiChatService {
         }
     }
 
-    @Builder
     private record GeminiChatRequest(
             List<Content> contents,
             @JsonInclude(JsonInclude.Include.NON_NULL) GenerationConfig generationConfig,
@@ -185,11 +183,7 @@ public class GeminiChatServiceImpl implements GeminiChatService {
     ) {
 
         GeminiChatRequest withStreamConfig() {
-            return GeminiChatRequest.builder()
-                    .contents(contents)
-                    .generationConfig(GenerationConfig.streamConfig())
-                    .safetySettings(safetySettings)
-                    .build();
+            return new GeminiChatRequest(contents, GenerationConfig.streamConfig(), safetySettings);
         }
 
         static List<SafetySetting> defaultSafetySettings() {

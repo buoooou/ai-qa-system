@@ -28,6 +28,8 @@
         <spring-cloud.version>2022.0.5</spring-cloud.version>
         <spring-boot.version>3.1.11</spring-boot.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <lombok.version>1.18.32</lombok.version>
     </properties>
 
     <!-- 统一管理所有子模块的依赖版本 -->
@@ -53,6 +55,21 @@
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

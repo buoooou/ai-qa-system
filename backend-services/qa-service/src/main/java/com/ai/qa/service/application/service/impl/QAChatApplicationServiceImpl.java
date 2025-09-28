@@ -9,12 +9,14 @@ import com.ai.qa.service.domain.repo.QAHistoryRepo;
 import com.ai.qa.service.domain.service.GeminiChatService;
 import com.ai.qa.service.infrastructure.feign.UserClient;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 /**
  * Application service orchestrating Gemini chat requests and history persistence.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class QAChatApplicationServiceImpl implements QAChatApplicationService {
@@ -63,7 +65,7 @@ public class QAChatApplicationServiceImpl implements QAChatApplicationService {
 
         String title = command.getSessionTitle();
         var response = userClient.createSession(command.getUserId(), new UserClient.CreateSessionRequest(title));
-        if (response == null || !response.success() || response.data() == null) {
+        if (response == null || !Boolean.TRUE.equals(response.success()) || response.data() == null) {
             throw new IllegalStateException("Failed to create session via user-service");
         }
         return response.data().id();

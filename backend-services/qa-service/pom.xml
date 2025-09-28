@@ -14,7 +14,6 @@
     <artifactId>qa-service</artifactId>
 
     <properties>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <springdoc.version>2.5.0</springdoc.version>
     </properties>
 
@@ -46,13 +45,6 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -63,6 +55,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
