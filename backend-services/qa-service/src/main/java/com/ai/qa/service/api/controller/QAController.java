@@ -3,6 +3,7 @@ package com.ai.qa.service.api.controller;
 import com.ai.qa.service.api.dto.ChatCompletionRequest;
 import com.ai.qa.service.api.dto.SaveHistoryRequest;
 import com.ai.qa.service.application.service.QAChatApplicationService;
+import com.ai.qa.service.application.service.QAHistoryApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

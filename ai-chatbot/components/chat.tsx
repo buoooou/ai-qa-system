@@ -25,6 +25,8 @@ import { ChatSDKError } from "@/lib/errors";
 import type { Attachment, ChatMessage } from "@/lib/types";
 import type { AppUsage } from "@/lib/usage";
 import { fetcher, fetchWithErrorHandlers, generateUUID } from "@/lib/utils";
+import { useSession } from "next-auth/react";
+import { createUserSession } from "@/lib/api/gateway";
 import { Artifact } from "./artifact";
 import { useDataStream } from "./data-stream-provider";
 import { Messages } from "./messages";
@@ -57,12 +59,14 @@ export function Chat({
 
   const { mutate } = useSWRConfig();
   const { setDataStream } = useDataStream();
+  const { data: session } = useSession();
 
   const [input, setInput] = useState<string>("");
   const [usage, setUsage] = useState<AppUsage | undefined>(initialLastContext);
   const [showCreditCardAlert, setShowCreditCardAlert] = useState(false);
   const [currentModelId, setCurrentModelId] = useState(initialChatModel);
   const currentModelIdRef = useRef(currentModelId);
+  const [currentSessionId, setCurrentSessionId] = useState<string | undefined>(id !== "new" ? id : undefined);
 
   useEffect(() => {
     currentModelIdRef.current = currentModelId;
@@ -85,12 +89,24 @@ export function Chat({
       api: "/api/chat",
       fetch: fetchWithErrorHandlers,
       prepareSendMessagesRequest(request) {
+        // Extract chat history for context
+        const history = request.messages.slice(0, -1).map(msg => ({
+          role: msg.role,
+          content: msg.parts
+            ?.filter(part => part.type === 'text')
+            .map(part => 'text' in part ? part.text : '')
+            .join(' ') || ''
+        }));
+
         return {
           body: {
             id: request.id,
             message: request.messages.at(-1),
             selectedChatModel: currentModelIdRef.current,
             selectedVisibilityType: visibilityType,
+            sessionId: currentSessionId,
+            sessionTitle: currentSessionId ? undefined : `Chat ${new Date().toLocaleString()}`,
+            history: history.length > 0 ? history : undefined,
             ...request.body,
           },
         };
