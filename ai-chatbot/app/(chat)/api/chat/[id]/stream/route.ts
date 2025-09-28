@@ -71,7 +71,7 @@ export async function GET(
       return new Response(emptyDataStream, { status: 200 });
     }
 
-    if (mostRecentMessage.role !== "assistant") {
+    if (!mostRecentMessage.answer) {
       return new Response(emptyDataStream, { status: 200 });
     }
 
