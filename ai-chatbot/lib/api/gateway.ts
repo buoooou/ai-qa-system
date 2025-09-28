@@ -197,4 +197,46 @@ export const extractGatewayError = (
   return null;
 };
 
+export const streamGatewayChat = async (
+  payload: {
+    id: string;
+    message: {
+      id: string;
+      role: "user";
+      parts: Array<{ type: "text"; text: string } | { type: "file"; mediaType: string; name: string; url: string }>;
+    };
+    selectedChatModel: string;
+    selectedVisibilityType: string;
+    sessionId?: string;
+    sessionTitle?: string;
+    history?: Array<{ role: "user" | "assistant"; content: string }>;
+    userId: number;
+    clientIp?: string;
+  },
+  accessToken: string
+): Promise<AxiosResponse<ReadableStream<Uint8Array>>> => {
+  const response = await gatewayClient.post(
+    "/api/gateway/qa/chat",
+    {
+      sessionId: payload.sessionId,
+      sessionTitle: payload.sessionTitle,
+      userId: payload.userId,
+      question: payload.message.parts
+        .filter((part) => part.type === "text")
+        .map((part) => ("text" in part ? part.text : ""))
+        .join(" "),
+      history: payload.history || [],
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "text/event-stream",
+      },
+      responseType: "stream",
+    }
+  );
+
+  return response;
+};
+
 export { gatewayClient };

@@ -35,7 +35,14 @@ export async function POST(request: Request) {
       session.user.accessToken
     );
 
-    return Response.json(response);
+    // Return the streaming response
+    return new Response(response.data, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+      },
+    });
   } catch (error) {
     console.error(error);
 
