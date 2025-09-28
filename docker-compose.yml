@@ -63,7 +63,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend-nextjs/frontend
+      context: ./ai-chatbot
       dockerfile: Dockerfile
     container_name: ai-qa-frontend
     depends_on:

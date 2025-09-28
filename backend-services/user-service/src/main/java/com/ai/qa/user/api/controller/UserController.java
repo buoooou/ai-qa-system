@@ -2,6 +2,7 @@ package com.ai.qa.user.api.controller;
 
 import com.ai.qa.user.api.dto.ApiResponse;
 import com.ai.qa.user.api.dto.AuthResponse;
+import com.ai.qa.user.api.dto.CreateSessionRequest;
 import com.ai.qa.user.api.dto.LoginRequest;
 import com.ai.qa.user.api.dto.RegisterRequest;
 import com.ai.qa.user.application.dto.ChatMessageDTO;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,6 +78,30 @@ public class UserController {
     public ResponseEntity<ApiResponse<List<ChatSessionDTO>>> listSessions(@Parameter(description = "ID of the user") @PathVariable Long userId) {
         List<ChatSessionDTO> sessions = userApplicationService.listSessions(userId);
         return ResponseEntity.ok(ApiResponse.success(sessions));
+    }
+
+    @Operation(summary = "Create chat session", description = "Creates a new chat session for the specified user.")
+    @PostMapping("/{userId}/sessions")
+    public ResponseEntity<ApiResponse<ChatSessionDTO>> createSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
+                                                                     @RequestBody @Validated CreateSessionRequest request) {
+        ChatSessionDTO session = userApplicationService.createSession(userId, request.getTitle());
+        return ResponseEntity.ok(ApiResponse.success(session));
+    }
+
+    @Operation(summary = "Get chat session", description = "Retrieves a specific chat session for the user.")
+    @GetMapping("/{userId}/sessions/{sessionId}")
+    public ResponseEntity<ApiResponse<ChatSessionDTO>> getSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
+                                                                  @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
+        ChatSessionDTO session = userApplicationService.getSession(userId, sessionId);
+        return ResponseEntity.ok(ApiResponse.success(session));
+    }
+
+    @Operation(summary = "Delete chat session", description = "Deletes a chat session owned by the user.")
+    @DeleteMapping("/{userId}/sessions/{sessionId}")
+    public ResponseEntity<ApiResponse<Void>> deleteSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
+                                                           @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
+        userApplicationService.deleteSession(userId, sessionId);
+        return ResponseEntity.ok(ApiResponse.success());
     }
 
     @Operation(summary = "List chat history", description = "Retrieves chat history for a given session and user.")

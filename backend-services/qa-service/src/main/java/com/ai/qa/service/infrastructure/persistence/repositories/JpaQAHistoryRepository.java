@@ -12,4 +12,6 @@ public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long>
     List<QAHistoryPO> findByUserIdOrderByCreatedAtDesc(Long userId);
 
     List<QAHistoryPO> findBySessionIdOrderByCreatedAtAsc(Long sessionId);
+
+    void deleteBySessionId(Long sessionId);
 }

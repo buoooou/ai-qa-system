@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -28,9 +30,10 @@ public class QAGatewayController {
     private final QAFacade qaFacade;
 
     @Operation(summary = "Proxy chat", description = "Delegates chat requests to qa-service-fyb.")
-    @PostMapping("/chat")
-    public ResponseEntity<QAHistoryResponseDTO> chat(@RequestBody @Validated ChatRequestDTO request) {
-        return ResponseEntity.ok(qaFacade.chat(request));
+    @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<Flux<String>> chat(@RequestBody @Validated ChatRequestDTO request) {
+        Flux<String> body = qaFacade.chat(request);
+        return ResponseEntity.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(body);
     }
 
     @Operation(summary = "Proxy history", description = "Retrieves chat history from qa-service-fyb.")

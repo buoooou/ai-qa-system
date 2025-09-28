@@ -1,0 +1,25 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: qa-service-fyb
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER_ADDR:3.101.113.38:8848}
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ${MYSQL_USER:ai_user}
+    password: ${MYSQL_PASSWORD:ai_user_pass}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+gemini:
+  api:
+    key: ${GEMINI_API_KEY:}
+logging:
+  level:
+    com.ai.qa.service.infrastructure.feign: DEBUG

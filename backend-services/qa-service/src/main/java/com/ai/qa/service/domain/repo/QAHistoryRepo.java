@@ -9,4 +9,6 @@ public interface QAHistoryRepo {
     QAHistory save(QAHistory history);
 
     List<QAHistory> findByUserAndSession(Long userId, Long sessionId, Integer limit);
+
+    void deleteBySessionId(Long sessionId);
 }

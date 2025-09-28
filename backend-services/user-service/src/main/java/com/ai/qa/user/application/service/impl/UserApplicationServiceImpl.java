@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -68,6 +69,41 @@ public class UserApplicationServiceImpl implements UserApplicationService {
                 .stream()
                 .map(userMapper::toSessionDto)
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public ChatSessionDTO createSession(Long userId, String title) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
+        String resolvedTitle = Optional.ofNullable(title)
+                .filter(current -> !current.isBlank())
+                .orElse("New Conversation");
+
+        QaSession session = sessionRepository.save(QaSession.create(user.getId(), resolvedTitle));
+        return userMapper.toSessionDto(session);
+    }
+
+    @Override
+    public ChatSessionDTO getSession(Long userId, Long sessionId) {
+        QaSession session = sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));
+        if (!session.getUserId().equals(userId)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "无权访问该会话");
+        }
+        return userMapper.toSessionDto(session);
+    }
+
+    @Override
+    @Transactional
+    public void deleteSession(Long userId, Long sessionId) {
+        QaSession session = sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));
+        if (!session.getUserId().equals(userId)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "无权删除该会话");
+        }
+        sessionRepository.delete(session);
     }
 
     /**

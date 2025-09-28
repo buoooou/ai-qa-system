@@ -12,4 +12,8 @@ public interface QaSessionRepository {
     Optional<QaSession> findById(Long id);
 
     List<QaSession> findByUserIdOrderByCreatedAtDesc(Long userId);
+
+    Optional<QaSession> findByUserIdAndTitle(Long userId, String title);
+
+    void delete(QaSession session);
 }

@@ -64,7 +64,7 @@ export function Sidebar({
         <div className="p-4 border-b border-sidebar-border">
           <div className="flex items-center gap-3 mb-4">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={user?.avatar || "/placeholder.svg"} alt={user?.username} />
+              <AvatarImage src="/placeholder.svg" alt={user?.username ?? "user avatar"} />
               <AvatarFallback className="bg-sidebar-accent text-sidebar-accent-foreground">
                 {user?.username?.charAt(0).toUpperCase() || "U"}
               </AvatarFallback>

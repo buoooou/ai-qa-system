@@ -53,4 +53,9 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
                 .map(mapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public void deleteBySessionId(Long sessionId) {
+        jpaRepository.deleteBySessionId(sessionId);
+    }
 }

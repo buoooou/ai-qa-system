@@ -7,8 +7,12 @@ import com.ai.qa.service.application.service.QAChatApplicationService;
 import com.ai.qa.service.domain.model.QAHistory;
 import com.ai.qa.service.domain.repo.QAHistoryRepo;
 import com.ai.qa.service.domain.service.GeminiChatService;
+import com.ai.qa.service.domain.service.StreamingChatResult;
+import com.ai.qa.service.infrastructure.feign.UserClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Sinks;
 
 /**
  * Application service orchestrating Gemini chat requests and history persistence.
@@ -20,6 +24,7 @@ public class QAChatApplicationServiceImpl implements QAChatApplicationService {
     private final QAHistoryRepo historyRepo;
     private final GeminiChatService geminiChatService;
     private final QAHistoryMapper mapper;
+    private final UserClient userClient;
 
     /**
      * Handles a chat completion workflow: calls Gemini, persists the result, and returns the saved record.
@@ -29,11 +34,47 @@ public class QAChatApplicationServiceImpl implements QAChatApplicationService {
      */
     @Override
     public QAHistoryDTO chat(ChatCompletionCommand command) {
+        Long sessionId = ensureSession(command);
         var result = geminiChatService.generateAnswer(command);
-        QAHistory history = QAHistory.create(command.getSessionId(), command.getUserId(), command.getQuestion());
+        QAHistory history = QAHistory.create(sessionId, command.getUserId(), command.getQuestion());
         history.updateQuestion(command.getQuestion(), result.promptTokens());
         history.recordAnswer(result.answer(), result.completionTokens(), result.latencyMs());
         QAHistory saved = historyRepo.save(history);
         return mapper.toDto(saved);
+    }
+
+    @Override
+    public Flux<String> chatStream(ChatCompletionCommand command) {
+        StreamingChatResult streamResult = geminiChatService.streamAnswer(command);
+        Long sessionId = ensureSession(command);
+        QAHistory history = QAHistory.create(sessionId, command.getUserId(), command.getQuestion());
+        history.updateQuestion(command.getQuestion(), streamResult.promptTokens());
+
+        Sinks.Many<String> sink = Sinks.many().unicast().onBackpressureBuffer();
+
+        streamResult.stream().subscribe(
+                chunk -> sink.tryEmitNext(chunk),
+                sink::tryEmitError,
+                () -> {
+                    history.recordAnswer(streamResult.fullAnswer(), streamResult.completionTokens(), streamResult.latencyMs());
+                    historyRepo.save(history);
+                    sink.tryEmitComplete();
+                }
+        );
+
+        return sink.asFlux();
+    }
+
+    private Long ensureSession(ChatCompletionCommand command) {
+        if (command.getSessionId() != null) {
+            return command.getSessionId();
+        }
+
+        String title = command.getSessionTitle();
+        var response = userClient.createSession(command.getUserId(), new UserClient.CreateSessionRequest(title));
+        if (response == null || !response.success() || response.data() == null) {
+            throw new IllegalStateException("Failed to create session via user-service");
+        }
+        return response.data().id();
     }
 }

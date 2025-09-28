@@ -59,12 +59,23 @@ export function ChatWindow({
               return part
             }
 
-            if (part.type === "assistant_message") {
-              return part.text ?? ""
-            }
-
             if ("text" in part) {
-              return part.text ?? ""
+              const candidate = part.text
+              if (typeof candidate === "string") {
+                return candidate
+              }
+              if (Array.isArray(candidate)) {
+                const segments = candidate as Array<
+                  string | { text?: string }
+                >
+                return segments
+                  .map((segment) =>
+                    typeof segment === "string"
+                      ? segment
+                      : segment.text ?? ""
+                  )
+                  .join("")
+              }
             }
 
             return ""
@@ -108,7 +119,7 @@ export function ChatWindow({
         onMessageAdded({ role: "user", content })
       }
 
-      sendMessage({ content })
+      sendMessage({ text: content })
     },
     [combinedMessages.length, onFirstMessage, onMessageAdded, sendMessage],
   )
@@ -155,7 +166,7 @@ export function ChatWindow({
 
         <ChatInput
           onSendMessage={handleSendMessage}
-          disabled={status === "in_progress"}
+          disabled={status === "streaming"}
           placeholder="开始新的对话..."
         />
       </div>
@@ -168,12 +179,27 @@ export function ChatWindow({
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {combinedMessages.map((message) => (
-          <MessageBubble key={message.id} role={message.role} content={message.content} timestamp={new Date()} />
-        ))}
+        {combinedMessages
+          .filter((message) => message.role !== "system")
+          .map((message) => {
+            const content = "parts" in message
+              ? message.parts
+                  .map((part) => (part.type === "text" ? part.text : ""))
+                  .join("")
+              : message.content
+
+            return (
+              <MessageBubble
+                key={message.id}
+                role={message.role as "user" | "assistant"}
+                content={content}
+                timestamp={new Date()}
+              />
+            )
+          })}
 
         {/* Loading indicator */}
-        {status === "in_progress" && (
+        {status === "streaming" && (
           <div className="flex gap-3 mb-4">
             <div className="flex-shrink-0 w-8 h-8 bg-card rounded-full flex items-center justify-center">
               <Bot className="w-4 h-4 text-card-foreground" />
@@ -191,7 +217,7 @@ export function ChatWindow({
         <div ref={messagesEndRef} />
       </div>
 
-      <ChatInput onSendMessage={handleSendMessage} disabled={status === "in_progress"} />
+      <ChatInput onSendMessage={handleSendMessage} disabled={status === "streaming"} />
     </div>
   )
 }

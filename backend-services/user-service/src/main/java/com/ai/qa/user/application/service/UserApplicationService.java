@@ -16,4 +16,10 @@ public interface UserApplicationService {
     List<ChatSessionDTO> listSessions(Long userId);
 
     List<ChatMessageDTO> listHistoryBySession(Long userId, Long sessionId);
+
+    ChatSessionDTO createSession(Long userId, String title);
+
+    ChatSessionDTO getSession(Long userId, Long sessionId);
+
+    void deleteSession(Long userId, Long sessionId);
 }

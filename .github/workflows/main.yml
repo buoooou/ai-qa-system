@@ -119,8 +119,8 @@ jobs:
       - name: Build and push Frontend image
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend-nextjs/frontend
-          file: ./frontend-nextjs/frontend/Dockerfile
+          context: ./ai-chatbot
+          file: ./ai-chatbot/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-frontend:latest
 

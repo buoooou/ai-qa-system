@@ -11,9 +11,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -29,10 +35,9 @@ public class QAController {
     private final QAHistoryApiMapper apiMapper;
 
     @Operation(summary = "Gemini chat", description = "Handles a chat request by proxying to Gemini and persisting history.")
-    @PostMapping("/chat")
-    public ResponseEntity<QAHistoryResponse> chat(@RequestBody @Validated ChatCompletionRequest request) {
-        var result = chatApplicationService.chat(request.toCommand());
-        return ResponseEntity.ok(apiMapper.toResponse(result));
+    @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> chat(@RequestBody @Validated ChatCompletionRequest request) {
+        return chatApplicationService.chatStream(request.toCommand());
     }
 
     @Operation(summary = "Save history", description = "Persists a chat message and returns the saved entity.")

@@ -1,6 +1,7 @@
 package com.ai.qa.service.domain.service;
 
 import com.ai.qa.service.application.dto.ChatCompletionCommand;
+import com.ai.qa.service.domain.service.StreamingChatResult;
 
 /**
  * Domain service abstraction for Gemini chat operations.
@@ -15,6 +16,8 @@ public interface GeminiChatService {
      */
     ChatResult generateAnswer(ChatCompletionCommand command);
 
-    record ChatResult(String answer, Integer promptTokens, Integer completionTokens, Integer latencyMs) {
+    StreamingChatResult streamAnswer(ChatCompletionCommand command);
+
+    record ChatResult(String answer, int promptTokens, int completionTokens, int latencyMs) {
     }
 }
