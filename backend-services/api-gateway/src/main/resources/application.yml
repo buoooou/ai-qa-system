@@ -28,6 +28,7 @@ spring:
         locator:
           enabled: false # 开启基于服务发现的路由功能
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
+          url-expression: "'http://' + serviceId.toLowerCase() + ':' + port"
       routes:
         - id: user_service_route
           uri: lb://user-service-tyf # lb:// 表示从Nacos负载均衡地选择一个user-service实例
