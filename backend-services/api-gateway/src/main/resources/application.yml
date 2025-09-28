@@ -17,6 +17,8 @@ spring:
   cloud:
     nacos:
       server-addr: 3.113.113.164:8848
+      username: nacos
+      password: passw0rd
       config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
