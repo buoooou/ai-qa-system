@@ -2,7 +2,7 @@ name: AI QA System CI/CD
 
 on:
   push:
-    branches: [ main, develop, feature/yulong ]
+    branches: [ main]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -244,7 +244,7 @@ jobs:
           trap cleanup EXIT
 
           if [ ! -d .git ]; then
-            git clone https://github.com/${{ github.repository }}.git .
+            git clone https://github.com/tianyf925/ai-qa-system.git .
           fi
           git fetch origin
           git checkout main
