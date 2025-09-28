@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class QAHistoryResponseDTO {
     private Long id;
     private Long sessionId;
+    private Long userId;
     private String question;
     private String answer;
     private Integer promptTokens;
