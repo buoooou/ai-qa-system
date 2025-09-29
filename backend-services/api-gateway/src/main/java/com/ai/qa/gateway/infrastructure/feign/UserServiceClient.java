@@ -8,7 +8,7 @@ import com.ai.qa.gateway.interfaces.dto.CreateSessionGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.RegisterGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.UpdateNicknameGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.UserProfileGatewayResponse;
-import com.ai.qa.gateway.interfaces.dto.common.ApiResponseDTO;
+import com.ai.qa.gateway.interfaces.dto.UserServiceApiResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,39 +23,39 @@ import java.util.List;
 public interface UserServiceClient {
 
     @PostMapping("/api/user/login")
-    AuthResponseDTO login(@RequestBody LoginGatewayRequestDTO request);
+    UserServiceApiResponseDTO<AuthResponseDTO> login(@RequestBody LoginGatewayRequestDTO request);
 
     @PostMapping("/api/user/register")
-    AuthResponseDTO register(@RequestBody RegisterGatewayRequestDTO request);
+    UserServiceApiResponseDTO<AuthResponseDTO> register(@RequestBody RegisterGatewayRequestDTO request);
 
     @GetMapping("/api/user/{userId}/profile")
-    ApiResponseDTO<UserProfileGatewayResponse> profile(@PathVariable("userId") Long userId);
+    UserServiceApiResponseDTO<UserProfileGatewayResponse> profile(@PathVariable("userId") Long userId);
 
     @PostMapping("/api/user/{userId}/nickname")
-    ApiResponseDTO<UserProfileGatewayResponse> updateNickname(@PathVariable("userId") Long userId,
-                                                              @RequestBody UpdateNicknameGatewayRequest request);
+    UserServiceApiResponseDTO<UserProfileGatewayResponse> updateNickname(@PathVariable("userId") Long userId,
+                                                                         @RequestBody UpdateNicknameGatewayRequest request);
 
     @GetMapping("/api/user/{userId}/sessions")
-    ApiResponseDTO<List<ChatSessionResponseDTO>> sessions(@PathVariable("userId") Long userId);
+    UserServiceApiResponseDTO<List<ChatSessionResponseDTO>> sessions(@PathVariable("userId") Long userId);
 
     @PostMapping("/api/user/{userId}/sessions")
-    ApiResponseDTO<ChatSessionResponseDTO> createSession(@PathVariable("userId") Long userId,
-                                                         @RequestBody CreateSessionGatewayRequest request);
+    UserServiceApiResponseDTO<ChatSessionResponseDTO> createSession(@PathVariable("userId") Long userId,
+                                                                    @RequestBody CreateSessionGatewayRequest request);
 
     @GetMapping("/api/user/{userId}/sessions/{sessionId}")
-    ApiResponseDTO<ChatSessionResponseDTO> getSession(@PathVariable("userId") Long userId,
-                                                      @PathVariable("sessionId") Long sessionId);
+    UserServiceApiResponseDTO<ChatSessionResponseDTO> getSession(@PathVariable("userId") Long userId,
+                                                                 @PathVariable("sessionId") Long sessionId);
 
     @DeleteMapping("/api/user/{userId}/sessions/{sessionId}")
-    ApiResponseDTO<Void> deleteSession(@PathVariable("userId") Long userId,
-                                       @PathVariable("sessionId") Long sessionId);
+    UserServiceApiResponseDTO<Void> deleteSession(@PathVariable("userId") Long userId,
+                                                  @PathVariable("sessionId") Long sessionId);
 
     @GetMapping("/api/user/{userId}/sessions/{sessionId}/history")
-    ApiResponseDTO<List<ChatHistoryResponseDTO>> history(@PathVariable("userId") Long userId,
-                                                         @PathVariable("sessionId") Long sessionId,
-                                                         @RequestParam(value = "limit", required = false) Integer limit);
+    UserServiceApiResponseDTO<List<ChatHistoryResponseDTO>> history(@PathVariable("userId") Long userId,
+                                                                    @PathVariable("sessionId") Long sessionId,
+                                                                    @RequestParam(value = "limit", required = false) Integer limit);
 
     @GetMapping("/api/user/sessions/{sessionId}/ownership")
-    ApiResponseDTO<Boolean> isSessionOwnedBy(@PathVariable("sessionId") Long sessionId,
-                                             @RequestParam("userId") Long userId);
+    UserServiceApiResponseDTO<Boolean> isSessionOwnedBy(@PathVariable("sessionId") Long sessionId,
+                                                        @RequestParam("userId") Long userId);
 }

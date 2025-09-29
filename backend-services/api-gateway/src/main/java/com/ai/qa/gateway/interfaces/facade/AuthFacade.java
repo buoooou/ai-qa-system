@@ -1,11 +1,11 @@
 package com.ai.qa.gateway.interfaces.facade;
 
 import com.ai.qa.gateway.infrastructure.feign.UserServiceClient;
-import com.ai.qa.gateway.interfaces.dto.LoginGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.AuthResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatSessionResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.CreateSessionGatewayRequest;
+import com.ai.qa.gateway.interfaces.dto.LoginGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.RegisterGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.UpdateNicknameGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.UserProfileGatewayResponse;
@@ -27,20 +27,14 @@ public class AuthFacade {
     private final UserServiceClient userServiceClient;
 
     public Mono<AuthResponseDTO> login(LoginGatewayRequestDTO request) {
-        return Mono.fromCallable(() -> userServiceClient.login(request))
+        return Mono.fromCallable(() -> ensureAuthFields(extractData(userServiceClient.login(request))))
                 .subscribeOn(Schedulers.boundedElastic())
-                .map(this::extractData)
-                .filter(this::hasAuthFields)
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Auth token or profile missing")))
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<AuthResponseDTO> register(RegisterGatewayRequestDTO request) {
-        return Mono.fromCallable(() -> userServiceClient.register(request))
+        return Mono.fromCallable(() -> ensureAuthFields(extractData(userServiceClient.register(request))))
                 .subscribeOn(Schedulers.boundedElastic())
-                .map(this::extractData)
-                .filter(this::hasAuthFields)
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Auth token or profile missing")))
                 .onErrorMap(this::mapFeignException);
     }
 
@@ -102,8 +96,17 @@ public class AuthFacade {
         return response.getData();
     }
 
-    private boolean hasAuthFields(AuthResponseDTO response) {
-        return response != null && response.getToken() != null && response.getProfile() != null;
+    private AuthResponseDTO ensureAuthFields(AuthResponseDTO response) {
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Empty auth response from user service");
+        }
+        if (response.getToken() == null || response.getToken().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Auth token missing in response from user service");
+        }
+        if (response.getProfile() == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User profile missing in response from user service");
+        }
+        return response;
     }
     private Throwable mapFeignException(Throwable throwable) {
         if (throwable instanceof feign.FeignException feignException) {
