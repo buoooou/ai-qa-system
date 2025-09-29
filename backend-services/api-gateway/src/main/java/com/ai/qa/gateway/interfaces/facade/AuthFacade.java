@@ -10,6 +10,8 @@ import com.ai.qa.gateway.interfaces.dto.UpdateNicknameGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.UserProfileGatewayResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
 
@@ -19,12 +21,14 @@ public class AuthFacade {
 
     private final UserServiceClient userServiceClient;
 
-    public AuthResponseDTO login(AuthRequestDTO request) {
-        return userServiceClient.login(request);
+    public Mono<AuthResponseDTO> login(AuthRequestDTO request) {
+        return Mono.fromCallable(() -> userServiceClient.login(request))
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
-    public AuthResponseDTO register(AuthRequestDTO request) {
-        return userServiceClient.register(request);
+    public Mono<AuthResponseDTO> register(AuthRequestDTO request) {
+        return Mono.fromCallable(() -> userServiceClient.register(request))
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     public UserProfileGatewayResponse profile(Long userId) {
