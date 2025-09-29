@@ -1,4 +1,4 @@
-package com.ai.qa.user.domain.repository;
+package com.ai.qa.user.domain.Repository;
 
 import java.util.Optional;
 import com.ai.qa.user.domain.model.User;

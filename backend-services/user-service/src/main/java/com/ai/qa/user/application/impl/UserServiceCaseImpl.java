@@ -12,7 +12,7 @@ import com.ai.qa.user.domain.service.JwtServiceImpl;
 import com.ai.qa.user.infrastructure.mapper.UserMapper;
 import com.ai.qa.user.application.dto.SaveRegisterCommand;
 import com.ai.qa.user.application.service.UserCaseService;
-import com.ai.qa.user.domain.repository.UserRepository;
+import com.ai.qa.user.domain.Repository.UserRepository;
 import com.ai.qa.user.domain.model.User;
 
 import lombok.RequiredArgsConstructor;
