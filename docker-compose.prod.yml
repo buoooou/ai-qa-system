@@ -52,6 +52,7 @@ services:
     environment:
       NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR}
       SECURITY_JWT_SECRET: ${JWT_SECRET}
+      SECURITY_JWT_ISSUER: user-service-fyb
     ports:
       - "8083:8083"
 

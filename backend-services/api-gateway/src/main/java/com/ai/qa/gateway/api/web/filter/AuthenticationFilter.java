@@ -3,6 +3,7 @@ package com.ai.qa.gateway.api.web.filter;
 import com.ai.qa.gateway.infrastructure.config.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -13,11 +14,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
  * Gateway filter performing JWT authentication for downstream services.
  */
+@Slf4j
 @Component
 @RefreshScope
 public class AuthenticationFilter implements GlobalFilter, Ordered {
@@ -42,6 +45,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
         String authHeader = request.getHeaders().getFirst("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.debug("AuthenticationFilter: missing or invalid Authorization header");
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -49,7 +53,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         String token = authHeader.substring(7);
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(jwtProperties.getSecret().getBytes())
+                    .setSigningKey(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8))
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
@@ -61,6 +65,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
                     .build();
             return chain.filter(exchange.mutate().request(mutatedRequest).build());
         } catch (Exception e) {
+            log.warn("AuthenticationFilter: JWT validation failed - {}", e.getMessage());
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
