@@ -28,41 +28,47 @@ public class AuthFacade {
     public Mono<AuthResponseDTO> login(LoginGatewayRequestDTO request) {
         return Mono.fromCallable(() -> userServiceClient.login(request))
                 .subscribeOn(Schedulers.boundedElastic())
+                .map(this::extractData)
+                .filter(this::hasAuthFields)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Auth token or profile missing")))
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<AuthResponseDTO> register(RegisterGatewayRequestDTO request) {
         return Mono.fromCallable(() -> userServiceClient.register(request))
                 .subscribeOn(Schedulers.boundedElastic())
+                .map(this::extractData)
+                .filter(this::hasAuthFields)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Auth token or profile missing")))
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<UserProfileGatewayResponse> profile(Long userId) {
-        return Mono.fromCallable(() -> userServiceClient.profile(userId).getData())
+        return Mono.fromCallable(() -> extractData(userServiceClient.profile(userId)))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<UserProfileGatewayResponse> updateNickname(Long userId, UpdateNicknameGatewayRequest request) {
-        return Mono.fromCallable(() -> userServiceClient.updateNickname(userId, request).getData())
+        return Mono.fromCallable(() -> extractData(userServiceClient.updateNickname(userId, request)))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<List<ChatSessionResponseDTO>> sessions(Long userId) {
-        return Mono.fromCallable(() -> userServiceClient.sessions(userId).getData())
+        return Mono.fromCallable(() -> extractData(userServiceClient.sessions(userId)))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<ChatSessionResponseDTO> createSession(Long userId, CreateSessionGatewayRequest request) {
-        return Mono.fromCallable(() -> userServiceClient.createSession(userId, request).getData())
+        return Mono.fromCallable(() -> extractData(userServiceClient.createSession(userId, request)))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<ChatSessionResponseDTO> getSession(Long userId, Long sessionId) {
-        return Mono.fromCallable(() -> userServiceClient.getSession(userId, sessionId).getData())
+        return Mono.fromCallable(() -> extractData(userServiceClient.getSession(userId, sessionId)))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorMap(this::mapFeignException);
     }
@@ -74,17 +80,30 @@ public class AuthFacade {
     }
 
     public Mono<List<ChatHistoryResponseDTO>> history(Long userId, Long sessionId, Integer limit) {
-        return Mono.fromCallable(() -> userServiceClient.history(userId, sessionId, limit).getData())
+        return Mono.fromCallable(() -> extractData(userServiceClient.history(userId, sessionId, limit)))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<Boolean> isSessionOwnedBy(Long sessionId, Long userId) {
-        return Mono.fromCallable(() -> Boolean.TRUE.equals(userServiceClient.isSessionOwnedBy(sessionId, userId).getData()))
+        return Mono.fromCallable(() -> Boolean.TRUE.equals(extractData(userServiceClient.isSessionOwnedBy(sessionId, userId))))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorMap(this::mapFeignException);
     }
 
+    private <T> T extractData(UserServiceApiResponseDTO<T> response) {
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Empty response from user service");
+        }
+        if (!response.isSuccess()) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, response.getMessage());
+        }
+        return response.getData();
+    }
+
+    private boolean hasAuthFields(AuthResponseDTO response) {
+        return response != null && response.getToken() != null && response.getProfile() != null;
+    }
     private Throwable mapFeignException(Throwable throwable) {
         if (throwable instanceof feign.FeignException feignException) {
             HttpStatus status = HttpStatus.resolve(feignException.status());
