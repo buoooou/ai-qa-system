@@ -9,6 +9,7 @@ import com.ai.qa.gateway.interfaces.dto.CreateSessionGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.RegisterGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.UpdateNicknameGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.UserProfileGatewayResponse;
+import com.ai.qa.gateway.interfaces.dto.UserServiceApiResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
