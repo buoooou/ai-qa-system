@@ -1,6 +1,6 @@
 package com.ai.qa.gateway.infrastructure.feign;
 
-import com.ai.qa.gateway.interfaces.dto.AuthRequestDTO;
+import com.ai.qa.gateway.interfaces.dto.LoginGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.AuthResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatSessionResponseDTO;
@@ -23,7 +23,7 @@ import java.util.List;
 public interface UserServiceClient {
 
     @PostMapping("/api/user/login")
-    AuthResponseDTO login(@RequestBody AuthRequestDTO request);
+    AuthResponseDTO login(@RequestBody LoginGatewayRequestDTO request);
 
     @PostMapping("/api/user/register")
     AuthResponseDTO register(@RequestBody RegisterGatewayRequestDTO request);

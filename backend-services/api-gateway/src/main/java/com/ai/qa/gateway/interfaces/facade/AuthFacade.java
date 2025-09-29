@@ -1,7 +1,7 @@
 package com.ai.qa.gateway.interfaces.facade;
 
 import com.ai.qa.gateway.infrastructure.feign.UserServiceClient;
-import com.ai.qa.gateway.interfaces.dto.AuthRequestDTO;
+import com.ai.qa.gateway.interfaces.dto.LoginGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.AuthResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatSessionResponseDTO;
@@ -10,6 +10,7 @@ import com.ai.qa.gateway.interfaces.dto.RegisterGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.UpdateNicknameGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.UserProfileGatewayResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -22,7 +23,7 @@ public class AuthFacade {
 
     private final UserServiceClient userServiceClient;
 
-    public Mono<AuthResponseDTO> login(AuthRequestDTO request) {
+    public Mono<AuthResponseDTO> login(LoginGatewayRequestDTO request) {
         return Mono.fromCallable(() -> userServiceClient.login(request))
                 .subscribeOn(Schedulers.boundedElastic());
     }

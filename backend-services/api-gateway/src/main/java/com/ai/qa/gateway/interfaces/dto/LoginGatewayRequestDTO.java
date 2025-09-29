@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthRequestDTO {
+public class LoginGatewayRequestDTO {
     @NotBlank
     private String usernameOrEmail;
 
