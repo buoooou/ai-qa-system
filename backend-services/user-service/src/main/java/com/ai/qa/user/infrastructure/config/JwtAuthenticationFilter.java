@@ -12,6 +12,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import com.ai.qa.user.common.UserPrincipal;
+
 
 import java.io.IOException;
 import java.util.Collections;
@@ -46,11 +48,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println("Authenticated userId: " + userId);
                 System.out.println("Role: " + role);
 
+                UserPrincipal principal = new UserPrincipal(userId, username, role);
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
                 UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(userId, null, Collections.singletonList(authority));
+                        new UsernamePasswordAuthenticationToken(principal, null, Collections.singletonList(authority));
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                System.out.println("SecurityContext: " + SecurityContextHolder.getContext().getAuthentication());
             } catch (Exception e) {
                 System.err.println("JWT validation failed: " + e.getMessage());
             }

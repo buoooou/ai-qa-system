@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
+import com.ai.qa.user.common.UserPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -59,16 +61,25 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
+    
+    //@PreAuthorize("#userId.equals(authentication.principal)")
+    // @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    // @PreAuthorize("true")
     @Operation(summary = "Get user profile", description = "Fetches profile information for the specified user.")
     @GetMapping("/{userId}/profile")
-    @PreAuthorize("#userId == authentication.principal")
+    @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<UserProfileDTO>> profile(@Parameter(description = "ID of the user") @PathVariable Long userId) {
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("Controller sees principal ID: " + principal.getId());
+        
         UserProfileDTO profile = userApplicationService.getProfile(userId);
         return ResponseEntity.ok(ApiResponse.success(profile));
     }
 
     @Operation(summary = "Update nickname", description = "Updates the nickname for the specified user.")
     @PostMapping("/{userId}/nickname")
+    @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<User>> updateNickname(@Parameter(description = "ID of the user") @PathVariable Long userId,
                                                              @RequestBody @Validated UpdateNicknameRequest request) {
         User updated = userApplicationService.updateNickname(userId, request.getNickname());
@@ -77,6 +88,7 @@ public class UserController {
 
     @Operation(summary = "List chat sessions", description = "Returns chat sessions belonging to the specified user.")
     @GetMapping("/{userId}/sessions")
+    @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<List<ChatSessionDTO>>> listSessions(@Parameter(description = "ID of the user") @PathVariable Long userId) {
         List<ChatSessionDTO> sessions = userApplicationService.listSessions(userId);
         return ResponseEntity.ok(ApiResponse.success(sessions));
@@ -84,6 +96,7 @@ public class UserController {
 
     @Operation(summary = "Create chat session", description = "Creates a new chat session for the specified user.")
     @PostMapping("/{userId}/sessions")
+    @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<ChatSessionDTO>> createSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
                                                                      @RequestBody @Validated CreateSessionRequest request) {
         ChatSessionDTO session = userApplicationService.createSession(userId, request.getTitle());
@@ -92,6 +105,7 @@ public class UserController {
 
     @Operation(summary = "Get chat session", description = "Retrieves a specific chat session for the user.")
     @GetMapping("/{userId}/sessions/{sessionId}")
+    @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<ChatSessionDTO>> getSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
                                                                   @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
         ChatSessionDTO session = userApplicationService.getSession(userId, sessionId);
@@ -100,6 +114,7 @@ public class UserController {
 
     @Operation(summary = "Delete chat session", description = "Deletes a chat session owned by the user.")
     @DeleteMapping("/{userId}/sessions/{sessionId}")
+    @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<Void>> deleteSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
                                                            @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
         userApplicationService.deleteSession(userId, sessionId);
@@ -108,6 +123,7 @@ public class UserController {
 
     @Operation(summary = "List chat history", description = "Retrieves chat history for a given session and user.")
     @GetMapping("/{userId}/sessions/{sessionId}/history")
+    @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<List<ChatMessageDTO>>> listHistory(@Parameter(description = "ID of the user") @PathVariable Long userId,
                                                                          @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
         List<ChatMessageDTO> messages = userApplicationService.listHistoryBySession(userId, sessionId);

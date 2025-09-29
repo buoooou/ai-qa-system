@@ -67,6 +67,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
      */
     @Override
     public List<ChatSessionDTO> listSessions(Long userId) {
+        CommonUtil.assertOwner(userId);
         return sessionRepository.findByUserIdOrderByCreatedAtDesc(userId)
                 .stream()
                 .map(userMapper::toSessionDto)
@@ -76,6 +77,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     @Override
     @Transactional
     public ChatSessionDTO createSession(Long userId, String title) {
+        CommonUtil.assertOwner(userId);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
@@ -94,6 +96,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     @Override
     public ChatSessionDTO getSession(Long userId, Long sessionId) {
+        CommonUtil.assertOwner(userId);
         QaSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));
         if (!session.getUserId().equals(userId)) {
@@ -104,6 +107,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     @Override
     public boolean isSessionOwnedBy(Long sessionId, Long userId) {
+        CommonUtil.assertOwner(userId);
         return sessionRepository.findById(sessionId)
                 .map(session -> session.getUserId().equals(userId))
                 .orElse(false);
@@ -112,6 +116,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     @Override
     @Transactional
     public void deleteSession(Long userId, Long sessionId) {
+        CommonUtil.assertOwner(userId);
         QaSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));
         if (!session.getUserId().equals(userId)) {
@@ -129,6 +134,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
      */
     @Override
     public List<ChatMessageDTO> listHistoryBySession(Long userId, Long sessionId) {
+        CommonUtil.assertOwner(userId);
         QaSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));
         if (!session.getUserId().equals(userId)) {

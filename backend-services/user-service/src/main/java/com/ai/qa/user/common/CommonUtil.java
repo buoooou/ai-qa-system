@@ -7,8 +7,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class CommonUtil {
     public static Long getCurrentUserId() {
-        return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserPrincipal userPrincipal) {
+            return userPrincipal.getId();
+        }
+
+        throw new IllegalStateException("Principal is not a valid UserPrincipal");
     }
+
 
     public static void assertOwner(Long userId) {
         if (!userId.equals(getCurrentUserId())) {
