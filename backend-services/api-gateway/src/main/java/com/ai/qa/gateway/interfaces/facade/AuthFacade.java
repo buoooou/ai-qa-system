@@ -59,7 +59,8 @@ public class AuthFacade {
 
     public Mono<Void> deleteSession(Long userId, Long sessionId) {
         return Mono.fromRunnable(() -> userServiceClient.deleteSession(userId, sessionId))
-                .subscribeOn(Schedulers.boundedElastic());
+                .subscribeOn(Schedulers.boundedElastic())
+                .then(Mono.<Void>empty());
     }
 
     public Mono<List<ChatHistoryResponseDTO>> history(Long userId, Long sessionId, Integer limit) {
