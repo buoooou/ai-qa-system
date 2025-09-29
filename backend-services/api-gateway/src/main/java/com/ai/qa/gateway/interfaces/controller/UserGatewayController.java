@@ -10,7 +10,6 @@ import com.ai.qa.gateway.interfaces.facade.AuthFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -34,65 +34,73 @@ public class UserGatewayController {
 
     @Operation(summary = "Gateway user profile", description = "Delegates profile retrieval to user-service-fyb.")
     @GetMapping("/{userId}/profile")
-    public ResponseEntity<ApiResponseDTO<UserProfileGatewayResponse>> profile(@PathVariable Long userId) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.profile(userId)));
+    public Mono<ApiResponseDTO<UserProfileGatewayResponse>> profile(@PathVariable Long userId) {
+        return authFacade.profile(userId)
+                .map(ApiResponseDTO::success);
     }
 
     @Operation(summary = "Gateway update nickname", description = "Delegates nickname update to user-service-fyb.")
     @PostMapping("/{userId}/nickname")
-    public ResponseEntity<ApiResponseDTO<UserProfileGatewayResponse>> updateNickname(@PathVariable Long userId,
-                                                                                    @RequestBody @Validated UpdateNicknameGatewayRequest request) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.updateNickname(userId, request)));
+    public Mono<ApiResponseDTO<UserProfileGatewayResponse>> updateNickname(@PathVariable Long userId,
+                                                                           @RequestBody @Validated UpdateNicknameGatewayRequest request) {
+        return authFacade.updateNickname(userId, request)
+                .map(ApiResponseDTO::success);
     }
 
     @Operation(summary = "Gateway chat sessions", description = "Delegates chat session listing to user-service-fyb.")
     @GetMapping("/{userId}/sessions")
-    public ResponseEntity<ApiResponseDTO<List<ChatSessionResponseDTO>>> sessions(@PathVariable Long userId) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.sessions(userId)));
+    public Mono<ApiResponseDTO<List<ChatSessionResponseDTO>>> sessions(@PathVariable Long userId) {
+        return authFacade.sessions(userId)
+                .map(ApiResponseDTO::success);
     }
 
     @Operation(summary = "Gateway create session", description = "Delegates session creation to user-service-fyb.")
     @PostMapping("/{userId}/sessions")
-    public ResponseEntity<ApiResponseDTO<ChatSessionResponseDTO>> createSession(@PathVariable Long userId,
-                                                                                @RequestBody @Validated CreateSessionGatewayRequest request) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.createSession(userId, request)));
+    public Mono<ApiResponseDTO<ChatSessionResponseDTO>> createSession(@PathVariable Long userId,
+                                                                      @RequestBody @Validated CreateSessionGatewayRequest request) {
+        return authFacade.createSession(userId, request)
+                .map(ApiResponseDTO::success);
     }
 
     @Operation(summary = "Gateway get session", description = "Retrieves a specific chat session from user-service-fyb.")
     @GetMapping("/{userId}/sessions/{sessionId}")
-    public ResponseEntity<ApiResponseDTO<ChatSessionResponseDTO>> getSession(@PathVariable Long userId,
-                                                                             @PathVariable Long sessionId) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.getSession(userId, sessionId)));
+    public Mono<ApiResponseDTO<ChatSessionResponseDTO>> getSession(@PathVariable Long userId,
+                                                                   @PathVariable Long sessionId) {
+        return authFacade.getSession(userId, sessionId)
+                .map(ApiResponseDTO::success);
     }
 
     @Operation(summary = "Gateway delete session", description = "Deletes a chat session using user-service-fyb.")
     @DeleteMapping("/{userId}/sessions/{sessionId}")
-    public ResponseEntity<ApiResponseDTO<Void>> deleteSession(@PathVariable Long userId,
-                                                              @PathVariable Long sessionId) {
-        authFacade.deleteSession(userId, sessionId);
-        return ResponseEntity.ok(ApiResponseDTO.success(null));
+    public Mono<ApiResponseDTO<Void>> deleteSession(@PathVariable Long userId,
+                                                    @PathVariable Long sessionId) {
+        return authFacade.deleteSession(userId, sessionId)
+                .thenReturn(ApiResponseDTO.success(null));
     }
 
     @Operation(summary = "Gateway chat history", description = "Delegates chat history retrieval to user-service-fyb.")
     @GetMapping("/{userId}/sessions/{sessionId}/history")
-    public ResponseEntity<ApiResponseDTO<List<ChatHistoryResponseDTO>>> history(@PathVariable Long userId,
-                                                                                @PathVariable Long sessionId,
-                                                                                @RequestParam(required = false) Integer limit) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.history(userId, sessionId, limit)));
+    public Mono<ApiResponseDTO<List<ChatHistoryResponseDTO>>> history(@PathVariable Long userId,
+                                                                      @PathVariable Long sessionId,
+                                                                      @RequestParam(required = false) Integer limit) {
+        return authFacade.history(userId, sessionId, limit)
+                .map(ApiResponseDTO::success);
     }
 
     @Operation(summary = "Gateway check session ownership", description = "Checks if a user owns a specific chat session via user-service-fyb.")
     @GetMapping("/sessions/{sessionId}/ownership")
-    public ResponseEntity<ApiResponseDTO<Boolean>> isSessionOwnedBy(@PathVariable Long sessionId,
-                                                                    @RequestParam Long userId) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.isSessionOwnedBy(sessionId, userId)));
+    public Mono<ApiResponseDTO<Boolean>> isSessionOwnedBy(@PathVariable Long sessionId,
+                                                          @RequestParam Long userId) {
+        return authFacade.isSessionOwnedBy(sessionId, userId)
+                .map(ApiResponseDTO::success);
     }
 
     @Operation(summary = "Gateway list latest chat history", description = "Retrieves the latest chat messages for a given session via user-service-fyb.")
     @GetMapping("/{userId}/sessions/{sessionId}/history/latest")
-    public ResponseEntity<ApiResponseDTO<List<ChatHistoryResponseDTO>>> listLatestHistory(@PathVariable Long userId,
-                                                                                          @PathVariable Long sessionId,
-                                                                                          @RequestParam(required = false) Integer limit) {
-        return ResponseEntity.ok(ApiResponseDTO.success(authFacade.history(userId, sessionId, limit)));
+    public Mono<ApiResponseDTO<List<ChatHistoryResponseDTO>>> listLatestHistory(@PathVariable Long userId,
+                                                                                @PathVariable Long sessionId,
+                                                                                @RequestParam(required = false) Integer limit) {
+        return authFacade.history(userId, sessionId, limit)
+                .map(ApiResponseDTO::success);
     }
 }

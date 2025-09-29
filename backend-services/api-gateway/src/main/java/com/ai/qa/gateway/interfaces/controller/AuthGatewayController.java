@@ -2,6 +2,7 @@ package com.ai.qa.gateway.interfaces.controller;
 
 import com.ai.qa.gateway.interfaces.dto.AuthRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.AuthResponseDTO;
+import com.ai.qa.gateway.interfaces.dto.RegisterGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.facade.AuthFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,7 +30,7 @@ public class AuthGatewayController {
 
     @Operation(summary = "Gateway register", description = "Delegates registration requests to user-service-fyb.")
     @PostMapping("/register")
-    public Mono<AuthResponseDTO> register(@RequestBody @Validated AuthRequestDTO request) {
+    public Mono<AuthResponseDTO> register(@RequestBody @Validated RegisterGatewayRequestDTO request) {
         return authFacade.register(request);
     }
 }
