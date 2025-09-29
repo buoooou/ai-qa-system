@@ -2,6 +2,9 @@ package com.ai.qa.service.domain.model;
 
 import java.time.LocalDateTime;
 
+import lombok.Data;
+
+@Data
 public class QAHistory {
 
     private Long id;
@@ -11,7 +14,7 @@ public class QAHistory {
     private String sessionId;
     private LocalDateTime createTime;
 
-    private Object rag;
+//    private Object rag;
 
     public Long getId() {
         return this.id;

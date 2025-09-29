@@ -2,7 +2,6 @@ package com.ai.qa.service.api.controller;
 
 import com.ai.qa.service.api.dto.QAHistoryDTO;
 import com.ai.qa.service.api.dto.SaveHistoryRequest;
-import com.ai.qa.service.application.dto.SaveHistoryCommand;
 import com.ai.qa.service.application.service.QAHistoryService;
 import com.ai.qa.service.domain.service.QAService;
 
@@ -13,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import com.ai.qa.service.infrastructure.persistence.mapper.QAHistoryMapper;
 
 import java.util.List;
 
@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 public class QAController {
     private final QAService qaService;
     private final QAHistoryService qaHistoryService;
+    private final QAHistoryMapper qaHistoryMapper;
 
     @GetMapping("/test")
     public String testFeign() {
@@ -43,9 +44,8 @@ public class QAController {
         String userId = request.getUserId();
         if (userId != null && userId.isEmpty()) {
             throw new IllegalArgumentException("用户名不能为空");
-        }       
-        SaveHistoryCommand command = new SaveHistoryCommand();
-        QAHistoryDTO dto= qaHistoryService.saveHistory(command);
+        }
+        QAHistoryDTO dto= qaHistoryService.saveHistory(request);
 
         return ResponseEntity.ok(dto);
     }

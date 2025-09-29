@@ -6,6 +6,7 @@ import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
 import com.ai.qa.service.infrastructure.persistence.mapper.QAHistoryMapper;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
 
     private final JpaQAHistoryRepository jpaQAHistoryRepository;
 
-    private QAHistoryMapper qaHistoryMapper;
+    private final QAHistoryMapper qaHistoryMapper;
 
     @Override
     public void save(QAHistory history) {
@@ -48,6 +49,10 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
             throw new IllegalArgumentException("用户名不能为空");
         }
         List<QAHistoryPO> qaHistoryPO = jpaQAHistoryRepository.findHistoryByUserId(userId);
+        if (qaHistoryPO.isEmpty()) {
+        	List<QAHistory> qaHistoryList = new ArrayList<>();
+        	return qaHistoryList;
+        }
         return qaHistoryMapper.toDomainList(qaHistoryPO);
     }
 
@@ -57,6 +62,10 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
             throw new IllegalArgumentException("用户名不能为空");
         }
         List<QAHistoryPO> qaHistoryPOList = jpaQAHistoryRepository.findHistoryBySessionId(sessionId);
+        if (qaHistoryPOList.isEmpty()) {
+        	List<QAHistory> qaHistoryList = new ArrayList<>();
+        	return qaHistoryList;
+        }
         return qaHistoryMapper.toDomainList(qaHistoryPOList);
     }
 }

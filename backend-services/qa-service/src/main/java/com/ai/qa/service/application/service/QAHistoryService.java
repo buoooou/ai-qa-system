@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.qa.service.api.dto.QAHistoryDTO;
+import com.ai.qa.service.api.dto.SaveHistoryRequest;
 import com.ai.qa.service.domain.model.QAHistory;
 import com.ai.qa.service.domain.repo.QAHistoryRepo;
 import com.ai.qa.service.infrastructure.persistence.mapper.QAHistoryMapper;
@@ -19,12 +20,12 @@ public class QAHistoryService {
     private final QAHistoryMapper qaHistoryMapper;
     private final QAHistoryRepo qaHistoryRepo;
 
-    public QAHistoryDTO saveHistory(SaveHistoryCommand command){
-        String userId = command.getUserId();
+    public QAHistoryDTO saveHistory(SaveHistoryRequest request){
+        String userId = request.getUserId();
         if (userId != null && userId.isEmpty()) {
             throw new IllegalArgumentException("用户名不能为空");
         }
-        QAHistory history = QAHistory.createNew(command.getUserId(), command.getAnswer(), command.getQuestion(), command.getSessionId());
+        QAHistory history = QAHistory.createNew(request.getUserId(), request.getAnswer(), request.getQuestion(), request.getSessionId());
         qaHistoryRepo.save(history);
         return qaHistoryMapper.toDto(history);
     }
