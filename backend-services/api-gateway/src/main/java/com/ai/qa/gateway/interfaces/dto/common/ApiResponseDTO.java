@@ -19,4 +19,13 @@ public class ApiResponseDTO<T> {
         response.setData(data);
         return response;
     }
+
+    public static <T> ApiResponseDTO<T> failure(int code, String message) {
+        ApiResponseDTO<T> response = new ApiResponseDTO<>();
+        response.setCode(code);
+        response.setMessage(message);
+        response.setSuccess(false);
+        response.setData(null);
+        return response;
+    }
 }
