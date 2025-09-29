@@ -15,6 +15,7 @@ import com.ai.qa.user.domain.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.ai.qa.user.common.CommonUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,6 +53,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
      */
     @Override
     public UserProfileDTO getProfile(Long userId) {
+        CommonUtil.assertOwner(userId);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         return userMapper.toProfile(user);

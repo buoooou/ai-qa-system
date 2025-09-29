@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class UserController {
 
     @Operation(summary = "Get user profile", description = "Fetches profile information for the specified user.")
     @GetMapping("/{userId}/profile")
+    @PreAuthorize("#userId == authentication.principal")
     public ResponseEntity<ApiResponse<UserProfileDTO>> profile(@Parameter(description = "ID of the user") @PathVariable Long userId) {
         UserProfileDTO profile = userApplicationService.getProfile(userId);
         return ResponseEntity.ok(ApiResponse.success(profile));

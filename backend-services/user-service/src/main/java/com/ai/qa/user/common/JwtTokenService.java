@@ -53,4 +53,9 @@ public class JwtTokenService {
     public long getExpirationSeconds() {
         return Duration.ofMinutes(expirationMinutes).toSeconds();
     }
+
+    public Key getKey() {
+        return this.key;
+    }
+
 }
