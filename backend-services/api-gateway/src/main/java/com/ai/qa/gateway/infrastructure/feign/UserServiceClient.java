@@ -5,6 +5,7 @@ import com.ai.qa.gateway.interfaces.dto.AuthResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatSessionResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.CreateSessionGatewayRequest;
+import com.ai.qa.gateway.interfaces.dto.RegisterGatewayRequestDTO;
 import com.ai.qa.gateway.interfaces.dto.UpdateNicknameGatewayRequest;
 import com.ai.qa.gateway.interfaces.dto.UserProfileGatewayResponse;
 import com.ai.qa.gateway.interfaces.dto.common.ApiResponseDTO;
@@ -25,7 +26,7 @@ public interface UserServiceClient {
     AuthResponseDTO login(@RequestBody AuthRequestDTO request);
 
     @PostMapping("/api/user/register")
-    AuthResponseDTO register(@RequestBody AuthRequestDTO request);
+    AuthResponseDTO register(@RequestBody RegisterGatewayRequestDTO request);
 
     @GetMapping("/api/user/{userId}/profile")
     ApiResponseDTO<UserProfileGatewayResponse> profile(@PathVariable("userId") Long userId);
