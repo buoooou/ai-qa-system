@@ -9,8 +9,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,16 +36,24 @@ public class QAGatewayController {
 
     @Operation(summary = "Proxy chat", description = "Delegates chat requests to qa-service-fyb.")
     @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<Flux<String>> chat(@RequestBody @Validated ChatRequestDTO request) {
+    public ResponseEntity<Flux<String>> chat(@RequestBody @Validated ChatRequestDTO request,
+                                             ServerHttpRequest httpRequest) {
+        String headerUserId = httpRequest.getHeaders().getFirst("X-User-Id");
+        if (headerUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        if (!headerUserId.equals(String.valueOf(request.getUserId()))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         Flux<String> body = qaFacade.chat(request);
         return ResponseEntity.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(body);
     }
 
     @Operation(summary = "Proxy history", description = "Retrieves chat history from qa-service-fyb.")
     @GetMapping("/history")
-    public ResponseEntity<ApiResponseDTO<List<ChatHistoryResponseDTO>>> history(@Parameter(description = "User ID") @RequestParam Long userId,
-                                                                                @Parameter(description = "Session ID") @RequestParam(required = false) Long sessionId,
-                                                                                @Parameter(description = "Maximum items") @RequestParam(required = false) Integer limit) {
-        return ResponseEntity.ok(ApiResponseDTO.success(qaFacade.history(userId, sessionId, limit)));
+    public ResponseEntity<List<ChatHistoryResponseDTO>> history(@Parameter(description = "User ID") @RequestParam Long userId,
+                                                              @Parameter(description = "Session ID") @RequestParam(required = false) Long sessionId,
+                                                              @Parameter(description = "Maximum items") @RequestParam(required = false) Integer limit) {
+        return ResponseEntity.ok(qaFacade.history(userId, sessionId, limit));
     }
 }
