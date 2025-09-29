@@ -13,7 +13,7 @@ public class ApiResponseDTO<T> {
 
     public static <T> ApiResponseDTO<T> success(T data) {
         ApiResponseDTO<T> response = new ApiResponseDTO<>();
-        response.setCode(0);
+        response.setCode(200);
         response.setMessage("success");
         response.setSuccess(true);
         response.setData(data);

@@ -21,7 +21,7 @@ spring:
     show-sql: true
 security:
   jwt:
-    secret: ${JWT_SECRET:changeme-in-prod}
+    secret: ${JWT_SECRET:7zmKiI4PToMYMC9G5nuAcL5JBRBYFZCzrn7PIM4zPZY=}
     issuer: user-service-fyb
     expiration-minutes: 60
 password:

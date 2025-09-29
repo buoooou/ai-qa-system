@@ -9,6 +9,7 @@ import com.ai.qa.gateway.interfaces.dto.common.ApiResponseDTO;
 import com.ai.qa.gateway.interfaces.facade.AuthFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Tag(name = "Gateway User", description = "User service proxy endpoints exposed by the gateway")
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/api/gateway/user")
 @RequiredArgsConstructor
