@@ -28,14 +28,12 @@ public class AuthFacade {
     public Mono<AuthResponseDTO> login(LoginGatewayRequestDTO request) {
         return Mono.fromCallable(() -> userServiceClient.login(request))
                 .subscribeOn(Schedulers.boundedElastic())
-                .map(AuthFacade::transformAuthResponse)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<AuthResponseDTO> register(RegisterGatewayRequestDTO request) {
         return Mono.fromCallable(() -> userServiceClient.register(request))
                 .subscribeOn(Schedulers.boundedElastic())
-                .map(AuthFacade::transformAuthResponse)
                 .onErrorMap(this::mapFeignException);
     }
 
@@ -85,22 +83,6 @@ public class AuthFacade {
         return Mono.fromCallable(() -> Boolean.TRUE.equals(userServiceClient.isSessionOwnedBy(sessionId, userId).getData()))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorMap(this::mapFeignException);
-    }
-
-    private static AuthResponseDTO transformAuthResponse(AuthResponseDTO response) {
-        if (response == null) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid auth response from user service");
-        }
-
-        if (response.getToken() == null || response.getToken().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Auth token missing in response from user service");
-        }
-
-        if (response.getProfile() == null) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User profile missing in response from user service");
-        }
-
-        return response;
     }
 
     private Throwable mapFeignException(Throwable throwable) {
