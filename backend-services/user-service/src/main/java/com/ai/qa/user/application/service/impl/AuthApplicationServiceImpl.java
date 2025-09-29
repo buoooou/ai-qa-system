@@ -72,9 +72,17 @@ public class AuthApplicationServiceImpl implements AuthApplicationService {
     private AuthResponse buildAuthResponse(User user) {
         String token = jwtTokenService.generateToken(user.getId(), user.getUsername(), user.getRole().name());
         long expiresIn = jwtTokenService.getExpirationSeconds();
-        AuthResponse response = userMapper.toAuthResponse(user);
-        response.setToken(token);
-        response.setExpiresIn(expiresIn);
-        return response;
+        AuthResponse.UserProfile profile = new AuthResponse.UserProfile(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getNickname(),
+                user.getRole().name()
+        );
+        return AuthResponse.builder()
+                .token(token)
+                .expiresIn(expiresIn)
+                .profile(profile)
+                .build();
     }
 }

@@ -24,11 +24,6 @@ public interface UserMapper {
         );
     }
 
-    @Mapping(target = "profile", expression = "java(new AuthResponse.UserProfile(user.getId(), user.getUsername(), user.getEmail(), user.getNickname(), user.getRole().name()))")
-    @Mapping(target = "token", ignore = true)
-    @Mapping(target = "expiresIn", ignore = true)
-    AuthResponse toAuthResponse(User user);
-
     default ChatSessionDTO toSessionDto(QaSession session) {
         return new ChatSessionDTO(
                 session.getId(),
