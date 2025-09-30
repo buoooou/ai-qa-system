@@ -36,9 +36,9 @@ services:
       SPRING_DATASOURCE_PASSWORD: ai_qa_system
     ports:
       - "8081:8081"
-    depends_on:
-      mysql:
-        condition: service_healthy
+    # depends_on:
+    #   mysql:
+    #     condition: service_healthy
     networks:
       - ai-qa-network
     # healthcheck:
@@ -59,7 +59,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://ai-qa-system.chk0g0mmkp90.us-east-1.rds.amazonaws.com:3306/ai_qa_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ai_qa_system
-      GEMINI_API_KEY: ${GEMINI_API_KEY:AIzaSyB5nVaGOcJYSsxwmPVe1kVYZxY2Dl504Zg}
+      GEMINI_API_KEY: AIzaSyB5nVaGOcJYSsxwmPVe1kVYZxY2Dl504Zg
       USER_SERVICE_URL: http://user-service:8081
     ports:
       - "8082:8082"
