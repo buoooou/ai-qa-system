@@ -14,7 +14,7 @@ class QaAPI {
     return headers;
   }
 
-  async getHistory(conversationId: String): Promise<GetHistoryResponse> {
+  async getHistory(conversationId: string): Promise<GetHistoryResponse> {
     const tekon = localStorage.getItem("auth_token");
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/qa/gethistory/${conversationId}`,
