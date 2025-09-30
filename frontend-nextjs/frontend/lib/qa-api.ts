@@ -17,7 +17,7 @@ class QaAPI {
   async getHistory(conversationId: string): Promise<GetHistoryResponse> {
     const tekon = localStorage.getItem("auth_token");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/qa/gethistory/${conversationId}`,
+      `http://3.25.253.118:8080/api/qa/gethistory/${conversationId}`,
       {
         method: "GET",
         headers: this.getAuthHeaders(tekon || ""),
@@ -48,14 +48,11 @@ class QaAPI {
       answer: JSON.stringify(historyMessages.answer),
       sessionId: historyMessages.sessionId,
     };
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/qa/save/`,
-      {
-        method: "POST",
-        headers: this.getAuthHeaders(tekon || ""),
-        body: JSON.stringify(saveBody),
-      }
-    ).then(async (response) => {
+    const response = await fetch(`http://3.25.253.118:8080/api/qa/save/`, {
+      method: "POST",
+      headers: this.getAuthHeaders(tekon || ""),
+      body: JSON.stringify(saveBody),
+    }).then(async (response) => {
       if (!response.ok) {
         const error = await response.text();
         throw new Error(error || "'Failed to fetch conversation history'");
