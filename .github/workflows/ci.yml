@@ -31,7 +31,7 @@ jobs:
     
       - name: Build with Maven
         working-directory: ./backend-services
-        run: mvn -B Clean package
+        run: mvn -B clean package
 
   build-and-push-images:
     name: Build and Push Docker Images
@@ -78,8 +78,8 @@ jobs:
       - name: Build and Push Frontend Image
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
+          context: ./frontend-nextjs/frontend
+          file: ./frontend-nextjs/frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-frontend:latest
     
