@@ -28,4 +28,4 @@ COPY --from=build /app/package.json ./package.json
 
 EXPOSE 3000
 
-CMD ["node", "node_modules/.bin/next", "start"]
+CMD ["pnpm", "start"]
