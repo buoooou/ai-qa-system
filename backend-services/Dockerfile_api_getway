@@ -20,7 +20,7 @@ WORKDIR /app
 
 ENV JAVA_OPTS=""
 
-COPY --from=build /workspace/api-gateway/target/*.jar app.jar
+COPY --from=build ./api-gateway/target/*.jar app.jar
 
 EXPOSE 8080
 

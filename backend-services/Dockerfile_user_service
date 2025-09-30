@@ -20,7 +20,7 @@ WORKDIR /app
 
 ENV JAVA_OPTS=""
 
-COPY --from=build /workspace/user-service/target/*.jar app.jar
+COPY --from=build ./user-service/target/*.jar app.jar
 
 EXPOSE 8081
 

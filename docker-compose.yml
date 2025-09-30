@@ -1,0 +1,40 @@
+services:
+  api-gateway:
+    # 核心：使用 CI/CD 构建的镜像
+    image: xuweixw/ai-qa-api-gateway:latest
+    container_name: api-gateway
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+  user-service:
+    # 核心：使用 CI/CD 构建的镜像
+    image: xuweixw/ai-qa-user-service:latest
+    container_name: user-service
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+  qa-service:
+    # 核心：使用 CI/CD 构建的镜像
+    image: xuweixw/ai-qa-qa-service:latest
+    container_name: api-gateway
+    restart: always
+    ports:
+      - "8082:8082"
+    networks:
+      - app-network
+  ai-qa-frontend:
+    # 核心：使用 CI/CD 构建的镜像
+    image: xuweixw/ai-qa-frontend:latest
+    container_name: ai-qa-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
