@@ -20,6 +20,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV MISTRAL_API_KEY=KUzeQl82Zh6Abq3ePGVwZdcNWLESO9df
 
 COPY --from=build /app/public ./public
 COPY --from=build /app/.next ./.next
