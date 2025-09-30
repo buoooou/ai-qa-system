@@ -33,7 +33,7 @@ function HomePage() {
     setIsLoading(true)
     try {
     const newConversation: Conversation = {
-      id: crypto.randomUUID(),
+      id: Math.random().toString(36).substr(2, 9),
       title: "新对话",
       messages: [],
       createdAt: new Date(),
@@ -93,7 +93,7 @@ function HomePage() {
       if (!activeConversationId) return
 
       const newMessage = {
-        id: crypto.randomUUID(),
+        id: Math.random().toString(36).substr(2, 9),
         role: message.role,
         content: message.content,
         timestamp: new Date(),
