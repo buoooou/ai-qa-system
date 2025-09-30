@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #beddea;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,10 +12,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* 深色模式已设置为默认，保留原深色模式配置 */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #beddea;
+    --foreground: #171717;
   }
 }
 
