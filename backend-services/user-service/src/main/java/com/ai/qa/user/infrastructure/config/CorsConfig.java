@@ -13,7 +13,7 @@ public class CorsConfig {
  public CorsFilter corsFilter() {
 	    CorsConfiguration config = new CorsConfiguration();
         // 允许前端的域名（这里是 localhost:3000）
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://16.176.136.101:3000");
 	    config.setAllowedOriginPatterns(List.of("*"));
 	    config.addAllowedHeader("*");
 	    config.addAllowedMethod("*");
