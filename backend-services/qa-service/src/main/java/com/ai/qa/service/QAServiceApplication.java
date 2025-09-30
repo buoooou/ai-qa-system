@@ -12,5 +12,6 @@ public class QAServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(QAServiceApplication.class, args);
+        System.out.println("QA服务启动成功！");
     }
 }
