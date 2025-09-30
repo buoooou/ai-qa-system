@@ -24,7 +24,7 @@ services:
 
   # 用户服务
   user-service:
-    image: liug369/ai-qa-user-service:latest
+    image: liugang3639/ai-qa-user-service:latest
     # build:
     #   context: ./backend-services/user-service
     #   dockerfile: Dockerfile
@@ -49,7 +49,7 @@ services:
 
   # 问答服务
   qa-service:
-    image: liug369/ai-qa-qa-service:latest
+    image: liugang3639/ai-qa-qa-service:latest
     # build:
     #   context: ./backend-services/qa-service
     #   dockerfile: Dockerfile
@@ -78,7 +78,7 @@ services:
 
   # API网关
   api-gateway:
-    image: liug369/ai-qa-api-gateway:latest
+    image: liugang3639/ai-qa-api-gateway:latest
     # build:
     #   context: ./backend-services/api-gateway
     #   dockerfile: Dockerfile
@@ -104,7 +104,7 @@ services:
 
   # 前端应用
   frontend:
-    image: yuecr387/ai-qa-frontend:latest
+    image: liugang3639/ai-qa-frontend:latest
     # build:
     #   context: ./frontend
     #   dockerfile: Dockerfile
