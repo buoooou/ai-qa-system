@@ -3,9 +3,9 @@ FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 
 # WORKDIR /workspace
 
-COPY backend-services/pom.xml ./pom.xml
-COPY backend-services/api-gateway/pom.xml ./api-gateway/pom.xml
-COPY backend-services/api-gateway/src ./api-gateway/src
+COPY ../../pom.xml ./pom.xml
+COPY ../api-gateway/pom.xml ./api-gateway/pom.xml
+COPY ../api-gateway/src ./api-gateway/src
 # COPY user-service/pom.xml ./user-service/pom.xml
 # COPY user-service/src ./user-service/src
 # COPY qa-service/pom.xml ./qa-service/pom.xml
