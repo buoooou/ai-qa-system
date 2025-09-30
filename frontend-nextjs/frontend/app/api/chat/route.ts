@@ -1,8 +1,8 @@
-import { google } from "@ai-sdk/google"
-import { convertToModelMessages, streamText, type UIMessage } from "ai"
+import { mistral } from "@ai-sdk/mistral";
+import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { NextRequest } from "next/server";
 
-export const maxDuration = 30
+export const maxDuration = 30;
 
 // process.env.sss="ssss"
 
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const prompt = convertToModelMessages(messages);
 
     const result = streamText({
-      model: google("gemini-2.0-flash"),
+      model: mistral("mistral-large-latest"),
       messages: prompt,
       abortSignal: req.signal,
       // maxTokens: 2000,

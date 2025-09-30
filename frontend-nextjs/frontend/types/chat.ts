@@ -16,16 +16,26 @@ export interface Conversation {
 export interface ChatMessage {
   userId: string;
   answer: UIMessage[];
+  sessionId: String;
 }
 
 export interface SaveHistoryRequest {
   userId: string;
+  question: String;
   answer: string;
+  sessionId: String;
+}
+
+export interface GetHistoryResponse {
+  id: String;
+  userId: String;
+  question: String;
+  answer: UIMessage[];
+  sessionId: String;
+  createTime: Date;
 }
 
 export interface QaContextType {
   saveHistory: (history: ChatMessage) => Promise<void>;
-  getHistory: (
-    conversationId: string
-  ) => Promise<Conversation["messages"] | undefined>;
+  getHistory: (conversationId: string) => Promise<GetHistoryResponse | null>;
 }

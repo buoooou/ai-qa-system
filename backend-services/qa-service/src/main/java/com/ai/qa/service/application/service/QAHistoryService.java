@@ -25,7 +25,7 @@ public class QAHistoryService {
         if (userId != null && userId.isEmpty()) {
             throw new IllegalArgumentException("用户名不能为空");
         }
-        QAHistory history = QAHistory.createNew(request.getUserId(), request.getAnswer(), request.getQuestion(), request.getSessionId());
+        QAHistory history = QAHistory.createNew(request.getUserId(), request.getQuestion(),request.getAnswer(), request.getSessionId());
         qaHistoryRepo.save(history);
         return qaHistoryMapper.toDto(history);
     }
@@ -38,11 +38,11 @@ public class QAHistoryService {
         return qaHistoryMapper.toDtoList(qaHistoryList);
     }
 
-    public List<QAHistoryDTO> queryUserHistoryBySessionId(String sessinId) {
+    public QAHistoryDTO queryUserHistoryBySessionId(String sessinId) {
         if (sessinId != null && sessinId.isEmpty()) {
             throw new IllegalArgumentException("用户名不能为空");
         }
-        List<QAHistory> qaHistoryList = qaHistoryRepo.findHistoryByUserId(sessinId);
-        return qaHistoryMapper.toDtoList(qaHistoryList);
+        QAHistory qaHistory = qaHistoryRepo.findHistoryBySession(sessinId);
+        return qaHistoryMapper.toDto(qaHistory);
     }
 }

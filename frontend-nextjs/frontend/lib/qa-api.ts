@@ -1,4 +1,5 @@
-import { ChatMessage, Conversation, SaveHistoryRequest } from "@/types/chat";
+import { ChatMessage, Conversation, GetHistoryResponse, SaveHistoryRequest } from "@/types/chat";
+import { UIMessage } from "ai";
 
 class QaAPI {
   private getAuthHeaders(token?: string) {
@@ -13,29 +14,39 @@ class QaAPI {
     return headers;
   }
 
-  async getHistory(conversationId: String): Promise<Conversation["messages"]> {
+  async getHistory(conversationId: String): Promise<GetHistoryResponse> {
     const tekon = localStorage.getItem("auth_token");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/qa/${conversationId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/qa/gethistory/${conversationId}`,
       {
         method: "GET",
         headers: this.getAuthHeaders(tekon || ""),
       }
     ).then(async (response) => {
       if (!response.ok) {
-        const error = await response.text();
-        throw new Error(error || "'Failed to fetch conversation history'");
+        return null;
       }
       return response.json();
     });
-    return response.data as Conversation["messages"];
+
+    const data: GetHistoryResponse = {
+      id: response.data.id?.toString() || "",
+      userId: response.data.userId?.toString() || "",
+      question: response.data.question?.toString() || "",
+      answer: JSON.parse(response.data.answer),
+      sessionId: response.data.sessionId || "",
+      createTime: response.data.createTime || new Date(),
+    }; 
+    return data as GetHistoryResponse;
   }
 
   async saveHistory(historyMessages: ChatMessage): Promise<boolean> {
     const tekon = localStorage.getItem("auth_token");
     const saveBody: SaveHistoryRequest = {
       userId: historyMessages.userId,
+      question: "",
       answer: JSON.stringify(historyMessages.answer),
+      sessionId: historyMessages.sessionId,
     };
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/qa/save/`,

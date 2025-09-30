@@ -58,12 +58,13 @@ export function QaProvider({ children }: { children: ReactNode }) {
 
       return response;
     } catch (error) {
-      toast({
-        title: "注册失败",
-        description: error instanceof Error ? error.message : "注册过程中出现错误",
-        variant: "destructive",
-      })
-      throw error
+      return null
+      // toast({
+      //   title: "历史取得失败",
+      //   description: error instanceof Error ? error.message : "历史取得过程中出现错误",
+      //   variant: "destructive",
+      // })
+      // throw error
     } finally {
       setIsLoading(false)
     }

@@ -16,7 +16,7 @@ spring:
       - "nacos:shared-config-xuwei.yml"
   cloud:
     nacos:
-      server-addr: 3.113.113.164:8848
+      server-addr: 13.54.174.64:8848
       username: nacos  # Nacos控制台登录用户名
       password: nacos  # Nacos控制台登录密码
       config:

@@ -1,6 +1,7 @@
 package com.ai.qa.service.api.controller;
 
 import com.ai.qa.service.api.dto.QAHistoryDTO;
+import com.ai.qa.service.api.dto.Response;
 import com.ai.qa.service.api.dto.SaveHistoryRequest;
 import com.ai.qa.service.application.service.QAHistoryService;
 import com.ai.qa.service.domain.service.QAService;
@@ -16,6 +17,7 @@ import com.ai.qa.service.infrastructure.persistence.mapper.QAHistoryMapper;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
@@ -40,14 +42,14 @@ public class QAController {
              content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = SaveHistoryRequest.class)))
     })
-    public ResponseEntity<QAHistoryDTO> saveHistory(@RequestBody SaveHistoryRequest request){
+    public ResponseEntity<Response<QAHistoryDTO>> saveHistory(@RequestBody SaveHistoryRequest request){
         String userId = request.getUserId();
         if (userId != null && userId.isEmpty()) {
             throw new IllegalArgumentException("用户名不能为空");
         }
         QAHistoryDTO dto= qaHistoryService.saveHistory(request);
 
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(Response.success(dto));
     }
 
     @GetMapping("/user/{username}")
@@ -55,12 +57,12 @@ public class QAController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "注册登录")
     })
-    public ResponseEntity<List<QAHistoryDTO>> getByUserId(@PathVariable("username") String userId) {
+    public ResponseEntity<Response<List<QAHistoryDTO>>> getByUserId(@PathVariable("username") String userId) {
         if (userId != null && userId.isEmpty()) {
             throw new IllegalArgumentException("用户名不能为空");
         }
         List<QAHistoryDTO> dtoList = qaHistoryService.queryUserHistoryByUserId(userId);
-        return ResponseEntity.ok(dtoList);
+        return ResponseEntity.ok(Response.success(dtoList));
     }
 
     @GetMapping("/gethistory/{sessionid}")
@@ -68,11 +70,14 @@ public class QAController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "注册登录")
     })
-    public ResponseEntity<List<QAHistoryDTO>> getBySessionId(@PathVariable("sessionid") String sessionId) {
+    public ResponseEntity<Response<QAHistoryDTO>> getBySessionId(@PathVariable("sessionid") String sessionId) {
         if (sessionId != null && sessionId.isEmpty()) {
             throw new IllegalArgumentException("会话ID不能为空");
         }
-        List<QAHistoryDTO> dtoList = qaHistoryService.queryUserHistoryByUserId(sessionId);
-        return ResponseEntity.ok(dtoList); 
+        QAHistoryDTO dtoList = qaHistoryService.queryUserHistoryBySessionId(sessionId);
+        if (dtoList == null) {
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Response.error(404, "Register failed"));
+        }
+        return ResponseEntity.ok(Response.success(dtoList)); 
     }
 }

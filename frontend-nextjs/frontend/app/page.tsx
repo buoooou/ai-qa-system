@@ -53,7 +53,8 @@ function HomePage() {
   }
   }, [])
 
-  const handleSelectConversation = useCallback((conversationId: string, messages?: Conversation["messages"]) => {
+  const handleSelectConversation = useCallback((conversationId: string) => {
+  // const handleSelectConversation = useCallback((conversationId: string, messages?: Conversation["messages"]) => {
     
     setActiveConversationId(conversationId)
     // 清除新建对话的高亮状态
@@ -167,7 +168,7 @@ function HomePage() {
         <ChatWindow
           conversationId={activeConversationId}
           conversationTitle={activeConversation?.title}
-          initialMessages={activeConversation?.messages || []}
+          initialMessages={currentMessages}
           onMessageAdded={handleMessageAdded}
           onFirstMessage={handleFirstMessage}
         />

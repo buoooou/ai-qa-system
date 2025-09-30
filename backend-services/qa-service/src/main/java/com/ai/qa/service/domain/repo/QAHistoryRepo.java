@@ -10,6 +10,6 @@ public interface QAHistoryRepo {
     void save(QAHistory history);
     Optional<QAHistory> findHistoryById(Long id);
     List<QAHistory> findHistoryByUserId(String userid);
-    List<QAHistory> findHistoryBySession(String sessionId);
+    QAHistory findHistoryBySession(String sessionId);
 
 }

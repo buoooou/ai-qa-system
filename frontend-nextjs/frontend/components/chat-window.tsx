@@ -9,6 +9,7 @@ import { useEffect, useRef, useCallback } from "react"
 import { Bot, Sparkles } from "lucide-react"
 import { useQa } from "@/contexts/qa-context"
 import { useAuth } from "@/contexts/auth-context"
+import { GetHistoryResponse } from "@/types/chat"
 
 interface ChatWindowProps {
   conversationId: string
@@ -31,8 +32,8 @@ export function ChatWindow({
   onFirstMessage,
 }: ChatWindowProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const { token } = useAuth()
-  const { saveHistory } = useQa()
+  const { token, user} = useAuth()
+  const { saveHistory, getHistory } = useQa()
 
   console.log(initialMessages);
   // 转换初始消息格式以适应AI SDK
@@ -68,7 +69,7 @@ export function ChatWindow({
   }, [messages])
 
   const handleSendMessage = useCallback(
-    (content: string) => {
+    async (content: string) => {
       if (!content.trim()) return; // 防止发送空消息
 
       // 如果是第一条消息，调用onFirstMessage回调
@@ -82,16 +83,37 @@ export function ChatWindow({
       }
 
       // 发送消息
-      sendMessage({ text: content })
-      saveHistory({userId: conversationId, answer: messages});
+      await sendMessage({ text: content })
     },
     [messages.length, onFirstMessage, onMessageAdded, sendMessage],
   )
-  if (initialMessages.length == 0) {
-    messages.splice(0, messages.length);; 
-  }
+  useEffect(() => {
+    if (initialMessages.length == 0) {
+      messages.splice(0, messages.length);
+    } else {
+      const fetchData = async () => {
+        const response = await getHistory(conversationId) as unknown as GetHistoryResponse;
+        return response;
+      }
+      fetchData().then(response => {
+      if (response?.answer != null && response?.answer.length > 0) {
+        const formattedMessages: UIMessage[] = response.answer.map(msg => ({
+          id: msg.id,
+          role: msg.role,
+          parts: msg.parts,
+        }));
+        messages.splice(0, messages.length, ...formattedMessages || []);
+      }});
+    }
+  }, [conversationId])
+  useEffect(() => {
+    if (messages.length != 0) {
+      saveHistory({userId: user?.id || "", answer: messages, sessionId: conversationId});
+    }
+  }, [status])
+
   // if (!conversationId || messages.length === 0) {
-  if (conversationId == "" || messages.length === 0) {
+  if (conversationId == "" || messages.length === 0 || initialMessages.length === 0) {
     return (
       <div className="flex-1 flex flex-col">
         <ChatHeader />

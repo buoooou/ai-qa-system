@@ -7,6 +7,8 @@ import com.ai.qa.service.infrastructure.persistence.mapper.QAHistoryMapper;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,15 +59,13 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
     }
 
     @Override
-    public List<QAHistory> findHistoryBySession(String sessionId) {
+    public QAHistory findHistoryBySession(String sessionId) {
         if (sessionId != null && sessionId.isEmpty()) {
             throw new IllegalArgumentException("用户名不能为空");
         }
         List<QAHistoryPO> qaHistoryPOList = jpaQAHistoryRepository.findHistoryBySessionId(sessionId);
-        if (qaHistoryPOList.isEmpty()) {
-        	List<QAHistory> qaHistoryList = new ArrayList<>();
-        	return qaHistoryList;
-        }
-        return qaHistoryMapper.toDomainList(qaHistoryPOList);
+            Collections.sort(qaHistoryPOList, Comparator.comparingLong(QAHistoryPO::getId).reversed());
+            QAHistoryPO qaHistoryPO = qaHistoryPOList.isEmpty() ? null : qaHistoryPOList.get(0);
+        return qaHistoryMapper.toDomain(qaHistoryPO);
     }
 }

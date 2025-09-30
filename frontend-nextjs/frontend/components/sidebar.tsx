@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Plus, MessageSquare, MoreHorizontal, Trash2, Edit3, User, LogOut } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { Conversation } from "@/types/chat"
+import type { Conversation, GetHistoryResponse } from "@/types/chat"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,14 +16,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/contexts/auth-context"
 import { UserProfileModal } from "@/components/user-profile-modal"
-import { qaAPI } from "@/lib/qa-api"
+// import { useQa } from "@/contexts/qa-context"
 
 interface SidebarProps {
   conversations: Conversation[]
-  activeConversationId?: string
+  activeConversationId: string
   newConversationId?: string
   onNewChat: () => void
-  onSelectConversation: (conversationId: string, messages?: Conversation["messages"]) => void
+  onSelectConversation: (conversationId: string) => void
   onDeleteConversation: (conversationId: string) => void
   onRenameConversation: (conversationId: string, newTitle: string) => void
   isLoading?: boolean
@@ -44,6 +44,7 @@ export function Sidebar({
   const [showProfileModal, setShowProfileModal] = useState(false)
   const { user, logout } = useAuth()
   const [localLoading, setLocalLoading] = useState<string | null>(null)
+  // const { getHistory } = useQa()
 
   const handleStartEdit = (conversation: Conversation) => {
     setEditingId(conversation.id)
@@ -64,27 +65,27 @@ export function Sidebar({
   }
 
   // 处理对话选择并加载历史消息
-  const handleSelect = async (conversationId: string) => {
-    // 如果是已经选中的对话，直接返回
-    if (conversationId === activeConversationId) return;
+  // const handleSelect = async (conversationId: string) => {
+  //   // 如果是已经选中的对话，直接返回
+  //   if (conversationId === activeConversationId) return;
     
-    // 设置加载状态
-    setLocalLoading(conversationId);
+  //   // 设置加载状态
+  //   setLocalLoading(conversationId);
     
-    try {
-      // const response = await qaAPI.getHistory(conversationId) as Conversation["messages"];
-      const response:any[] = [];
-      // 调用回调函数，传递对话ID和历史消息
-      onSelectConversation(conversationId, response || []);
-    } catch (error) {
-      console.error('Error loading conversation:', error);
-      // 即使出错也选中该对话，只是没有历史消息
-      onSelectConversation(conversationId, []);
-    } finally {
-      // 清除加载状态
-      setLocalLoading(null);
-    }
-  }
+  //   try {
+  //     const response = await getHistory(conversationId) as unknown as GetHistoryResponse;
+
+  //     // 调用回调函数，传递对话ID和历史消息
+  //     onSelectConversation(conversationId, response?.answer || []);
+  //   } catch (error) {
+  //     console.error('Error loading conversation:', error);
+  //     // 即使出错也选中该对话，只是没有历史消息
+  //     onSelectConversation(conversationId, []);
+  //   } finally {
+  //     // 清除加载状态
+  //     setLocalLoading(null);
+  //   }
+  // }
 
   return (
     <>
@@ -112,7 +113,7 @@ export function Sidebar({
                   <MoreHorizontal className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuContent align="end" className="w-48 dropdown-content">
                 <DropdownMenuItem onClick={() => setShowProfileModal(true)}>
                   <User className="w-4 h-4 mr-2" />
                   个人资料
@@ -128,13 +129,13 @@ export function Sidebar({
 
           <Button
             onClick={onNewChat}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="w-full new-chat-button bg-primary hover:bg-primary/90 text-primary-foreground"
             size="lg"
             disabled={isLoading}
           >
             {isLoading ? (
               <>
-              <div className="w-4 h-4 mr-2 animate-spin loading-spinner">
+              <div className="w-4 h-4 mr-2 loading-spinner">
                   Looding...
               </div>
               {/* <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -172,7 +173,7 @@ export function Sidebar({
                         ? "bg-sidebar-accent text-sidebar-accent-foreground"
                         : "text-sidebar-foreground",
                     )}
-                    onClick={() => handleSelect(conversation.id)}
+                    onClick={() => onSelectConversation(conversation.id)}
                   >
                     {localLoading === conversation.id ? (
                         <div className="w-4 h-4 flex-shrink-0 animate-spin loading-spinner">
@@ -218,7 +219,7 @@ export function Sidebar({
                             <MoreHorizontal className="w-3 h-3" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-32">
+                        <DropdownMenuContent align="end" className="w-32 dropdown-content">
                           <DropdownMenuItem onClick={() => handleStartEdit(conversation)}>
                             <Edit3 className="w-3 h-3 mr-2" />
                             重命名
