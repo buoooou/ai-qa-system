@@ -3,7 +3,7 @@ package com.ai.qa.gateway.api.web.filter;
 import com.ai.qa.gateway.infrastructure.config.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import lombok.extern.slf4j.Slf4j;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -20,7 +20,6 @@ import java.util.List;
 /**
  * Gateway filter performing JWT authentication for downstream services.
  */
-@Slf4j
 @Component
 @RefreshScope
 public class AuthenticationFilter implements GlobalFilter, Ordered {
@@ -34,22 +33,22 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        log.info("AuthenticationFilter triggered for path: {}", request.getURI().getPath());
+        System.out.println("AuthenticationFilter triggered for path: " + request.getURI().getPath());
         String path = request.getURI().getPath();
         String authHeader = request.getHeaders().getFirst("Authorization");
 
-        log.debug("Incoming request path: {}", path);
-        log.debug("Authorization header: {}", authHeader);
+        System.out.println("Incoming request path: " + path);
+        System.out.println("Authorization header: " + authHeader);
 
         List<String> whiteList = List.of("/api/gateway/auth/login", "/api/gateway/auth/register");
         boolean isWhitelisted = whiteList.stream().anyMatch(path::startsWith);
         if (isWhitelisted) {
-            log.debug("Path {} is whitelisted, skipping authentication", path);
+            System.out.println("Path " + path + " is whitelisted, skipping authentication");
             return chain.filter(exchange);
         }
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            log.warn("Missing or invalid Authorization header");
+            System.out.println("Missing or invalid Authorization header");
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -57,15 +56,19 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         String token = authHeader.substring(7);
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8))
+                    .setSigningKey(Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8)))
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
 
-            log.info("Authenticated user: id={}, username={}, role={}",
-                    claims.getSubject(),
-                    claims.get("username", String.class),
-                    claims.get("role", String.class));
+            System.out.println("Authenticated user: id=" + claims.getSubject()
+                    + ", username=" + claims.get("username", String.class)
+                    + ", role=" + claims.get("role", String.class));
+            System.out.println("JWT claims: " + claims);
+            System.out.println("Token subject: " + claims.getSubject());
+            System.out.println("Token issuer: " + claims.getIssuer());
+            System.out.println("Token expiration: " + claims.getExpiration());
+
 
             ServerHttpRequest mutatedRequest = request.mutate()
                     .header("Authorization", authHeader)
@@ -76,7 +79,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
             return chain.filter(exchange.mutate().request(mutatedRequest).build());
         } catch (Exception e) {
-            log.error("JWT validation failed: {}", e.getClass().getSimpleName(), e);
+            System.out.println("JWT validation failed: " + e.getClass().getSimpleName() + " - " + e.getMessage());
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
