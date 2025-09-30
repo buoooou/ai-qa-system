@@ -36,9 +36,6 @@ services:
       SPRING_DATASOURCE_PASSWORD: zaq12wsx
     ports:
       - "8081:8081"
-    depends_on:
-      mysql:
-        condition: service_healthy
     networks:
       - ai-qa-network
     # healthcheck:
