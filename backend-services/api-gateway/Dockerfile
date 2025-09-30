@@ -1,27 +1,27 @@
-# 使用官方Maven镜像作为基础镜像
-FROM maven:3-ibm-semeru-17-focal AS build
- 
-# 将Maven项目的pom.xml和src代码复制到容器中
-COPY src /home/app/src
-COPY pom.xml /home/app
- 
-# 设置工作目录
-WORKDIR /home/app
- 
-# 使用Maven打包应用
-RUN mvn -f /home/app/pom.xml clean package
- 
-# 使用Java的基础镜像
-FROM openjdk:17-jdk-slim
- 
-# 将构建好的jar从build阶段复制到这个新镜像中
-COPY --from=build /home/app/target/*.jar /usr/local/lib/app.jar
- 
-# 设置工作目录
-WORKDIR /usr/local/lib
- 
-# 暴露端口（例如8080）如果你的Spring Boot应用需要监听外部请求
+# === Build stage ===
+FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
+
+WORKDIR /workspace
+
+COPY pom.xml ./pom.xml
+COPY api-gateway/pom.xml ./api-gateway/pom.xml
+COPY api-gateway/src ./api-gateway/src
+COPY user-service/pom.xml ./user-service/pom.xml
+COPY user-service/src ./user-service/src
+COPY qa-service/pom.xml ./qa-service/pom.xml
+COPY qa-service/src ./qa-service/src
+
+RUN mvn -pl api-gateway -am -B clean package -DskipTests
+
+# === Runtime stage ===
+FROM eclipse-temurin:17-jre-alpine
+
+WORKDIR /app
+
+ENV JAVA_OPTS=""
+
+COPY --from=build /workspace/api-gateway/target/*.jar app.jar
+
 EXPOSE 8080
- 
-# 运行jar文件
-ENTRYPOINT ["java","-jar","app.jar"]
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
