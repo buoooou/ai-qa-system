@@ -13,12 +13,12 @@ export const handlers = [
   http.post(`${API_BASE_URL}/api/auth/login`, async ({ request }) => {
     const body = await request.json();
     
-    if (body.username === 'testuser' && body.password === 'password123') {
-      return HttpResponse.json({
-        token: 'mock-jwt-token',
-        user: mockUser,
-      });
-    }
+    // if (body.username === 'testuser' && body.password === 'password123') {
+    //   return HttpResponse.json({
+    //     token: 'mock-jwt-token',
+    //     user: mockUser,
+    //   });
+    // }
     
     return new HttpResponse('Invalid credentials', { status: 401 });
   }),
@@ -27,16 +27,16 @@ export const handlers = [
   http.post(`${API_BASE_URL}/api/auth/register`, async ({ request }) => {
     const body = await request.json();
     
-    if (body.username && body.email && body.password) {
-      return HttpResponse.json({
-        token: 'mock-jwt-token',
-        user: {
-          ...mockUser,
-          username: body.username,
-          email: body.email,
-        },
-      });
-    }
+    // if (body.username && body.email && body.password) {
+    //   return HttpResponse.json({
+    //     token: 'mock-jwt-token',
+    //     user: {
+    //       ...mockUser,
+    //       username: body.username,
+    //       email: body.email,
+    //     },
+    //   });
+    // }
     
     return new HttpResponse('Invalid registration data', { status: 400 });
   }),
