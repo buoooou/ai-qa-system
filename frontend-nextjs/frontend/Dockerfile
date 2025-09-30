@@ -3,14 +3,12 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
+RUN npm install -g pnpm@10.17.1
 ENV PNPM_HOME=/usr/local/share/pnpm
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 COPY package.json pnpm-lock.yaml ./
-
-COPY --from=pnpm-setup /root/.local/share/pnpm/pnpm /usr/local/bin/pnpm
-COPY --from=pnpm-setup /root/.local/share/pnpm/state.json /root/.local/share/pnpm/state.json
 RUN pnpm install --frozen-lockfile
 
 COPY . .
