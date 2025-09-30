@@ -1,6 +1,6 @@
 import _axios from "axios";
 const axios = _axios.create({
-  baseURL: "http://localhost:8081",
+  baseURL: "http://18.191.0.164:8081",
   timeout: 50000,
 });
 
