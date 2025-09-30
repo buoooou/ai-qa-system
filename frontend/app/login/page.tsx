@@ -67,11 +67,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center from-blue-50 to-indigo-100">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-lg">
+    <div className="min-h-screen flex items-center justify-center bg-background relative">
+      {/* 全屏蒙版 - 登录中显示 */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="text-center">
+            <div className="inline-block h-12 w-12 border-4 border-primary-color border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p className="text-foreground text-lg font-medium">正在登录，请稍候...</p>
+          </div>
+        </div>
+      )}
+      
+      <div className="max-w-md w-full space-y-8 p-8 bg-card-bg rounded-xl shadow-lg border border-border-color">
         {/* 头部 */}
-        <div className="text-center">
-          <div className="mx-auto h-12 w-12 bg-indigo-600 rounded-full flex items-center justify-center">
+        <div className="flex items-center justify-center gap-3">
+          <div className="h-12 w-12 bg-primary-color rounded-full flex items-center justify-center">
             <svg
               className="h-6 w-6 text-white"
               fill="none"
@@ -82,50 +92,50 @@ export default function LoginPage() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
               />
             </svg>
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            AI智能问答系统
+          <h2 className="text-3xl font-bold text-foreground">
+            智能助手系统
           </h2>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               用户名
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-border-color bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary-color"
               placeholder="请输入用户名"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               密码
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-border-color bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary-color"
               placeholder="请输入密码"
             />
           </div>
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+            className="w-full bg-primary-color text-white py-2 px-4 rounded-md hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 disabled:opacity-50"
           >
             {isLoading ? "登录中..." : "登录"}
           </button>
         </form>
         <div className="mt-4 text-center">
-          <span className="text-sm text-gray-600">没有账号？</span>
-          <a href="/register" className="text-sm text-blue-600 hover:underline">
+          <span className="text-sm text-foreground/70">没有账号？</span>
+          <a href="/register" className="text-sm text-primary-color hover:underline">
             立即注册
           </a>
         </div>
