@@ -5,11 +5,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "user_wl")
 public class UserPO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +25,13 @@ public class UserPO {
     private String nickname;
 
     @CreationTimestamp
-    @Column(name = "create_time", nullable = false)
+    @Column(name = "create_time", updatable = false)
     private LocalDateTime createTime;
 
     @UpdateTimestamp
     @Column(name = "update_time")
     private LocalDateTime updateTime;
-
+    
     @Column(nullable = false)
     private String role;
 }

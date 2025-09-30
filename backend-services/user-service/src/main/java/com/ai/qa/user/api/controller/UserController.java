@@ -1,7 +1,9 @@
 package com.ai.qa.user.api.controller;
 import com.ai.qa.user.domain.entity.User;
+import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +53,8 @@ public class UserController {
         response.setToken(token);
         response.setUserId(user.getId().toString());
         return ResponseEntity.ok(ApiResponse.success("登录成功,token获取", response));
+
+    
     }
 
     /**

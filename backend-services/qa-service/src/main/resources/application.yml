@@ -2,17 +2,23 @@ server:
   port: 8082
 spring:
   application:
-    name: qa-service
-#  cloud:
-#    nacos:
-#      server-addr: 54.219.180.170:8848
-#    loadbalancer:
-#      ribbon:
-#        enabled: false
+    name: qa-service-wl
+  #  cloud:
+  #    nacos:
+  #      server-addr: 54.219.180.170:8848
+  #    loadbalancer:
+  #      ribbon:
+  #        enabled: false
   datasource:
-    url: jdbc:mysql://liug-aiqasystemdb.cjkwkoiq2pgc.us-east-2.rds.amazonaws.com/ai_qa_system?useUnicode=true&characterEncoding=utf-8
-    username: admin
-    password: zaq12wsx
+    #    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    #    username: root
+    #    password: ai_qa_system
+    #    url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8
+    #    username: root
+    #    password: 123456
+    url: jdbc:mysql://ai-qa-system.chk0g0mmkp90.us-east-1.rds.amazonaws.com/ai_qa_system?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: ai_qa_system
   jpa:
     hibernate:
       ddl-auto: update
@@ -32,14 +38,10 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
-    url: /v3/api-docs
-    config-url: /v3/api-docs/swagger-config
-    disable-swagger-default-url: true
-    
 
 # Gemini API配置
 gemini:
   api:
     base-url: https://generativelanguage.googleapis.com/v1beta
-    key: AIzaSyB5nVaGOcJYSsxwmPVe1kVYZxY2Dl504Zg  
-    model: gemini-1.5-flash  # 免费的Gemini模型，速度快，适合对话
+    key: AIzaSyB5nVaGOcJYSsxwmPVe1kVYZxY2Dl504Zg
+    model: gemini-1.5-flash # 免费的Gemini模型，速度快，适合对话

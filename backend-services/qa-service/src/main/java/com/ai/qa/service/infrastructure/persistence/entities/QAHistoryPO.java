@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity      
 @NoArgsConstructor       
 @AllArgsConstructor 
-@Table(name = "qa_history")
+@Table(name = "qa_history_wl")
 @Data
 public class QAHistoryPO {
     

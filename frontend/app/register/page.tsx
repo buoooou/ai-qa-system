@@ -68,31 +68,31 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900">
-      <div className="max-w-md w-full space-y-8 p-8 bg-slate-800 rounded-xl shadow-lg border border-slate-700">
-        <h1 className="text-2xl font-bold mb-6 text-center text-foreground">注册</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-lg">
+        <h1 className="text-2xl font-bold mb-6 text-center">注册</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               用户名
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-2 bg-slate-700 border border-slate-600 rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="请输入用户名"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               昵称
             </label>
             <input
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              className="w-full p-2 bg-slate-700 border border-slate-600 rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="请输入昵称"
             />
           </div>
@@ -100,7 +100,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="role"
-              className="block text-sm font-medium text-foreground"
+              className="block text-sm font-medium text-gray-700"
             >
               角色选择：
             </label>
@@ -110,7 +110,7 @@ export default function RegisterPage() {
               required
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full p-2 bg-slate-700 border border-slate-600 rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">请选择角色</option>
               <option value="user">普通用户</option>
@@ -120,40 +120,40 @@ export default function RegisterPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               密码
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 bg-slate-700 border border-slate-600 rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="请输入密码"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               确认密码
             </label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full p-2 bg-slate-700 border border-slate-600 rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="请再次输入密码"
             />
           </div>
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-variant focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
           >
             {isLoading ? "注册中..." : "注册"}
           </button>
         </form>
         <div className="mt-4 text-center">
-          <span className="text-sm text-foreground/80">已有账号？</span>
-          <a href="/login" className="text-sm text-primary hover:underline">
+          <span className="text-sm text-gray-600">已有账号？</span>
+          <a href="/login" className="text-sm text-blue-600 hover:underline">
             立即登录
           </a>
         </div>

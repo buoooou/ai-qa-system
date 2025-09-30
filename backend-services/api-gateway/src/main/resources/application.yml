@@ -9,19 +9,19 @@ logging:
 #    com.alibaba.nacos.client: DEBUG
 spring:
   application:
-    name: api-gateway
-  #config:
+    name: api-gateway-wl
+    #config:
     #import:
-      # 引入共享配置
-      #- "nacos:shared-config-ycr.yml"
-#  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 54.219.180.170:8848
-      #config:
-        # 明确告诉 Nacos Config 默认的文件扩展名是 yml
-        #file-extension: yml
-        #group: DEFAULT_GROUP
+    # 引入共享配置
+    #- "nacos:shared-config-wl.yml"
+    #  cloud:
+    #    nacos:
+    #      discovery:
+    #        server-addr: 54.219.180.170:8848
+    #config:
+    # 明确告诉 Nacos Config 默认的文件扩展名是 yml
+    #file-extension: yml
+    #group: DEFAULT_GROUP
     gateway:
       discovery:
         locator:
@@ -29,93 +29,92 @@ spring:
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
       routes:
         # 用户服务Swagger路由 - 必须放在通用路由之前
-        # 用户服务Swagger路由 - 必须放在通用路由之前
         - id: user_swagger_ui
-          uri: lb://user-service
+          uri: lb://user-service-wl
           predicates:
             - Path=/api/user/swagger-ui/**
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=2
+
         - id: user_swagger_docs
-          uri: lb://user-service
+          uri: lb://user-service-wl
           predicates:
             - Path=/api/user/v3/api-docs/**
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=2
+
         - id: user_swagger_webjars
-          uri: lb://user-service
+          uri: lb://user-service-wl
           predicates:
             - Path=/api/user/webjars/**
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=2
+
         - id: user_swagger_config
-          uri: lb://user-service
+          uri: lb://user-service-wl
           predicates:
             - Path=/api/user/v3/api-docs/swagger-config
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=2
+
         # 问答服务Swagger路由 - 必须放在通用路由之前
         - id: qa_swagger_ui
-          uri: lb://qa-service
+          uri: lb://qa-service-wl
           predicates:
             - Path=/api/qa/swagger-ui/**
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=2
+
         - id: qa_swagger_docs
-          uri: lb://qa-service
+          uri: lb://qa-service-wl
           predicates:
             - Path=/api/qa/v3/api-docs/**
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=2
+
         - id: qa_swagger_webjars
-          uri: lb://qa-service
+          uri: lb://qa-service-wl
           predicates:
             - Path=/api/qa/webjars/**
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=2
+
         - id: qa_swagger_config
-          uri: lb://qa-service
+          uri: lb://qa-service-wl
           predicates:
             - Path=/api/qa/v3/api-docs/swagger-config
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=2
+
         # 用户服务路由
         - id: user_service_route
-          uri: lb://user-service
+          uri: lb://user-service-wl # lb:// 表示从Nacos负载均衡地选择一个user-service实例
           predicates:
-            - Path=/api/user/**
+            - Path=/api/user/** # 匹配所有/api/user/开头的请求
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=0 # 不去掉路径前缀
+
         # JWT认证服务路由
         - id: auth_service_route
-          uri: lb://user-service
+          uri: lb://user-service-wl
           predicates:
-            - Path=/api/auth/**
+            - Path=/api/auth/** # 匹配所有/api/auth/开头的请求
           filters:
-            - StripPrefix=1
-        
+            - StripPrefix=0
+
         # 问答服务路由
         - id: qa_service_route
-          uri: lb://qa-service
+          uri: lb://qa-service-wl
           predicates:
-            - Path=/api/qa/**
+            - Path=/api/qa/** # 匹配所有/api/qa/开头的请求
           filters:
-            - StripPrefix=1
-      
+            - StripPrefix=0
+
       # 全局CORS配置
       globalcors:
         cors-configurations:
-          '[/**]':
-            allowedOrigins: 
+          "[/**]":
+            allowedOrigins:
               - "http://localhost:3000"
               - "http://127.0.0.1:3000"
               - "http://192.168.31.171:3000"
@@ -128,7 +127,7 @@ spring:
             allowedHeaders: "*"
             allowCredentials: true
             maxAge: 3600
-    
+
     # 负载均衡配置
     loadbalancer:
       ribbon:
