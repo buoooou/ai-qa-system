@@ -64,96 +64,69 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900">
-      <div className="max-w-md w-full space-y-8 p-8 bg-slate-800 rounded-xl shadow-lg border border-slate-700 relative overflow-hidden">
-        {/* 添加额外图标装饰 */}
-        <div className="absolute -top-6 -right-6 h-24 w-24 opacity-10">
-          <svg
-            className="h-full w-full text-primary"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM7.5 13.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm9 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-3.5-5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-2 6a3 3 0 1 1 6 0v1h-6v-1z"/>
-          </svg>
-        </div>
-        
+    <div className="min-h-screen flex items-center justify-center from-blue-50 to-indigo-100">
+      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-lg">
         {/* 头部 */}
-        <div className="text-center relative z-10">
-            <div className="flex items-center justify-center space-x-4 mb-2">
-              <div className="h-12 w-12 bg-primary rounded-full flex items-center justify-center">
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM12 14c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5 19h14v-2H5v2zM5 7h14v2H5V7z"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-3xl font-bold text-foreground">
-                智能助手平台
-              </h2>
-            </div>
-            <p className="text-sm text-foreground/70">
-              欢迎登录，开启AI驱动的智能问答体验
-            </p>
+        <div className="text-center">
+          <div className="mx-auto h-12 w-12 bg-indigo-600 rounded-full flex items-center justify-center">
+            <svg
+              className="h-6 w-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />
+            </svg>
           </div>
-        <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+            AI智能问答系统
+          </h2>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              账号名称
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              用户名
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-2 bg-slate-700 border border-slate-600 rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="请输入您的账号"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="请输入用户名"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              登录密码
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              密码
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 bg-slate-700 border border-slate-600 rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="请输入您的密码"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="请输入密码"
             />
           </div>
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-variant focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-all duration-300"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
           >
-            {isLoading ? "正在登录..." : "立即登录"}
+            {isLoading ? "登录中..." : "登录"}
           </button>
         </form>
-        <div className="mt-4 text-center relative z-10">
-          <span className="text-sm text-foreground/80">还没有账号？</span>
-          <a href="/register" className="text-sm text-primary hover:underline ml-1 transition-colors duration-200">
-            立即注册新账号
+        <div className="mt-4 text-center">
+          <span className="text-sm text-gray-600">没有账号？</span>
+          <a href="/register" className="text-sm text-blue-600 hover:underline">
+            立即注册
           </a>
         </div>
       </div>
-      
-      {/* 全屏蒙板 - 登录请求处理中显示 */}
-      {isLoading && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center">
-          <div className="bg-slate-800 p-6 rounded-lg shadow-2xl border border-slate-700 flex flex-col items-center">
-            <div className="w-12 h-12 border-4 border-t-primary border-r-primary/50 border-b-primary/30 border-l-primary/70 rounded-full animate-spin mb-4"></div>
-            <p className="text-lg font-medium text-foreground">正在登录系统...</p>
-            <p className="text-sm text-foreground/70 mt-2">请稍候，正在验证您的身份</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
