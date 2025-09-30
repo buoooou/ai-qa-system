@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: ["dev_day03"]
 
-  # jobs:
+  jobs:
   #   build-and-test-backend:
   #     name: Build and Test Backend Services
   #     runs-on: ubuntu-latest
