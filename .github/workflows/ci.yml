@@ -7,33 +7,33 @@ on:
     branches: ["dev_day03"]
 
   jobs:
-  #   build-and-test-backend:
-  #     name: Build and Test Backend Services
-  #     runs-on: ubuntu-latest
+    # build-and-test-backend:
+    # name: Build and Test Backend Services
+    # runs-on: ubuntu-latest
 
-  #     steps:
-  #       - name: Checkout repository
-  #         uses: actions/checkout@v4
+    # steps:
+    #   - name: Checkout repository
+    #     uses: actions/checkout@v4
 
-  #       - name: Set up JDK 21
-  #         uses: actions/setup-java@v4
-  #         with:
-  #           java-version: "21"
-  #           distribution: "temurin"
+    #   - name: Set up JDK 21
+    #     uses: actions/setup-java@v4
+    #     with:
+    #       java-version: "21"
+    #       distribution: "temurin"
 
-  #       - name: Cache Maven packages
-  #         uses: actions/cache@v4
-  #         with:
-  #           path: ~/.m2/repository
-  #           # 匹配backend-services目录下的所有pom.xml，确保缓存正确
-  #           key: ${{ runner.os }}-maven-${{ hashFiles('backend-services/**/pom.xml') }}
-  #           restore-keys: |
-  #             ${{ runner.os }}-maven-
+    #   - name: Cache Maven packages
+    #     uses: actions/cache@v4
+    #     with:
+    #       path: ~/.m2/repository
+    #       # 匹配backend-services目录下的所有pom.xml，确保缓存正确
+    #       key: ${{ runner.os }}-maven-${{ hashFiles('backend-services/**/pom.xml') }}
+    #       restore-keys: |
+    #         ${{ runner.os }}-maven-
 
-  #       # 关键修复：进入backend-services目录执行Maven命令（此处是父pom.xml所在目录）
-  #       - name: Build and test all backend services
-  #         run: mvn -B clean package
-  #         working-directory: ./backend-services # 核心修改：指定包含pom.xml的目录
+    #   # 关键修复：进入backend-services目录执行Maven命令（此处是父pom.xml所在目录）
+    #   - name: Build and test all backend services
+    #     run: mvn -B clean package
+    #     working-directory: ./backend-services # 核心修改：指定包含pom.xml的目录
 
   build-and-push-images:
     name: Build and Push Docker Images
