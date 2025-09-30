@@ -35,7 +35,7 @@ import java.util.List;
  */
 @Tag(name = "User APIs", description = "User authentication, profile, and chat history endpoints")
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 @Validated
 public class UserController {
 

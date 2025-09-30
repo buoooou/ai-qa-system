@@ -34,6 +34,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        log.info("AuthenticationFilter triggered for path: {}", request.getURI().getPath());
         String path = request.getURI().getPath();
         String authHeader = request.getHeaders().getFirst("Authorization");
 

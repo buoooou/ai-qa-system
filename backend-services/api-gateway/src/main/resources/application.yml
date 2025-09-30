@@ -2,11 +2,11 @@ server:
   port: 8083 # 所有后端请求的入口
 logging:
   level:
-    # 将 Gateway 的核心日志级别设置为 DEBUG
+    root: INFO
     org.springframework.cloud.gateway: DEBUG
-    # (可选) 将 Reactor Netty 的日志也设为 DEBUG，可以看到更底层的网络交互
     reactor.netty.http.client: DEBUG
-    com.alibaba.nacos.client: DEBUG
+    com.alibaba.nacos.client: INFO
+    com.alibaba.nacos.client.naming: WARN
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -37,13 +37,13 @@ spring:
         - id: user_service_route
           uri: lb://user-service-fyb
           predicates:
-            - Path=/api/user/**
+            - Path=/api/gateway/user/**
           filters:
             - StripPrefix=2
         - id: qa_service_route
           uri: lb://qa-service-fyb
           predicates:
-            - Path=/api/qa/**
+            - Path=/api/gateway/qa/**
           filters:
             - StripPrefix=2
       default-filters:
