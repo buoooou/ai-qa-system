@@ -30,6 +30,7 @@ jobs:
              ${{ runner.os }}-maven-
     
       - name: Build with Maven
+        working-directory: ./backend-services
         run: mvn -B Clean package
 
   build-and-push-images:
