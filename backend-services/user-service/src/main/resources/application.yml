@@ -3,20 +3,20 @@ server:
 spring:
   application:
     name: user-service-ycr
-#  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 54.219.180.170:8848
+  #  cloud:
+  #    nacos:
+  #      discovery:
+  #        server-addr: 54.219.180.170:8848
   datasource:
-#    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-#    username: root
-#    password: ai_qa_system
-#    url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8
-#    username: root
-#    password: 123456
-    url: jdbc:mysql://ai-qa-system.chk0g0mmkp90.us-east-1.rds.amazonaws.com/ai_qa_system?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: ai_qa_system
+    #    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    #    username: root
+    #    password: ai_qa_system
+    #    url: jdbc:mysql://localhost:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8
+    #    username: root
+    #    password: 123456
+    url: jdbc:mysql://liug-aiqasystemdb.cjkwkoiq2pgc.us-east-2.rds.amazonaws.com/ai_qa_system?useUnicode=true&characterEncoding=utf-8
+    username: admin
+    password: zaq12wsx
   jpa:
     hibernate:
       ddl-auto: update
