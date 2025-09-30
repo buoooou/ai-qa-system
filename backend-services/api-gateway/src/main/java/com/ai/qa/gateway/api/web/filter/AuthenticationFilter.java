@@ -31,21 +31,24 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         this.jwtProperties = jwtProperties;
     }
 
-    /**
-     * Validates JWT token and injects user information headers.
-     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        String path = request.getURI().getPath();
+        String authHeader = request.getHeaders().getFirst("Authorization");
+
+        log.debug("Incoming request path: {}", path);
+        log.debug("Authorization header: {}", authHeader);
 
         List<String> whiteList = List.of("/api/gateway/auth/login", "/api/gateway/auth/register");
-        if (whiteList.contains(request.getURI().getPath())) {
+        boolean isWhitelisted = whiteList.stream().anyMatch(path::startsWith);
+        if (isWhitelisted) {
+            log.debug("Path {} is whitelisted, skipping authentication", path);
             return chain.filter(exchange);
         }
 
-        String authHeader = request.getHeaders().getFirst("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            log.debug("AuthenticationFilter: missing or invalid Authorization header");
+            log.warn("Missing or invalid Authorization header");
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -58,14 +61,21 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
                     .parseClaimsJws(token)
                     .getBody();
 
+            log.info("Authenticated user: id={}, username={}, role={}",
+                    claims.getSubject(),
+                    claims.get("username", String.class),
+                    claims.get("role", String.class));
+
             ServerHttpRequest mutatedRequest = request.mutate()
+                    .header("Authorization", authHeader)
                     .header("X-User-Id", claims.getSubject())
                     .header("X-User-Name", claims.get("username", String.class))
                     .header("X-User-Role", claims.get("role", String.class))
                     .build();
+
             return chain.filter(exchange.mutate().request(mutatedRequest).build());
         } catch (Exception e) {
-            log.warn("AuthenticationFilter: JWT validation failed - {}", e.getMessage());
+            log.error("JWT validation failed: {}", e.getClass().getSimpleName(), e);
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
