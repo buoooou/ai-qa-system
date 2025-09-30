@@ -1,5 +1,5 @@
 # 使用官方Node.js运行时作为基础镜像
-FROM node:18-alpine AS base
+FROM node:22-alpine AS base
 
 # 安装依赖阶段
 FROM base AS deps
@@ -10,7 +10,7 @@ WORKDIR /app
 # 复制package文件
 COPY package.json package-lock.json* ./
 RUN \
-  if [ -f package-lock.json ]; then npm ci --only=production; \
+  if [ -f package-lock.json ]; then npm install; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
@@ -39,15 +39,17 @@ RUN adduser --system --uid 1001 nextjs
 
 # 复制构建产物
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.ts ./
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.next ./.next  
 
 # 设置正确的权限
-RUN mkdir .next
+# RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
 # 复制构建产物，自动利用输出文件跟踪来减少镜像大小
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
@@ -57,4 +59,4 @@ ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
 # 启动应用
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start"]

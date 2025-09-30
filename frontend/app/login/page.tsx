@@ -39,12 +39,15 @@ export default function LoginPage() {
       //   body: JSON.stringify({ username, password }),
       // });
 
+      console.log("333333333333");
       const response = await axios.post("/api/user/login", {
         username: username,
         password: password,
       });
       console.log(response);
+      console.log("44444444444");
       if (response.data.code !== 200) {
+        console.log("132132213");
         throw new Error(`登录失败: ${response.data.message}`);
       }
 
