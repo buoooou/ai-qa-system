@@ -3,7 +3,8 @@ package com.ai.qa.user.application.impl;
 import com.ai.qa.user.api.dto.*;
 import com.ai.qa.user.application.UserService;
 import com.ai.qa.user.domain.entity.User;
-import com.ai.qa.user.domain.repository.UserRepository;
+import com.ai.qa.user.domain.repositories.UserRepository;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

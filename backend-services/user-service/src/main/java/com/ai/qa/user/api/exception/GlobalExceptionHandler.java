@@ -2,6 +2,8 @@ package com.ai.qa.user.api.exception;
 
 import com.ai.qa.user.api.dto.Response;
 import jakarta.validation.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,19 @@ import java.util.stream.Collectors;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    /**
+     * 处理自定义的业务异常
+     */
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response<Object> handleBusinessException(BusinessException ex) {
+        ErrorCode errorCode = ex.getErrorCode();
+        log.warn("业务异常: {}", ex.getMessage());
+        return Response.error(errorCode.getCode(), errorCode.getMessage());
+    }
 
     /** 处理自定义业务异常 */
     @ExceptionHandler(RuntimeException.class)
@@ -46,7 +61,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response<Void> handleException(Exception ex) {
-        ex.printStackTrace(); // 可根据需要改成日志输出
+        log.error("系统异常", ex);
         return Response.error(500, "服务器内部错误");
     }
 }

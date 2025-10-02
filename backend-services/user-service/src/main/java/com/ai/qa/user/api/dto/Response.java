@@ -9,6 +9,9 @@ import lombok.Data;
 @Data
 @Schema(description = "统一响应格式")
 public class Response<T> {
+// TODO: 序列化时忽略null字段
+	//	@JsonInclude(JsonInclude.Include.NON_NULL) // 仅在data不为null时序列化
+	//	private T data;
 
     @Schema(description = "响应码", example = "200")
     private Integer code;

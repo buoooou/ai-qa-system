@@ -1,7 +1,6 @@
-package com.ai.qa.user.domain.repository;
+package com.ai.qa.user.domain.repositories;
 
 import com.ai.qa.user.domain.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
@@ -11,7 +10,7 @@ import java.util.Optional;
  * 这是用户实体的持久化接口，用于操作 user 表。
  * 继承 JpaRepository，可直接使用增删改查方法。
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository {
 
     /**
      * 根据用户名查找用户
@@ -28,4 +27,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return true 如果用户名已存在，否则 false
      */
     boolean existsByUsername(String username);
+
+    /**
+     * 根据ID查找用户聚合
+     * 
+     * @param id 用户ID
+     * @return 一个包含用户（如果找到）的Optional
+     */
+    Optional<User> findById(Long id);
+
+    /**
+     * 保存用户聚合（用于创建或更新）
+     * 
+     * @param user 用户聚合
+     * @return 已保存的用户聚合
+     */
+    User save(User user);
 }

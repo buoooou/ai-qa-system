@@ -1,4 +1,4 @@
-package com.ai.qa.user.api.exception;
+package com.ai.qa.service.api.exception;
 
 public final class ErrCode {
 
