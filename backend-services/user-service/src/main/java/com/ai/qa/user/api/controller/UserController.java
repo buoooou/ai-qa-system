@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "UserController", description = "用户管理相关接口")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 @Validated
 public class UserController {
 
@@ -36,28 +36,9 @@ public class UserController {
 
     @PostMapping("/login")
     @Operation(summary = "用户登录", description = "用户名密码登录获取 token")
-    public Response<String> login(@Valid @RequestBody UserLoginDTO request) {
-        String token = userService.login(request);
-        return Response.success("登录成功", token);
-    }
-
-    @PutMapping("/{id}/nickname")
-    @Operation(summary = "修改昵称", description = "更新用户昵称")
-    /**
-     * 更新用户昵称的API端点
-     *
-     * @param userId  从URL路径中获取的用户ID
-     * @param request 包含新昵称的请求体
-     * @return 返回更新后的用户信息和HTTP状态码200 (OK)
-     */
-    public Response<UserResponseDTO> updateNickname(
-            @PathVariable Long id,
-            @Valid @RequestBody UpdateNicknameDTO request) {
-        // 校验。。。
-
-        // 控制器只负责调用应用层，不处理业务逻辑
-        UserResponseDTO userInfo = userService.updateNickname(id, request.getNickname());
-        return Response.success("修改成功", userInfo);
+    public Response<LoginResponseDTO> login(@Valid @RequestBody UserLoginDTO request) {
+        LoginResponseDTO loginData = userService.login(request);
+        return Response.success("登录成功", loginData);
     }
 
     @PutMapping("/{id}/password")
@@ -76,15 +57,32 @@ public class UserController {
      * @param request 包含新昵称的请求体
      * @return 返回更新后的用户信息和HTTP状态码200 (OK)
      */
-    @PostMapping("/{userId}/nickname")
-    public Response<User> updateNickname(
-            @PathVariable Long userId,
-            @RequestBody UpdateNicknameRequest request) {
+    @PutMapping("/{id}/nickname")
+    @Operation(summary = "修改昵称", description = "更新用户昵称")
+    public Response<UserResponseDTO> updateNickname(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateNicknameDTO request) {
         // 校验。。。
 
         // 控制器只负责调用应用层，不处理业务逻辑
-        User updatedUser = userApplicationService.updateNickname(userId, request.getNickname());
-        // 为了安全，最佳实践是返回一个DTO而不是直接返回领域实体，这里为了简化直接返回
-        return Response.success(updatedUser);
+        UserResponseDTO userInfo = userService.updateNickname(id, request.getNickname());
+        return Response.success("修改成功", userInfo);
     }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "获取用户信息", description = "根据用户ID获取用户信息")
+    public Response<UserResponseDTO> getUserById(@PathVariable Long id) {
+        UserResponseDTO userInfo = userService.getUserById(id);
+        return Response.success("获取成功", userInfo);
+    }
+
+    @GetMapping("/me")
+    public Response<UserResponseDTO> getCurrentUser(@RequestHeader("x-user-id") Long userId) {
+        if (userId == null) {
+            return Response.error("缺少用户ID");
+        }
+        UserResponseDTO userInfo = userService.getUserById(userId);
+        return Response.success("获取成功", userInfo);
+    }
+
 }

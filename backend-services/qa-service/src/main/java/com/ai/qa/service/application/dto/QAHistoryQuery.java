@@ -1,5 +1,8 @@
 package com.ai.qa.service.application.dto;
 
-public class QAHistoryQuery {
+import lombok.Data;
 
+@Data
+public class QAHistoryQuery {
+    private Long userId;
 }

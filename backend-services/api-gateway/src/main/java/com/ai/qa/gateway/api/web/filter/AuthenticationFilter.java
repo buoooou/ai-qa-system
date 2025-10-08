@@ -15,8 +15,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-//@Component
-//@RefreshScope // 为了动态刷新JWT密钥
+@Component
+@RefreshScope // 为了动态刷新JWT密钥
 public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @Value("${jwt.secret}")
@@ -27,7 +27,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
 
         // 定义白名单路径，这些路径不需要JWT验证
-        List<String> whiteList = List.of("/api/user/register", "/api/user/login");
+        List<String> whiteList = List.of("/api/user/register", "/api/user/login", "/api/qa/ask", "/api/chat"); // 根据实际情况添加更多路径
         if (whiteList.contains(request.getURI().getPath())) {
             return chain.filter(exchange); // 放行
         }

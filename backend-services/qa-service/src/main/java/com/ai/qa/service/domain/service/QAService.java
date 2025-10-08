@@ -1,37 +1,76 @@
 package com.ai.qa.service.domain.service;
 
+import com.ai.qa.service.api.dto.QAResponseDTO;
+import com.ai.qa.service.domain.model.QARAG;
+import com.ai.qa.service.infrastructure.feign.GeminiClient;
 import com.ai.qa.service.infrastructure.feign.UserClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
+/**
+ * QAService：处理用户问题并调用 Google Gemini AI 获取回答
+ * 
+ * 调用流程
+ * QAController 接收到 /api/qa/ask 请求
+ * 调用 QAService.processQuestion(userId, question)
+ * QAService 先通过 UserClient 从 user-service 拿到用户信息
+ * 再调用 GoogleAIClient，向 Google Gemini 发送问题，获取真实 AI 答案
+ * 拼接并返回
+ */
 @Service
 public class QAService {
 
-    @Autowired
-    private UserClient userClient;
+    private final UserClient userClient;
+    private final GeminiClient geminiClient;
 
-    public String processQuestion(Long userId) {
-        // 1. 调用 user-service 获取用户信息
-        System.out.println("Fetching user info for userId: " + userId);
+    public QAService(UserClient userClient, GeminiClient geminiClient) {
+        this.userClient = userClient;
+        this.geminiClient = geminiClient;
+    }
+
+    /**
+     * 处理用户问题并返回结构化结果
+     * 
+     * @param userId   用户ID
+     * @param question 用户问题
+     * @return QAResponseDTO 包含用户信息、问题、AI答案等
+     */
+    public QAResponseDTO processQuestion(Long userId, String question) {
+        // 1. 获取用户信息
         String user;
         try {
-
-            // 就像调用一个本地方法一样！
             user = userClient.getUserById(userId);
         } catch (Exception e) {
-            // Feign 在遇到 4xx/5xx 错误时会抛出异常，需要处理
-            System.err.println("Failed to fetch user info for userId: " + userId + ". Error: " + e.getMessage());
-            // 可以根据业务返回一个默认的、友好的错误信息
-            return "Sorry, I cannot get your user information right now.";
+            return new QAResponseDTO(
+                    userId,
+                    "Unknown (error: " + e.getMessage() + ")",
+                    question,
+                    "Sorry, I cannot get your user information right now.",
+                    LocalDateTime.now());
         }
 
         if (user == null) {
-            return "Sorry, user with ID " + userId + " not found.";
+            return new QAResponseDTO(
+                    userId,
+                    "Not found",
+                    question,
+                    "Sorry, user with ID " + userId + " not found.",
+                    LocalDateTime.now());
         }
 
-        System.out.println("Question from user: " + user);
+        // 2. 调用 GeminiClient 获取 AI 答案
+        String aiAnswer = geminiClient.askQuestion(userId, question);
 
-        // 返回最终结果
-        return user;
+        // 3. 封装 RAG 对象（可选，可扩展）
+        QARAG rag = new QARAG("retrieved context", aiAnswer);
+
+        // 4. 返回 JSON DTO
+        return new QAResponseDTO(
+                userId,
+                user,
+                question,
+                rag.getGeneratedAnswer(),
+                LocalDateTime.now());
     }
 }

@@ -1,19 +1,24 @@
-"use client"
+"use client";
 
-import { useState, useCallback } from "react"
-import { Sidebar } from "@/components/sidebar"
-import { ChatWindow } from "@/components/chat-window"
-import { ProtectedRoute } from "@/components/auth/protected-route"
-import type { Conversation } from "@/types/chat"
+import { useState, useCallback } from "react";
+import { Sidebar } from "@/components/sidebar";
+import { ChatWindow } from "@/components/chat-window";
+import { ProtectedRoute } from "@/components/auth/protected-route";
+import type { Conversation } from "@/types/chat";
 
 function HomePage() {
-  const [conversations, setConversations] = useState<Conversation[]>([])
-  const [activeConversationId, setActiveConversationId] = useState<string | undefined>()
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [activeConversationId, setActiveConversationId] = useState<
+    string | undefined
+  >();
 
   const generateConversationTitle = (firstMessage: string): string => {
-    const title = firstMessage.length > 30 ? firstMessage.substring(0, 30) + "..." : firstMessage
-    return title || "新对话"
-  }
+    const title =
+      firstMessage.length > 30
+        ? firstMessage.substring(0, 30) + "..."
+        : firstMessage;
+    return title || "新对话";
+  };
 
   const handleNewChat = useCallback(() => {
     const newConversation: Conversation = {
@@ -22,42 +27,51 @@ function HomePage() {
       messages: [],
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    };
 
-    setConversations((prev) => [newConversation, ...prev])
-    setActiveConversationId(newConversation.id)
-  }, [])
+    setConversations((prev) => [newConversation, ...prev]);
+    setActiveConversationId(newConversation.id);
+  }, []);
 
   const handleSelectConversation = useCallback((conversationId: string) => {
-    setActiveConversationId(conversationId)
-  }, [])
+    setActiveConversationId(conversationId);
+  }, []);
 
   const handleDeleteConversation = useCallback(
     (conversationId: string) => {
-      setConversations((prev) => prev.filter((conv) => conv.id !== conversationId))
+      setConversations((prev) =>
+        prev.filter((conv) => conv.id !== conversationId)
+      );
       if (activeConversationId === conversationId) {
-        setActiveConversationId(undefined)
+        setActiveConversationId(undefined);
       }
     },
-    [activeConversationId],
-  )
+    [activeConversationId]
+  );
 
-  const handleRenameConversation = useCallback((conversationId: string, newTitle: string) => {
-    setConversations((prev) =>
-      prev.map((conv) => (conv.id === conversationId ? { ...conv, title: newTitle, updatedAt: new Date() } : conv)),
-    )
-  }, [])
+  const handleRenameConversation = useCallback(
+    (conversationId: string, newTitle: string) => {
+      setConversations((prev) =>
+        prev.map((conv) =>
+          conv.id === conversationId
+            ? { ...conv, title: newTitle, updatedAt: new Date() }
+            : conv
+        )
+      );
+    },
+    []
+  );
 
   const handleMessageAdded = useCallback(
     (message: { role: "user" | "assistant"; content: string }) => {
-      if (!activeConversationId) return
+      if (!activeConversationId) return;
 
       const newMessage = {
         id: crypto.randomUUID(),
         role: message.role,
         content: message.content,
         timestamp: new Date(),
-      }
+      };
 
       setConversations((prev) =>
         prev.map((conv) =>
@@ -67,18 +81,18 @@ function HomePage() {
                 messages: [...conv.messages, newMessage],
                 updatedAt: new Date(),
               }
-            : conv,
-        ),
-      )
+            : conv
+        )
+      );
     },
-    [activeConversationId],
-  )
+    [activeConversationId]
+  );
 
   const handleFirstMessage = useCallback(
     (content: string) => {
-      if (!activeConversationId) return
+      if (!activeConversationId) return;
 
-      const title = generateConversationTitle(content)
+      const title = generateConversationTitle(content);
       setConversations((prev) =>
         prev.map((conv) =>
           conv.id === activeConversationId
@@ -87,14 +101,16 @@ function HomePage() {
                 title,
                 updatedAt: new Date(),
               }
-            : conv,
-        ),
-      )
+            : conv
+        )
+      );
     },
-    [activeConversationId],
-  )
+    [activeConversationId]
+  );
 
-  const activeConversation = conversations.find((conv) => conv.id === activeConversationId)
+  const activeConversation = conversations.find(
+    (conv) => conv.id === activeConversationId
+  );
 
   return (
     <div className="flex h-screen bg-background">
@@ -117,7 +133,7 @@ function HomePage() {
         />
       </div>
     </div>
-  )
+  );
 }
 
 export default function ProtectedHomePage() {
@@ -125,5 +141,5 @@ export default function ProtectedHomePage() {
     <ProtectedRoute>
       <HomePage />
     </ProtectedRoute>
-  )
+  );
 }

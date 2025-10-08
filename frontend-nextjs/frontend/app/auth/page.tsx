@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { LoginForm } from "@/components/auth/login-form"
-import { RegisterForm } from "@/components/auth/register-form"
-import { useAuth } from "@/contexts/auth-context"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { LoginForm } from "@/components/auth/login-form";
+import { RegisterForm } from "@/components/auth/register-form";
+import { useAuth } from "@/contexts/auth-context";
 
 export default function AuthPage() {
-  const [isLogin, setIsLogin] = useState(true)
-  const { user, isLoading } = useAuth()
-  const router = useRouter()
+  const [isLogin, setIsLogin] = useState(true);
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
 
   // Redirect if already logged in
   useEffect(() => {
     if (!isLoading && user) {
-      router.push("/")
+      router.push("/chat");
     }
-  }, [user, isLoading, router])
+  }, [user, isLoading, router]);
 
   if (isLoading) {
     return (
@@ -26,11 +26,11 @@ export default function AuthPage() {
           <p className="text-muted-foreground">加载中...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (user) {
-    return null // Will redirect
+    return null; // Will redirect
   }
 
   return (
@@ -43,5 +43,5 @@ export default function AuthPage() {
         )}
       </div>
     </div>
-  )
+  );
 }

@@ -1,36 +1,42 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useAuth } from "@/contexts/auth-context"
-import { Eye, EyeOff, MessageSquare } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useAuth } from "@/contexts/auth-context";
+import { Eye, EyeOff, MessageSquare } from "lucide-react";
 
 interface LoginFormProps {
-  onSwitchToRegister: () => void
+  onSwitchToRegister: () => void;
 }
 
 export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
-  const { login, isLoading } = useAuth()
-  const router = useRouter()
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const { login, isLoading } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await login({ username, password })
-      router.push("/")
+      await login({ username, password });
+      router.push("/chat");
     } catch (error) {
       // Error is handled by the auth context
     }
-  }
+  };
 
   return (
     <Card className="w-full max-w-md">
@@ -78,7 +84,11 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={isLoading}
               >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
               </Button>
             </div>
           </div>
@@ -91,12 +101,17 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
         <div className="mt-6 text-center">
           <p className="text-sm text-muted-foreground">
             还没有账户？{" "}
-            <Button variant="link" className="p-0 h-auto font-normal" onClick={onSwitchToRegister} disabled={isLoading}>
+            <Button
+              variant="link"
+              className="p-0 h-auto font-normal"
+              onClick={onSwitchToRegister}
+              disabled={isLoading}
+            >
               立即注册
             </Button>
           </p>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
