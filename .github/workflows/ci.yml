@@ -5,10 +5,10 @@ name: CI/CD for AI QA System
 on:
   # 当有代码推送到 main 分支时触发
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   # 当有针对 main 分支的 Pull Request 被创建或更新时触发
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 # 定义工作流中的所有任务 (Jobs)
 jobs:
@@ -31,8 +31,8 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          java-version: "17"
+          distribution: "temurin"
 
       # 步骤 3: 缓存 Maven 依赖
       # 为了加速构建，缓存下载过的 Maven 依赖包。
@@ -91,8 +91,8 @@ jobs:
       - name: Build and push API Gateway image
         uses: docker/build-push-action@v5
         with:
-          context: ./api-gateway
-          file: ./api-gateway/Dockerfile
+          context: ./backend-services
+          file: ./backend-services/api-gateway/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-api-gateway:latest
 
@@ -100,8 +100,8 @@ jobs:
       - name: Build and push User Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./user-service
-          file: ./user-service/Dockerfile
+          context: ./backend-services
+          file: ./backend-services/user-service/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-user-service:latest
 
@@ -109,8 +109,8 @@ jobs:
       - name: Build and push QA Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./qa-service
-          file: ./qa-service/Dockerfile
+          context: ./backend-services
+          file: ./backend-services/qa-service/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-qa-service:latest
 
@@ -118,8 +118,8 @@ jobs:
       - name: Build and push Frontend image
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend # 假设前端项目在根目录的 frontend 文件夹下
-          file: ./frontend/Dockerfile
+          context: ./frontend-nextjs/frontend # 假设前端项目在根目录的 frontend 文件夹下
+          file: ./frontend-nextjs/frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-qa-frontend:latest
 
@@ -128,9 +128,10 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/airline-cicd
-            docker-compose pull
-            docker-compose up -d --remove-orphans
-            docker image prune -f
+            set -e  # 出错立即退出
+            cd ~/ai-qa-system || { echo "部署目录不存在"; exit 1; }
+            sudo docker-compose pull
+            sudo docker-compose up -d --remove-orphans
+            sudo docker image prune -f

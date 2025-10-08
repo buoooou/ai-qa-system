@@ -12,11 +12,13 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate() {
-        // return new RestTemplate();
+        return new RestTemplate();
 
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.us.ibm.com", 8080));
-        factory.setProxy(proxy);
-        return new RestTemplate(factory);
+        // SimpleClientHttpRequestFactory factory = new
+        // SimpleClientHttpRequestFactory();
+        // Proxy proxy = new Proxy(Proxy.Type.HTTP, new
+        // InetSocketAddress("proxy.us.ibm.com", 8080));
+        // factory.setProxy(proxy);
+        // return new RestTemplate(factory);
     }
 }

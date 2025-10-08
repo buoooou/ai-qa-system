@@ -2,10 +2,10 @@ server:
   port: 8080 # 所有后端请求的入口
 logging:
   level:
-    # 将 Gateway 的核心日志级别设置为 DEBUG
-    org.springframework.cloud.gateway: DEBUG
-    # (可选) 将 Reactor Netty 的日志也设为 DEBUG，可以看到更底层的网络交互
-    reactor.netty.http.client: DEBUG
+    # 将 Gateway 的核心日志级别设置为 INFO
+    org.springframework.cloud.gateway: INFO
+    # (可选) 将 Reactor Netty 的日志也设为 WARN，可以看到更底层的网络交互
+    reactor.netty.http.client: WARN
     com.alibaba.nacos.client.naming: WARN
 jwt:
   secret: mySuperSecretKey123456
@@ -20,7 +20,7 @@ spring:
   cloud:
     nacos:
       # server-addr: 54.219.180.170:8848
-      server-addr: 127.0.0.1:8848
+      server-addr: xxxx:8848
       config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
@@ -28,7 +28,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false # 开启基于服务发现的路由功能
+          enabled: true # 开启基于服务发现的路由功能
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
       routes:
         - id: user_service_route
@@ -53,6 +53,7 @@ spring:
           "[/**]":
             allowedOrigins:
               - "http://localhost:3000"
+              - "http://ec2 server public ip:3000"
             allowedMethods: "*"
             allowedHeaders: "*"
             allowCredentials: true
