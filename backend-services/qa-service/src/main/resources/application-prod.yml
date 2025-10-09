@@ -3,10 +3,10 @@ server:
 spring:
   application:
     name: qa-service-zjy
-  # cloud:
-  #   nacos:
-  #     discovery:
-  #       server-addr: 127.0.0.1:8848
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 3.106.55.195:8848
   #     config:
   #       name: qa-service-zjy
   #       file-extension: yaml # 读取 yaml 配置
