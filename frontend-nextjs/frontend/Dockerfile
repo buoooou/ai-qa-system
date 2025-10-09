@@ -4,7 +4,7 @@ FROM node:22-alpine AS base
 # 安装依赖阶段
 FROM base AS deps
 # 检查 https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat python3 make g++
 WORKDIR /app
 
 # 复制package文件
@@ -30,7 +30,7 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # 创建非root用户
