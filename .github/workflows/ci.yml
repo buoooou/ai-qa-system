@@ -132,6 +132,8 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          source: docker-compose.yml
+          target: ~/ai-qa-system/docker-compose.yml
           script: |
             set -e  # 出错立即退出
             cd ~/ai-qa-system || { echo "部署目录不存在"; exit 1; }
