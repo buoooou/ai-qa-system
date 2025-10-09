@@ -1,5 +1,5 @@
 server:
-  port: 8080 # 所有后端请求的入口
+  port: 8083 # 所有后端请求的入口
 logging:
   level:
     # 将 Gateway 的核心日志级别设置为 DEBUG

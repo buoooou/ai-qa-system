@@ -18,7 +18,7 @@ WORKDIR /app
 # 从构建阶段复制生成的JAR包
 COPY --from=builder /app/qa-service/target/*.jar app.jar
 
-# 暴露服务端口（api-gateway使用8080）
+# 暴露服务端口（api-gateway使用8083）
 EXPOSE 8082
 
 # 启动命令

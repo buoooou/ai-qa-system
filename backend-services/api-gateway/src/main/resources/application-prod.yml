@@ -1,5 +1,5 @@
 server:
-  port: 8080 # 所有后端请求的入口
+  port: 8083 # 所有后端请求的入口
 logging:
   level:
     # 将 Gateway 的核心日志级别设置为 INFO
@@ -20,7 +20,7 @@ spring:
   cloud:
     nacos:
       # server-addr: 54.219.180.170:8848
-      server-addr: xxxx:8848
+      server-addr: 3.106.55.195:8848
       config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
@@ -53,7 +53,7 @@ spring:
           "[/**]":
             allowedOrigins:
               - "http://localhost:3000"
-              - "http://ec2 server public ip:3000"
+              - "http://3.106.55.195:3000"
             allowedMethods: "*"
             allowedHeaders: "*"
             allowCredentials: true

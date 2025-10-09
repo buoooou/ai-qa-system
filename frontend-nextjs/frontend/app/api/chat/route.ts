@@ -1,6 +1,9 @@
 // app/api/chat/route.ts
 import { NextRequest } from "next/server";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8083";
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -22,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 调用 Spring Boot QA 接口
-    const resp = await fetch("http://localhost:8083/api/qa/ask", {
+    const resp = await fetch(`${API_BASE_URL}/api/qa/ask`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import ChatSidebar from "./components/ChatSidebar";
 import ChatWindow, { Message } from "./components/ChatWindow";
+import { ProtectedRoute } from "@/components/auth/protected-route";
 
-export default function ChatPage() {
+function ChatPageContent() {
   const [sessionId, setSessionId] = useState<string>(() => {
     return localStorage.getItem("lastSessionId") || crypto.randomUUID();
   });
@@ -95,5 +96,14 @@ export default function ChatPage() {
         />
       </div>
     </div>
+  );
+}
+
+// 最终导出页面，带登录保护
+export default function ChatPage() {
+  return (
+    <ProtectedRoute>
+      <ChatPageContent />
+    </ProtectedRoute>
   );
 }
