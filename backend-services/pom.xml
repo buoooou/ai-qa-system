@@ -16,9 +16,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>user-service-zjy</module>
-        <module>qa-service-zjy</module>
-        <module>api-gateway-zjy</module>
+        <module>user-service</module>
+        <module>qa-service</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>
