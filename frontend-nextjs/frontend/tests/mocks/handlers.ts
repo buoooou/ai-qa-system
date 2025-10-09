@@ -12,9 +12,12 @@ const mockUser = {
 export const handlers = [
   // 登录接口
   http.post(`${API_BASE_URL}/api/auth/login`, async ({ request }) => {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      username?: string;
+      password?: string;
+    } | null;
 
-    if (body.username === "testuser" && body.password === "password123") {
+    if (body?.username === "testuser" && body?.password === "password123") {
       return HttpResponse.json({
         token: "mock-jwt-token",
         user: mockUser,
@@ -26,9 +29,13 @@ export const handlers = [
 
   // 注册接口
   http.post(`${API_BASE_URL}/api/auth/register`, async ({ request }) => {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      username?: string;
+      email?: string;
+      password?: string;
+    } | null;
 
-    if (body.username && body.email && body.password) {
+    if (body?.username && body?.email && body?.password) {
       return HttpResponse.json({
         token: "mock-jwt-token",
         user: {
