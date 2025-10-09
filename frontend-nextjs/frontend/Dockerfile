@@ -20,11 +20,12 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# 复制环境变量文件
-COPY .env.production .env.production
 
 # 设置环境变量
 ENV NEXT_TELEMETRY_DISABLED 1
+
+# 设置 build 时环境变量
+ENV NEXT_PUBLIC_API_BASE_URL=http://3.106.55.195:8083
 
 # 构建应用
 RUN npm run build
