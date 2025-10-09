@@ -50,6 +50,7 @@ jobs:
       # clean package: 执行清理、编译、测试、打包等所有操作
       - name: Build with Maven
         run: mvn -B clean package
+        working-directory: ./backend-services
 
   # --- 第二个任务：构建 Docker 镜像并推送到仓库 ---
   build-and-push-images:
