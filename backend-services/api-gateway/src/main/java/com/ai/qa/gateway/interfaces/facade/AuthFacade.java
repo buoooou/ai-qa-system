@@ -1,90 +1,90 @@
 package com.ai.qa.gateway.interfaces.facade;
 
 import com.ai.qa.gateway.infrastructure.feign.UserServiceClient;
-import com.ai.qa.gateway.interfaces.dto.AuthResponseDTO;
-import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
-import com.ai.qa.gateway.interfaces.dto.ChatSessionResponseDTO;
-import com.ai.qa.gateway.interfaces.dto.CreateSessionGatewayRequest;
-import com.ai.qa.gateway.interfaces.dto.LoginGatewayRequestDTO;
-import com.ai.qa.gateway.interfaces.dto.RegisterGatewayRequestDTO;
-import com.ai.qa.gateway.interfaces.dto.UpdateNicknameGatewayRequest;
-import com.ai.qa.gateway.interfaces.dto.UserProfileGatewayResponse;
-import com.ai.qa.gateway.interfaces.dto.UserServiceApiResponseDTO;
+import com.ai.qa.gateway.interfaces.dto.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class AuthFacade {
 
     private final UserServiceClient userServiceClient;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public Mono<AuthResponseDTO> login(LoginGatewayRequestDTO request) {
-        return Mono.fromCallable(() -> ensureAuthFields(extractData(userServiceClient.login(request))))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.login(request)
+                .map(this::extractData)
+                .map(this::ensureAuthFields)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<AuthResponseDTO> register(RegisterGatewayRequestDTO request) {
-        return Mono.fromCallable(() -> ensureAuthFields(extractData(userServiceClient.register(request))))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.register(request)
+                .map(this::extractData)
+                .map(this::ensureAuthFields)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<UserProfileGatewayResponse> profile(Long userId) {
-        return Mono.fromCallable(() -> extractData(userServiceClient.profile(userId)))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.profile(userId)
+                .map(this::extractData)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<UserProfileGatewayResponse> updateNickname(Long userId, UpdateNicknameGatewayRequest request) {
-        return Mono.fromCallable(() -> extractData(userServiceClient.updateNickname(userId, request)))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.updateNickname(userId, request)
+                .map(this::extractData)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<List<ChatSessionResponseDTO>> sessions(Long userId) {
-        return Mono.fromCallable(() -> extractData(userServiceClient.sessions(userId)))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.sessions(userId)
+                .map(this::extractData)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<ChatSessionResponseDTO> createSession(Long userId, CreateSessionGatewayRequest request) {
-        return Mono.fromCallable(() -> extractData(userServiceClient.createSession(userId, request)))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.createSession(userId, request)
+                .map(this::extractData)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<ChatSessionResponseDTO> getSession(Long userId, Long sessionId) {
-        return Mono.fromCallable(() -> extractData(userServiceClient.getSession(userId, sessionId)))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.getSession(userId, sessionId)
+                .map(this::extractData)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<Void> deleteSession(Long userId, Long sessionId) {
-        return Mono.fromRunnable(() -> userServiceClient.deleteSession(userId, sessionId))
-                .subscribeOn(Schedulers.boundedElastic())
-                .then(Mono.<Void>empty());
+        return userServiceClient.deleteSession(userId, sessionId)
+                .map(this::extractData)
+                .onErrorMap(this::mapFeignException)
+                .then();
     }
 
+
+
     public Mono<List<ChatHistoryResponseDTO>> history(Long userId, Long sessionId, Integer limit) {
-        return Mono.fromCallable(() -> extractData(userServiceClient.history(userId, sessionId, limit)))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.history(userId, sessionId, limit)
+                .map(this::extractData)
                 .onErrorMap(this::mapFeignException);
     }
 
     public Mono<Boolean> isSessionOwnedBy(Long sessionId, Long userId) {
-        return Mono.fromCallable(() -> Boolean.TRUE.equals(extractData(userServiceClient.isSessionOwnedBy(sessionId, userId))))
-                .subscribeOn(Schedulers.boundedElastic())
+        return userServiceClient.isSessionOwnedBy(sessionId, userId)
+                .map(this::extractData)
+                .map(Boolean.TRUE::equals) // ✅ 正确写法
                 .onErrorMap(this::mapFeignException);
     }
+
 
     private <T> T extractData(UserServiceApiResponseDTO<T> response) {
         if (response == null) {
@@ -108,6 +108,7 @@ public class AuthFacade {
         }
         return response;
     }
+
     private Throwable mapFeignException(Throwable throwable) {
         if (throwable instanceof feign.FeignException feignException) {
             HttpStatus status = HttpStatus.resolve(feignException.status());
@@ -126,13 +127,9 @@ public class AuthFacade {
             if (content == null || content.isBlank()) {
                 return feignException.getMessage();
             }
-            // Attempt to parse downstream ApiResponse structure
-            java.util.Map<?, ?> map = new com.fasterxml.jackson.databind.ObjectMapper().readValue(content, java.util.Map.class);
+            Map<?, ?> map = objectMapper.readValue(content, Map.class);
             Object message = map.get("message");
-            if (message != null) {
-                return message.toString();
-            }
-            return content;
+            return message != null ? message.toString() : content;
         } catch (Exception ex) {
             return feignException.getMessage();
         }

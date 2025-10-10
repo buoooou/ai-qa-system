@@ -10,21 +10,26 @@ import { SubmitButton } from "@/components/submit-button";
 import { toast } from "@/components/toast";
 import { type LoginActionState, login } from "../actions";
 
+// 初始状态
+const initialState: LoginActionState = {
+  status: "idle",
+};
+
 export default function Page() {
   const router = useRouter();
+  // 使用 useSession hook 来获取和跟踪 session 状态
+  const { data: session, status: sessionStatus } = useSession();
 
   const [email, setEmail] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
 
+  // useActionState 保持不变
   const [state, formAction] = useActionState<LoginActionState, FormData>(
     login,
-    {
-      status: "idle",
-    }
+    initialState
   );
 
-  const { update: updateSession } = useSession();
-
+  // 第一个 useEffect：处理 Server Action 返回的状态，用于显示 toast 和更新 UI
   useEffect(() => {
     if (state.status === "failed") {
       toast({
@@ -37,12 +42,28 @@ export default function Page() {
         description: "Failed validating your submission!",
       });
     } else if (state.status === "success") {
+      // 登录成功，设置成功状态，等待 session 更新
       setIsSuccessful(true);
-      updateSession();
-      router.refresh();
+      toast({
+        type: "success",
+        description: "Login successful! Redirecting...",
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.status, router.refresh, updateSession]);
+  }, [state.status]);
+
+
+  // ✅✅✅ --- 第二个 useEffect：处理登录成功后的跳转 --- ✅✅✅
+  useEffect(() => {
+    // 当 session 状态变为 'authenticated' 并且我们拿到了 user.id
+    if (sessionStatus === 'authenticated' && session?.user?.id) {
+      const userId = session.user.id;
+      console.log(`Session updated. User ID: ${userId}. Redirecting...`);
+      // 执行最终的跳转
+      // router.push(`/chat/${userId}`);
+      router.push(`/`);
+    }
+  }, [session, sessionStatus, router]);
+
 
   const handleSubmit = (formData: FormData) => {
     setEmail(formData.get("email") as string);

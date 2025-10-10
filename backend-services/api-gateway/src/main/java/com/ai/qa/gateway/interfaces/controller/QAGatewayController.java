@@ -1,26 +1,21 @@
 package com.ai.qa.gateway.interfaces.controller;
 
+import com.ai.qa.gateway.infrastructure.config.TokenWebFilter;
 import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatRequestDTO;
-import com.ai.qa.gateway.interfaces.dto.common.ApiResponseDTO;
 import com.ai.qa.gateway.interfaces.facade.QAFacade;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -29,31 +24,48 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/gateway/qa")
 @RequiredArgsConstructor
+@Slf4j
 @Validated
 public class QAGatewayController {
 
-    private final QAFacade qaFacade;
+  private final QAFacade qaFacade;
 
-    @Operation(summary = "Proxy chat", description = "Delegates chat requests to qa-service-fyb.")
-    @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<Flux<String>> chat(@RequestBody @Validated ChatRequestDTO request,
-                                             ServerHttpRequest httpRequest) {
-        String headerUserId = httpRequest.getHeaders().getFirst("X-User-Id");
-        if (headerUserId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        if (!headerUserId.equals(String.valueOf(request.getUserId()))) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-        Flux<String> body = qaFacade.chat(request);
-        return ResponseEntity.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(body);
-    }
+  /**
+   * 公共鉴权逻辑封装
+   */
+  private <T> Mono<ResponseEntity<T>> withAuthContext(Long requestUserId,
+                                                      java.util.function.Function<Long, Mono<ResponseEntity<T>>> handler) {
+      return Mono.deferContextual(ctx -> {
+          Long tokenUserId = ctx.getOrDefault(TokenWebFilter.USER_ID_KEY, null);
+          if (tokenUserId == null) {
+              log.warn("Missing user context");
+              return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+          }
+          if (!tokenUserId.equals(requestUserId)) {
+              log.warn("User mismatch: tokenUserId={}, requestUserId={}", tokenUserId, requestUserId);
+              return Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN).build());
+          }
+          return handler.apply(tokenUserId);
+      });
+  }
 
-    @Operation(summary = "Proxy history", description = "Retrieves chat history from qa-service-fyb.")
-    @GetMapping("/history")
-    public ResponseEntity<List<ChatHistoryResponseDTO>> history(@Parameter(description = "User ID") @RequestParam Long userId,
-                                                              @Parameter(description = "Session ID") @RequestParam(required = false) Long sessionId,
-                                                              @Parameter(description = "Maximum items") @RequestParam(required = false) Integer limit) {
-        return ResponseEntity.ok(qaFacade.history(userId, sessionId, limit));
-    }
+  @Operation(summary = "Proxy chat", description = "Delegates chat requests to qa-service-fyb.")
+  @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  public Mono<ResponseEntity<Flux<String>>> chat(@RequestBody @Validated ChatRequestDTO request) {
+      return withAuthContext(request.getUserId(), userId ->
+              Mono.just(ResponseEntity.ok()
+                      .contentType(MediaType.TEXT_EVENT_STREAM)
+                      .body(qaFacade.chat(request))));
+  }
+
+  @Operation(summary = "Proxy history", description = "Retrieves chat history from qa-service-fyb.")
+  @GetMapping("/history")
+  public Mono<ResponseEntity<List<ChatHistoryResponseDTO>>> history(
+          @RequestParam Long userId,
+          @RequestParam(required = false) Long sessionId,
+          @RequestParam(required = false) Integer limit) {
+      return withAuthContext(userId, uid ->
+              qaFacade.history(uid, sessionId, limit).map(ResponseEntity::ok));
+  }
+
 }

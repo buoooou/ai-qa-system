@@ -3,7 +3,7 @@ package com.ai.qa.service.application.service.impl;
 import com.ai.qa.service.application.dto.QAHistoryDTO;
 import com.ai.qa.service.application.dto.QAHistoryQuery;
 import com.ai.qa.service.application.dto.SaveHistoryCommand;
-import com.ai.qa.service.application.mapper.QAHistoryMapper;
+import com.ai.qa.service.application.mapper.QAHistoryMapperImpl;
 import com.ai.qa.service.application.service.QAHistoryApplicationService;
 import com.ai.qa.service.domain.model.QAHistory;
 import com.ai.qa.service.domain.repo.QAHistoryRepo;
@@ -20,7 +20,7 @@ import java.util.List;
 public class QAHistoryApplicationServiceImpl implements QAHistoryApplicationService {
 
     private final QAHistoryRepo historyRepo;
-    private final QAHistoryMapper mapper;
+    private final QAHistoryMapperImpl mapper;
 
     /**
      * Saves a history record based on the provided command.

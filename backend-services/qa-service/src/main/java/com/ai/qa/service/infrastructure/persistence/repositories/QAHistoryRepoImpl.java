@@ -1,6 +1,6 @@
 package com.ai.qa.service.infrastructure.persistence.repositories;
 
-import com.ai.qa.service.application.mapper.QAHistoryMapper;
+import com.ai.qa.service.application.mapper.QAHistoryMapperImpl;
 import com.ai.qa.service.domain.model.QAHistory;
 import com.ai.qa.service.domain.repo.QAHistoryRepo;
 import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
@@ -17,7 +17,7 @@ import java.util.List;
 public class QAHistoryRepoImpl implements QAHistoryRepo {
 
     private final JpaQAHistoryRepository jpaRepository;
-    private final QAHistoryMapper mapper;
+    private final QAHistoryMapperImpl mapper;
 
     /**
      * Persists a domain history aggregate using JPA.

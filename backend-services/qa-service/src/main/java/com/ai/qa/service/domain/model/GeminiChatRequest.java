@@ -1,5 +1,7 @@
 package com.ai.qa.service.domain.model;
 
+import com.ai.qa.service.domain.model.GeminiChatRequest.GenerationConfig;
+import com.ai.qa.service.domain.model.GeminiChatRequest.SafetySetting;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

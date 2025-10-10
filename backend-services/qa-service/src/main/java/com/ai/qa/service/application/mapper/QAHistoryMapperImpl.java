@@ -10,7 +10,7 @@ import org.mapstruct.ReportingPolicy;
  * MapStruct mapper bridging domain aggregates and DTO/entities.
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface QAHistoryMapper {
+public interface QAHistoryMapperImpl {
 
     QAHistoryDTO toDto(QAHistory history);
 

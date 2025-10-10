@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import NextAuth, { type DefaultSession } from "next-auth";
 import type { DefaultJWT } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
+
 import { loginViaGateway, registerViaGateway } from "@/lib/api/gateway";
 import type {
   GatewayAuthResponse,
@@ -11,6 +12,7 @@ import { authConfig } from "./auth.config";
 
 export type UserType = "guest" | "regular";
 
+// 类型定义保持不变
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
@@ -24,7 +26,6 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 
-  // biome-ignore lint/nursery/useConsistentTypeDefinitions: "Required"
   interface User {
     id?: string;
     email?: string | null;
@@ -107,7 +108,6 @@ export const {
             password,
             nickname,
           });
-
           return mapGatewayAuthResponse(response);
         } catch (error) {
           const gatewayError = extractGatewayError(error);
@@ -124,8 +124,48 @@ export const {
       },
     }),
   ],
+
+  // ✅✅✅ --- 新增/修改的核心部分 --- ✅✅✅
+  callbacks: {
+    /**
+     * 在JWT创建或更新时调用。
+     * `user` 参数仅在【首次登录】时可用，它就是 `authorize` 函数返回的对象。
+     */
+    async jwt({ token, user }) {
+      // 如果 user 对象存在，说明是刚登录，我们将 user 的信息持久化到 token 中。
+      if (user) {
+        token.id = user.id!;
+        token.accessToken = user.accessToken;
+        token.role = user.role;
+        token.username = user.username;
+        token.nickname = user.nickname;
+        token.type = user.type;
+      }
+      return token;
+    },
+
+    /**
+     * 在访问 session 时调用，例如通过 `useSession()`。
+     * 我们在这里控制哪些信息可以从安全的、服务器端的 token 暴露给客户端。
+     */
+    async session({ session, token }) {
+      // 将 token 中的数据同步到客户端可见的 session.user 对象中
+      if (token && session.user) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+        session.user.username = token.username;
+        session.user.nickname = token.nickname;
+        session.user.type = token.type;
+        
+        // 通常不建议将 accessToken 直接暴露给客户端，但如果你的应用确实需要，可以放开这行。
+        // session.user.accessToken = token.accessToken;
+      }
+      return session;
+    },
+  },
 });
 
+// 辅助函数保持不变
 function extractGatewayError(error: unknown): GatewayErrorResponse | null {
   if (error instanceof AxiosError) {
     return error.response?.data as GatewayErrorResponse;
@@ -142,13 +182,5 @@ function mapGatewayAuthResponse(response: GatewayAuthResponse) {
     type: "regular" as const,
     accessToken: response.token,
     role: response.profile.role,
-  } satisfies {
-    id: string;
-    email: string | null;
-    username: string;
-    nickname: string | null;
-    type: UserType;
-    accessToken: string;
-    role: string;
   };
 }

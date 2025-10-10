@@ -22,7 +22,7 @@ if (!baseURL) {
 
 const gatewayClient = axios.create({
   baseURL,
-  timeout: 15_000,
+  timeout: 60_000,
 });
 
 const withAuth = <_T>(
@@ -43,8 +43,8 @@ export const gatewayGet = async <T>(
   config?: AxiosRequestConfig,
   session?: GatewaySession
 ) => {
-  const response = await gatewayClient.get<T>(url, withAuth(config, session));
-  return response.data;
+  const response = await gatewayClient.get(url, withAuth(config, session));
+  return response.data.data;
 };
 
 export const gatewayPost = async <T, B = unknown>(
@@ -53,12 +53,13 @@ export const gatewayPost = async <T, B = unknown>(
   config?: AxiosRequestConfig,
   session?: GatewaySession
 ) => {
-  const response = await gatewayClient.post<T>(
+  const response = await gatewayClient.post(
     url,
     body,
     withAuth(config, session)
   );
-  return response.data;
+  console.log("[GATEWAY] Received successful response from backend:", response);
+  return response.data.data;
 };
 
 export const gatewayPatch = async <T, B = unknown>(
@@ -67,12 +68,12 @@ export const gatewayPatch = async <T, B = unknown>(
   config?: AxiosRequestConfig,
   session?: GatewaySession
 ) => {
-  const response = await gatewayClient.patch<T>(
+  const response = await gatewayClient.patch(
     url,
     body,
     withAuth(config, session)
   );
-  return response.data;
+  return response.data.data;
 };
 
 export const gatewayDelete = async <T>(
@@ -80,23 +81,24 @@ export const gatewayDelete = async <T>(
   config?: AxiosRequestConfig,
   session?: GatewaySession
 ) => {
-  const response = await gatewayClient.delete<T>(
+  const response = await gatewayClient.delete(
     url,
     withAuth(config, session)
   );
-  return response.data;
+  return response.data.data;
 };
 
 export const loginViaGateway = async (
   payload: { usernameOrEmail: string; password: string },
   session?: GatewaySession
-) =>
-  gatewayPost<GatewayAuthResponse, typeof payload>(
+) =>{
+  console.log("[GATEWAY] Sending login request to backend with data:", payload);
+  return gatewayPost<GatewayAuthResponse, typeof payload>(
     "/api/gateway/auth/login",
     payload,
     undefined,
     session
-  );
+  )};
 
 export const registerViaGateway = async (
   payload: {

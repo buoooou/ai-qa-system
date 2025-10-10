@@ -35,7 +35,7 @@ public class ChatCompletionRequest {
                 .question(question)
                 .history(history == null ? Collections.emptyList() : history.stream()
                         .map(message -> ChatCompletionCommand.HistoryMessage.builder()
-                                .role(message.getRole())
+                                .role(message.getRole().toLowerCase())
                                 .content(message.getContent())
                                 .build())
                         .toList())
