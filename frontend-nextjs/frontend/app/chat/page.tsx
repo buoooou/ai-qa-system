@@ -71,10 +71,14 @@ function ChatPageContent() {
 
   // 第一次发送消息时，如果是新会话，更新会话名为第一个问题
   useEffect(() => {
-    if (messages.length === 1) {
-      handleRenameSession(sessionId, messages[0].content.slice(0, 20)); // 取前 20 个字符
+    if (messages.length > 0) {
+      // 如果 sessions 里没有当前 session，则创建
+      if (!sessions.some((s) => s.id === sessionId)) {
+        const firstMsg = messages[0].content.slice(0, 20);
+        createSessionIfNeeded(sessionId, firstMsg);
+      }
     }
-  }, [messages]);
+  }, [messages, sessionId, sessions]);
 
   return (
     <div className="flex h-screen bg-gray-50">

@@ -63,30 +63,34 @@ ai-qa-system/
 └── .github/
     └── workflows/            # CI/CD 流程定义
         ├── ci.yml
-        
+
 ```
+
 ## 技术栈
 
-| 层级   | 技术                                         |
-| ---- | ------------------------------------------ |
-| 前端   | Next.js 15, TypeScript, Tailwind CSS       |
-| 后端   | Spring Boot 3, Spring Cloud Gateway, Maven |
-| 数据库  | MySQL                        |
-| 容器化  | Docker, Docker Compose                     |
+| 层级     | 技术                                       |
+| -------- | ------------------------------------------ |
+| 前端     | Next.js 15, TypeScript, Tailwind CSS       |
+| 后端     | Spring Boot 3, Spring Cloud Gateway, Maven |
+| 数据库   | MySQL                                      |
+| 容器化   | Docker, Docker Compose                     |
 | 持续集成 | GitHub Actions                             |
 | 部署平台 | AWS EC2 (Ubuntu 24.04 LTS)                 |
 
 ## 快速开始(本地开发模式)
 
 ### 克隆项目
+
 git clone https://github.com/zjiayan/ai-qa-system.git
 cd ai-qa-system
 
 ### 启动后端：
+
 cd backend-services
 mvn spring-boot:run
 
 ### 启动前端
+
 cd frontend-nextjs/frontend
 npm install
 npm run dev
@@ -94,10 +98,12 @@ npm run dev
 访问 http://localhost:3000
 
 ## 自动化 CI/CD
+
 ### 本项目使用 GitHub Actions 实现自动化构建与部署。
-| 文件                                    | 功能              |
-| ------------------------------------- | --------------- |
-| `.github/workflows/ci.yml` | 构建并测试 Java 后端, 构建并推送 Docker 镜像, SSH 登录 EC2 自动部署   |
+
+| 文件                       | 功能                                                                |
+| -------------------------- | ------------------------------------------------------------------- |
+| `.github/workflows/ci.yml` | 构建并测试 Java 后端, 构建并推送 Docker 镜像, SSH 登录 EC2 自动部署 |
 
 ### 触发条件
 
@@ -106,12 +112,17 @@ npm run dev
 可以通过 Actions → Run workflow 手动触发
 
 ### GitHub Secrets 配置
-在 GitHub 仓库中进入 Settings → Secrets and variables → Actions 添加以下变量：
-| 名称                   | 说明                      |
-| -------------------- | ----------------------- |
-| `DOCKERHUB_USERNAME` | Docker Hub 用户名          |
-| `DOCKERHUB_TOKEN`    | Docker Hub Access Token |
-| `EC2_HOST`           | EC2 实例 IP 地址            |
-| `EC2_USERNAME`       | 登录用户名（如 ubuntu）         |
-| `EC2_SSH_KEY`        | 私钥内容（Base64 或纯文本）       |
 
+在 GitHub 仓库中进入 Settings → Secrets and variables → Actions 添加以下变量：
+| 名称 | 说明 |
+| -------------------- | ----------------------- |
+| `DOCKERHUB_USERNAME` | Docker Hub 用户名 |
+| `DOCKERHUB_TOKEN` | Docker Hub Access Token |
+| `EC2_HOST` | EC2 实例 IP 地址 |
+| `EC2_USERNAME` | 登录用户名（如 ubuntu） |
+| `EC2_SSH_KEY` | 私钥内容（Base64 或纯文本） |
+
+## Swagger UI:
+
+http://localhost:8081/swagger-ui/index.html - User Service
+http://localhost:8082/swagger-ui/index.html - QA Service
