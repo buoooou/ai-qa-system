@@ -3,10 +3,10 @@ server:
 spring:
   application:
     name: qa-service-zjy
-  # cloud:
-  #   nacos:
-  #     discovery:
-  #       server-addr: 127.0.0.1:8848
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
   #     config:
   #       name: qa-service-zjy
   #       file-extension: yaml # 读取 yaml 配置
@@ -33,3 +33,7 @@ google:
     api-key: AIzaSyCGvYQa-5kJDbbXsr372wHsHBWEDtufjBM
     model: gemini-1.5-flash
     base-url: https://generativelanguage.googleapis.com/v1beta
+# SpringDoc (Swagger)
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

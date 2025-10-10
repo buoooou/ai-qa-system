@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import ChatSidebar from "./components/ChatSidebar";
 import ChatWindow, { Message } from "./components/ChatWindow";
 import { ProtectedRoute } from "@/components/auth/protected-route";
+import { v4 as uuidv4 } from "uuid";
 
 function ChatPageContent() {
   const [sessionId, setSessionId] = useState<string>(() => {
-    return localStorage.getItem("lastSessionId") || crypto.randomUUID();
+    return localStorage.getItem("lastSessionId") || uuidv4();
   });
   const [messages, setMessages] = useState<Message[]>([]);
   const [sessions, setSessions] = useState<{ id: string; name: string }[]>([]);
@@ -35,7 +36,7 @@ function ChatPageContent() {
 
   // 新建会话
   const handleNewSession = () => {
-    const newId = crypto.randomUUID();
+    const newId = uuidv4();
     setSessionId(newId);
     setMessages([]);
     localStorage.setItem(`messages-${newId}`, JSON.stringify([]));

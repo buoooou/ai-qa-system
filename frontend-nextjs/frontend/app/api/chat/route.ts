@@ -1,5 +1,6 @@
 // app/api/chat/route.ts
 import { NextRequest } from "next/server";
+import { v4 as uuidv4 } from "uuid";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8083";
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
         const message = {
           type: "message",
           message: {
-            id: crypto.randomUUID(),
+            id: uuidv4,
             role: "assistant",
             parts: [
               { type: "text", text: data.answer ?? "（后端未返回答案）" },

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import ChatInput from "./ChatInput";
 import { useAuth } from "@/contexts/auth-context";
 import MessageBubble from "./MessageBubble";
+import { v4 as uuidv4 } from "uuid";
 
 export interface Message {
   id: string;
@@ -53,7 +54,7 @@ export default function ChatWindow({
     if (!token || !userId) return;
 
     const userMessage: Message = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       role: "user",
       content,
       timestamp: new Date(),
@@ -78,7 +79,7 @@ export default function ChatWindow({
     try {
       // 先插入空的助手消息
       const assistantMessage: Message = {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         role: "assistant",
         content: "",
         timestamp: new Date(),
@@ -137,7 +138,7 @@ export default function ChatWindow({
     } catch (err) {
       console.error(err);
       const errorMsg: Message = {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         role: "assistant",
         content: "出现错误，请稍后重试。",
         timestamp: new Date(),

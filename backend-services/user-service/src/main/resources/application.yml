@@ -22,3 +22,7 @@ spring:
 logging:
   file:
     name: logs/user-service.log
+# SpringDoc (Swagger)
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
