@@ -1,5 +1,6 @@
 package com.ai.qa.service.infrastructure.feign;
 
+import com.ai.qa.service.infrastructure.config.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +15,9 @@ import java.util.List;
 /**
  * 调用 user-service 的 Feign 客户端
  */
-// name/value 属性值必须与目标服务在 Nacos 上注册的服务名完全一致！
-@FeignClient(name = "user-service-fyb")
+// 临时配置：直接访问本地暴露的 user-service 端口
+// 原配置: @FeignClient(name = "user-service-fyb")  // 通过 Nacos 服务发现
+@FeignClient(name = "user-service-fyb", url = "http://localhost:8081", configuration = FeignConfig.class)  // 直接 URL 访问
 public interface UserClient {
 
     @PostMapping("/api/user/{userId}/sessions")

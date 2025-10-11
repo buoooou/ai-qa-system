@@ -201,7 +201,9 @@ public class GeminiChatServiceImpl implements GeminiChatService {
   private String toSse(String type, String text) {
     try {
       GeminiSsePayload payload = new GeminiSsePayload(type, text);
-      return "data: " + objectMapper.writeValueAsString(payload) + "\n\n";
+      // Spring WebFlux automatically adds "data:" prefix when using TEXT_EVENT_STREAM
+      // So we just return the JSON string without "data:" prefix
+      return objectMapper.writeValueAsString(payload);
     } catch (Exception e) {
       throw new IllegalStateException("SSE serialization failed", e);
     }

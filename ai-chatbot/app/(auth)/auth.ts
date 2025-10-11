@@ -174,6 +174,11 @@ function extractGatewayError(error: unknown): GatewayErrorResponse | null {
 }
 
 function mapGatewayAuthResponse(response: GatewayAuthResponse) {
+  if (!response || !response.profile) {
+    console.error("[Auth] Invalid response in mapGatewayAuthResponse:", response);
+    throw new Error("Invalid authentication response");
+  }
+
   return {
     id: String(response.profile.id),
     email: response.profile.email,

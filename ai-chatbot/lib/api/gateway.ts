@@ -1,4 +1,5 @@
 import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from "axios";
+import { Readable } from "stream";
 import type {
   GatewayAuthResponse,
   GatewayChatHistoryEntry,
@@ -273,7 +274,20 @@ export const streamGatewayChat = async (
     }
   );
 
-  return response;
+  // Ensure we return a proper ReadableStream
+  if (response.data instanceof ReadableStream) {
+    return response;
+  } else if (response.data && typeof response.data.pipe === 'function') {
+    // Convert Node.js stream to Web Stream
+    const webStream = Readable.toWeb(response.data);
+    return {
+      ...response,
+      data: webStream as ReadableStream<Uint8Array>,
+    };
+  } else {
+    console.error('[GATEWAY] Unexpected response type:', typeof response.data, response.data);
+    return response;
+  }
 };
 
 export { gatewayClient };

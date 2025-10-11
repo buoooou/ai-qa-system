@@ -57,6 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println("SecurityContext: " + SecurityContextHolder.getContext().getAuthentication());
             } catch (Exception e) {
                 System.err.println("JWT validation failed: " + e.getMessage());
+                e.printStackTrace();
             }
         }
 
@@ -65,6 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String resolveToken(HttpServletRequest request) {
         String bearer = request.getHeader("Authorization");
+        System.out.println("User service - Authorization header: " + (bearer != null ? bearer.substring(0, Math.min(bearer.length(), 20)) + "..." : "null"));
         if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
         }
