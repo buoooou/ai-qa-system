@@ -1,5 +1,6 @@
 import { createUIMessageStream, JsonToSseTransformStream } from "ai";
 import { headers } from "next/headers";
+import { Readable } from "stream";
 
 import { auth } from "@/app/(auth)/auth";
 import { streamGatewayChat } from "@/lib/api/gateway";
@@ -47,156 +48,116 @@ export async function POST(request: Request) {
     console.log("[CHAT] Response data constructor:", response.data?.constructor?.name);
     console.log("[CHAT] Has getReader method:", typeof response.data?.getReader === 'function');
 
-    // Transform Gateway SSE to AI SDK format
-    const uiMessageStream = createUIMessageStream<ChatMessage>({
-      execute: async ({ writer }) => {
-        // Handle different response types
+      // Transform backend SSE format to standard SSE format that AI SDK can understand
+    const encoder = new TextEncoder();
+    const decoder = new TextDecoder();
+    let messageId = requestBody.message.id;
+    let hasStarted = false;
+    let accumulatedText = '';
+
+    const transformedStream = new ReadableStream({
+      async start(controller) {
         let stream: ReadableStream<Uint8Array>;
 
         if (response.data instanceof ReadableStream) {
           stream = response.data;
         } else if (response.data && typeof response.data === 'object' && 'pipe' in response.data) {
-          // Handle Node.js stream
           stream = Readable.fromWeb(response.data as any);
-        } else if (typeof response.data === 'string') {
-          // Handle error response as string
-          console.error('[CHAT] Received string instead of stream:', response.data);
-          writer.write({
-            type: 'error',
-            errorText: `Expected stream but received string: ${response.data.substring(0, 100)}`,
-          });
-          return;
         } else {
-          console.error('[CHAT] Unexpected response type:', typeof response.data, response.data);
-          writer.write({
-            type: 'error',
-            errorText: `Expected ReadableStream but received ${typeof response.data}`,
-          });
+          controller.error(new Error('Invalid stream type'));
           return;
         }
 
         const reader = stream.getReader();
-        const decoder = new TextDecoder();
         let buffer = '';
-        let messageId = requestBody.message.id;
-        let currentMessage: ChatMessage = {
-          id: messageId,
-          role: 'assistant',
-          parts: [{ type: 'text', text: '' }]
-        };
 
         try {
-          console.log('[CHAT] Starting to read stream...');
           while (true) {
             const { done, value } = await reader.read();
-            if (done) {
-              console.log('[CHAT] Stream reading completed');
-              if (buffer) {
-                console.log('[CHAT] Final buffer content:', JSON.stringify(buffer));
-              } else {
-                console.log('[CHAT] Stream ended with no buffer content');
-              }
-              break;
-            }
+            if (done) break;
 
-            const chunkText = decoder.decode(value, { stream: true });
-            console.log('[CHAT] Received chunk:', JSON.stringify(chunkText));
-            buffer += chunkText;
+            buffer += decoder.decode(value, { stream: true });
             const lines = buffer.split('\n');
             buffer = lines.pop() || '';
 
             for (const line of lines) {
-              // Log all lines for debugging
-              if (line.trim()) {
-                console.log('[CHAT] Processing line:', JSON.stringify(line));
-              }
-
-              // Check for data: prefix (with or without space)
               if (line.startsWith('data:')) {
-                const dataStr = line.slice(5).trim(); // Remove "data:" (5 chars)
-                console.log('[CHAT] SSE data:', dataStr);
+                const dataStr = line.slice(5).trim();
                 if (!dataStr) continue;
-
-                // Handle [DONE] signal from Gemini
-                if (dataStr === '[DONE]') {
-                  console.log('[CHAT] Received [DONE] signal');
-                  writer.write({
-                    type: 'finish',
-                  });
-                  break;
-                }
 
                 try {
                   const data = JSON.parse(dataStr);
                   console.log('[CHAT] Parsed SSE data:', data);
 
                   if (data.type === 'content' && data.text) {
+                    // Parse JSON response if needed
                     let actualText = data.text;
-
-                    // Try to extract JSON content if it looks like JSON
                     try {
-                      // Check if text is or contains JSON with response/message/answer field
-                      const jsonMatch = data.text.match(/\{[^{}]*"(?:response|message|answer)"[^{}]*\}/);
-                      if (jsonMatch) {
-                        const jsonResponse = JSON.parse(jsonMatch[0]);
-                        actualText = jsonResponse.response || jsonResponse.message || jsonResponse.answer || actualText;
-                        console.log('[CHAT] Extracted JSON response:', actualText);
-                      } else if (data.text.trim().startsWith('{') && data.text.trim().endsWith('}')) {
-                        // Single complete JSON object
+                      if (data.text.trim().startsWith('{') && data.text.trim().endsWith('}')) {
                         const jsonResponse = JSON.parse(data.text);
-                        actualText = jsonResponse.response || jsonResponse.message || jsonResponse.answer || actualText;
-                        console.log('[CHAT] Parsed single JSON response:', actualText);
+                        actualText = jsonResponse.response || jsonResponse.message || jsonResponse.answer || data.text;
+                        console.log('[CHAT] Extracted text from JSON:', actualText);
                       }
-                    } catch (jsonError) {
-                      // Not JSON, use as plain text
-                      console.log('[CHAT] Using as plain text:', actualText);
+                    } catch (e) {
+                      // Not JSON
                     }
 
-                    // Append content to message
-                    if (currentMessage.parts[0].type === 'text') {
-                      currentMessage.parts[0].text += actualText;
-                    }
+                    accumulatedText += actualText;
 
-                    // Send incremental update to AI SDK (correct format)
-                    writer.write({
-                      type: 'text-delta',
-                      textDelta: actualText,
-                    });
+                    // Send the message first time we get content
+                    if (!hasStarted) {
+                      hasStarted = true;
+                      // Send initial message with the first chunk
+                      const messageData = {
+                        type: 'text',
+                        text: actualText,
+                        id: messageId,
+                        role: 'assistant',
+                      };
+                      const sseMessage = `data: ${JSON.stringify(messageData)}\n\n`;
+                      console.log('[CHAT] Sending initial SSE message:', sseMessage);
+                      controller.enqueue(encoder.encode(sseMessage));
+                    } else {
+                      // Send subsequent chunks as deltas
+                      const deltaData = {
+                        type: 'text-delta',
+                        textDelta: actualText,
+                        id: messageId,
+                      };
+                      const sseDelta = `data: ${JSON.stringify(deltaData)}\n\n`;
+                      console.log('[CHAT] Sending SSE delta:', sseDelta);
+                      controller.enqueue(encoder.encode(sseDelta));
+                    }
                   } else if (data.type === 'end') {
-                    // Mark message as complete
-                    writer.write({
+                    // Send finish signal
+                    const finishData = {
                       type: 'finish',
-                    });
+                      id: messageId,
+                    };
+                    const sseFinish = `data: ${JSON.stringify(finishData)}\n\n`;
+                    console.log('[CHAT] Sending SSE finish:', sseFinish);
+                    controller.enqueue(encoder.encode(sseFinish));
                   }
                 } catch (e) {
-                  console.error('[CHAT] Failed to parse SSE data:', e, dataStr);
-                  // Continue processing other lines even if one fails
+                  console.error('Failed to parse SSE data:', e);
                 }
               }
             }
           }
-        } catch (error) {
-          console.error('Stream reading error:', error);
-          writer.write({
-            type: 'error',
-            errorText: error instanceof Error ? error.message : 'Stream error',
-          });
         } finally {
           reader.releaseLock();
+          controller.close();
         }
-      },
+      }
     });
 
-    return new Response(
-      uiMessageStream.pipeThrough(new JsonToSseTransformStream()),
-      {
-        headers: {
-          "Content-Type": "text/event-stream",
-          "Cache-Control": "no-cache",
-          "Connection": "keep-alive",
-        },
-      }
-    );
+    return new Response(transformedStream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+      },
+    });
   } catch (error) {
     console.error(error);
 
