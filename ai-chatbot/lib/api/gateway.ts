@@ -25,6 +25,20 @@ const gatewayClient = axios.create({
   timeout: 60_000,
 });
 
+// Add response interceptor to handle 401 errors
+gatewayClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Redirect to login page on 401 errors
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login';
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 const withAuth = <_T>(
   config: AxiosRequestConfig = {},
   session?: GatewaySession
@@ -217,18 +231,39 @@ export const streamGatewayChat = async (
   },
   accessToken: string
 ): Promise<AxiosResponse<ReadableStream<Uint8Array>>> => {
+  // 构建 请求数据
+  const requestData: any = {
+    userId: payload.userId,
+    question: payload.message.parts
+      .filter((part) => part.type === "text")
+      .map((part) => ("text" in part ? part.text : ""))
+      .join(" "),
+    history: payload.history || [],
+  };
+
+  // QA 服务需要 sessionTitle，但不需要 sessionId
+  // 不发送 sessionId，让后端自动创建 session
+  // 这样可以避免外键约束问题
+
+  // 如果没有 sessionTitle，生成一个默认的
+  if (payload.sessionTitle) {
+    requestData.sessionTitle = payload.sessionTitle;
+  } else {
+    // 使用日期作为默认标题
+    requestData.sessionTitle = `Chat ${new Date().toLocaleString()}`;
+  }
+
+  // 添加调试日志
+  console.log("[GATEWAY] Sending chat request:", {
+    url: "/api/gateway/qa/chat",
+    data: requestData,
+    hasToken: !!accessToken,
+    tokenPrefix: accessToken?.substring(0, 20) + "..."
+  });
+
   const response = await gatewayClient.post(
     "/api/gateway/qa/chat",
-    {
-      sessionId: payload.sessionId,
-      sessionTitle: payload.sessionTitle,
-      userId: payload.userId,
-      question: payload.message.parts
-        .filter((part) => part.type === "text")
-        .map((part) => ("text" in part ? part.text : ""))
-        .join(" "),
-      history: payload.history || [],
-    },
+    requestData,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,

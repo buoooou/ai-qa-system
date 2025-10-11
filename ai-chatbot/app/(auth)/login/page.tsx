@@ -21,7 +21,6 @@ export default function Page() {
   const { data: session, status: sessionStatus } = useSession();
 
   const [email, setEmail] = useState("");
-  const [isSuccessful, setIsSuccessful] = useState(false);
 
   // useActionState 保持不变
   const [state, formAction] = useActionState<LoginActionState, FormData>(
@@ -42,8 +41,8 @@ export default function Page() {
         description: "Failed validating your submission!",
       });
     } else if (state.status === "success") {
-      // 登录成功，设置成功状态，等待 session 更新
-      setIsSuccessful(true);
+      // 登录成功，显示成功信息，但不设置按钮为成功状态
+      // 按钮状态由useFormStatus()管理
       toast({
         type: "success",
         description: "Login successful! Redirecting...",
@@ -54,15 +53,32 @@ export default function Page() {
 
   // ✅✅✅ --- 第二个 useEffect：处理登录成功后的跳转 --- ✅✅✅
   useEffect(() => {
+    // 添加详细的调试信息
+    console.log("Session status changed:", {
+      sessionStatus,
+      hasSession: !!session,
+      hasUser: !!session?.user,
+      userId: session?.user?.id,
+      hasAccessToken: !!session?.user?.accessToken
+    });
+
     // 当 session 状态变为 'authenticated' 并且我们拿到了 user.id
     if (sessionStatus === 'authenticated' && session?.user?.id) {
       const userId = session.user.id;
       console.log(`Session updated. User ID: ${userId}. Redirecting...`);
       // 执行最终的跳转
-      // router.push(`/chat/${userId}`);
       router.push(`/`);
+      return;
     }
-  }, [session, sessionStatus, router]);
+
+    // 登录成功后立即跳转（不等待session更新）
+    if (state.status === "success") {
+      console.log("Login successful, redirecting to home...");
+      // 使用 window.location.href 确保立即跳转
+      window.location.href = "/";
+      return;
+    }
+  }, [session, sessionStatus, router, state.status]);
 
 
   const handleSubmit = (formData: FormData) => {
@@ -80,7 +96,7 @@ export default function Page() {
           </p>
         </div>
         <AuthForm action={handleSubmit} defaultEmail={email}>
-          <SubmitButton isSuccessful={isSuccessful}>Sign in</SubmitButton>
+          <SubmitButton>Sign in</SubmitButton>
           <p className="mt-4 text-center text-gray-600 text-sm dark:text-zinc-400">
             {"Don't have an account? "}
             <Link

@@ -24,20 +24,37 @@ export async function GET(request: NextRequest) {
     return new ChatSDKError("unauthorized:chat").toResponse();
   }
 
-  const chats = await gatewayGet<{
-    chats: GatewayChatSession[];
-    hasMore: boolean;
-  }>(
-    `/api/gateway/user/${session.user.id}/sessions`,
-    {
-      params: {
-        limit,
-        startingAfter: startingAfter ?? undefined,
-        endingBefore: endingBefore ?? undefined,
-      },
-    },
+  if (!session.user.accessToken) {
+    console.error("No accessToken in session for history", {
+      session,
+      userKeys: session.user ? Object.keys(session.user) : 'no user',
+      hasAccessToken: !!session.user?.accessToken
+    });
+    // Return empty history instead of error to avoid blocking the UI
+    return Response.json({ chats: [], hasMore: false });
+  }
+
+  let url = `/api/gateway/user/${session.user.id}/sessions?limit=${limit}`;
+
+  if (startingAfter) {
+    url += `&starting_after=${startingAfter}`;
+  }
+
+  if (endingBefore) {
+    url += `&ending_before=${endingBefore}`;
+  }
+
+  const response = await gatewayGet<GatewayChatSession[]>(
+    url,
+    undefined,
     { accessToken: session.user.accessToken }
   );
+
+  // Transform the response to match the expected format
+  const chats = {
+    chats: response || [],
+    hasMore: false // TODO: Implement proper pagination logic when backend supports it
+  };
 
   return Response.json(chats);
 }

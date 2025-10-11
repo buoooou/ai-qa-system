@@ -1,7 +1,6 @@
 package com.ai.qa.gateway.interfaces.controller;
 
 import com.ai.qa.gateway.infrastructure.config.TokenWebFilter;
-import com.ai.qa.gateway.interfaces.dto.ChatHistoryResponseDTO;
 import com.ai.qa.gateway.interfaces.dto.ChatRequestDTO;
 import com.ai.qa.gateway.interfaces.facade.QAFacade;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,15 +56,4 @@ public class QAGatewayController {
                       .contentType(MediaType.TEXT_EVENT_STREAM)
                       .body(qaFacade.chat(request))));
   }
-
-  @Operation(summary = "Proxy history", description = "Retrieves chat history from qa-service-fyb.")
-  @GetMapping("/history")
-  public Mono<ResponseEntity<List<ChatHistoryResponseDTO>>> history(
-          @RequestParam Long userId,
-          @RequestParam(required = false) Long sessionId,
-          @RequestParam(required = false) Integer limit) {
-      return withAuthContext(userId, uid ->
-              qaFacade.history(uid, sessionId, limit).map(ResponseEntity::ok));
-  }
-
 }

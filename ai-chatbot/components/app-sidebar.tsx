@@ -3,9 +3,19 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { User } from "next-auth";
+import dynamic from "next/dynamic";
 import { PlusIcon } from "@/components/icons";
-import { SidebarHistory } from "@/components/sidebar-history";
 import { SidebarUserNav } from "@/components/sidebar-user-nav";
+
+// Dynamically import SidebarHistory to avoid SSR hydration issues
+const SidebarHistory = dynamic(() => import("@/components/sidebar-history").then(mod => ({ default: mod.SidebarHistory })), {
+  ssr: false,
+  loading: () => (
+    <div className="px-2 py-1 text-sidebar-foreground/50 text-xs">
+      Today
+    </div>
+  )
+});
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,

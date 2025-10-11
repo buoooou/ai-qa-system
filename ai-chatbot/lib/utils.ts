@@ -20,8 +20,23 @@ export const fetcher = async (url: string) => {
   const response = await fetch(url);
 
   if (!response.ok) {
-    const { code, cause } = await response.json();
-    throw new ChatSDKError(code as ErrorCode, cause);
+    // Handle 401 unauthorized - redirect to login
+    if (response.status === 401) {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login';
+      }
+    }
+
+    let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+
+    try {
+      const errorData = await response.json();
+      errorMessage = errorData.message || errorData.cause || errorMessage;
+    } catch (e) {
+      // If we can't parse JSON, use the status text
+    }
+
+    throw new ChatSDKError(`api_error:${response.status}`, errorMessage);
   }
 
   return response.json();

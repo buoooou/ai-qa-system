@@ -157,8 +157,8 @@ export const {
         session.user.nickname = token.nickname;
         session.user.type = token.type;
         
-        // 通常不建议将 accessToken 直接暴露给客户端，但如果你的应用确实需要，可以放开这行。
-        // session.user.accessToken = token.accessToken;
+        // 暴露 accessToken 给客户端，用于调用后端 API
+        session.user.accessToken = token.accessToken;
       }
       return session;
     },

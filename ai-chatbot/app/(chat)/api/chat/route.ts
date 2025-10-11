@@ -26,6 +26,11 @@ export async function POST(request: Request) {
       return new ChatSDKError("unauthorized:chat").toResponse();
     }
 
+    if (!session.user.accessToken) {
+      console.error("No accessToken in session", { session });
+      return new ChatSDKError("unauthorized:chat", "Please log in again").toResponse();
+    }
+
     const forwardedFor = (await headers()).get("x-forwarded-for") ?? undefined;
 
     const response = await streamGatewayChat(
@@ -34,7 +39,7 @@ export async function POST(request: Request) {
         userId: Number.parseInt(session.user.id, 10),
         clientIp: forwardedFor,
       },
-      session.user.accessToken || ""
+      session.user.accessToken
     );
 
     // Transform Gateway SSE to AI SDK format

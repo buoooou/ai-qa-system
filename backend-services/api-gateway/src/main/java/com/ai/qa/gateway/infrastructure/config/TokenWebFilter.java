@@ -44,6 +44,11 @@ public class TokenWebFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         return Mono.defer(() -> {
+            // Skip JWT validation for CORS preflight requests
+            if ("OPTIONS".equals(exchange.getRequest().getMethod().name())) {
+                return chain.filter(exchange);
+            }
+
             String header = exchange.getRequest().getHeaders().getFirst("Authorization");
 
             if (header == null || !header.startsWith("Bearer ")) {

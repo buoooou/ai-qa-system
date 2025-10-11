@@ -33,6 +33,7 @@ export const login = async (
     });
     
     // 如果 signIn 没有抛出错误，就代表成功
+    console.log("Login action completed successfully");
     return { status: "success" };
 
   } catch (error: any) {
