@@ -194,7 +194,7 @@ public class GeminiChatServiceImpl implements GeminiChatService {
       }
       contents.add(GeminiChatRequest.Content.of("user", command.getQuestion()));
     }
-    return new GeminiChatRequest(contents, new GeminiChatRequest.GenerationConfig("application/json"),
+    return new GeminiChatRequest(contents, new GeminiChatRequest.GenerationConfig("text/plain"),
         GeminiChatRequest.defaultSafetySettings());
   }
 

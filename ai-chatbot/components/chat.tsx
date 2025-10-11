@@ -113,15 +113,18 @@ export function Chat({
       },
     }),
     onData: (dataPart) => {
+      console.log('[USECHAT] onData received:', dataPart);
       // setDataStream((ds) => (ds ? [...ds, dataPart] : [])); // Disabled artifact system
       if (dataPart.type === "data-usage") {
         setUsage(dataPart.data);
       }
     },
     onFinish: () => {
+      console.log('[USECHAT] Stream finished');
       mutate(unstable_serialize(getChatHistoryPaginationKey));
     },
     onError: (error) => {
+      console.error('[USECHAT] Error:', error);
       if (error instanceof ChatSDKError) {
         // Check if it's a credit card error
         if (
@@ -142,6 +145,13 @@ export function Chat({
   const query = searchParams.get("query");
 
   const [hasAppendedQuery, setHasAppendedQuery] = useState(false);
+
+  // Debug messages
+  useEffect(() => {
+    console.log('[USECHAT] Messages updated:', messages);
+    console.log('[USECHAT] Message details:', messages.map(m => ({ id: m.id, role: m.role, parts: m.parts })));
+    console.log('[USECHAT] Current status:', status);
+  }, [messages, status]);
 
   useEffect(() => {
     if (query && !hasAppendedQuery) {

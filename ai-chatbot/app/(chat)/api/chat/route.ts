@@ -48,14 +48,13 @@ export async function POST(request: Request) {
     console.log("[CHAT] Response data constructor:", response.data?.constructor?.name);
     console.log("[CHAT] Has getReader method:", typeof response.data?.getReader === 'function');
 
-      // Transform backend SSE format to standard SSE format that AI SDK can understand
+      // Create AI SDK v5 compatible SSE stream
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
     let messageId = requestBody.message.id;
     let hasStarted = false;
-    let accumulatedText = '';
 
-    const transformedStream = new ReadableStream({
+    const sseStream = new ReadableStream({
       async start(controller) {
         let stream: ReadableStream<Uint8Array>;
 
@@ -102,41 +101,33 @@ export async function POST(request: Request) {
                       // Not JSON
                     }
 
-                    accumulatedText += actualText;
-
-                    // Send the message first time we get content
+                    // Send text-start only on first chunk
                     if (!hasStarted) {
                       hasStarted = true;
-                      // Send initial message with the first chunk
-                      const messageData = {
-                        type: 'text',
-                        text: actualText,
-                        id: messageId,
-                        role: 'assistant',
-                      };
-                      const sseMessage = `data: ${JSON.stringify(messageData)}\n\n`;
-                      console.log('[CHAT] Sending initial SSE message:', sseMessage);
-                      controller.enqueue(encoder.encode(sseMessage));
-                    } else {
-                      // Send subsequent chunks as deltas
-                      const deltaData = {
-                        type: 'text-delta',
-                        textDelta: actualText,
-                        id: messageId,
-                      };
-                      const sseDelta = `data: ${JSON.stringify(deltaData)}\n\n`;
-                      console.log('[CHAT] Sending SSE delta:', sseDelta);
-                      controller.enqueue(encoder.encode(sseDelta));
+                      const startData = `data: ${JSON.stringify({
+                        type: 'text-start',
+                        id: messageId
+                      })}\n\n`;
+                      console.log('[CHAT] Sending text-start:', startData);
+                      controller.enqueue(encoder.encode(startData));
                     }
-                  } else if (data.type === 'end') {
-                    // Send finish signal
-                    const finishData = {
-                      type: 'finish',
+
+                    // Send text-delta for the actual content
+                    const deltaData = `data: ${JSON.stringify({
+                      type: 'text-delta',
                       id: messageId,
-                    };
-                    const sseFinish = `data: ${JSON.stringify(finishData)}\n\n`;
-                    console.log('[CHAT] Sending SSE finish:', sseFinish);
-                    controller.enqueue(encoder.encode(sseFinish));
+                      delta: actualText
+                    })}\n\n`;
+                    console.log('[CHAT] Sending text-delta:', deltaData);
+                    controller.enqueue(encoder.encode(deltaData));
+                  } else if (data.type === 'end') {
+                    // Send text-end
+                    const endData = `data: ${JSON.stringify({
+                      type: 'text-end',
+                      id: messageId
+                    })}\n\n`;
+                    console.log('[CHAT] Sending text-end:', endData);
+                    controller.enqueue(encoder.encode(endData));
                   }
                 } catch (e) {
                   console.error('Failed to parse SSE data:', e);
@@ -151,7 +142,7 @@ export async function POST(request: Request) {
       }
     });
 
-    return new Response(transformedStream, {
+    return new Response(sseStream, {
       headers: {
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
