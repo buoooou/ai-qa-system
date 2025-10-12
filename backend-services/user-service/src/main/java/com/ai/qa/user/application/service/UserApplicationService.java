@@ -15,13 +15,13 @@ public interface UserApplicationService {
 
     List<ChatSessionDTO> listSessions(Long userId);
 
-    List<ChatMessageDTO> listHistoryBySession(Long userId, Long sessionId);
+    List<ChatMessageDTO> listHistoryBySession(Long userId, String sessionId);
 
-    ChatSessionDTO createSession(Long userId, String title);
+    ChatSessionDTO createSession(Long userId, String sessionId, String title);
 
-    ChatSessionDTO getSession(Long userId, Long sessionId);
+    ChatSessionDTO getSession(Long userId, String sessionId);
 
-    void deleteSession(Long userId, Long sessionId);
+    void deleteSession(Long userId, String sessionId);
 
-    boolean isSessionOwnedBy(Long sessionId, Long userId);
+    boolean isSessionOwnedBy(String sessionId, Long userId);
 }

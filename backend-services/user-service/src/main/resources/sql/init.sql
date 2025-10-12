@@ -30,7 +30,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
 
 CREATE TABLE `qa_session` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '会话ID',
+  `id` VARCHAR(64) NOT NULL COMMENT '会话ID',
   `user_id` BIGINT NOT NULL COMMENT '用户ID',
   `title` VARCHAR(255) NOT NULL DEFAULT 'New Conversation' COMMENT '会话标题',
   `status` ENUM('ACTIVE','ARCHIVED') NOT NULL DEFAULT 'ACTIVE' COMMENT '会话状态',
@@ -46,7 +46,7 @@ CREATE TABLE `qa_session` (
 -- ----------------------------
 CREATE TABLE `qa_history` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '问答记录ID',
-  `session_id` BIGINT NOT NULL COMMENT '会话ID',
+  `session_id` VARCHAR(64) NOT NULL COMMENT '会话ID',
   `user_id` BIGINT NOT NULL COMMENT '用户ID',
   `question` TEXT NOT NULL COMMENT '用户提问',
   `answer` LONGTEXT COMMENT 'Gemini 回复',

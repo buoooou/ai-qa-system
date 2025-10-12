@@ -31,8 +31,8 @@ public class InMemoryRateLimiterConfig {
     public org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<InMemoryRateLimiterConfig.RateLimiterConfig> inMemoryRateLimiter() {
 
         // 定义默认的限流速率
-        final double defaultReplenishRate = 5.0; // 每秒生成的令牌数
-        final int defaultBurstCapacity = 100;     // 令牌桶总容量
+        final double defaultReplenishRate = 20.0; // 每秒生成的令牌数（增加到20）
+        final int defaultBurstCapacity = 300;     // 令牌桶总容量（增加到300）
 
         return new org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<RateLimiterConfig>() {
 

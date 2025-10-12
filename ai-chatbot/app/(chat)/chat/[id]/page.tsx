@@ -25,13 +25,21 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     `/api/gateway/user/${session.user.id}/sessions/${id}`,
     undefined,
     { accessToken: session.user.accessToken }
-  ).catch(() => null);
+  ).catch((error) => {
+    console.error('Failed to fetch chat session:', error);
+    return null;
+  });
+
+  console.log('Chat session:', chat);
+  console.log('Session user ID:', session.user.id);
+  console.log('Chat ID:', id);
 
   if (!chat) {
+    console.error('Chat session not found for ID:', id);
     notFound();
   }
 
-  if (!session.user || session.user.id !== String(chat.id)) {
+  if (!session.user || session.user.id !== String(chat.userId)) {
     return notFound();
   }
 

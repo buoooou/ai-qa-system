@@ -2,7 +2,7 @@ package com.ai.qa.service.application.dto;
 
 public class QAHistoryQuery {
     private final Long userId;
-    private final Long sessionId;
+    private final String sessionId;
     private final Integer limit;
 
     private QAHistoryQuery(Builder builder) {
@@ -15,7 +15,7 @@ public class QAHistoryQuery {
         return userId;
     }
 
-    public Long getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
@@ -33,7 +33,7 @@ public class QAHistoryQuery {
 
     public static class Builder {
         private Long userId;
-        private Long sessionId;
+        private String sessionId;
         private Integer limit;
 
         public Builder userId(Long userId) {
@@ -41,7 +41,7 @@ public class QAHistoryQuery {
             return this;
         }
 
-        public Builder sessionId(Long sessionId) {
+        public Builder sessionId(String sessionId) {
             this.sessionId = sessionId;
             return this;
         }

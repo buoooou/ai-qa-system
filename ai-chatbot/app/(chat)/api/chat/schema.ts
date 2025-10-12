@@ -23,7 +23,7 @@ export const postRequestBodySchema = z.object({
   }),
   selectedChatModel: z.enum(["chat-model", "chat-model-reasoning"]),
   selectedVisibilityType: z.enum(["public", "private"]),
-  sessionId: z.string().optional(),
+  sessionId: z.string().uuid(), // 现在是必填的UUID
   sessionTitle: z.string().max(255).optional(),
   history: z
     .array(

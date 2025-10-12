@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ChatMessageDTO {
     private final Long id;
-    private final Long sessionId;
+    private final String sessionId;
     private final String question;
     private final String answer;
     private final Integer promptTokens;

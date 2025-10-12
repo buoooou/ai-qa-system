@@ -41,7 +41,7 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
      * @return list of domain histories
      */
     @Override
-    public List<QAHistory> findByUserAndSession(Long userId, Long sessionId, Integer limit) {
+    public List<QAHistory> findByUserAndSession(Long userId, String sessionId, Integer limit) {
         List<QAHistoryPO> poList;
         if (sessionId != null) {
             poList = jpaRepository.findBySessionIdOrderByCreatedAtAsc(sessionId);
@@ -55,7 +55,7 @@ public class QAHistoryRepoImpl implements QAHistoryRepo {
     }
 
     @Override
-    public void deleteBySessionId(Long sessionId) {
+    public void deleteBySessionId(String sessionId) {
         jpaRepository.deleteBySessionId(sessionId);
     }
 }

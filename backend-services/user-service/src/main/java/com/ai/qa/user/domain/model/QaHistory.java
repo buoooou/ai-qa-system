@@ -23,8 +23,8 @@ public class QaHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "session_id", nullable = false)
-    private Long sessionId;
+    @Column(name = "session_id", nullable = false, length = 64)
+    private String sessionId;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
@@ -50,7 +50,7 @@ public class QaHistory {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public static QaHistory create(Long sessionId, Long userId, String question) {
+    public static QaHistory create(String sessionId, Long userId, String question) {
         LocalDateTime now = LocalDateTime.now();
         return QaHistory.builder()
                 .sessionId(sessionId)

@@ -57,13 +57,13 @@ public class AuthFacade {
                 .onErrorMap(this::mapFeignException);
     }
 
-    public Mono<ChatSessionResponseDTO> getSession(Long userId, Long sessionId) {
+    public Mono<ChatSessionResponseDTO> getSession(Long userId, String sessionId) {
         return userServiceClient.getSession(userId, sessionId)
                 .map(this::extractData)
                 .onErrorMap(this::mapFeignException);
     }
 
-    public Mono<Void> deleteSession(Long userId, Long sessionId) {
+    public Mono<Void> deleteSession(Long userId, String sessionId) {
         return userServiceClient.deleteSession(userId, sessionId)
                 .map(this::extractData)
                 .onErrorMap(this::mapFeignException)
@@ -71,17 +71,16 @@ public class AuthFacade {
     }
 
 
-
-    public Mono<List<ChatHistoryResponseDTO>> history(Long userId, Long sessionId, Integer limit) {
+    public Mono<List<ChatHistoryResponseDTO>> history(Long userId, String sessionId, Integer limit) {
         return userServiceClient.history(userId, sessionId, limit)
                 .map(this::extractData)
                 .onErrorMap(this::mapFeignException);
     }
 
-    public Mono<Boolean> isSessionOwnedBy(Long sessionId, Long userId) {
+    public Mono<Boolean> isSessionOwnedBy(String sessionId, Long userId) {
         return userServiceClient.isSessionOwnedBy(sessionId, userId)
                 .map(this::extractData)
-                .map(Boolean.TRUE::equals) // ✅ 正确写法
+                .map(Boolean.TRUE::equals)
                 .onErrorMap(this::mapFeignException);
     }
 

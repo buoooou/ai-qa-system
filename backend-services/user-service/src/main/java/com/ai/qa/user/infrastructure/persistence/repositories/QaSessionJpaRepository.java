@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface QaSessionJpaRepository extends JpaRepository<QaSession, Long>, QaSessionRepository {
+public interface QaSessionJpaRepository extends JpaRepository<QaSession, String>, QaSessionRepository {
 
     @Override
     List<QaSession> findByUserIdOrderByCreatedAtDesc(Long userId);

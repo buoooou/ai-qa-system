@@ -16,7 +16,7 @@ public class ChatRequestDTO {
     @NotNull
     private Long userId;
 
-    private Long sessionId;
+    private String sessionId;
 
     @Size(max = 255)
     private String sessionTitle;

@@ -11,7 +11,7 @@ import lombok.Setter;
 public class SaveHistoryRequest {
 
     @NotNull
-    private Long sessionId;
+    private String sessionId;
 
     @NotNull
     private Long userId;

@@ -2,6 +2,7 @@
 import type { UseChatHelpers } from "@ai-sdk/react";
 import equal from "fast-deep-equal";
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import { memo, useState } from "react";
 import type { Vote } from "@/lib/db/schema";
 import type { ChatMessage } from "@/lib/types";
@@ -322,12 +323,36 @@ export const ThinkingMessage = () => {
     >
       <div className="flex items-start justify-start gap-3">
         <div className="-mt-1 flex size-8 shrink-0 items-center justify-center rounded-full bg-background ring-1 ring-border">
-          <SparklesIcon size={14} />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 1,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "linear",
+            }}
+          >
+            <Loader2 size={16} className="text-muted-foreground" />
+          </motion.div>
         </div>
 
         <div className="flex w-full flex-col gap-2 md:gap-4">
-          <div className="p-0 text-muted-foreground text-sm">
-            <LoadingText>Thinking...</LoadingText>
+          <div className="flex items-center gap-2 p-0 text-muted-foreground text-sm">
+            <LoadingText>AI is thinking...</LoadingText>
+            <motion.div
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{
+                duration: 1.5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+              className="flex gap-1"
+            >
+              <span className="inline-block h-1 w-1 bg-muted-foreground rounded-full"></span>
+              <span className="inline-block h-1 w-1 bg-muted-foreground rounded-full"
+                    style={{ animationDelay: '0.2s' }}></span>
+              <span className="inline-block h-1 w-1 bg-muted-foreground rounded-full"
+                    style={{ animationDelay: '0.4s' }}></span>
+            </motion.div>
           </div>
         </div>
       </div>

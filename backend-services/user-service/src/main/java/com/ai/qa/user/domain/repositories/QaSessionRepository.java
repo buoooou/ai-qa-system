@@ -9,7 +9,7 @@ public interface QaSessionRepository {
 
     QaSession save(QaSession session);
 
-    Optional<QaSession> findById(Long id);
+    Optional<QaSession> findById(String id);
 
     List<QaSession> findByUserIdOrderByCreatedAtDesc(Long userId);
 

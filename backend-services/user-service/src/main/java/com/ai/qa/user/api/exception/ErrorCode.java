@@ -10,6 +10,7 @@ public enum ErrorCode {
     FORBIDDEN(HttpStatus.FORBIDDEN, 403, "无权限"),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 404, "用户不存在"),
     SESSION_NOT_FOUND(HttpStatus.NOT_FOUND, 4041, "会话不存在"),
+    SESSION_ALREADY_EXISTS(HttpStatus.CONFLICT, 409, "会话ID已存在"),
 
     NICKNAME_IS_EMPTY(HttpStatus.BAD_REQUEST, 1001, "昵称不能为空"),
     NICKNAME_TOO_LONG(HttpStatus.BAD_REQUEST, 1002, "昵称长度不能超过50个字符"),

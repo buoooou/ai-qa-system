@@ -14,16 +14,16 @@ import java.util.List;
 public interface QaHistoryJpaRepository extends JpaRepository<QaHistory, Long>, QaHistoryRepository {
 
     @Override
-    List<QaHistory> findBySessionIdOrderByCreatedAtAsc(Long sessionId);
+    List<QaHistory> findBySessionIdOrderByCreatedAtAsc(String sessionId);
 
     @Override
     List<QaHistory> findByUserIdOrderByCreatedAtDesc(Long userId);
 
     @Override
-    List<QaHistory> findBySessionIdOrderByCreatedAtDesc(Long sessionId);
+    List<QaHistory> findBySessionIdOrderByCreatedAtDesc(String sessionId);
 
     @Override
     @Modifying
     @Query("delete from QaHistory h where h.sessionId = :sessionId and h.createdAt >= :createdAfter")
-    void deleteBySessionIdAndCreatedAtAfter(Long sessionId, LocalDateTime createdAfter);
+    void deleteBySessionIdAndCreatedAtAfter(String sessionId, LocalDateTime createdAfter);
 }

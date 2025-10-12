@@ -242,15 +242,13 @@ export const streamGatewayChat = async (
     history: payload.history || [],
   };
 
-  // QA 服务需要 sessionTitle，但不需要 sessionId
-  // 不发送 sessionId，让后端自动创建 session
-  // 这样可以避免外键约束问题
+  // sessionId现在是必填参数
+  requestData.sessionId = payload.sessionId;
 
-  // 如果没有 sessionTitle，生成一个默认的
+  // 如果有sessionTitle则使用，否则使用默认值
   if (payload.sessionTitle) {
     requestData.sessionTitle = payload.sessionTitle;
   } else {
-    // 使用日期作为默认标题
     requestData.sessionTitle = `Chat ${new Date().toLocaleString()}`;
   }
 

@@ -14,13 +14,13 @@ public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long>
 
     List<QAHistoryPO> findByUserIdOrderByCreatedAtDesc(Long userId);
 
-    List<QAHistoryPO> findBySessionIdOrderByCreatedAtAsc(Long sessionId);
+    List<QAHistoryPO> findBySessionIdOrderByCreatedAtAsc(String sessionId);
 
-    List<QAHistoryPO> findBySessionIdOrderByCreatedAtDesc(Long sessionId);
+    List<QAHistoryPO> findBySessionIdOrderByCreatedAtDesc(String sessionId);
 
-    void deleteBySessionId(Long sessionId);
+    void deleteBySessionId(String sessionId);
 
     @Modifying
     @Query("delete from QAHistoryPO h where h.sessionId = :sessionId and h.createdAt >= :createdAfter")
-    void deleteBySessionIdAndCreatedAtAfter(Long sessionId, LocalDateTime createdAfter);
+    void deleteBySessionIdAndCreatedAtAfter(String sessionId, LocalDateTime createdAfter);
 }

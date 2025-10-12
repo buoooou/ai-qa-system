@@ -46,18 +46,18 @@ public interface UserServiceClient {
 
     @GetMapping("/user/{userId}/sessions/{sessionId}")
     Mono<UserServiceApiResponseDTO<ChatSessionResponseDTO>> getSession(@PathVariable("userId") Long userId,
-                                                                 @PathVariable("sessionId") Long sessionId);
+                                                                 @PathVariable("sessionId") String sessionId);
 
     @DeleteMapping("/user/{userId}/sessions/{sessionId}")
     Mono<UserServiceApiResponseDTO<Void>> deleteSession(@PathVariable("userId") Long userId,
-                                                  @PathVariable("sessionId") Long sessionId);
+                                                  @PathVariable("sessionId") String sessionId);
 
     @GetMapping("/user/{userId}/sessions/{sessionId}/history")
     Mono<UserServiceApiResponseDTO<List<ChatHistoryResponseDTO>>> history(@PathVariable("userId") Long userId,
-                                                                    @PathVariable("sessionId") Long sessionId,
+                                                                    @PathVariable("sessionId") String sessionId,
                                                                     @RequestParam(value = "limit", required = false) Integer limit);
 
     @GetMapping("/user/sessions/{sessionId}/ownership")
-    Mono<UserServiceApiResponseDTO<Boolean>> isSessionOwnedBy(@PathVariable("sessionId") Long sessionId,
+    Mono<UserServiceApiResponseDTO<Boolean>> isSessionOwnedBy(@PathVariable("sessionId") String sessionId,
                                                         @RequestParam("userId") Long userId);
 }

@@ -115,6 +115,15 @@ export function Chat({
     onData: (dataPart) => {
       console.log('[USECHAT] onData received:', dataPart);
       // setDataStream((ds) => (ds ? [...ds, dataPart] : [])); // Disabled artifact system
+
+      // Handle session ID from backend
+      if (dataPart.type === "session-id" && dataPart.sessionId) {
+        console.log('[USECHAT] Received session ID:', dataPart.sessionId);
+        // Update URL to use the numeric session ID from backend
+        window.history.replaceState({}, "", `/chat/${dataPart.sessionId}`);
+        setCurrentSessionId(String(dataPart.sessionId));
+      }
+
       if (dataPart.type === "data-usage") {
         setUsage(dataPart.data);
       }
@@ -131,12 +140,22 @@ export function Chat({
           error.message?.includes("AI Gateway requires a valid credit card")
         ) {
           setShowCreditCardAlert(true);
+        } else if (error.message?.includes("Too Many Requests") || error.code === 'rate_limited') {
+          toast({
+            type: "warning",
+            description: "请求太频繁了，请稍等一下再发送消息",
+          });
         } else {
           toast({
             type: "error",
-            description: error.message,
+            description: error.message || "发送消息失败，请重试",
           });
         }
+      } else {
+        toast({
+          type: "error",
+          description: "网络错误，请检查连接后重试",
+        });
       }
     },
   });

@@ -9,11 +9,11 @@ public interface QaHistoryRepository {
 
     QaHistory save(QaHistory history);
 
-    List<QaHistory> findBySessionIdOrderByCreatedAtAsc(Long sessionId);
+    List<QaHistory> findBySessionIdOrderByCreatedAtAsc(String sessionId);
 
     List<QaHistory> findByUserIdOrderByCreatedAtDesc(Long userId);
 
-    List<QaHistory> findBySessionIdOrderByCreatedAtDesc(Long sessionId);
+    List<QaHistory> findBySessionIdOrderByCreatedAtDesc(String sessionId);
 
-    void deleteBySessionIdAndCreatedAtAfter(Long sessionId, LocalDateTime createdAfter);
+    void deleteBySessionIdAndCreatedAtAfter(String sessionId, LocalDateTime createdAfter);
 }

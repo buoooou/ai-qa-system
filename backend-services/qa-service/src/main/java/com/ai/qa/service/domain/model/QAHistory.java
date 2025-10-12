@@ -19,7 +19,7 @@ import java.util.Objects;
 public class QAHistory {
 
     private Long id;
-    private Long sessionId;
+    private String sessionId;
     private Long userId;
     private String question;
     private String answer;
@@ -32,7 +32,7 @@ public class QAHistory {
     /**
      * Factory method to create a new history entry with initial question.
      */
-    public static QAHistory create(Long sessionId, Long userId, String question) {
+    public static QAHistory create(String sessionId, Long userId, String question) {
         LocalDateTime now = LocalDateTime.now();
         return QAHistory.builder()
                 .sessionId(sessionId)

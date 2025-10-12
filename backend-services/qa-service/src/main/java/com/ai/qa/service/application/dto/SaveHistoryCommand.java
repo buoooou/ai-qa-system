@@ -1,7 +1,7 @@
 package com.ai.qa.service.application.dto;
 
 public class SaveHistoryCommand {
-    private final Long sessionId;
+    private final String sessionId;
     private final Long userId;
     private final String question;
     private final String answer;
@@ -19,7 +19,7 @@ public class SaveHistoryCommand {
         this.latencyMs = builder.latencyMs;
     }
 
-    public Long getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
@@ -52,7 +52,7 @@ public class SaveHistoryCommand {
     }
 
     public static class Builder {
-        private Long sessionId;
+        private String sessionId;
         private Long userId;
         private String question;
         private String answer;
@@ -60,7 +60,7 @@ public class SaveHistoryCommand {
         private Integer completionTokens;
         private Integer latencyMs;
 
-        public Builder sessionId(Long sessionId) {
+        public Builder sessionId(String sessionId) {
             this.sessionId = sessionId;
             return this;
         }

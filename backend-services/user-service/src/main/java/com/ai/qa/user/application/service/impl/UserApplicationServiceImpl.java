@@ -76,26 +76,32 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     @Override
     @Transactional
-    public ChatSessionDTO createSession(Long userId, String title) {
+    public ChatSessionDTO createSession(Long userId, String sessionId, String title) {
         CommonUtil.assertOwner(userId);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
+        // 验证sessionId参数
+        if (sessionId == null || sessionId.trim().isEmpty()) {
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "Session ID is required and cannot be empty");
+        }
 
         String resolvedTitle = Optional.ofNullable(title)
                 .filter(current -> !current.isBlank())
                 .orElse("New Conversation");
 
-        Optional<QaSession> existing = sessionRepository.findByUserIdAndTitle(userId, resolvedTitle);
-        if (existing.isPresent()) {
-            return userMapper.toSessionDto(existing.get());
+        // 检查sessionId是否已存在
+        if (sessionRepository.findById(sessionId).isPresent()) {
+            throw new BusinessException(ErrorCode.SESSION_ALREADY_EXISTS, "Session ID already exists");
         }
 
-        QaSession session = sessionRepository.save(QaSession.create(user.getId(), resolvedTitle));
+        // 创建session
+        QaSession session = sessionRepository.save(QaSession.create(sessionId, user.getId(), resolvedTitle));
         return userMapper.toSessionDto(session);
     }
 
     @Override
-    public ChatSessionDTO getSession(Long userId, Long sessionId) {
+    public ChatSessionDTO getSession(Long userId, String sessionId) {
         CommonUtil.assertOwner(userId);
         QaSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));
@@ -106,7 +112,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     }
 
     @Override
-    public boolean isSessionOwnedBy(Long sessionId, Long userId) {
+    public boolean isSessionOwnedBy(String sessionId, Long userId) {
         CommonUtil.assertOwner(userId);
         return sessionRepository.findById(sessionId)
                 .map(session -> session.getUserId().equals(userId))
@@ -115,7 +121,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     @Override
     @Transactional
-    public void deleteSession(Long userId, Long sessionId) {
+    public void deleteSession(Long userId, String sessionId) {
         CommonUtil.assertOwner(userId);
         QaSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));
@@ -133,7 +139,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
      * @return chronological list of chat messages
      */
     @Override
-    public List<ChatMessageDTO> listHistoryBySession(Long userId, Long sessionId) {
+    public List<ChatMessageDTO> listHistoryBySession(Long userId, String sessionId) {
         CommonUtil.assertOwner(userId);
         QaSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.SESSION_NOT_FOUND));

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @RequiredArgsConstructor
 public class ChatSessionDTO {
-    private final Long id;
+    private final String id;
     private final Long userId;
     private final String title;
     private final String status;

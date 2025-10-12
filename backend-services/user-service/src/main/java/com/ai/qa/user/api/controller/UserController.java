@@ -94,12 +94,12 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success(sessions));
     }
 
-    @Operation(summary = "Create chat session", description = "Creates a new chat session for the specified user.")
+    @Operation(summary = "Create chat session", description = "Creates a new chat session for the specified user. Can optionally specify a session ID. If sessionId is provided but doesn't exist, it will be created. If sessionId is null or empty, a new session will be created with auto-generated ID.")
     @PostMapping("/{userId}/sessions")
     @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<ChatSessionDTO>> createSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
                                                                      @RequestBody @Validated CreateSessionRequest request) {
-        ChatSessionDTO session = userApplicationService.createSession(userId, request.getTitle());
+        ChatSessionDTO session = userApplicationService.createSession(userId, request.getSessionId(), request.getTitle());
         return ResponseEntity.ok(ApiResponse.success(session));
     }
 
@@ -107,7 +107,7 @@ public class UserController {
     @GetMapping("/{userId}/sessions/{sessionId}")
     @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<ChatSessionDTO>> getSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
-                                                                  @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
+                                                                  @Parameter(description = "ID of the session") @PathVariable String sessionId) {
         ChatSessionDTO session = userApplicationService.getSession(userId, sessionId);
         return ResponseEntity.ok(ApiResponse.success(session));
     }
@@ -116,7 +116,7 @@ public class UserController {
     @DeleteMapping("/{userId}/sessions/{sessionId}")
     @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<Void>> deleteSession(@Parameter(description = "ID of the user") @PathVariable Long userId,
-                                                           @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
+                                                           @Parameter(description = "ID of the session") @PathVariable String sessionId) {
         userApplicationService.deleteSession(userId, sessionId);
         return ResponseEntity.ok(ApiResponse.success());
     }
@@ -125,7 +125,7 @@ public class UserController {
     @GetMapping("/{userId}/sessions/{sessionId}/history")
     @PreAuthorize("#userId == principal.id")
     public ResponseEntity<ApiResponse<List<ChatMessageDTO>>> listHistory(@Parameter(description = "ID of the user") @PathVariable Long userId,
-                                                                         @Parameter(description = "ID of the session") @PathVariable Long sessionId) {
+                                                                         @Parameter(description = "ID of the session") @PathVariable String sessionId) {
         List<ChatMessageDTO> messages = userApplicationService.listHistoryBySession(userId, sessionId);
         return ResponseEntity.ok(ApiResponse.success(messages));
     }

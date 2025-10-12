@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "qa_session")
@@ -20,8 +21,7 @@ import java.time.LocalDateTime;
 public class QaSession {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
@@ -39,9 +39,10 @@ public class QaSession {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public static QaSession create(Long userId, String title) {
+    public static QaSession create(String sessionId, Long userId, String title) {
         LocalDateTime now = LocalDateTime.now();
         return QaSession.builder()
+                .id(sessionId)
                 .userId(userId)
                 .title(title)
                 .status(Status.ACTIVE)

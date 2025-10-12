@@ -8,7 +8,7 @@ public interface QAHistoryRepo {
 
     QAHistory save(QAHistory history);
 
-    List<QAHistory> findByUserAndSession(Long userId, Long sessionId, Integer limit);
+    List<QAHistory> findByUserAndSession(Long userId, String sessionId, Integer limit);
 
-    void deleteBySessionId(Long sessionId);
+    void deleteBySessionId(String sessionId);
 }

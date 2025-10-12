@@ -88,6 +88,17 @@ export async function POST(request: Request) {
                   const data = JSON.parse(dataStr);
                   console.log('[CHAT] Parsed SSE data:', data);
 
+                  // Handle session ID from backend
+                  if (data.type === 'session-id' && data.sessionId) {
+                    const sessionData = `data: ${JSON.stringify({
+                      type: 'session-id',
+                      sessionId: data.sessionId
+                    })}\n\n`;
+                    console.log('[CHAT] Forwarding session-id:', sessionData);
+                    controller.enqueue(encoder.encode(sessionData));
+                    continue;
+                  }
+
                   if (data.type === 'content' && data.text) {
                     // Parse JSON response if needed
                     let actualText = data.text;
