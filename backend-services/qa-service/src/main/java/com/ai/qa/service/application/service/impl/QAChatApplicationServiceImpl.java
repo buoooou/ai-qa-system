@@ -14,7 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
+import reactor.core.scheduler.Schedulers; 
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -84,42 +85,59 @@ public class QAChatApplicationServiceImpl implements QAChatApplicationService {
                 });
     }
 
+    /**
+     * 确保用户会话存在：如果已存在则复用，否则自动创建。
+     */
     private String ensureSession(ChatCompletionCommand command) {
-        // sessionId现在必须提供
-        if (command.getSessionId() == null || command.getSessionId().trim().isEmpty()) {
-            throw new IllegalArgumentException("Session ID is required and cannot be empty");
-        }
+        String sessionId = Optional.ofNullable(command.getSessionId())
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .orElseThrow(() -> new IllegalArgumentException("Session ID is required and cannot be empty"));
 
-        String sessionId = command.getSessionId();
-        log.info("QA service: Checking if session exists for userId={}, sessionId={}", command.getUserId(), sessionId);
+        Long userId = command.getUserId();
+        String title = Optional.ofNullable(command.getSessionTitle()).orElse("New Conversation");
 
-        // 先检查session是否存在
+        log.info("🧭 QA service: ensureSession(userId={}, sessionId={})", userId, sessionId);
+
+        // 1️⃣ 尝试查询已有会话
+        boolean exists = false;
         try {
-            var sessionResponse = userClient.getSession(command.getUserId(), sessionId);
-            if (sessionResponse != null && Boolean.TRUE.equals(sessionResponse.success()) && sessionResponse.data() != null) {
-                log.info("QA service: Session {} already exists, reusing it", sessionId);
-                return sessionId; // session已存在，直接使用
+            var resp = userClient.getSession(userId, sessionId);
+            exists = resp != null && Boolean.TRUE.equals(resp.success()) && resp.data() != null;
+            if (exists) {
+                log.info("✅ QA service: Session {} already exists for userId={}, will reuse", sessionId, userId);
+                return sessionId;
             }
         } catch (Exception e) {
-            log.debug("QA service: Session {} not found, will create new one", sessionId);
-            // session不存在，继续创建逻辑
+            log.debug("ℹ️ QA service: Failed to query session {} for userId={} (might not exist): {}", sessionId, userId, e.getMessage());
         }
 
-        // session不存在，创建新的session
-        String title = command.getSessionTitle();
-        log.info("QA service: Creating new session for userId={}, sessionId={}, title={}", command.getUserId(), sessionId, title);
+        // 2️⃣ 若不存在则创建新会话
+        log.info("🆕 QA service: Creating new session for userId={}, sessionId={}, title='{}'", userId, sessionId, title);
 
         try {
-            var response = userClient.createSession(command.getUserId(), new UserClient.CreateSessionRequest(sessionId, title));
-            if (response == null || !Boolean.TRUE.equals(response.success()) || response.data() == null) {
-                log.error("QA service: Failed to create session - response: {}", response);
+            var createReq = new UserClient.CreateSessionRequest(sessionId, title);
+            var createResp = userClient.createSession(userId, createReq);
+
+            if (createResp == null || !Boolean.TRUE.equals(createResp.success()) || createResp.data() == null) {
+                log.error("❌ QA service: Failed to create session. Response={}", createResp);
                 throw new IllegalStateException("Failed to create session via user-service");
             }
-            log.info("QA service: New session created successfully with id={}", response.data().id());
-            return response.data().id();
+
+            log.info("✅ QA service: Session created successfully: id={}", createResp.data().id());
+            return createResp.data().id();
+
+        } catch (feign.FeignException fe) {
+            // 如果返回409冲突，则说明会话其实已经存在（可能并发创建）
+            if (fe.status() == 409) {
+                log.warn("⚠️ QA service: Session {} already exists (HTTP 409), reusing existing one", sessionId);
+                return sessionId;
+            }
+            throw fe;
         } catch (Exception e) {
-            log.error("QA service: Error creating session", e);
+            log.error("💥 QA service: Unexpected error when creating session userId={}, sessionId={}", userId, sessionId, e);
             throw e;
         }
     }
+
 }
