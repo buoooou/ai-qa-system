@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class QAHistoryDTO {
     private final Long id;
-    private final Long sessionId;
+    private final String sessionId;
     private final Long userId;
     private final String question;
     private final String answer;
@@ -31,7 +31,7 @@ public class QAHistoryDTO {
         return id;
     }
 
-    public Long getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
@@ -73,7 +73,7 @@ public class QAHistoryDTO {
 
     public static class Builder {
         private Long id;
-        private Long sessionId;
+        private String sessionId;
         private Long userId;
         private String question;
         private String answer;
@@ -88,7 +88,7 @@ public class QAHistoryDTO {
             return this;
         }
 
-        public Builder sessionId(Long sessionId) {
+        public Builder sessionId(String sessionId) {
             this.sessionId = sessionId;
             return this;
         }

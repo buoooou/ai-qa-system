@@ -35,12 +35,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = resolveToken(request);
         if (token != null) {
             try {
-                Claims claims = Jwts.parserBuilder()
-                        .setSigningKey(jwtTokenService.getKey())
-                        .build()
-                        .parseClaimsJws(token)
-                        .getBody();
+                Claims claims = jwtTokenService.parseToken(token);
 
+                // 统一使用用户token，不区分内部服务和用户
                 Long userId = Long.valueOf(claims.getSubject());
                 String username = claims.get("username", String.class);
                 String role = claims.get("role", String.class);

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatSessionResponseDTO {
-    private Long id;
+    private String id;
     private Long userId;
     private String title;
     private String status;

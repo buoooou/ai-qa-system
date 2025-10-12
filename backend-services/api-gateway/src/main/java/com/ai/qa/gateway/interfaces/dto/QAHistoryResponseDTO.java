@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class QAHistoryResponseDTO {
     private Long id;
-    private Long sessionId;
+    private String sessionId;
     private Long userId;
     private String question;
     private String answer;

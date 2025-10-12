@@ -15,33 +15,32 @@ import java.util.List;
 /**
  * 调用 user-service 的 Feign 客户端
  */
-// 临时配置：直接访问本地暴露的 user-service 端口
-// 原配置: @FeignClient(name = "user-service-fyb")  // 通过 Nacos 服务发现
-@FeignClient(name = "user-service-fyb", url = "http://localhost:8081", configuration = FeignConfig.class)  // 直接 URL 访问
+// 直接访问 user-service，需要允许无认证访问
+@FeignClient(name = "user-service-fyb", url = "http://localhost:8081", configuration = FeignConfig.class)
 public interface UserClient {
 
-    @PostMapping("/api/user/{userId}/sessions")
+    @PostMapping("/user/{userId}/sessions")
     ApiResponse<ChatSessionPayload> createSession(@PathVariable("userId") Long userId,
                                                   @RequestBody CreateSessionRequest request);
 
-    @GetMapping("/api/user/{userId}/sessions/{sessionId}")
+    @GetMapping("/user/{userId}/sessions/{sessionId}")
     ApiResponse<ChatSessionPayload> getSession(@PathVariable("userId") Long userId,
-                                               @PathVariable("sessionId") Long sessionId);
+                                               @PathVariable("sessionId") String sessionId);
 
-    @DeleteMapping("/api/user/{userId}/sessions/{sessionId}")
+    @DeleteMapping("/user/{userId}/sessions/{sessionId}")
     ApiResponse<Void> deleteSession(@PathVariable("userId") Long userId,
-                                    @PathVariable("sessionId") Long sessionId);
+                                    @PathVariable("sessionId") String sessionId);
 
-    @GetMapping("/api/user/{userId}/sessions/{sessionId}/history")
+    @GetMapping("/user/{userId}/sessions/{sessionId}/history")
     ApiResponse<List<ChatHistoryPayload>> history(@PathVariable("userId") Long userId,
-                                                  @PathVariable("sessionId") Long sessionId,
+                                                  @PathVariable("sessionId") String sessionId,
                                                   @RequestParam(value = "limit", required = false) Integer limit);
 
-    record CreateSessionRequest(String title) {}
+    record CreateSessionRequest(String sessionId, String title) {}
 
-    record ChatSessionPayload(Long id, String title, String status, LocalDateTime createdAt, LocalDateTime updatedAt) {}
+    record ChatSessionPayload(String id, String title, String status, LocalDateTime createdAt, LocalDateTime updatedAt) {}
 
-    record ChatHistoryPayload(Long id, Long sessionId, String question, String answer, LocalDateTime createdAt) {}
+    record ChatHistoryPayload(Long id, String sessionId, String question, String answer, LocalDateTime createdAt) {}
 
     record ApiResponse<T>(int code, String message, boolean success, T data) {}
 }

@@ -1,6 +1,7 @@
 package com.ai.qa.user.common;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -49,6 +50,29 @@ public class JwtTokenService {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .requireIssuer(issuer)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Claims parseToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .requireIssuer(issuer)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
 
     public long getExpirationSeconds() {
         return Duration.ofMinutes(expirationMinutes).toSeconds();
