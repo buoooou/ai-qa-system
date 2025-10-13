@@ -26,4 +26,9 @@ public interface QaHistoryJpaRepository extends JpaRepository<QaHistory, Long>, 
     @Modifying
     @Query("delete from QaHistory h where h.sessionId = :sessionId and h.createdAt >= :createdAfter")
     void deleteBySessionIdAndCreatedAtAfter(String sessionId, LocalDateTime createdAfter);
+
+    @Override
+    @Modifying
+    @Query("delete from QaHistory h where h.sessionId = :sessionId")
+    void deleteBySessionId(String sessionId);
 }

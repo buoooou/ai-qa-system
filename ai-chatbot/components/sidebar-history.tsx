@@ -133,7 +133,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
 
     const deletePromise = deleteUserSession(
       session.user.id,
-      Number.parseInt(deleteId, 10),
+      deleteId,
       session.user.accessToken
     );
 

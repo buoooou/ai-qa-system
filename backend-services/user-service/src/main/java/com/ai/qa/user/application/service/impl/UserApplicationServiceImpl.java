@@ -128,6 +128,11 @@ public class UserApplicationServiceImpl implements UserApplicationService {
         if (!session.getUserId().equals(userId)) {
             throw new BusinessException(ErrorCode.FORBIDDEN, "无权删除该会话");
         }
+
+        // 先删除相关的聊天历史记录
+        historyRepository.deleteBySessionId(sessionId);
+
+        // 再删除session
         sessionRepository.delete(session);
     }
 

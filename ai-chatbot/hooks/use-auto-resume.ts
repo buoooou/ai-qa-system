@@ -27,8 +27,25 @@ export function useAutoResume({
 
     const mostRecentMessage = initialMessages.at(-1);
 
+    // Only resume if the last message is a user message AND there's no assistant response after it
+    // This prevents trying to resume completed conversations
     if (mostRecentMessage?.role === "user") {
-      resumeStream();
+      // Check if there are any assistant messages after this user message
+      const hasAssistantResponse = initialMessages.some(
+        (msg, index) => index > initialMessages.length - 1 && msg.role === "assistant"
+      );
+
+      // Only resume if no assistant response exists and the message was created recently (within last 30 seconds)
+      if (!hasAssistantResponse && mostRecentMessage.createdAt) {
+        const messageTime = new Date(mostRecentMessage.createdAt);
+        const now = new Date();
+        const timeDiffSeconds = (now.getTime() - messageTime.getTime()) / 1000;
+
+        // Only resume if the message is very recent (likely still being processed)
+        if (timeDiffSeconds < 30) {
+          resumeStream();
+        }
+      }
     }
 
     // we intentionally run this once

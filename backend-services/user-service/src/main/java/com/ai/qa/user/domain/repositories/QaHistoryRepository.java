@@ -16,4 +16,6 @@ public interface QaHistoryRepository {
     List<QaHistory> findBySessionIdOrderByCreatedAtDesc(String sessionId);
 
     void deleteBySessionIdAndCreatedAtAfter(String sessionId, LocalDateTime createdAfter);
+
+    void deleteBySessionId(String sessionId);
 }

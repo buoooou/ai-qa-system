@@ -65,9 +65,8 @@ public class AuthFacade {
 
     public Mono<Void> deleteSession(Long userId, String sessionId) {
         return userServiceClient.deleteSession(userId, sessionId)
-                .map(this::extractData)
-                .onErrorMap(this::mapFeignException)
-                .then();
+                .then()
+                .onErrorMap(this::mapFeignException);
     }
 
 
