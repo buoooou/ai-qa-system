@@ -33,7 +33,7 @@ services:
       - "8081:8081"
 
   qa-service:
-    image: ${DOCKERHUB_USERNAME:-youruser}/ai-qa-qa-service:latest
+    image: ${DOCKERHUB_USERNAME}/ai-qa-qa-service:latest
     container_name: ai-qa-qa-service
     depends_on:
       - mysql
@@ -44,7 +44,7 @@ services:
       - "8082:8082"
 
   api-gateway:
-    image: ${DOCKERHUB_USERNAME:-youruser}/ai-qa-api-gateway:latest
+    image: ${DOCKERHUB_USERNAME}/ai-qa-api-gateway:latest
     container_name: ai-qa-api-gateway
     depends_on:
       - user-service
@@ -56,16 +56,16 @@ services:
     ports:
       - "8083:8083"
 
-  # frontend:
-  #   image: ${DOCKERHUB_USERNAME:-youruser}/ai-qa-frontend:latest
-  #   container_name: ai-qa-frontend
-  #   depends_on:
-  #     - api-gateway
-  #   environment:
-  #     NEXT_PUBLIC_API_BASE_URL: ${FRONTEND_API_BASE_URL:-http://api-gateway:8083}
-  #     NODE_ENV: production
-  #   ports:
-  #     - "3000:3000"
+  frontend:
+    image: ${DOCKERHUB_USERNAME}/ai-qa-frontend:latest
+    container_name: ai-qa-frontend
+    depends_on:
+      - api-gateway
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${FRONTEND_API_BASE_URL:-http://api-gateway:8083}
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
 
 volumes:
   mysql-data:

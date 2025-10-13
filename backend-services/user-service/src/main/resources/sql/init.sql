@@ -92,4 +92,4 @@ CREATE TABLE `suggestion` (
 
 -- 插入一些测试数据 (可选)
 INSERT INTO `users` (`username`, `email`, `password_hash`, `nickname`, `role`)
-VALUES ('testuser', 'testuser@example.com', '$2a$10$abcdefghijklmnopqrstuv', 'Test User', 'USER');
+VALUES ('demo', 'demo@cn.ibm.com', '$2a$10$AnURfk/9yRtRWNTUEMSlPuq0iCzO2M1rNT0zWoQJMnaZKoxTg8MKi', 'Demo User', 'USER');

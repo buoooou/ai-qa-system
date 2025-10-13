@@ -5,11 +5,11 @@ spring:
     name: user-service-fyb
   cloud:
     nacos:
-      server-addr: ${NACOS_SERVER_ADDR:3.113.113.164:8848}
+      server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
       username: nacos
       password: passw0rd
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:ai_qa_system}
   jpa:
@@ -23,7 +23,7 @@ security:
   jwt:
     secret: ${JWT_SECRET:7zmKiI4PToMYMC9G5nuAcL5JBRBYFZCzrn7PIM4zPZY=}
     issuer: user-service-fyb
-    expiration-minutes: 60
+    expiration-minutes: 720
 password:
   encoder:
     strength: 10

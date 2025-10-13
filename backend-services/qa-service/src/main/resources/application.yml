@@ -5,11 +5,11 @@ spring:
     name: qa-service-fyb
   cloud:
     nacos:
-      server-addr: ${NACOS_SERVER_ADDR:3.113.113.164:8848}
+      server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
       username: nacos
       password: passw0rd
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: ${MYSQL_USER:ai_user}
     password: ${MYSQL_PASSWORD:ai_user_pass}
   jpa:
@@ -21,7 +21,27 @@ spring:
     show-sql: true
 gemini:
   api:
-    key: ${GEMINI_API_KEY:}
+    base: "https://generativelanguage.googleapis.com"
+    key: ${GEMINI_API_KEY}
+    stream-url: "/v1beta/models/gemini-2.0-flash:streamGenerateContent"
+    generate-url: "/v1beta/models/gemini-2.0-flash:generateContent"
+  proxy:
+    enabled: ${GEMINI_PROXY_ENABLED:false}
+    host: ${GEMINI_PROXY_HOST:9.46.34.12}
+    port: ${GEMINI_PROXY_PORT:8080}
+  # 请求超时与重试策略（可选）
+  timeout:
+    connect: 10s
+    read: 30s
+    write: 30s
+  generation:
+    responseMimeType: "application/json"
+    temperature: 0.7
+    maxOutputTokens: 512
+
+
 logging:
   level:
+    reactor.netty.http.client: DEBUG
     com.ai.qa.service.infrastructure.feign: DEBUG
+    com.ai.qa.service.domain.service.impl.GeminiChatServiceImpl: TRACE

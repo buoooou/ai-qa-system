@@ -16,12 +16,12 @@ spring:
   application:
     name: api-gateway-fyb
   config:
-    import: optional:nacos:shared-config.yml
+    import: nacos:shared-config.yml
       # 引入共享配置
       # - "nacos:shared-config.yml"
   cloud:
     nacos:
-      server-addr: 3.113.113.164:8848
+      server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
       username: nacos
       password: passw0rd
       config:
@@ -51,6 +51,24 @@ spring:
         - name: RequestRateLimiter
           args:
             key-resolver: '#{@ipKeyResolver}'
+  # 配置 WebClient 超时
+  webflux:
+    webclient:
+      request:
+        timeout: 2m  # 请求超时 2分钟
+      connect-timeout: 1m  # 连接超时 1分钟
+  # Reactor Netty 配置
+  reactor:
+    netty:
+      http:
+        client:
+          response-timeout: 2m  # 响应超时 2分钟
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:7zmKiI4PToMYMC9G5nuAcL5JBRBYFZCzrn7PIM4zPZY=}
+    issuer: user-service-fyb
+    expiration-minutes: 720
 services:
   qa:
     base-url: ${QA_SERVICE_BASE_URL:http://qa-service-fyb}
