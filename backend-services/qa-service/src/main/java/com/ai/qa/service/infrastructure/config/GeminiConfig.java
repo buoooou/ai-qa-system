@@ -21,6 +21,7 @@ public class GeminiConfig {
     @Bean
     public WebClient geminiWebClient(
             @Value("${gemini.api.base}") String baseUrl,
+            @Value("${gemini.proxy.enabled:false}") boolean proxyEnabled,
             @Value("${gemini.proxy.host:}") String proxyHost,
             @Value("${gemini.proxy.port:0}") int proxyPort
     ) {
@@ -35,12 +36,15 @@ public class GeminiConfig {
                         .addHandlerLast(new WriteTimeoutHandler(60, TimeUnit.SECONDS))
                 );
 
-        // 配置代理
-        if (proxyHost != null && !proxyHost.isEmpty() && proxyPort > 0) {
+        // 配置代理（需要同时满足 enabled 为 true 且代理配置有效）
+        if (proxyEnabled && proxyHost != null && !proxyHost.isEmpty() && proxyPort > 0) {
             httpClient = httpClient.proxy(proxy -> proxy
                     .type(ProxyProvider.Proxy.HTTP)
                     .host(proxyHost)
                     .port(proxyPort));
+            System.out.println("Gemini WebClient: Using proxy " + proxyHost + ":" + proxyPort);
+        } else {
+            System.out.println("Gemini WebClient: Using direct connection (no proxy)");
         }
 
         return WebClient.builder()

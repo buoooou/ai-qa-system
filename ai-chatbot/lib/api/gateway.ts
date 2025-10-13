@@ -152,7 +152,7 @@ export const createUserSession = async (
 
 export const getUserSession = async (
   userId: string,
-  sessionId: number,
+  sessionId: string,
   accessToken?: string
 ) =>
   gatewayGet<GatewayChatSession>(
@@ -163,7 +163,7 @@ export const getUserSession = async (
 
 export const deleteUserSession = async (
   userId: string,
-  sessionId: number,
+  sessionId: string,
   accessToken?: string
 ) =>
   gatewayDelete<void>(
@@ -174,7 +174,7 @@ export const deleteUserSession = async (
 
 export const fetchChatHistory = async (
   userId: string,
-  sessionId: number,
+  sessionId: string,
   accessToken?: string
 ) =>
   gatewayGet<GatewayChatHistoryEntry[]>(
