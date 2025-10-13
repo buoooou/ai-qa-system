@@ -114,19 +114,48 @@ export function sanitizeText(text: string) {
 }
 
 export function convertToUIMessages(messages: GatewayChatMessage[]): ChatMessage[] {
-  return messages.map((message) => ({
-    id: String(message.id),
-    role: message.question ? 'user' : 'assistant',
-    parts: [
-      {
-        type: 'text',
-        text: message.question ?? message.answer ?? '',
-      },
-    ] as UIMessagePart<CustomUIDataTypes, ChatTools>[],
-    metadata: {
-      createdAt: formatISO(new Date(message.createdAt)),
-    },
-  }));
+  const uiMessages: ChatMessage[] = [];
+
+  messages.forEach((message) => {
+    const baseId = String(message.id);
+    const timestamp = formatISO(new Date(message.createdAt));
+
+    // 如果有问题，创建用户消息
+    if (message.question && message.question.trim()) {
+      uiMessages.push({
+        id: `${baseId}-question`,
+        role: 'user',
+        parts: [
+          {
+            type: 'text',
+            text: message.question,
+          },
+        ] as UIMessagePart<CustomUIDataTypes, ChatTools>[],
+        metadata: {
+          createdAt: timestamp,
+        },
+      });
+    }
+
+    // 如果有答案，创建助手消息
+    if (message.answer && message.answer.trim()) {
+      uiMessages.push({
+        id: `${baseId}-answer`,
+        role: 'assistant',
+        parts: [
+          {
+            type: 'text',
+            text: message.answer,
+          },
+        ] as UIMessagePart<CustomUIDataTypes, ChatTools>[],
+        metadata: {
+          createdAt: timestamp,
+        },
+      });
+    }
+  });
+
+  return uiMessages;
 }
 
 export function getTextFromMessage(message: ChatMessage): string {
