@@ -17,15 +17,15 @@ spring:
     name: api-gateway-fyb
   config:
     import: nacos:shared-config.yml
-      # 引入共享配置
-      # - "nacos:shared-config.yml"
+  
   cloud:
     nacos:
-      server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
-      username: nacos
-      password: passw0rd
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: nacos
+        password: passw0rd
+        register-enabled: true
       config:
-        # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
         group: DEFAULT_GROUP
     gateway:
