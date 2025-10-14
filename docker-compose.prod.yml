@@ -13,6 +13,9 @@ services:
       - ./backend-services/user-service/src/main/resources/sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     ports:
       - "3306:3306"
+    networks:
+      - ai-qa-net
+      - bridge   # ✅ 让它也加入系统默认桥接网络
 
   user-service-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-user-service:${DEPLOY_VERSION}
@@ -26,10 +29,13 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ai_qa_system}
       MYSQL_USER: ${MYSQL_USER:-ai_user}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ai_user_pass}
-      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR}
+      NACOS_SERVER_ADDR: nacos:8848   # ✅ 直接用 nacos 容器名
       JWT_SECRET: ${JWT_SECRET}
     ports:
       - "8081:8081"
+    networks:
+      - ai-qa-net
+      - bridge   # ✅ 让服务和 nacos 在同一个网络
 
   qa-service-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-qa-service:${DEPLOY_VERSION}
@@ -43,10 +49,13 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ai_qa_system}
       MYSQL_USER: ${MYSQL_USER:-ai_user}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ai_user_pass}
-      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR}
+      NACOS_SERVER_ADDR: nacos:8848
       GEMINI_API_KEY: ${GEMINI_API_KEY}
     ports:
       - "8082:8082"
+    networks:
+      - ai-qa-net
+      - bridge
 
   api-gateway-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-api-gateway:${DEPLOY_VERSION}
@@ -56,10 +65,13 @@ services:
       - user-service-fyb
       - qa-service-fyb
     environment:
-      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR}
+      NACOS_SERVER_ADDR: nacos:8848
       SECURITY_JWT_SECRET: ${JWT_SECRET}
     ports:
       - "8083:8083"
+    networks:
+      - ai-qa-net
+      - bridge
 
   frontend:
     image: ${DOCKERHUB_USERNAME}/ai-qa-frontend:${DEPLOY_VERSION}
@@ -72,7 +84,14 @@ services:
       NODE_ENV: production
     ports:
       - "3000:3000"
+    networks:
+      - ai-qa-net
+      - bridge
 
 volumes:
   mysql-data:
     driver: local
+
+networks:
+  ai-qa-net:
+    driver: bridge
