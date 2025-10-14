@@ -20,10 +20,10 @@ spring:
   
   cloud:
     nacos:
+      server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+      username: nacos
+      password: passw0rd
       discovery:
-        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
-        username: nacos
-        password: passw0rd
         register-enabled: true
       config:
         file-extension: yml
