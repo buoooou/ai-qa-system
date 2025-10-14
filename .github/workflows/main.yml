@@ -142,7 +142,7 @@ jobs:
             JWT_SECRET=${JWT_SECRET}
             GEMINI_API_KEY=${GEMINI_API_KEY}
             DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME}
-            FRONTEND_API_BASE_URL=http://api-gateway:8083
+            FRONTEND_API_BASE_URL=http://api-gateway-fyb:8083
             DEPLOY_VERSION=${DEPLOY_VERSION}
             EOF
 
@@ -157,6 +157,42 @@ jobs:
 
             echo "Using compose file: $COMPOSE_FILE"
             echo "Deployment version: ${DEPLOY_VERSION}"
+
+            echo "=== 🕸️ Checking/creating Docker network (exact name: ai-qa-net) ==="
+            NETWORK_NAME="ai-qa-net"
+
+            # 如果不存在精确名称的 ai-qa-net，就创建它（这样 Compose 的 external: true ai-qa-net 能正常工作）
+            if ! docker network inspect "$NETWORK_NAME" >/dev/null 2>&1; then
+              echo "Network '$NETWORK_NAME' not found, creating it..."
+              docker network create "$NETWORK_NAME"
+            else
+              echo "Network '$NETWORK_NAME' already exists."
+            fi
+
+            echo "=== 🔍 Ensuring Nacos is connected to $NETWORK_NAME ==="
+            # 检查 nacos 容器是否存在（更可靠）
+            if docker inspect nacos >/dev/null 2>&1; then
+              echo "Nacos container detected."
+
+              # 检查 nacos 的 NetworkSettings 中是否已经有精确的 ai-qa-net 条目
+              if docker inspect nacos --format '{{json .NetworkSettings.Networks}}' | grep -q "\"${NETWORK_NAME}\""; then
+                echo "Nacos is already connected to $NETWORK_NAME."
+              else
+                echo "Connecting Nacos to network $NETWORK_NAME ..."
+                # 尝试连接（如果已经连接了也不会影响，因为上面做了判断）
+                docker network connect "$NETWORK_NAME" nacos || {
+                  echo "Warning: docker network connect failed (will continue)."
+                }
+                # 再次验证连接状态（可选）
+                if docker inspect nacos --format '{{json .NetworkSettings.Networks}}' | grep -q "\"${NETWORK_NAME}\""; then
+                  echo "✅ Nacos successfully connected to $NETWORK_NAME."
+                else
+                  echo "❗ Warning: failed to confirm Nacos connection to $NETWORK_NAME."
+                fi
+              fi
+            else
+              echo "⚠️ Warning: Nacos container not found, skipping network connect."
+            fi
 
             echo "Stopping existing containers..."
             if docker compose -f $COMPOSE_FILE ps -q | grep -q .; then
