@@ -16,8 +16,8 @@ services:
 
   user-service:
     build:
-      context: ./backend-services/user-service
-      dockerfile: Dockerfile
+      context: ./backend-services
+      dockerfile: user-service/Dockerfile
     container_name: ai-qa-user-service
     depends_on:
       - mysql
@@ -34,8 +34,8 @@ services:
 
   qa-service:
     build:
-      context: ./backend-services/qa-service
-      dockerfile: Dockerfile
+      context: ./backend-services
+      dockerfile: qa-service/Dockerfile
     container_name: ai-qa-qa-service
     depends_on:
       - mysql
@@ -52,8 +52,8 @@ services:
 
   api-gateway:
     build:
-      context: ./backend-services/api-gateway
-      dockerfile: Dockerfile
+      context: ./backend-services
+      dockerfile: api-gateway/Dockerfile
     container_name: ai-qa-api-gateway
     depends_on:
       - user-service
