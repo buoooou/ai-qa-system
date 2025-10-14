@@ -31,7 +31,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false # 开启基于服务发现的路由功能
+          enabled: true # 开启基于服务发现的路由功能
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
       routes:
         - id: user_service_route
