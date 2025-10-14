@@ -95,3 +95,5 @@ volumes:
 networks:
   ai-qa-net:
     driver: bridge
+  bridge:
+    external: true
