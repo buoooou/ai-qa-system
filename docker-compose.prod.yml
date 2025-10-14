@@ -14,7 +14,7 @@ services:
     ports:
       - "3306:3306"
 
-  user-service:
+  user-service-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-user-service:${DEPLOY_VERSION}
     container_name: ai-qa-user-service
     restart: unless-stopped
@@ -31,7 +31,7 @@ services:
     ports:
       - "8081:8081"
 
-  qa-service:
+  qa-service-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-qa-service:${DEPLOY_VERSION}
     container_name: ai-qa-qa-service
     restart: unless-stopped
@@ -48,13 +48,13 @@ services:
     ports:
       - "8082:8082"
 
-  api-gateway:
+  api-gateway-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-api-gateway:${DEPLOY_VERSION}
     container_name: ai-qa-api-gateway
     restart: unless-stopped
     depends_on:
-      - user-service
-      - qa-service
+      - user-service-fyb
+      - qa-service-fyb
     environment:
       NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR}
       SECURITY_JWT_SECRET: ${JWT_SECRET}
@@ -66,7 +66,7 @@ services:
     container_name: ai-qa-frontend
     restart: unless-stopped
     depends_on:
-      - api-gateway
+      - api-gateway-fyb
     environment:
       NEXT_PUBLIC_API_BASE_URL: ${FRONTEND_API_BASE_URL}
       NODE_ENV: production
