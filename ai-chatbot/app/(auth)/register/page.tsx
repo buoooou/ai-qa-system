@@ -13,7 +13,6 @@ export default function Page() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
-  const [isSuccessful, setIsSuccessful] = useState(false);
 
   const [state, formAction] = useActionState<RegisterActionState, FormData>(
     register,
@@ -37,7 +36,6 @@ export default function Page() {
     } else if (state.status === "success") {
       toast({ type: "success", description: "Account created successfully!" });
 
-      setIsSuccessful(true);
       updateSession();
       router.refresh();
     }
@@ -59,7 +57,7 @@ export default function Page() {
           </p>
         </div>
         <AuthForm action={handleSubmit} defaultEmail={email}>
-          <SubmitButton isSuccessful={isSuccessful}>Sign Up</SubmitButton>
+          <SubmitButton>Sign Up</SubmitButton>
           <p className="mt-4 text-center text-gray-600 text-sm dark:text-zinc-400">
             {"Already have an account? "}
             <Link

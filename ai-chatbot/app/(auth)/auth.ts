@@ -57,6 +57,7 @@ export const {
   ...authConfig,
   providers: [
     Credentials({
+      id: "credentials",
       credentials: {},
       async authorize({ email, password }: any) {
         if (!email || !password) {
