@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This document describes how to build, package, and deploy the AI QA microservice platform onto the provided EC2 server (`3.113.113.164`) using Docker Compose and the existing GitHub Actions workflow.
+This document describes how to build, package, and deploy the AI QA microservice platform onto the provided EC2 server (`13.230.43.180`) using Docker Compose and the existing GitHub Actions workflow.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ Services rely on environment variables for database connections, Nacos, JWT secr
 | `MYSQL_ROOT_PASSWORD` | Root password for MySQL |
 | `MYSQL_DATABASE` | Schema name (default `ai_qa_system`) |
 | `MYSQL_USER`, `MYSQL_PASSWORD` | Application DB user credentials |
-| `NACOS_SERVER_ADDR` | Nacos server address (e.g., `3.113.113.164:8848`) |
+| `NACOS_SERVER_ADDR` | Nacos server address (e.g., `13.230.43.180:8848`) |
 | `JWT_SECRET` | Shared JWT signing secret |
 | `GEMINI_API_KEY` | Google Gemini API key |
 | `FRONTEND_API_BASE_URL` | Used by frontend (default `http://api-gateway:8083`) |
@@ -88,7 +88,7 @@ Ensure all required secrets are set in GitHub before running the workflow.
 
 1. SSH into EC2:
    ```bash
-   ssh -i /path/to/key.pem ec2-user@3.113.113.164
+   ssh -i /path/to/key.pem ec2-user@13.230.43.180
    ```
 2. Clone repo (first time):
    ```bash

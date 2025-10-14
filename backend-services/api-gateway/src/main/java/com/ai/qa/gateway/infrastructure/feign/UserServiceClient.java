@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@ReactiveFeignClient(name = "user-service-fyb-local", url = "http://localhost:8081")
+// @ReactiveFeignClient(name = "user-service-fyb-local", url = "http://localhost:8081")
+@ReactiveFeignClient(name = "user-service-fyb")
 public interface UserServiceClient {
     @PostMapping("/user/login")
     Mono<UserServiceApiResponseDTO<AuthResponseDTO>> login(@RequestBody LoginGatewayRequestDTO request);

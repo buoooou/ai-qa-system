@@ -16,7 +16,8 @@ import java.util.List;
  * 调用 user-service 的 Feign 客户端
  */
 // 直接访问 user-service，需要允许无认证访问
-@FeignClient(name = "user-service-fyb", url = "http://localhost:8081", configuration = FeignConfig.class)
+// @FeignClient(name = "user-service-fyb", url = "http://localhost:8081", configuration = FeignConfig.class)
+@FeignClient(name = "user-service-fyb", configuration = FeignConfig.class)
 public interface UserClient {
 
     @PostMapping("/user/{userId}/sessions")
