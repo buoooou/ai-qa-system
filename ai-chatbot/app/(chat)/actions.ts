@@ -38,5 +38,4 @@ export async function deleteTrailingMessages({
   fromId: string;
 }) {
   // TODO: Implement via Gateway API when available
-  console.log("deleteTrailingMessages not yet implemented", { chatId, fromId });
 }

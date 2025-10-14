@@ -22,7 +22,6 @@ export const login = async (
       email: formData.get("email"),
       password: formData.get("password"),
     });
-    console.log("validatedData: ", validatedData);
 
     // 调用 signIn 并将错误作为异常抛出，而不是返回结果
     // 这样 next-auth 的错误处理机制会更自然地工作
@@ -31,13 +30,11 @@ export const login = async (
       password: validatedData.password,
       redirect: false, // 非常重要，这样它会抛出错误而不是重定向
     });
-    
+
     // 如果 signIn 没有抛出错误，就代表成功
-    console.log("Login action completed successfully");
     return { status: "success" };
 
   } catch (error: any) {
-    console.error("Login action error:", error);
     
     // next-auth 在认证失败时会抛出一个特定类型的错误
     // 我们可以根据错误类型返回更具体的状态，但为了简单起见，统一返回 failed

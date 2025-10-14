@@ -73,7 +73,6 @@ export const gatewayPost = async <T, B = unknown>(
     body,
     withAuth(config, session)
   );
-  console.log("[GATEWAY] Received successful response from backend:", response);
   return response.data.data;
 };
 
@@ -106,14 +105,13 @@ export const gatewayDelete = async <T>(
 export const loginViaGateway = async (
   payload: { usernameOrEmail: string; password: string },
   session?: GatewaySession
-) =>{
-  console.log("[GATEWAY] Sending login request to backend with data:", payload);
-  return gatewayPost<GatewayAuthResponse, typeof payload>(
+) =>
+  gatewayPost<GatewayAuthResponse, typeof payload>(
     "/api/gateway/auth/login",
     payload,
     undefined,
     session
-  )};
+  );
 
 export const registerViaGateway = async (
   payload: {
@@ -252,14 +250,6 @@ export const streamGatewayChat = async (
     requestData.sessionTitle = `Chat ${new Date().toLocaleString()}`;
   }
 
-  // 添加调试日志
-  console.log("[GATEWAY] Sending chat request:", {
-    url: "/api/gateway/qa/chat",
-    data: requestData,
-    hasToken: !!accessToken,
-    tokenPrefix: accessToken?.substring(0, 20) + "..."
-  });
-
   const response = await gatewayClient.post(
     "/api/gateway/qa/chat",
     requestData,
@@ -283,7 +273,6 @@ export const streamGatewayChat = async (
       data: webStream as ReadableStream<Uint8Array>,
     };
   } else {
-    console.error('[GATEWAY] Unexpected response type:', typeof response.data, response.data);
     return response;
   }
 };

@@ -20,7 +20,6 @@ import {
 // import { useArtifactSelector } from "@/hooks/use-artifact"; // Disabled artifact system
 import { useAutoResume } from "@/hooks/use-auto-resume";
 import { useChatVisibility } from "@/hooks/use-chat-visibility";
-// import type { Vote } from "@/lib/db/schema"; // TODO: Replace with Gateway vote types
 import { ChatSDKError } from "@/lib/errors";
 import type { Attachment, ChatMessage } from "@/lib/types";
 import type { AppUsage } from "@/lib/usage";
@@ -113,12 +112,10 @@ export function Chat({
       },
     }),
     onData: (dataPart) => {
-      console.log('[USECHAT] onData received:', dataPart);
       // setDataStream((ds) => (ds ? [...ds, dataPart] : [])); // Disabled artifact system
 
       // Handle session ID from backend
       if (dataPart.type === "session-id" && dataPart.sessionId) {
-        console.log('[USECHAT] Received session ID:', dataPart.sessionId);
         // Update URL to use the numeric session ID from backend
         window.history.replaceState({}, "", `/chat/${dataPart.sessionId}`);
         setCurrentSessionId(String(dataPart.sessionId));
@@ -129,11 +126,9 @@ export function Chat({
       }
     },
     onFinish: () => {
-      console.log('[USECHAT] Stream finished');
       mutate(unstable_serialize(getChatHistoryPaginationKey));
     },
     onError: (error) => {
-      console.error('[USECHAT] Error:', error);
       if (error instanceof ChatSDKError) {
         // Check if it's a credit card error
         if (
@@ -165,13 +160,6 @@ export function Chat({
 
   const [hasAppendedQuery, setHasAppendedQuery] = useState(false);
 
-  // Debug messages
-  useEffect(() => {
-    console.log('[USECHAT] Messages updated:', messages);
-    console.log('[USECHAT] Message details:', messages.map(m => ({ id: m.id, role: m.role, parts: m.parts })));
-    console.log('[USECHAT] Current status:', status);
-  }, [messages, status]);
-
   useEffect(() => {
     if (query && !hasAppendedQuery) {
       sendMessage({
@@ -184,11 +172,7 @@ export function Chat({
     }
   }, [query, sendMessage, hasAppendedQuery, id]);
 
-  // const { data: votes } = useSWR<Vote[]>(
-  //   messages.length >= 2 ? `/api/vote?chatId=${id}` : null,
-  //   fetcher
-  // );
-  const votes = undefined; // TODO: Implement votes via Gateway
+  const votes = undefined;
 
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   // const isArtifactVisible = useArtifactSelector((state) => state.isVisible); // Disabled artifact system

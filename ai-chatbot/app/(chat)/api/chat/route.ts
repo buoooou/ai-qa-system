@@ -43,10 +43,6 @@ export async function POST(request: Request) {
       session.user.accessToken
     );
 
-    // Debug: Log response structure
-    console.log("[CHAT] Gateway response type:", typeof response.data);
-    console.log("[CHAT] Response data constructor:", response.data?.constructor?.name);
-    console.log("[CHAT] Has getReader method:", typeof response.data?.getReader === 'function');
 
       // Create AI SDK v5 compatible SSE stream
     const encoder = new TextEncoder();
@@ -86,15 +82,12 @@ export async function POST(request: Request) {
 
                 try {
                   const data = JSON.parse(dataStr);
-                  console.log('[CHAT] Parsed SSE data:', data);
-
                   // Handle session ID from backend
                   if (data.type === 'session-id' && data.sessionId) {
                     const sessionData = `data: ${JSON.stringify({
                       type: 'session-id',
                       sessionId: data.sessionId
                     })}\n\n`;
-                    console.log('[CHAT] Forwarding session-id:', sessionData);
                     controller.enqueue(encoder.encode(sessionData));
                     continue;
                   }
@@ -106,7 +99,6 @@ export async function POST(request: Request) {
                       if (data.text.trim().startsWith('{') && data.text.trim().endsWith('}')) {
                         const jsonResponse = JSON.parse(data.text);
                         actualText = jsonResponse.response || jsonResponse.message || jsonResponse.answer || data.text;
-                        console.log('[CHAT] Extracted text from JSON:', actualText);
                       }
                     } catch (e) {
                       // Not JSON
@@ -119,7 +111,6 @@ export async function POST(request: Request) {
                         type: 'text-start',
                         id: messageId
                       })}\n\n`;
-                      console.log('[CHAT] Sending text-start:', startData);
                       controller.enqueue(encoder.encode(startData));
                     }
 
@@ -129,7 +120,6 @@ export async function POST(request: Request) {
                       id: messageId,
                       delta: actualText
                     })}\n\n`;
-                    console.log('[CHAT] Sending text-delta:', deltaData);
                     controller.enqueue(encoder.encode(deltaData));
                   } else if (data.type === 'end') {
                     // Send text-end
@@ -137,7 +127,6 @@ export async function POST(request: Request) {
                       type: 'text-end',
                       id: messageId
                     })}\n\n`;
-                    console.log('[CHAT] Sending text-end:', endData);
                     controller.enqueue(encoder.encode(endData));
                   }
                 } catch (e) {

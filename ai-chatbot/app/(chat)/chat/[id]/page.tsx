@@ -26,16 +26,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     undefined,
     { accessToken: session.user.accessToken }
   ).catch((error) => {
-    console.error('Failed to fetch chat session:', error);
     return null;
   });
 
-  console.log('Chat session:', chat);
-  console.log('Session user ID:', session.user.id);
-  console.log('Chat ID:', id);
-
   if (!chat) {
-    console.error('Chat session not found for ID:', id);
     notFound();
   }
 

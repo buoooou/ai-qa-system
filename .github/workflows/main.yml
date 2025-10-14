@@ -146,21 +146,22 @@ jobs:
             DEPLOY_VERSION=${DEPLOY_VERSION}
             EOF
 
-            chmod 600 ~/ai-qa-system/.env
-
-            if [ ! -d "~/ai-qa-system" ]; then
+            if [ ! -d "${HOME}/ai-qa-system" ]; then
               echo "Cloning repository..."
-              git clone https://github.com/${{ github.repository }} ~/ai-qa-system
+              git clone https://github.com/${{ github.repository }} "${HOME}/ai-qa-system"
             else
               echo "Repository exists, updating..."
             fi
 
-            cd ~/ai-qa-system
+            cd "${HOME}/ai-qa-system"
 
             # 确保在正确的分支上
             git fetch origin
             git checkout main
             git pull origin main
+
+            # 最后设置 .env 文件权限
+            chmod 600 "${HOME}/ai-qa-system/.env"
 
             # Use production compose file
             COMPOSE_FILE="docker-compose.prod.yml"
