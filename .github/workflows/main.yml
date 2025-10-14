@@ -158,6 +158,13 @@ jobs:
             # 确保在正确的分支上
             git fetch origin
             git checkout main
+
+            # 清除本地未提交的修改（包括 .env），确保能拉取最新代码
+            echo "Resetting local branch to match origin/main..."
+            git reset --hard origin/main
+
+            # 拉取最新代码
+            echo "Pulling latest changes from origin/main..."
             git pull origin main
 
             # 最后设置 .env 文件权限
