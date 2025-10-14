@@ -140,16 +140,11 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NACOS_SERVER_ADDR,GEMINI_API_KEY,JWT_SECRET,MYSQL_ROOT_PASSWORD,MYSQL_DATABASE,MYSQL_USER,MYSQL_PASSWORD,FRONTEND_API_BASE_URL,DOCKERHUB_USERNAME
+          envs: NACOS_SERVER_ADDR,GEMINI_API_KEY,JWT_SECRET,DOCKERHUB_USERNAME
           script: |
             export NACOS_SERVER_ADDR=${NACOS_SERVER_ADDR}
             export GEMINI_API_KEY=${GEMINI_API_KEY}
             export JWT_SECRET=${JWT_SECRET}
-            export MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            export MYSQL_DATABASE=${MYSQL_DATABASE}
-            export MYSQL_USER=${MYSQL_USER}
-            export MYSQL_PASSWORD=${MYSQL_PASSWORD}
-            export FRONTEND_API_BASE_URL=${FRONTEND_API_BASE_URL}
             export DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME}
             if [ ! -d "~/ai-qa-system" ]; then
               git clone https://github.com/${{ github.repository }} ~/ai-qa-system
@@ -157,9 +152,9 @@ jobs:
             cd ~/ai-qa-system
             git pull origin main
 
-            docker compose -f docker-compose.prod.yml down -v --remove-orphans
+            docker compose -f docker-compose.yml down -v --remove-orphans
             docker system prune -af --volumes
   
-            docker compose -f docker-compose.prod.yml pull
-            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+            docker compose -f docker-compose.yml pull
+            docker compose -f docker-compose.yml up -d --remove-orphans
             docker image prune -f
