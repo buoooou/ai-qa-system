@@ -101,6 +101,7 @@ jobs:
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
           NACOS_SERVER_ADDR: ${{ secrets.NACOS_SERVER_ADDR }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
