@@ -55,23 +55,33 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
+  debug: process.env.NODE_ENV === "development", // 开启调试模式
   providers: [
     Credentials({
       id: "credentials",
       credentials: {},
       async authorize({ email, password }: any) {
+        console.log("[Auth] Credentials authorize attempt:", { email, hasPassword: !!password });
+
         if (!email || !password) {
+          console.log("[Auth] Missing email or password");
           return null;
         }
 
         try {
+          console.log("[Auth] Calling loginViaGateway...");
           const response = await loginViaGateway({
             usernameOrEmail: email,
             password,
           });
 
-          return mapGatewayAuthResponse(response);
+          console.log("[Auth] Login successful, mapping response...");
+          const user = mapGatewayAuthResponse(response);
+          console.log("[Auth] Mapped user:", { id: user.id, username: user.username, type: user.type });
+
+          return user;
         } catch (error) {
+          console.error("[Auth] Login error:", error);
           const gatewayError = extractGatewayError(error);
           if (
             gatewayError?.code === 400 ||

@@ -53,8 +53,16 @@ export default function Page() {
 
   // ✅✅✅ --- 第二个 useEffect：处理登录成功后的跳转 --- ✅✅✅
   useEffect(() => {
+    console.log("[Login] useEffect triggered:", {
+      sessionStatus,
+      hasSession: !!session,
+      stateStatus: state.status,
+      userId: session?.user?.id
+    });
+
     // 当 session 状态变为 'authenticated' 并且我们拿到了 user.id
     if (sessionStatus === 'authenticated' && session?.user?.id) {
+      console.log("[Login] Session authenticated, redirecting to home...");
       // 执行最终的跳转
       router.push(`/`);
       return;
@@ -62,6 +70,7 @@ export default function Page() {
 
     // 登录成功后立即跳转（不等待session更新）
     if (state.status === "success") {
+      console.log("[Login] State is success, redirecting using window.location...");
       // 使用 window.location.href 确保立即跳转
       window.location.href = "/";
       return;
