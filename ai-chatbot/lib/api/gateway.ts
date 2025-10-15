@@ -15,6 +15,14 @@ type GatewaySession = {
 const baseURL =
   process.env.NEXT_PUBLIC_GATEWAY_URL ?? process.env.GATEWAY_URL ?? undefined;
 
+// 添加调试日志
+console.log("[gateway] Environment variables:", {
+  NEXT_PUBLIC_GATEWAY_URL: process.env.NEXT_PUBLIC_GATEWAY_URL,
+  GATEWAY_URL: process.env.GATEWAY_URL,
+  NODE_ENV: process.env.NODE_ENV,
+  baseURL
+});
+
 if (!baseURL) {
   console.warn(
     "[gateway] NEXT_PUBLIC_GATEWAY_URL is not defined. Requests will use relative paths and likely fail in production."
