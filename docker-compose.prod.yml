@@ -18,7 +18,7 @@ services:
 
   user-service-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-user-service:${DEPLOY_VERSION}
-    container_name: ai-qa-user-service
+    container_name: user-service-fyb
     restart: unless-stopped
     depends_on:
       - mysql
@@ -37,7 +37,7 @@ services:
 
   qa-service-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-qa-service:${DEPLOY_VERSION}
-    container_name: ai-qa-qa-service
+    container_name: qa-service-fyb
     restart: unless-stopped
     depends_on:
       - mysql
@@ -56,7 +56,7 @@ services:
 
   api-gateway-fyb:
     image: ${DOCKERHUB_USERNAME}/ai-qa-api-gateway:${DEPLOY_VERSION}
-    container_name: ai-qa-api-gateway
+    container_name: api-gateway-fyb
     restart: unless-stopped
     depends_on:
       - user-service-fyb
