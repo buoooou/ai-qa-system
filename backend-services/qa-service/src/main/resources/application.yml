@@ -8,6 +8,12 @@ spring:
       server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
       username: nacos
       password: passw0rd
+      discovery:
+        enabled: true
+        service: qa-service-fyb
+        ip: qa-service-fyb
+        port: ${server.port}
+        prefer-ip-address: true
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: ${MYSQL_USER:ai_user}
