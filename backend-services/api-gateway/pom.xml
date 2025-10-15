@@ -38,6 +38,24 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+
+        <!-- ✅ ReactiveFeign 集成 Spring Cloud LoadBalancer + Nacos Discovery -->
+        <dependency>
+          <groupId>com.playtika.reactivefeign</groupId>
+          <artifactId>feign-reactor-webclient</artifactId>
+          <version>4.2.1</version>
+        </dependency>
+        <dependency>
+          <groupId>com.playtika.reactivefeign</groupId>
+          <artifactId>feign-reactor-spring-configuration</artifactId>
+          <version>4.2.1</version>
+        </dependency>
+        <dependency>
+          <groupId>com.playtika.reactivefeign</groupId>
+          <artifactId>feign-reactor-cloud</artifactId>
+          <version>4.2.1</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
@@ -50,23 +68,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
-        <!-- Reactive Feign 支持 WebFlux 的 Feign 客户端 -->
-        <dependency>
-          <groupId>com.playtika.reactivefeign</groupId>
-          <artifactId>feign-reactor-core</artifactId>
-          <version>4.2.1</version>
-        </dependency>
-        <dependency>
-          <groupId>com.playtika.reactivefeign</groupId>
-          <artifactId>feign-reactor-webclient</artifactId>
-          <version>4.2.1</version>
-        </dependency>
-        <dependency>
-          <groupId>com.playtika.reactivefeign</groupId>
-          <artifactId>feign-reactor-spring-configuration</artifactId>
-          <version>4.2.1</version>
-        </dependency>
-
 
         <!-- 用于 Gateway 限流过滤器（RequestRateLimiter） -->
         <dependency>
