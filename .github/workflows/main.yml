@@ -113,7 +113,7 @@ jobs:
           port: ${{ secrets.EC2_PORT || 22 }}
           timeout: 600s
           command_timeout: 600s
-          envs: NACOS_SERVER_ADDR,GEMINI_API_KEY,JWT_SECRET,DOCKERHUB_USERNAME,DEPLOY_VERSION
+          envs: EC2_HOST,NACOS_SERVER_ADDR,GEMINI_API_KEY,JWT_SECRET,DOCKERHUB_USERNAME,DEPLOY_VERSION
           script: |
             set -euo pipefail
 
@@ -143,6 +143,7 @@ jobs:
             GEMINI_API_KEY=${GEMINI_API_KEY}
             DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME}
             FRONTEND_API_BASE_URL=http://api-gateway-fyb:8083
+            NEXTAUTH_URL=http://${{ EC2_HOST }}:3000
             DEPLOY_VERSION=${DEPLOY_VERSION}
             EOF
 
