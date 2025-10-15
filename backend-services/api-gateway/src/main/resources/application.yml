@@ -23,15 +23,13 @@ spring:
       server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
       username: nacos
       password: passw0rd
-      discovery:
-        register-enabled: true
       config:
         file-extension: yml
         group: DEFAULT_GROUP
     gateway:
       discovery:
         locator:
-          enabled: true # 开启基于服务发现的路由功能
+          enabled: false # 开启基于服务发现的路由功能
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
       routes:
         - id: user_service_route
