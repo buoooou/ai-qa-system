@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
     token = await getToken({
       req: request,
       secret: process.env.AUTH_SECRET,
-      secureCookie: !isDevelopmentEnvironment,
+      secureCookie: false, // 强制使用不安全的 cookies（HTTP）
     });
   } catch (error) {
     console.error("middleware: failed to read session token", error);

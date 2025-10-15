@@ -17,24 +17,32 @@ export const login = async (
   _: LoginActionState,
   formData: FormData
 ): Promise<LoginActionState> => {
+  console.log("[Actions] login action called");
+
   try {
     const validatedData = authFormSchema.parse({
       email: formData.get("email"),
       password: formData.get("password"),
     });
 
+    console.log("[Actions] Validated data:", { email: validatedData.email });
+
     // 调用 signIn 并将错误作为异常抛出，而不是返回结果
     // 这样 next-auth 的错误处理机制会更自然地工作
-    await signIn("credentials", {
+    const result = await signIn("credentials", {
       email: validatedData.email,
       password: validatedData.password,
       redirect: false, // 非常重要，这样它会抛出错误而不是重定向
     });
 
+    console.log("[Actions] signIn result:", result);
+
     // 如果 signIn 没有抛出错误，就代表成功
+    console.log("[Actions] Login successful, returning success status");
     return { status: "success" };
 
   } catch (error: any) {
+    console.error("[Actions] Login error:", error);
     
     // next-auth 在认证失败时会抛出一个特定类型的错误
     // 我们可以根据错误类型返回更具体的状态，但为了简单起见，统一返回 failed
