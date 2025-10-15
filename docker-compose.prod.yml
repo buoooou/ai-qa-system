@@ -77,7 +77,8 @@ services:
       - api-gateway-fyb
     environment:
       NEXT_PUBLIC_GATEWAY_URL: ${FRONTEND_API_BASE_URL}
-      NEXTAUTH_URL: ${NEXTAUTH_URL}
+      GATEWAY_URL: ${FRONTEND_API_BASE_URL}
+      AUTH_SECRET: ${AUTH_SECRET}
       NODE_ENV: production
     ports:
       - "3000:3000"
