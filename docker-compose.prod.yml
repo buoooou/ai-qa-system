@@ -1,0 +1,93 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ai-qa-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ai_qa_system}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ai_qa_system}
+      MYSQL_USER: ${MYSQL_USER:-ai_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ai_user_pass}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./backend-services/user-service/src/main/resources/sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+    networks:
+      - ai-qa-net
+
+  user-service-fyb:
+    image: ${DOCKERHUB_USERNAME}/ai-qa-user-service:${DEPLOY_VERSION}
+    container_name: user-service-fyb
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ai_qa_system}
+      MYSQL_USER: ${MYSQL_USER:-ai_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ai_user_pass}
+      NACOS_SERVER_ADDR: nacos:8848
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8081:8081"
+    networks:
+      - ai-qa-net
+
+  qa-service-fyb:
+    image: ${DOCKERHUB_USERNAME}/ai-qa-qa-service:${DEPLOY_VERSION}
+    container_name: qa-service-fyb
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ai_qa_system}
+      MYSQL_USER: ${MYSQL_USER:-ai_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ai_user_pass}
+      NACOS_SERVER_ADDR: nacos:8848
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - "8082:8082"
+    networks:
+      - ai-qa-net
+
+  api-gateway-fyb:
+    image: ${DOCKERHUB_USERNAME}/ai-qa-api-gateway:${DEPLOY_VERSION}
+    container_name: api-gateway-fyb
+    restart: unless-stopped
+    depends_on:
+      - user-service-fyb
+      - qa-service-fyb
+    environment:
+      NACOS_SERVER_ADDR: nacos:8848
+      SECURITY_JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8083:8083"
+    networks:
+      - ai-qa-net
+
+  frontend:
+    image: ${DOCKERHUB_USERNAME}/ai-qa-frontend:${DEPLOY_VERSION}
+    container_name: ai-qa-frontend
+    restart: unless-stopped
+    depends_on:
+      - api-gateway-fyb
+    environment:
+      NEXT_PUBLIC_GATEWAY_URL: ${NEXT_PUBLIC_GATEWAY_URL}
+      AUTH_SECRET: ${AUTH_SECRET}
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    networks:
+      - ai-qa-net
+
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  ai-qa-net:
+    external: true

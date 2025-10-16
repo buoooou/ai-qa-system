@@ -1,54 +1,86 @@
 package com.ai.qa.service.domain.model;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-
-
+/**
+ * Domain aggregate representing a QA history message.
+ */
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class QAHistory {
 
-    private String id;
-    private String userId;
+    private Long id;
+    private String sessionId;
+    private Long userId;
     private String question;
     private String answer;
-    private LocalDateTime timestamp;
-    private String sessionId;
+    private Integer promptTokens;
+    private Integer completionTokens;
+    private Integer latencyMs;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    private Object rag;
-
-    public String getId(){
-        return this.id;
+    /**
+     * Factory method to create a new history entry with initial question.
+     */
+    public static QAHistory create(String sessionId, Long userId, String question) {
+        LocalDateTime now = LocalDateTime.now();
+        return QAHistory.builder()
+                .sessionId(sessionId)
+                .userId(userId)
+                .question(question)
+                .createdAt(now)
+                .updatedAt(now)
+                .build();
     }
 
     /**
-     *
-     * @param question
-     * @return
+     * Records the AI answer, completion tokens, and latency.
      */
-    public String getAnswer(String question) {
-        String response = rag.getContext();
-        return answer+response;
+    public void recordAnswer(String answer, Integer completionTokens, Integer latencyMs) {
+        this.answer = answer;
+        if (completionTokens != null) {
+            this.completionTokens = completionTokens;
+        }
+        if (latencyMs != null) {
+            this.latencyMs = latencyMs;
+        }
+        touch();
     }
 
-    private QAHistory(String id){
-
+    /**
+     * Updates question content and prompt token usage.
+     */
+    public void updateQuestion(String newQuestion, Integer promptTokens) {
+        this.question = newQuestion;
+        if (promptTokens != null) {
+            this.promptTokens = promptTokens;
+        }
+        touch();
     }
 
-    public String getUserId(){
-
+    private void touch() {
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public String getRAGAnswer(){
-
-        getAnswer();
-        serivice.sss();
-        return  "";
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof QAHistory that)) return false;
+        return Objects.equals(id, that.id);
     }
-    public static QAHistory createNew(String userId, String question, String answer,...){
 
-
-        return new QAHistory();
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

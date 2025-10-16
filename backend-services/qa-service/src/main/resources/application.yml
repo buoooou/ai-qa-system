@@ -2,12 +2,52 @@ server:
   port: 8082
 spring:
   application:
-    name: qa-service
+    name: qa-service-fyb
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+      username: nacos
+      password: passw0rd
+      discovery:
+        enabled: true
+        service: qa-service-fyb
+        ip: qa-service-fyb
+        port: ${server.port}
+        prefer-ip-address: true
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai_qa_system}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ${MYSQL_USER:ai_user}
+    password: ${MYSQL_PASSWORD:ai_user_pass}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+gemini:
+  api:
+    base: "https://generativelanguage.googleapis.com"
+    key: ${GEMINI_API_KEY}
+    stream-url: "/v1beta/models/gemini-2.0-flash:streamGenerateContent"
+    generate-url: "/v1beta/models/gemini-2.0-flash:generateContent"
+  proxy:
+    enabled: ${GEMINI_PROXY_ENABLED:false}
+    host: ${GEMINI_PROXY_HOST:9.46.34.12}
+    port: ${GEMINI_PROXY_PORT:8080}
+  # 请求超时与重试策略（可选）
+  timeout:
+    connect: 10s
+    read: 30s
+    write: 30s
+  generation:
+    responseMimeType: "application/json"
+    temperature: 0.7
+    maxOutputTokens: 512
+
+
 logging:
   level:
-    # 将你的FeignClient接口所在的包路径设置为DEBUG
-    # 假设 UserClient 在 com.ai.qa.qaservice.feign 包下
-    com.ai.qa.qaservice.feign: DEBUG
+    reactor.netty.http.client: DEBUG
+    com.ai.qa.service.infrastructure.feign: DEBUG
+    com.ai.qa.service.domain.service.impl.GeminiChatServiceImpl: TRACE

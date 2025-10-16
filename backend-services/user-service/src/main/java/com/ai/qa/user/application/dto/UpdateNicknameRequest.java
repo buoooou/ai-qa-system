@@ -1,16 +1,14 @@
 package com.ai.qa.user.application.dto;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+
+@Data
 public class UpdateNicknameRequest {
 
+    @NotBlank
+    @Size(max = 64)
     private String nickname;
-
-    // Getter and Setter
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 }

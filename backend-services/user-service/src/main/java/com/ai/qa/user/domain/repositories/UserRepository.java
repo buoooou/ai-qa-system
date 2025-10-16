@@ -7,16 +7,23 @@ import java.util.Optional;
 public interface UserRepository {
 
     /**
-     * 根据ID查找用户聚合
-     * @param id 用户ID
-     * @return 一个包含用户（如果找到）的Optional
+     * Load a user by primary key.
      */
     Optional<User> findById(Long id);
 
     /**
-     * 保存用户聚合（用于创建或更新）
-     * @param user 用户聚合
-     * @return 已保存的用户聚合
+     * Find a user by username.
      */
+    Optional<User> findByUsername(String username);
+
+    /**
+     * Find a user by email.
+     */
+    Optional<User> findByEmail(String email);
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+
     User save(User user);
 }

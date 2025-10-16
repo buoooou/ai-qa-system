@@ -1,24 +1,29 @@
 server:
-  port: 8080 # 所有后端请求的入口
+  port: 8083 # 所有后端请求的入口
 logging:
   level:
-    # 将 Gateway 的核心日志级别设置为 DEBUG
+    root: INFO
     org.springframework.cloud.gateway: DEBUG
-    # (可选) 将 Reactor Netty 的日志也设为 DEBUG，可以看到更底层的网络交互
     reactor.netty.http.client: DEBUG
-    com.alibaba.nacos.client: DEBUG
+    com.alibaba.nacos.client: INFO
+    com.alibaba.nacos.client.naming: WARN
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
 spring:
   application:
-    name: api-gateway
+    name: api-gateway-fyb
   config:
-    import:
-      # 引入共享配置
-      - "nacos:shared-config.yml"
+    import: nacos:shared-config.yml
+  
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+      username: nacos
+      password: passw0rd
       config:
-        # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
         group: DEFAULT_GROUP
     gateway:
@@ -28,18 +33,40 @@ spring:
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
       routes:
         - id: user_service_route
-          uri: lb://user-service # lb:// 表示从Nacos负载均衡地选择一个user-service实例
-#          uri: http://192.168.31.186:8081
+          uri: lb://user-service-fyb
           predicates:
-            - Path=/api/user/** # 匹配所有/api/user/开头的请求
+            - Path=/api/gateway/user/**
           filters:
             - StripPrefix=2
         - id: qa_service_route
-          uri: lb://qa-service
+          uri: lb://qa-service-fyb
           predicates:
-            - Path=/api/qa/**
+            - Path=/api/gateway/qa/**
+          filters:
+            - StripPrefix=2
       default-filters:
         # 配置默认的限流过滤器
         - name: RequestRateLimiter
           args:
             key-resolver: '#{@ipKeyResolver}'
+  # 配置 WebClient 超时
+  webflux:
+    webclient:
+      request:
+        timeout: 2m  # 请求超时 2分钟
+      connect-timeout: 1m  # 连接超时 1分钟
+  # Reactor Netty 配置
+  reactor:
+    netty:
+      http:
+        client:
+          response-timeout: 2m  # 响应超时 2分钟
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:7zmKiI4PToMYMC9G5nuAcL5JBRBYFZCzrn7PIM4zPZY=}
+    issuer: user-service-fyb
+    expiration-minutes: 720
+services:
+  qa:
+    base-url: ${QA_SERVICE_BASE_URL:http://qa-service-fyb}

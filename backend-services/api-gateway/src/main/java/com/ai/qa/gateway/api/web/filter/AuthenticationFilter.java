@@ -1,8 +1,10 @@
 package com.ai.qa.gateway.api.web.filter;
 
+import com.ai.qa.gateway.infrastructure.config.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Value;
+import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -13,27 +15,42 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-//@Component
-//@RefreshScope // 为了动态刷新JWT密钥
+/**
+ * Gateway filter performing JWT authentication for downstream services.
+ */
+@Slf4j
+@Component
+@RefreshScope
 public class AuthenticationFilter implements GlobalFilter, Ordered {
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
+    private final JwtProperties jwtProperties;
+
+    public AuthenticationFilter(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        log.debug("AuthenticationFilter triggered for path: {}", request.getURI().getPath());
+        String path = request.getURI().getPath();
+        String authHeader = request.getHeaders().getFirst("Authorization");
 
-        // 定义白名单路径，这些路径不需要JWT验证
-        List<String> whiteList = List.of("/api/user/register", "/api/user/login");
-        if (whiteList.contains(request.getURI().getPath())) {
-            return chain.filter(exchange); // 放行
+        log.debug("Incoming request path: {}", path);
+        log.debug("Authorization header: {}", authHeader);
+
+        List<String> whiteList = List.of("/api/gateway/auth/login", "/api/gateway/auth/register");
+        boolean isWhitelisted = whiteList.stream().anyMatch(path::startsWith);
+        if (isWhitelisted) {
+            log.info("Path {} is whitelisted, skipping authentication", path);
+            return chain.filter(exchange);
         }
 
-        String authHeader = request.getHeaders().getFirst("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.warn("Missing or invalid Authorization header for path: {}", path);
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -41,18 +58,33 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         String token = authHeader.substring(7);
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(jwtSecret.getBytes())
+                    .setSigningKey(Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8)))
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
 
-            // 验证通过，可以将用户信息放入请求头，传递给下游服务
+            log.info("Authenticated user: id={}, username={}, role={}",
+                    claims.getSubject(),
+                    claims.get("username", String.class),
+                    claims.get("role", String.class));
+
+            log.debug("JWT claims: {}", claims);
+            log.debug("Token subject: {}", claims.getSubject());
+            log.debug("Token issuer: {}", claims.getIssuer());
+            log.debug("Token expiration: {}", claims.getExpiration());
+
             ServerHttpRequest mutatedRequest = request.mutate()
-                    .header("X-User-Id", claims.getSubject())
-                    .header("X-User-Name", claims.get("username", String.class))
+                    .headers(httpHeaders -> {
+                        httpHeaders.set("Authorization", authHeader); // 覆盖原有值
+                        httpHeaders.set("X-User-Id", claims.getSubject());
+                        httpHeaders.set("X-User-Name", claims.get("username", String.class));
+                        httpHeaders.set("X-User-Role", claims.get("role", String.class));
+                    })
                     .build();
+
             return chain.filter(exchange.mutate().request(mutatedRequest).build());
         } catch (Exception e) {
+            log.error("JWT validation failed: {} - {}", e.getClass().getSimpleName(), e.getMessage());
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -60,7 +92,6 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        // 鉴权过滤器应在日志过滤器之后，在路由之前，优先级要高
         return -100;
     }
 }

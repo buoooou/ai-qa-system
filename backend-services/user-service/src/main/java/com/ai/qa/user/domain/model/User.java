@@ -1,71 +1,112 @@
 package com.ai.qa.user.domain.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.util.StringUtils;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = "id")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 64, unique = true)
     private String username;
 
-    private String password;
+    @Column(nullable = false, length = 255, unique = true)
+    private String email;
 
+    @Column(name = "password_hash", nullable = false, length = 255)
+    private String passwordHash;
+
+    @Column(length = 64)
     private String nickname;
 
-    // JPA需要一个无参构造函数
-    protected User() {}
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 16)
+    @Builder.Default
+    private UserRole role = UserRole.USER;
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 16)
+    @Builder.Default
+    private UserStatus status = UserStatus.ENABLED;
+
+    private LocalDateTime lastLoginAt;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    public static User create(String username, String email, String passwordHash, String nickname) {
+        LocalDateTime now = LocalDateTime.now();
+        return User.builder()
+                .username(username)
+                .email(email)
+                .passwordHash(passwordHash)
+                .nickname(nickname)
+                .createdAt(now)
+                .updatedAt(now)
+                .build();
     }
 
-    /**
-     * 这是核心的业务方法，而不是一个简单的setter.
-     * 它封装了更改昵称的所有业务规则。
-     *
-     * @param newNickname 新的昵称
-     */
     public void changeNickname(String newNickname) {
-        // 业务规则1: 昵称不能为空或仅包含空白字符
         if (!StringUtils.hasText(newNickname)) {
             throw new IllegalArgumentException("昵称不能为空。");
         }
-        // 业务规则2: 昵称长度不能超过50个字符 (示例)
         if (newNickname.length() > 50) {
             throw new IllegalArgumentException("昵称长度不能超过50个字符。");
         }
-        // 业务规则3: 昵称不能与现有昵称相同
         if (newNickname.equals(this.nickname)) {
-            // 或者可以静默处理，这里选择抛出异常作为示例
             throw new IllegalArgumentException("新昵称不能与旧昵称相同。");
         }
-
         this.nickname = newNickname;
+        touch();
     }
 
-    // --- Getters ---
-    public Long getId() {
-        return id;
+    public void updatePasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+        touch();
     }
 
-    public String getUsername() {
-        return username;
+    public void markLoginNow() {
+        this.lastLoginAt = LocalDateTime.now();
+        touch();
     }
 
-    public String getPassword() {
-        return password;
+    public boolean isEnabled() {
+        return status == UserStatus.ENABLED;
     }
 
-    public String getNickname() {
-        return nickname;
+    private void touch() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public enum UserRole {
+        USER,
+        ADMIN
+    }
+
+    public enum UserStatus {
+        ENABLED,
+        DISABLED
     }
 }

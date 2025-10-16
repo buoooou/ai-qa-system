@@ -1,0 +1,20 @@
+package com.ai.qa.user.application.dto;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Getter
+@RequiredArgsConstructor
+public class ChatMessageDTO {
+    private final Long id;
+    private final String sessionId;
+    private final String question;
+    private final String answer;
+    private final Integer promptTokens;
+    private final Integer completionTokens;
+    private final Integer latencyMs;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
+}

@@ -1,0 +1,17 @@
+export interface GatewayChatSession {
+  id: number;
+  title: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GatewayChatHistoryEntry {
+  id: number;
+  sessionId: number;
+  userId: number;
+  question: string;
+  answer: string;
+  createdAt: string;
+  updatedAt: string;
+}
