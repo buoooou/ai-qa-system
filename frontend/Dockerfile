@@ -1,60 +1,54 @@
-# 使用官方Node.js运行时作为基础镜像
-FROM node:18-alpine AS base
+FROM node:20-alpine
 
-# 安装依赖阶段
-FROM base AS deps
-# 检查 https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# 复制package文件
-COPY package.json package-lock.json* ./
-RUN \
-  if [ -f package-lock.json ]; then npm ci --only=production; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+# 安装 pnpm
+RUN npm install -g pnpm
 
-# 构建阶段
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# 复制包管理文件
+COPY package.json pnpm-lock.yaml* ./
+
+# 安装依赖
+RUN pnpm install --frozen-lockfile
+
+# 复制源代码
 COPY . .
 
-# 设置环境变量
-ENV NEXT_TELEMETRY_DISABLED 1
+# 详细调试信息
+RUN echo "=== 当前目录结构 ==="
+RUN ls -la
+
+RUN echo "=== lib 目录内容 ==="
+RUN ls -la lib/
+
+RUN echo "=== 检查 utils.ts 是否存在 ==="
+RUN find . -name "utils.ts" -type f
+
+RUN echo "=== 检查 tsconfig.json 路径配置 ==="
+RUN cat tsconfig.json | grep -A 5 -B 5 "paths"
+
+RUN echo "=== 检查导入语句 ==="
+RUN grep -n "from.*@/lib/utils" components/ui/toast.tsx
+
+RUN echo "=== 尝试直接导入测试 ==="
+RUN node -e "console.log('测试导入:', require.resolve('./lib/utils.ts'))" || echo "直接导入失败"
 
 # 构建应用
-RUN npm run build
-
-# 生产运行阶段
-FROM base AS runner
-WORKDIR /app
-
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# 创建非root用户
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# 复制构建产物
-COPY --from=builder /app/public ./public
-
-# 设置正确的权限
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-# 复制构建产物，自动利用输出文件跟踪来减少镜像大小
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
+RUN pnpm build
 
 EXPOSE 3000
+CMD ["pnpm", "start"]
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+# FROM node:18-alpine
+# WORKDIR /app
+# COPY . .
 
-# 启动应用
-CMD ["node", "server.js"]
+# # 必须使用 ARG 和 ENV 组合
+# ARG NEXT_PUBLIC_API_BASE_URL
+# ENV NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
+
+# RUN npm install
+# RUN npm run build
+
+# EXPOSE 3000
+# CMD ["npm", "start"]
