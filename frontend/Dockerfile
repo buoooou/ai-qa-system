@@ -20,7 +20,7 @@ RUN ls -la
 
 RUN echo "=== lib 目录内容 ==="
 #RUN ls -la lib/
-RUN ls -la services/
+RUN ls -la src/services/
 
 #RUN echo "=== 检查 utils.ts 是否存在 ==="
 #RUN find . -name "utils.ts" -type f
