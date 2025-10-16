@@ -27,6 +27,8 @@ import com.ai.qa.user.api.exception.UserServiceException;
 import com.ai.qa.user.domain.model.User;
 import com.ai.qa.user.domain.repository.UserRepo;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
 
@@ -36,6 +38,8 @@ public class UserServiceImplTest {
 
     @Mock
     private UserRepo userRepository;
+    // @Mock
+    // private UserJpaRepository rep;
     @Mock
     private PasswordEncoder passwordEncoder;
 
@@ -80,9 +84,8 @@ public class UserServiceImplTest {
     void testGetUserByUsername_usernotexist() {
         given(userRepository.findByUsername(any())).willReturn(Optional.empty());
 
-        UserServiceException exception = assertThrows(UserServiceException.class, () -> userService.getUserByUsername(testUser.getUsername()));
+        assertThrows(EntityNotFoundException.class, () -> userService.getUserByUsername(testUser.getUsername()));
 
-        assertEquals("该用户不存在。", exception.getMessage());
         verify(userRepository, never()).save(any());
     }
 
@@ -100,6 +103,7 @@ public class UserServiceImplTest {
     void testregister_usernotexists() {
         given(userRepository.existsByUsername("testUserXXX")).willReturn(false);
         given(passwordEncoder.encode(anyString())).willReturn("aaBBccDDeeFF");
+        given(userRepository.save(any())).willReturn(testUser);
 
         UserResponse result = userService.register(registerRequest);
         assertEquals("testUserXXX", result.getUsername());
@@ -125,9 +129,8 @@ public class UserServiceImplTest {
     void testUpdateNickname_usernotexists() {
         given(userRepository.findByUsername(any())).willReturn(Optional.empty());
 
-        UserServiceException exception = assertThrows(UserServiceException.class, () -> userService.getUserByUsername(testUser.getUsername()));
+        assertThrows(EntityNotFoundException.class, () -> userService.getUserByUsername(testUser.getUsername()));
 
-        assertEquals("该用户不存在。", exception.getMessage());
         verify(userRepository, never()).save(any());
     }
 }

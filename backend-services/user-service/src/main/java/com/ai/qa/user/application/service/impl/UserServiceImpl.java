@@ -74,9 +74,10 @@ public class UserServiceImpl implements UserService {
         // 参数验证
         User newUser = User.builder()
                 .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(request.getPassword())
                 .nickname(request.getNickname()).build();
         newUser.registerValidation(request.getConfirmPassword());
+        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
 
         // 检查用户名是否已存在
         if (existsByUsername(request.getUsername())) {
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
             User savedUser = userRepository.save(newUser);
             log.info("用户注册成功，用户ID: {}, 用户名: {}", savedUser.getId(), savedUser.getUsername());
 
-            return userMapper.toUserDTO(savedUser);
+            return userMapper.toUserDTO(newUser);
 
         } catch (Exception e) {
             log.error("用户注册失败，用户名: {}, 错误: {}", request.getUsername(), e.getMessage());
