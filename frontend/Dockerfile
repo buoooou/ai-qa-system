@@ -19,19 +19,22 @@ RUN echo "=== 当前目录结构 ==="
 RUN ls -la
 
 RUN echo "=== lib 目录内容 ==="
-RUN ls -la lib/
+#RUN ls -la lib/
+RUN ls -la services/
 
-RUN echo "=== 检查 utils.ts 是否存在 ==="
-RUN find . -name "utils.ts" -type f
+#RUN echo "=== 检查 utils.ts 是否存在 ==="
+#RUN find . -name "utils.ts" -type f
+RUN echo "=== 检查 api.ts 是否存在 ==="
+RUN find . -name "api.ts" -type f
 
 RUN echo "=== 检查 tsconfig.json 路径配置 ==="
 RUN cat tsconfig.json | grep -A 5 -B 5 "paths"
 
-RUN echo "=== 检查导入语句 ==="
-RUN grep -n "from.*@/lib/utils" components/ui/toast.tsx
+#RUN echo "=== 检查导入语句 ==="
+#RUN grep -n "from.*@/lib/utils" components/ui/toast.tsx
 
-RUN echo "=== 尝试直接导入测试 ==="
-RUN node -e "console.log('测试导入:', require.resolve('./lib/utils.ts'))" || echo "直接导入失败"
+#RUN echo "=== 尝试直接导入测试 ==="
+#RUN node -e "console.log('测试导入:', require.resolve('./lib/utils.ts'))" || echo "直接导入失败"
 
 # 构建应用
 RUN pnpm build
