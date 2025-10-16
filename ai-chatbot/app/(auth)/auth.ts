@@ -55,7 +55,7 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
-  debug: process.env.NODE_ENV === "development", // 开启调试模式
+  debug: true, // 强制开启调试模式，方便排查问题
   providers: [
     Credentials({
       id: "credentials",

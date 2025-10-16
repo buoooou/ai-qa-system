@@ -27,19 +27,31 @@ export const login = async (
 
     console.log("[Actions] Validated data:", { email: validatedData.email });
 
-    // 调用 signIn 并将错误作为异常抛出，而不是返回结果
-    // 这样 next-auth 的错误处理机制会更自然地工作
+    // 调用 signIn，不使用 redirect: false
+    // 这样返回的 result 会包含 session 信息
+    console.log("[Actions] Calling signIn...");
+
     const result = await signIn("credentials", {
       email: validatedData.email,
       password: validatedData.password,
-      redirect: false, // 非常重要，这样它会抛出错误而不是重定向
+      redirect: false, // 不自动重定向，我们需要检查结果
     });
 
-    console.log("[Actions] signIn result:", result);
+    console.log("[Actions] signIn result:", {
+      ok: result,
+      error: result,
+      status: result?.status,
+      url: result?.url
+    });
 
-    // 如果 signIn 没有抛出错误，就代表成功
-    console.log("[Actions] Login successful, returning success status");
-    return { status: "success" };
+    // 检查 result 是否表示成功
+    if (result && !result?.error) {
+      console.log("[Actions] Login appears successful");
+      return { status: "success" };
+    } else {
+      console.log("[Actions] Login failed with result:", result);
+      throw new Error("Invalid credentials");
+    }
 
   } catch (error: any) {
     console.error("[Actions] Login error:", error);

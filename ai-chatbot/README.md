@@ -1,70 +1,98 @@
-<a href="https://chat.vercel.ai/">
-  <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
-  <h1 align="center">Chat SDK</h1>
-</a>
+# AI QA System - Frontend
 
-<p align="center">
-    Chat SDK is a free, open-source template built with Next.js and the AI SDK that helps you quickly build powerful chatbot applications.
-</p>
+基于 Next.js 15 的 AI 问答系统前端界面。
 
-<p align="center">
-  <a href="https://chat-sdk.dev"><strong>Read Docs</strong></a> ·
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a>
-</p>
-<br/>
+## 技术栈
 
-## Features
+- **框架**: Next.js 15 (App Router)
+- **UI**: React 19 + TypeScript + Tailwind CSS
+- **认证**: NextAuth.js v5
+- **API**: Axios 调用后端微服务
 
-- [Next.js](https://nextjs.org) App Router
-  - Advanced routing for seamless navigation and performance
-  - React Server Components (RSCs) and Server Actions for server-side rendering and increased performance
-- [AI SDK](https://ai-sdk.dev/docs/introduction)
-  - Unified API for generating text, structured objects, and tool calls with LLMs
-  - Hooks for building dynamic chat and generative user interfaces
-  - Supports xAI (default), OpenAI, Fireworks, and other model providers
-- [shadcn/ui](https://ui.shadcn.com)
-  - Styling with [Tailwind CSS](https://tailwindcss.com)
-  - Component primitives from [Radix UI](https://radix-ui.com) for accessibility and flexibility
-- Data Persistence
-  - [Neon Serverless Postgres](https://vercel.com/marketplace/neon) for saving chat history and user data
-  - [Vercel Blob](https://vercel.com/storage/blob) for efficient file storage
-- [Auth.js](https://authjs.dev)
-  - Simple and secure authentication
+## 快速开始
 
-## Model Providers
-
-This template uses the [Vercel AI Gateway](https://vercel.com/docs/ai-gateway) to access multiple AI models through a unified interface. The default configuration includes [xAI](https://x.ai) models (`grok-2-vision-1212`, `grok-3-mini`) routed through the gateway.
-
-### AI Gateway Authentication
-
-**For Vercel deployments**: Authentication is handled automatically via OIDC tokens.
-
-**For non-Vercel deployments**: You need to provide an AI Gateway API key by setting the `AI_GATEWAY_API_KEY` environment variable in your `.env.local` file.
-
-With the [AI SDK](https://ai-sdk.dev/docs/introduction), you can also switch to direct LLM providers like [OpenAI](https://openai.com), [Anthropic](https://anthropic.com), [Cohere](https://cohere.com/), and [many more](https://ai-sdk.dev/providers/ai-sdk-providers) with just a few lines of code.
-
-## Deploy Your Own
-
-You can deploy your own version of the Next.js AI Chatbot to Vercel with one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/templates/next.js/nextjs-ai-chatbot)
-
-## Running locally
-
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js AI Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/projects/environment-variables) for this, but a `.env` file is all that is necessary.
-
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various AI and authentication provider accounts.
-
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
+### 1. 安装依赖
 
 ```bash
 pnpm install
+```
+
+### 2. 配置环境变量
+
+创建 `.env.local` 文件：
+
+```bash
+# 认证密钥（必需）
+AUTH_SECRET=your-secret-key-here
+
+# API Gateway 地址（必需）
+NEXT_PUBLIC_GATEWAY_URL=http://localhost:8083
+```
+
+生成密钥：
+```bash
+openssl rand -base64 32
+```
+
+### 3. 启动开发服务器
+
+```bash
 pnpm dev
 ```
 
-Your app template should now be running on [localhost:3000](http://localhost:3000).
+访问 http://localhost:3000
+
+## 环境变量
+
+| 变量 | 必需 | 说明 |
+|------|------|------|
+| `AUTH_SECRET` | ✅ | JWT 签名密钥 |
+| `NEXT_PUBLIC_GATEWAY_URL` | ✅ | 后端 API Gateway 地址 |
+
+## 项目结构
+
+```
+ai-chatbot/
+├── app/                 # Next.js App Router
+│   ├── (auth)/         # 认证相关页面
+│   ├── (chat)/         # 聊天相关页面
+│   ├── layout.tsx      # 根布局
+│   └── middleware.ts   # 认证中间件
+├── components/         # React 组件
+├── lib/               # 工具库和 API 客户端
+└── public/            # 静态资源
+```
+
+## API 调用流程
+
+1. 浏览器 → Next.js API Routes (`/api/chat/*`)
+2. Next.js API Routes → 后端 Gateway (`http://localhost:8083`)
+3. Gateway → 微服务 (user-service/qa-service)
+
+## 部署
+
+### 开发环境
+
+```bash
+pnpm build
+pnpm start
+```
+
+### 生产环境
+
+使用 Docker Compose：
+
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+
+## 注意事项
+
+- 确保 API Gateway 运行在 8083 端口
+- 不要提交 `.env.local` 文件到版本控制
+- 生产环境使用 HTTPS 和强密码
+
+## 相关链接
+
+- [后端 API 文档](http://localhost:8083/swagger-ui.html)
+- [项目架构文档](../PROJECT_ARCHITECTURE.md)

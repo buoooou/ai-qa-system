@@ -51,7 +51,7 @@ export default function Page() {
   }, [state.status]);
 
 
-  // ✅✅✅ --- 第二个 useEffect：处理登录成功后的跳转 --- ✅✅✅
+  // ✅✅✅ --- 处理登录成功后的跳转 --- ✅✅✅
   useEffect(() => {
     console.log("[Login] useEffect triggered:", {
       sessionStatus,
@@ -60,22 +60,45 @@ export default function Page() {
       userId: session?.user?.id
     });
 
-    // 当 session 状态变为 'authenticated' 并且我们拿到了 user.id
+    // 优先检查 session 状态，如果已经认证就跳转
     if (sessionStatus === 'authenticated' && session?.user?.id) {
       console.log("[Login] Session authenticated, redirecting to home...");
-      // 执行最终的跳转
-      router.push(`/`);
+      router.replace(`/`);
       return;
     }
+  }, [session, sessionStatus, router]);
 
-    // 登录成功后立即跳转（不等待session更新）
+  // 单独处理登录成功后的跳转
+  useEffect(() => {
     if (state.status === "success") {
-      console.log("[Login] State is success, redirecting using window.location...");
-      // 使用 window.location.href 确保立即跳转
-      window.location.href = "/";
-      return;
+      console.log("[Login] Login action returned success, checking session...");
+      // 给 session 更新一些时间，然后检查
+      const checkSessionAndRedirect = async () => {
+        // 等待一段时间让 session 更新
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // 强制刷新 session
+        await router.refresh();
+
+        // 再次等待一小段时间
+        await new Promise(resolve => setTimeout(resolve, 200));
+
+        // 检查 session 状态
+        console.log("[Login] After refresh - sessionStatus:", sessionStatus, "session:", session);
+
+        if (sessionStatus === 'authenticated') {
+          console.log("[Login] Session confirmed, redirecting...");
+          router.replace("/");
+        } else {
+          console.log("[Login] Session not yet authenticated, using window.location...");
+          // 如果 session 还没更新，使用完整页面重载
+          window.location.href = "/";
+        }
+      };
+
+      checkSessionAndRedirect();
     }
-  }, [session, sessionStatus, router, state.status]);
+  }, [state.status, router, sessionStatus, session]);
 
 
   const handleSubmit = (formData: FormData) => {
