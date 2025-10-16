@@ -162,7 +162,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/airline-cicd
+            cd ~/aiqasystem-cicd
             docker-compose down --volumes --remove-orphans
             docker-compose pull
             docker-compose up -d
