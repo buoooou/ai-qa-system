@@ -1,13 +1,70 @@
 server:
   port: 8082
+logging:
+  level: 
+    '[com.ai.qa.service]': debug
+    '[org.hibernate.SQL]': debug
+    '[org.hibernate.type.descriptor.sql.BasicBinder]': trace
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/qa-service.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
 spring:
   application:
-    name: qa-service
+    name: qa-service-hl
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
-logging:
-  level:
-    # 将你的FeignClient接口所在的包路径设置为DEBUG
-    # 假设 UserClient 在 com.ai.qa.qaservice.feign 包下
-    com.ai.qa.qaservice.feign: DEBUG
+      server-addr: 18.144.11.177:8080
+  datasource:
+    # url: jdbc:mysql://18.144.11.177:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: ai_qa_system
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          serverTimezone: GMT+8
+    show-sql: true
+
+springdoc:
+  # packages-to-scan: com.ai.qa.service
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    url: /api/qa/v3/api-docs
+    config-url: /api/qa/v3/api-docs/swagger-config
+    disable-swagger-default-url: true
+    operations-sorter: method
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  # group-configs:
+  #   - group: 'qa-service'
+  #     display-name: QA Service
+  #     paths-to-match: /api/qa/**
+
+# chat:
+#   api:
+#     url: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
+#     key: AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw
+# gemini:
+#   api-key: AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw
+# GOOGLE_API_KEY:
+#   AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw
+
+# Gemini API配置
+gemini:
+  base-url: https://generativelanguage.googleapis.com/v1beta  # 配置API的根URL
+  api-key: AIzaSyDSpC9NbCG6L2e9znVwrwCoiTZj0E5gEvM
+  model-name: gemini-2.5-flash-lite

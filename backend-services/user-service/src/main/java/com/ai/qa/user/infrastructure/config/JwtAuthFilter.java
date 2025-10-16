@@ -2,20 +2,20 @@ package com.ai.qa.user.infrastructure.config;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ai.qa.user.common.JwtUtil;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +31,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         log.debug("[User-Service] [{}]## {} Start.", this.getClass().getSimpleName(), "doFilterInternal");
+
+        String path = request.getServletPath();
+        System.out.println("JwtFilter: servletPath=" + path + " method=" + request.getMethod());
+
+        // 放行 login 和 register，无论前面加不加前缀
+        if (path.endsWith("/login") ||
+                path.endsWith("/register") ||
+                request.getMethod().equalsIgnoreCase("OPTIONS")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {
@@ -52,6 +63,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             } else {
                 log.warn("[User-Service] [{}]## JWT令牌验证失败: {} - URI: {}", this.getClass().getSimpleName(), username, request.getRequestURI());

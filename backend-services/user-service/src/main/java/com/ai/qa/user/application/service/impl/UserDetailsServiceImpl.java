@@ -1,31 +1,29 @@
 package com.ai.qa.user.application.service.impl;
 
-import javax.transaction.Transactional;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.ai.qa.user.api.exception.UserServiceException;
-import com.ai.qa.user.common.constants.Constants;
-import com.ai.qa.user.domain.entity.User;
-import com.ai.qa.user.domain.repository.UserRepository;
+import com.ai.qa.user.common.Constants;
+import com.ai.qa.user.domain.model.User;
+import com.ai.qa.user.domain.repository.UserRepo;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserRepo userRepository;
 
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) {
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserServiceException(HttpStatus.SERVICE_UNAVAILABLE.value(), Constants.MSG_USER_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException());
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())

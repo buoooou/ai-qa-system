@@ -1,43 +1,31 @@
 package com.ai.qa.gateway.common;
 
-import java.util.Collections;
-import java.util.List;
+// @Component
+// public class JwtReactiveAuthenticationManager implements ReactiveAuthenticationManager {
 
-import org.springframework.security.authentication.ReactiveAuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
+    // private final JwtUtil jwtUtil;
 
-import io.jsonwebtoken.Claims;
-import reactor.core.publisher.Mono;
+    // public JwtReactiveAuthenticationManager(JwtUtil jwtUtil) {
+    //     this.jwtUtil = jwtUtil;
+    // }
 
-@Component
-public class JwtReactiveAuthenticationManager implements ReactiveAuthenticationManager {
+    // @Override
+    // public Mono<Authentication> authenticate(Authentication authentication) {
+    //     return Mono.just(authentication)
+    //             .map(auth -> {
+    //                 String token = auth.getCredentials().toString();
+    //                 Claims claims = jwtUtil.parseToken(token);
+    //                 String username = claims.getSubject();
+    //                 @SuppressWarnings("unchecked")
+    //                 List<String> roles = claims.get("roles", List.class);
 
-    private final JwtUtil jwtUtil;
+    //                 List<SimpleGrantedAuthority> authorities = roles.stream()
+    //                         .map(SimpleGrantedAuthority::new)
+    //                         .collect(Collectors.toList());
 
-    public JwtReactiveAuthenticationManager(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+    //                 List<SimpleGrantedAuthority> authorities = Collections.emptyList();
 
-    @Override
-    public Mono<Authentication> authenticate(Authentication authentication) {
-        return Mono.just(authentication)
-                .map(auth -> {
-                    String token = auth.getCredentials().toString();
-                    Claims claims = jwtUtil.parseToken(token);
-                    String username = claims.getSubject();
-                    // @SuppressWarnings("unchecked")
-                    // List<String> roles = claims.get("roles", List.class);
-
-                    // List<SimpleGrantedAuthority> authorities = roles.stream()
-                    //         .map(SimpleGrantedAuthority::new)
-                    //         .collect(Collectors.toList());
-
-                    List<SimpleGrantedAuthority> authorities = Collections.emptyList();
-
-                    return new UsernamePasswordAuthenticationToken(username, null, authorities);
-                });
-    }
-}
+    //                 return new UsernamePasswordAuthenticationToken(username, null, authorities);
+    //             });
+    // }
+// }

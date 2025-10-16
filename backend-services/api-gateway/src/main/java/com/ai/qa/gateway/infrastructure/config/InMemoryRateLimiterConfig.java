@@ -1,22 +1,24 @@
 package com.ai.qa.gateway.infrastructure.config;
 
-import com.google.common.util.concurrent.RateLimiter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import reactor.core.publisher.Mono;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+import com.google.common.util.concurrent.RateLimiter;
+
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
+
 @Configuration
+@Slf4j
 public class InMemoryRateLimiterConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(InMemoryRateLimiterConfig.class);
     // ipKeyResolver Bean 保持不变
     @Bean
     public KeyResolver ipKeyResolver() {
@@ -99,6 +101,7 @@ public class InMemoryRateLimiterConfig {
      * 配置类，用于存储限流参数
      * 现在它不再是空的了，包含了速率和容量
      */
+    @Data
     public static class RateLimiterConfig {
         private double replenishRate;
         private int burstCapacity;
@@ -108,20 +111,6 @@ public class InMemoryRateLimiterConfig {
 
         public RateLimiterConfig(double replenishRate, int burstCapacity) {
             this.replenishRate = replenishRate;
-            this.burstCapacity = burstCapacity;
-        }
-
-        // Getters and Setters
-        public double getReplenishRate() {
-            return replenishRate;
-        }
-        public void setReplenishRate(double replenishRate) {
-            this.replenishRate = replenishRate;
-        }
-        public int getBurstCapacity() {
-            return burstCapacity;
-        }
-        public void setBurstCapacity(int burstCapacity) {
             this.burstCapacity = burstCapacity;
         }
     }

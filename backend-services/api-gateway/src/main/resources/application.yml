@@ -1,12 +1,21 @@
 server:
   port: 8080 # 所有后端请求的入口
 logging:
-  level:
-    # 将 Gateway 的核心日志级别设置为 DEBUG
-    org.springframework.cloud.gateway: DEBUG
+  level: 
     # (可选) 将 Reactor Netty 的日志也设为 DEBUG，可以看到更底层的网络交互
-    reactor.netty.http.client: DEBUG
-    com.alibaba.nacos.client: DEBUG
+    '[reactor.netty.http.client]': debug
+    '[com.alibaba.nacos.client]': debug
+    '[org.springframework.cloud.gateway]': debug
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/api-gateway.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
 spring:
   application:
     name: api-gateway-hl
@@ -16,7 +25,7 @@ spring:
       - "nacos:shared-config.yml"  
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      server-addr: 18.144.11.177:8080
       config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
@@ -26,16 +35,34 @@ spring:
         locator:
           enabled: false # 开启基于服务发现的路由功能
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
+      globalcors:
+        # 全局CORS配置
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 
+              - "http://localhost:3000"
+              - "http://127.0.0.1:3000"
+              - "http://10.0.2.191:3000"
+              - "http://56.228.34.193:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
       routes:
         - id: user_service_route
-          uri: lb://user-service # lb:// 表示从Nacos负载均衡地选择一个user-service实例
+          uri: lb://user-service-hl # lb:// 表示从Nacos负载均衡地选择一个user-service实例
 #          uri: http://192.168.31.186:8081
           predicates:
             - Path=/api/user/** # 匹配所有/api/user/开头的请求
           filters:
             - StripPrefix=2
         - id: qa_service_route
-          uri: lb://qa-service
+          uri: lb://qa-service-hl
           predicates:
             - Path=/api/qa/**
       default-filters:
@@ -43,21 +70,11 @@ spring:
         - name: RequestRateLimiter
           args:
             key-resolver: '#{@ipKeyResolver}'
-
 springdoc:
-  api-docs:
-    path: /v3/api-docs
-    enabled: true
   swagger-ui:
-    urls:
-      - url: /user-service/v3/api-docs
-        name: 用户服务
-      - url: /qa-service/v3/api-docs
-        name: AI问答服务
-    tags-sorter: alpha
-    operations-sorter: alpha
-
+    path: /swagger-ui.html
+    enabled: true
 jwt:
-  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  secret: HhyD5jnwwGbyecOrbkAY6OEWNM/zDgF2qwFlF4MFAHznR4AaLweF8Xu71MF4TaYUfX7dRY9JIzOgF/yTYqx5Qg==
   # 24小时
   expiration: 86400000

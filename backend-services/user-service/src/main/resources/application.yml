@@ -5,9 +5,10 @@ spring:
     name: user-service-lh
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      server-addr: 18.144.11.177:8080
   datasource:
-    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    # url: jdbc:mysql://18.144.11.177:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: ai_qa_system
   jpa:
@@ -51,6 +52,8 @@ logging:
       file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
 
 jwt:
-  secret: 63ffbc2b8d13ad5180ed7ae7c67f18c85d86046732fc9ced6a02a9d50abb1a03
+  secret: HhyD5jnwwGbyecOrbkAY6OEWNM/zDgF2qwFlF4MFAHznR4AaLweF8Xu71MF4TaYUfX7dRY9JIzOgF/yTYqx5Qg==
+  # 2小时
+  access-expiration: 3600000 
   # 24小时
-  expiration: 86400000 
+  refresh-expiration: 86400000 

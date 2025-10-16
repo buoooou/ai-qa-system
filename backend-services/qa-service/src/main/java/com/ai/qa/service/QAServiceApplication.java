@@ -12,5 +12,11 @@ public class QAServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(QAServiceApplication.class, args);
+        System.out.println("=================================");
+        System.out.println("🤖 QA Service 启动成功!");
+        System.out.println("📡 服务端口: 8082");
+        System.out.println("💬 问答接口: http://localhost:8082/api/qa/ask");
+        System.out.println("📚 历史记录: http://localhost:8082/api/qa/history/{userId}");
+        System.out.println("=================================");
     }
 }

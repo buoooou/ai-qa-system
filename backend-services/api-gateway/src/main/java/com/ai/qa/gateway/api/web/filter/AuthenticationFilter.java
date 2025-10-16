@@ -1,22 +1,25 @@
 package com.ai.qa.gateway.api.web.filter;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
-//@Component
+// @Component
 //@RefreshScope // 为了动态刷新JWT密钥
+@Slf4j
 public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @Value("${jwt.secret}")
@@ -24,13 +27,19 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        log.info("[API-Gateway] [{}]## Method {} start.", this.getClass().getSimpleName(), "filter");
+
         ServerHttpRequest request = exchange.getRequest();
+
+        log.debug("[API-Gateway] [{}]## Request URI: {}", this.getClass().getSimpleName(), request.getURI());
 
         // 定义白名单路径，这些路径不需要JWT验证
         List<String> whiteList = List.of("/api/user/register", "/api/user/login");
         if (whiteList.contains(request.getURI().getPath())) {
             return chain.filter(exchange); // 放行
         }
+
+        log.debug("[API-Gateway] [{}]## Request headers: {}", this.getClass().getSimpleName(), request.getHeaders());
 
         String authHeader = request.getHeaders().getFirst("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -40,11 +49,11 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
         String token = authHeader.substring(7);
         try {
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(jwtSecret.getBytes())
+            Claims claims = Jwts.parser()
+                    .verifyWith(Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8)))
                     .build()
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .parseSignedClaims(token)
+                    .getPayload();
 
             // 验证通过，可以将用户信息放入请求头，传递给下游服务
             ServerHttpRequest mutatedRequest = request.mutate()

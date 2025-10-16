@@ -1,12 +1,11 @@
 package com.ai.qa.user.application.service;
 
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
-import com.ai.qa.user.api.dto.AuthResponseDTO;
+import com.ai.qa.user.api.dto.LoginResponse;
 
 @Service
 public interface AuthService {
     
-    AuthResponseDTO authenticate(String username, String password) throws AuthenticationException;
+    LoginResponse authenticate(String username, String password);
 }

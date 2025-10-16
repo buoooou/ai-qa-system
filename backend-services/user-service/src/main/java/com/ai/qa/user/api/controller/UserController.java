@@ -9,30 +9,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ai.qa.user.api.dto.ApiResponseDTO;
-import com.ai.qa.user.api.dto.AuthRequestDTO;
-import com.ai.qa.user.api.dto.AuthResponseDTO;
-import com.ai.qa.user.api.dto.UserDTO;
-import com.ai.qa.user.application.dto.UpdateNicknameRequest;
-import com.ai.qa.user.application.service.UserApplicationService;
-import com.ai.qa.user.common.constants.Constants;
+import com.ai.qa.user.api.dto.ApiResponse;
+import com.ai.qa.user.api.dto.LoginRequest;
+import com.ai.qa.user.api.dto.LoginResponse;
+import com.ai.qa.user.api.dto.RegisterRequest;
+import com.ai.qa.user.api.dto.UserResponse;
+import com.ai.qa.user.api.exception.UserServiceException;
+import com.ai.qa.user.application.service.UserService;
+import com.ai.qa.user.common.Constants;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/***
- * 为什么user-service必须也要自己做安全限制？
- * 1。零信任网络 (Zero Trust Network)：在微服务架构中，你必须假设内部网络是不安全的。不能因为一个请求来自API Gateway就完全信任它。万一有其他内部服务被攻破，它可能会伪造请求直接调用user-service，绕过Gateway。如果user-service没有自己的安全防线，它就会被完全暴露。
- * 2。职责分离 (Separation of Concerns)：Gateway的核心职责是路由、限流、熔断和边缘认证。而user-service的核心职责是处理用户相关的业务逻辑，业务逻辑与谁能执行它是密不可分的。授权逻辑是业务逻辑的一部分，必须放在离业务最近的地方。
- * 3。细粒度授权 (Fine-Grained Authorization)：Gateway通常只做粗粒度的授权，比如“USER角色的用户可以访问/api/users/**这个路径”。但它无法知道更精细的业务规则，例如：
- * GET /api/users/{userId}: 用户123是否有权查看用户456的资料？
- * PUT /api/users/{userId}: 只有用户自己或者管理员才能修改用户信息。
- * 这些判断必须由user-service结合自身的业务逻辑和数据来完成。
+/**
+ * *
+ * 为什么user-service必须也要自己做安全限制？ 1。零信任网络 (Zero Trust
+ * Network)：在微服务架构中，你必须假设内部网络是不安全的。不能因为一个请求来自API
+ * Gateway就完全信任它。万一有其他内部服务被攻破，它可能会伪造请求直接调用user-service，绕过Gateway。如果user-service没有自己的安全防线，它就会被完全暴露。
+ * 2。职责分离 (Separation of
+ * Concerns)：Gateway的核心职责是路由、限流、熔断和边缘认证。而user-service的核心职责是处理用户相关的业务逻辑，业务逻辑与谁能执行它是密不可分的。授权逻辑是业务逻辑的一部分，必须放在离业务最近的地方。
+ * 3。细粒度授权 (Fine-Grained
+ * Authorization)：Gateway通常只做粗粒度的授权，比如“USER角色的用户可以访问/api/users/**这个路径”。但它无法知道更精细的业务规则，例如：
+ * GET /api/users/{userId}: 用户123是否有权查看用户456的资料？ PUT /api/users/{userId}:
+ * 只有用户自己或者管理员才能修改用户信息。 这些判断必须由user-service结合自身的业务逻辑和数据来完成。
  */
 @RestController
 @RequestMapping("/api/user")
@@ -40,105 +45,128 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
 
-    // private final UserService userService;
-    // private final AuthService authService;
-    private final UserApplicationService userApplicationService;
+    private final UserService userService;
 
+    /**
+     * 用户登录
+     *
+     * 验证用户凭据，成功后返回用户信息和访问令牌
+     *
+     * @param request 登录请求信息
+     * @return Response<LoginResponse> 登录结果
+     */
     @Operation(summary = "用户登录")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "用户登录成功",
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "用户登录成功",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = ApiResponseDTO.class))),
-        @ApiResponse(responseCode = "401", description = "用户认证失败"),
-        @ApiResponse(responseCode = "500", description = "预期外错误")
-    })
-
-    @Operation(summary = "用户登录")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "用户登录成功",
-                content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = ApiResponseDTO.class))),
-        @ApiResponse(responseCode = "401", description = "用户认证失败"),
-        @ApiResponse(responseCode = "500", description = "预期外错误")
+                        schema = @Schema(implementation = ApiResponse.class))),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "用户认证失败"),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "该用户不存在"),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "预期外错误")
     })
     @PostMapping("/login")
-    public ApiResponseDTO<AuthResponseDTO> login(@RequestBody AuthRequestDTO request) {
-        log.debug("[User-Service] [{}]## {} Start.", this.getClass().getSimpleName(), "login");
+    public ApiResponse<LoginResponse> login(@RequestBody LoginRequest request) {
+        log.debug("[User-Service] [{}]## Method {} Start.", this.getClass().getSimpleName(), "login");
         System.out.println("测试login");
 
-        // try {
-        //     AuthResponseDTO authResponseDto = authService.authenticate(request.getUsername(), request.getPassword());
+        try {
+            LoginResponse loginResponse = userService.login(request);
 
-        //     log.debug("[User-Service] [{}]## Token:{}, UserId:{}", this.getClass().getSimpleName(), authResponseDto.getToken(), authResponseDto.getUserId());
+            log.info("用户登录成功，用户ID: {}, 用户名: {}", loginResponse.getUser().getId(), loginResponse.getUser().getUsername());
 
-        //     return ApiResponseDTO.success(HttpStatus.OK.value(), Constants.MSG_USER_LOGIN_SUCCESS, authResponseDto);
-        // } catch (AuthenticationException e) {
-        //     log.error("[User-Service] [{}]## Catched AuthenticationException. username:{}, password:{}", this.getClass().getSimpleName(), request.getUsername(), request.getPassword());
-        //     return ApiResponseDTO.error(HttpStatus.UNAUTHORIZED.value(), Constants.MSG_USER_LOGIN_FAIL);
-        // }
-        return ApiResponseDTO.success(HttpStatus.OK.value(), Constants.MSG_USER_LOGIN_SUCCESS, AuthResponseDTO.builder().token("token").build());
+            return ApiResponse.success(HttpStatus.OK.value(), Constants.MSG_USER_LOGIN_SUCCESS, loginResponse);
+        } catch (UserServiceException e) {
+            log.error("用户登录失败，用户名: {}, 错误信息: {}", request.getUsername(), e.getMessage());
+            return ApiResponse.error(e.getErrorCode());
+        }
+
     }
 
+    /**
+     * 用户注册
+     *
+     * 接收用户注册信息，进行验证后创建新用户
+     *
+     * @param request 注册请求信息
+     * @return Response<UserResponse> 注册结果
+     */
     @Operation(summary = "用户注册")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "用户注册成功",
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "用户注册成功",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = ApiResponseDTO.class))),
-        @ApiResponse(responseCode = "400", description = "用户已存在"),
-        @ApiResponse(responseCode = "500", description = "预期外错误")
+                        schema = @Schema(implementation = ApiResponse.class))),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "409", description = "该用户已存在"),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "预期外错误")
     })
     @PostMapping("/register")
-    public ApiResponseDTO<AuthResponseDTO> register(@RequestBody AuthRequestDTO request) {
-        log.debug("[User-Service] [{}]## {} Start.", this.getClass().getSimpleName(), "register");
+    public ApiResponse<UserResponse> register(@RequestBody RegisterRequest request) {
+        log.debug("[User-Service] [{}]## Method {} Start.", this.getClass().getSimpleName(), "register");
         System.out.println("测试register");
 
-        // try {
-        //     UserDTO userDTO = userService.register(request);
-        //     AuthResponseDTO authResponseDto = AuthResponseDTO.builder().userId(userDTO.getId()).build();
-        //     log.debug("[User-Service] [{}]## Token:{}, UserId:{}", this.getClass().getSimpleName(), authResponseDto.getToken(), authResponseDto.getUserId());
+        try {
+            log.info("收到用户注册请求，用户名: {}", request.getUsername());
+            UserResponse userResponse = userService.register(request);
+            log.info("用户注册成功，用户ID: {}, 用户名: {}", userResponse.getId(), userResponse.getUsername());
 
-        //     return ApiResponseDTO.success(HttpStatus.CREATED.value(), Constants.MSG_USER_REGISTER_SUCCESS, authResponseDto);
-        // } catch (UserServiceException e) {
-        //     log.error("[User-Service] [{}]## {} code:{}, username:{}", this.getClass().getSimpleName(), Constants.MSG_USER_REGISTER_FAIL, e.getCode(), request.getUsername());
-        //     return ApiResponseDTO.error(e.getCode(), Constants.MSG_USER_REGISTER_FAIL);
-        // }
-        return ApiResponseDTO.success(HttpStatus.CREATED.value(), Constants.MSG_USER_REGISTER_SUCCESS, AuthResponseDTO.builder().token("token").build());
+            return ApiResponse.success(HttpStatus.CREATED.value(), Constants.MSG_USER_REGISTER_SUCCESS, userResponse);
+
+        } catch (UserServiceException e) {
+            log.error("[User-Service] [{}]## {} code:{}, username:{}", this.getClass().getSimpleName(), Constants.MSG_USER_REGISTER_FAIL, e.getErrorCode().getCode(), request.getUsername());
+            return ApiResponse.error(e.getErrorCode());
+        }
+
     }
 
     @Operation(summary = "修改昵称")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "用户注册成功",
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "用户注册成功",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = ApiResponseDTO.class))),
-        @ApiResponse(responseCode = "400", description = "用户已存在"),
-        @ApiResponse(responseCode = "500", description = "预期外错误")
+                        schema = @Schema(implementation = ApiResponse.class))),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "该用户不存在"),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "预期外错误")
     })
     @PutMapping("/{username}/nickname")
-    public ApiResponseDTO<UserDTO> updateNickname(@PathVariable String username, @RequestBody UpdateNicknameRequest request) {
-        log.debug("[User-Service] [{}]## {} Start.", this.getClass().getSimpleName(), "updateNickname");
+    public ApiResponse<UserResponse> updateNickname(@PathVariable String username, @PathVariable String nickname) {
+        log.debug("[User-Service] [{}]## Method {} Start.", this.getClass().getSimpleName(), "updateNickname");
+        System.out.println("测试updateNickname");
 
-        //校验。。。
-
-        // 控制器只负责调用应用层，不处理业务逻辑
-        // User updatedUser = userApplicationService.updateNickname(userId, request.getNickname());
-        // // 为了安全，最佳实践是返回一个DTO而不是直接返回领域实体，这里为了简化直接返回
-        // return ApiResponse.success(updatedUser);
-
-        // try {
-        //     UserDTO userDTO = userService.updateNickname(username, request.getNickname());
-        //     log.debug("[User-Service] [{}]## username:{}, nickname:{}", this.getClass().getSimpleName(), username, request.getNickname());
-
-        //     return ApiResponseDTO.success(HttpStatus.OK.value(), Constants.MSG_UPDATED_NICKNAME_SUCCESS, userDTO);
-        // } catch (UserServiceException e) {
-        //     log.error("[User-Service] [{}]## {} code:{}, username:{}", this.getClass().getSimpleName(), Constants.MSG_UPDATED_NICKNAME_FAIL, e.getCode(), username);
-        //     return ApiResponseDTO.error(e.getCode(), Constants.MSG_UPDATED_NICKNAME_FAIL);
-        // }
-        return ApiResponseDTO.success(HttpStatus.OK.value(), Constants.MSG_UPDATED_NICKNAME_SUCCESS, new UserDTO());
+        try {
+            UserResponse userResponse = userService.updateNickname(username, nickname);
+            log.debug("[User-Service] [{}]## username:{}, nickname:{}", this.getClass().getSimpleName(), username, nickname);
+            return ApiResponse.success(HttpStatus.OK.value(), Constants.MSG_NICKNAME_UPDATE_SUCCESS, userResponse);
+        } catch (EntityNotFoundException e) {
+            log.error("[User-Service] [{}]## {} code:{}, username:{}", this.getClass().getSimpleName(), Constants.MSG_USER_NOT_FOUND, HttpStatus.NOT_FOUND.value(), username);
+            throw e;
+        }
     }
 
+    /**
+     * 根据用户ID获取用户信息
+     *
+     * @param userId 用户ID
+     * @return Response<UserResponse> 用户信息
+     */
+    @Operation(summary = "根据用户ID获得该用户详细信息")
+    @ApiResponses(value = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "用户信息取得成功",
+                content = @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = ApiResponse.class))),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "该用户不存在"),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "预期外错误")
+    })
     @GetMapping("/{userId}")
-    public String getUserById(@PathVariable("userId") Long userId) {
-        System.out.println("测试userid");
-        return "userid:"+userId;
+    public ApiResponse<UserResponse> getUserById(@PathVariable @Min(1) Long userId) {
+        log.debug("收到获取用户信息请求，用户ID: {}", userId);
+
+        try {
+            UserResponse userResponse = userService.getUserById(userId);
+
+            log.debug("获取用户信息成功，用户ID: {}", userId);
+            return ApiResponse.success(HttpStatus.OK.value(), "获取成功", userResponse);
+
+        } catch (EntityNotFoundException e) {
+            log.error("获取用户信息失败，用户ID: {}, 错误信息: {}", userId, e.getMessage());
+            throw e;
+        }
     }
 }

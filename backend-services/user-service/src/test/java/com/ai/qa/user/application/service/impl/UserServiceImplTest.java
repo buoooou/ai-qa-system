@@ -20,20 +20,22 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.ai.qa.user.api.dto.AuthRequestDTO;
-import com.ai.qa.user.api.dto.UserDTO;
+import com.ai.qa.user.api.dto.LoginRequest;
+import com.ai.qa.user.api.dto.RegisterRequest;
+import com.ai.qa.user.api.dto.UserResponse;
 import com.ai.qa.user.api.exception.UserServiceException;
-import com.ai.qa.user.domain.entity.User;
-import com.ai.qa.user.domain.repository.UserRepository;
+import com.ai.qa.user.domain.model.User;
+import com.ai.qa.user.domain.repository.UserRepo;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
 
     private User testUser;
-    private AuthRequestDTO authRequestDTO;
+    private LoginRequest authRequestDTO;
+    private RegisterRequest registerRequest;
 
     @Mock
-    private UserRepository userRepository;
+    private UserRepo userRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
 
@@ -51,17 +53,22 @@ public class UserServiceImplTest {
         testUser.setCreateTime(currentTime);
         testUser.setUpdateTime(currentTime);
 
-        authRequestDTO = new AuthRequestDTO();
+        authRequestDTO = new LoginRequest();
         authRequestDTO.setUsername(testUser.getUsername());
         authRequestDTO.setPassword(testUser.getPassword());
-        authRequestDTO.setNickname(testUser.getNickname());
+
+        registerRequest = new RegisterRequest();
+        registerRequest.setUsername(testUser.getUsername());
+        registerRequest.setPassword(testUser.getPassword());
+        registerRequest.setConfirmPassword(testUser.getPassword());
+        registerRequest.setNickname(testUser.getNickname());
     }
 
     @Test
     void testGetUserByUsername_userexists() {
         given(userRepository.findByUsername("testUserXXX")).willReturn(Optional.of(testUser));
 
-        UserDTO result = userService.getUserByUsername("testUserXXX");
+        UserResponse result = userService.getUserByUsername("testUserXXX");
         assertEquals("testUserXXX", result.getUsername());
         assertEquals("12345678", result.getPassword());
         assertEquals("NicoNico", result.getNickname());
@@ -83,7 +90,7 @@ public class UserServiceImplTest {
     void testregister_userexists() {
         given(userRepository.existsByUsername("testUserXXX")).willReturn(true);
 
-        UserServiceException exception = assertThrows(UserServiceException.class, () -> userService.register(authRequestDTO));
+        UserServiceException exception = assertThrows(UserServiceException.class, () -> userService.register(registerRequest));
 
         assertEquals("用户名已存在。", exception.getMessage());
         verify(userRepository, times(1)).existsByUsername(any());
@@ -94,7 +101,7 @@ public class UserServiceImplTest {
         given(userRepository.existsByUsername("testUserXXX")).willReturn(false);
         given(passwordEncoder.encode(anyString())).willReturn("aaBBccDDeeFF");
 
-        UserDTO result = userService.register(authRequestDTO);
+        UserResponse result = userService.register(registerRequest);
         assertEquals("testUserXXX", result.getUsername());
         assertEquals("aaBBccDDeeFF", result.getPassword());
         assertEquals("NicoNico", result.getNickname());
@@ -106,7 +113,7 @@ public class UserServiceImplTest {
     void testUpdateNickname_userexists() {
         given(userRepository.findByUsername("testUserXXX")).willReturn(Optional.of(testUser));
 
-        UserDTO result = userService.getUserByUsername("testUserXXX");
+        UserResponse result = userService.getUserByUsername("testUserXXX");
         assertEquals("testUserXXX", result.getUsername());
         assertEquals("12345678", result.getPassword());
         assertEquals("NicoNico", result.getNickname());
