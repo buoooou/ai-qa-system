@@ -11,17 +11,17 @@ spring:
     nacos:
       discovery:
         server-addr: 18.144.11.177:8848
-        namespace: public
-      config:
-        server-addr: 18.144.11.177:8848
-        # 明确告诉 Nacos Config 默认的文件扩展名是 yml
-        file-extension: yml
-        group: DEFAULT_GROUP
-        namespace: public
-        shared-configs:
-            - data-id: shared-config.yml
-              group: DEFAULT_GROUP
-              refresh: true
+        # namespace: public
+      # config:
+      #   server-addr: 18.144.11.177:8848
+      #   # 明确告诉 Nacos Config 默认的文件扩展名是 yml
+      #   file-extension: yml
+      #   group: DEFAULT_GROUP
+      #   namespace: public
+      #   shared-configs:
+      #       - data-id: shared-config.yml
+      #         group: DEFAULT_GROUP
+      #         refresh: true
     gateway:
       discovery:
         locator:
@@ -65,6 +65,13 @@ spring:
         - name: RequestRateLimiter
           args:
             key-resolver: '#{@ipKeyResolver}'
+    # 负载均衡配置
+    loadbalancer:
+      ribbon:
+        enabled: false # 禁用Ribbon，使用Spring Cloud LoadBalancer
+      retry:
+        enabled: true # 启用重试机制
+
 
 logging:
   level: 
