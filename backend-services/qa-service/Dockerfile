@@ -11,7 +11,7 @@ WORKDIR /app
 COPY target/*.jar app.jar
 
 # 暴露端口
-EXPOSE 8081
+EXPOSE 8082
 
 # 设置JVM参数
 ENV JAVA_OPTS="-Xmx512m -Xms256m"
