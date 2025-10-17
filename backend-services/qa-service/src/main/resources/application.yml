@@ -20,7 +20,8 @@ spring:
     name: qa-service-hl
   cloud:
     nacos:
-      server-addr: 18.144.11.177:8080
+      discovery:
+        server-addr: 18.144.11.177:8080
   datasource:
     # url: jdbc:mysql://18.144.11.177:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     url: jdbc:mysql://mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
