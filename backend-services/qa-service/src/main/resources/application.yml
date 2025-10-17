@@ -26,9 +26,10 @@ logging:
   level: 
     root: debug
     '[com.alibaba.nacos]': debug
-    '[com.ai.qa.service]': debug
+    '[com.ai.qa]': debug
+    '[org.springframework.cloud]': debug
     '[org.hibernate.SQL]': debug
-    '[org.hibernate.type.descriptor.sql.BasicBinder]': trace
+#    '[org.hibernate.type.descriptor.sql.BasicBinder]': trace
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
