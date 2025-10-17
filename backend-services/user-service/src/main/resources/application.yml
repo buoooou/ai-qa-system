@@ -39,7 +39,7 @@ logging:
     root: debug
     '[com.ai.qa]': debug
     '[com.alibaba.nacos]': info
-    '[org.springframework.cloud]': debug
+    '[org.springframework.cloud]': info
     '[org.hibernate.sql]': info
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"

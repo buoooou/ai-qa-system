@@ -42,36 +42,19 @@ public class SecurityConfig {
         //         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
         //         .build();
 
-        return http.csrf().disable()
-                // .and()
-                .authorizeRequests()
-                    .antMatchers("/api/user/**").permitAll()
-                    .antMatchers("/api/auth/**").permitAll()
-                    .antMatchers("/api/user/**").permitAll()
-                    .antMatchers("/swagger-ui/**").permitAll()
-                    .antMatchers("/swagger-ui.html").permitAll()
-                    .antMatchers("/swagger-resources/**").permitAll()
-                    .antMatchers("/v3/api-docs/**").permitAll()
-                    .antMatchers("/api-docs/**").permitAll()
-                    .antMatchers("/webjars/**").permitAll()
-                    .antMatchers("/favicon.ico").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                // .authorizeHttpRequests(
-                //         auth -> auth
-                //                 .requestMatchers(
-                //                         "/api/user/**",
-                //                         "/api/auth/**",
-                //                         "/swagger-ui/**",
-                //                         "/swagger-ui.html",
-                //                         "/swagger-resources/**",
-                //                         "/v3/api-docs/**",
-                //                         "/api-docs/**",
-                //                         "/webjars/**",
-                //                         "/favicon.ico"
-                //                 ).permitAll()
-                //                 .anyRequest().authenticated()
-                // )
+        return http.csrf(csrf -> csrf.disable())
+                .authorizeRequests(requests -> requests
+                        .antMatchers("/api/user/**").permitAll()
+                        .antMatchers("/api/auth/**").permitAll()
+                        .antMatchers("/api/user/**").permitAll()
+                        .antMatchers("/swagger-ui/**").permitAll()
+                        .antMatchers("/swagger-ui.html").permitAll()
+                        .antMatchers("/swagger-resources/**").permitAll()
+                        .antMatchers("/v3/api-docs/**").permitAll()
+                        .antMatchers("/api-docs/**").permitAll()
+                        .antMatchers("/webjars/**").permitAll()
+                        .antMatchers("/favicon.ico").permitAll()
+                        .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 // .exceptionHandling(exceptions -> exceptions
