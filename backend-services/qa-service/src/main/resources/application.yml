@@ -25,6 +25,7 @@ spring:
 logging:
   level: 
     root: debug
+    '[com.alibaba.nacos]': debug
     '[com.ai.qa.service]': debug
     '[org.hibernate.SQL]': debug
     '[org.hibernate.type.descriptor.sql.BasicBinder]': trace
