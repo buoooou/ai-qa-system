@@ -17,7 +17,7 @@ import com.ai.qa.service.api.dto.UserInfoDTO;
  *              - fallback: 指定服务降级处理类，当服务不可用时执行降级逻辑
  */
 // name/value 属性值必须与目标服务在 Nacos 上注册的服务名完全一致！
-@FeignClient(name = "user-service-hl")
+@FeignClient(name = "user-service")
 public interface UserClient {
 
     /**

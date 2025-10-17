@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: user-service-hl
+    name: user-service
   cloud:
     nacos:
       discovery:
@@ -32,7 +32,7 @@ springdoc:
   group-configs:
     - group: 'user-service'
       display-name: User Service
-      paths-to-match: /api/users/**
+      paths-to-match: /api/user/**
 
 logging:
   level: 

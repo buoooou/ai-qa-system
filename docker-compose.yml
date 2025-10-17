@@ -36,6 +36,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ai_qa_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ai_qa_system
+      HOST_IP: 56.228.34.193
+      HOST_PORT: 8081
     ports:
       - "8081:8081"
     depends_on:
@@ -63,6 +65,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ai_qa_system
       GEMINI_API_KEY: AIzaSyDSpC9NbCG6L2e9znVwrwCoiTZj0E5gEvM
       USER_SERVICE_URL: http://user-service:8081
+      HOST_IP: 56.228.34.193
+      HOST_PORT: 8082
     ports:
       - "8082:8082"
     depends_on:
@@ -87,7 +91,9 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       USER_SERVICE_URL: http://user-service:8081
       QA_SERVICE_URL: http://qa-service:8082
-      NEXT_PUBLIC_API_BASE_URL: http://56.228.34.193:8080
+      # NEXT_PUBLIC_API_BASE_URL: http://56.228.34.193:8080
+      HOST_IP: 56.228.34.193
+      HOST_PORT: 8080
     ports:
       - "8080:8080"
     depends_on:
@@ -110,7 +116,8 @@ services:
     container_name: ai-qa-frontend
     restart: always
     environment:
-      NEXT_PUBLIC_API_BASE_URL: http://56.228.34.193:8080
+      # NEXT_PUBLIC_API_BASE_URL: http://56.228.34.193:8080
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
     ports:
       - "3000:3000"
     depends_on:
