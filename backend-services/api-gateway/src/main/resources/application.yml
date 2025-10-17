@@ -26,7 +26,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 18.144.11.177:8080
+        server-addr: 18.144.11.177:8848
       config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
         file-extension: yml
