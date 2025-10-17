@@ -28,7 +28,7 @@ public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long>
      * @param userId 用户ID
      * @return 该用户的所有QA历史记录列表，按时间倒序排列
      */
-    @Query("SELECT q FROM QAHistoryPO q WHERE q.userId = :userId ORDER BY q.timestamp DESC")
+    @Query("SELECT q FROM QAHistoryPO q WHERE q.userId = :userId ORDER BY q.create_time DESC")
     List<QAHistoryPO> findByUserId(@Param("userId") Long userId);
 
     /**
@@ -47,7 +47,7 @@ public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long>
      * @param sessionId 会话ID
      * @return 该会话的所有QA历史记录列表，按时间倒序排列
      */
-    @Query("SELECT q FROM QAHistoryPO q WHERE q.sessionId = :sessionId ORDER BY q.timestamp DESC")
+    @Query("SELECT q FROM QAHistoryPO q WHERE q.sessionId = :sessionId ORDER BY q.create_time DESC")
     List<QAHistoryPO> findBySessionId(@Param("sessionId") String sessionId);
     
     /**
@@ -57,7 +57,7 @@ public interface JpaQAHistoryRepository extends JpaRepository<QAHistoryPO, Long>
      * @param sessionId 会话ID
      * @return 符合条件的QA历史记录列表，按时间倒序排列
      */
-    @Query("SELECT q FROM QAHistoryPO q WHERE q.userId = :userId AND q.sessionId = :sessionId ORDER BY q.timestamp DESC")
+    @Query("SELECT q FROM QAHistoryPO q WHERE q.userId = :userId AND q.sessionId = :sessionId ORDER BY q.create_time DESC")
     List<QAHistoryPO> findByUserIdAndSessionId(@Param("userId") Long userId, @Param("sessionId") String sessionId);
 
     /**

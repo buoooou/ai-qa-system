@@ -36,11 +36,11 @@ springdoc:
 
 logging:
   level: 
-    root: info
+    root: debug
     '[com.ai.qa]': debug
     '[com.alibaba.nacos]': info
-    '[org.springframework.cloud]': warn
-    '[org.hibernate]': error
+    '[org.springframework.cloud]': debug
+    '[org.hibernate.sql]': debug
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
