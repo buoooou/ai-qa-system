@@ -16,8 +16,8 @@
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.30</lombok.version>
-        <nacos-client.version>2.3.0</nacos-client.version>
-        <grpc.version>1.58.0</grpc.version>
+        <!-- <nacos-client.version>2.3.0</nacos-client.version>
+        <grpc.version>1.58.0</grpc.version> -->
     </properties>
 
     <!-- 2. 定义自己的artifactId -->
@@ -48,7 +48,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
             <version>${nacos-client.version}</version>
@@ -67,7 +67,7 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-api</artifactId>
             <version>${grpc.version}</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -112,15 +112,10 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.ai.qa.service.QAServiceApplication</mainClass>
-                    <!-- 关键配置：修复类加载 -->
-                    <layers>
-                        <enabled>false</enabled>
-                    </layers>
                     <excludes>
                         <exclude>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-loader-tools</artifactId>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
                 </configuration>
@@ -128,7 +123,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version> <!-- 这是一个稳定版本，可以保持不变 -->
+                <version>3.11.0</version> <!-- 这是一个稳定版本，可以保持不变 -->
                 <configuration>
                     <source>${maven.compiler.source}</source> <!-- 再次确认源文件版本 -->
                     <target>${maven.compiler.target}</target> <!-- 再次确认目标字节码版本 -->

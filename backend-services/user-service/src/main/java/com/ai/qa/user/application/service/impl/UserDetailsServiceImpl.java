@@ -1,5 +1,7 @@
 package com.ai.qa.user.application.service.impl;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,6 @@ import com.ai.qa.user.common.Constants;
 import com.ai.qa.user.domain.model.User;
 import com.ai.qa.user.domain.repository.UserRepo;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service

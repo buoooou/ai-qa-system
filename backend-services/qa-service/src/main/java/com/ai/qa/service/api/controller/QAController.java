@@ -2,6 +2,9 @@ package com.ai.qa.service.api.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +23,6 @@ import com.ai.qa.service.domain.service.QAService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -83,7 +82,7 @@ public class QAController {
     @Operation(summary = "获取用户问答历史", description = "获取指定用户的所有问答记录，按时间倒序排列")
     @GetMapping("/history/{userId}")
     public ApiResponse<List<QAResponse>> getUserHistory(
-            @Parameter(description = "用户ID", required = true) @PathVariable @NotNull @Min(1) Long userId) {
+            @Parameter(description = "用户ID", required = true) @PathVariable @Min(1) Long userId) {
         log.info("收到查询用户问答历史请求，用户ID: {}", userId);
 
         try {
@@ -110,7 +109,7 @@ public class QAController {
      */
     @GetMapping("/history/{userId}/paged")
     public ApiResponse<List<QAResponse>> getUserHistoryPaged(
-            @PathVariable @NotNull @Min(1) Long userId,
+            @PathVariable @Min(1) Long userId,
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) int size) {
 
@@ -146,8 +145,8 @@ public class QAController {
      */
     @GetMapping("/search/{userId}")
     public ApiResponse<List<QAResponse>> searchUserHistory(
-            @PathVariable @NotNull @Min(1) Long userId,
-            @RequestParam @NotBlank String keyword) {
+            @PathVariable @Min(1) Long userId,
+            @RequestParam String keyword) {
 
         log.info("收到搜索用户问答历史请求，用户ID: {}, 关键词: {}", userId, keyword);
 
@@ -175,7 +174,7 @@ public class QAController {
      * @return ApiResponse<QAResponse> 问答记录
      */
     @GetMapping("/{id}")
-    public ApiResponse<QAResponse> getQaById(@PathVariable @NotNull @Min(1) Long id) {
+    public ApiResponse<QAResponse> getQaById(@PathVariable @Min(1) Long id) {
         log.debug("收到根据ID查询问答记录请求，ID: {}", id);
 
         try {
@@ -204,7 +203,7 @@ public class QAController {
      * @return ApiResponse<Long> 问答总数
      */
     @GetMapping("/count/{userId}")
-    public ApiResponse<Long> getUserQaCount(@PathVariable @NotNull @Min(1) Long userId) {
+    public ApiResponse<Long> getUserQaCount(@PathVariable @Min(1) Long userId) {
         log.debug("收到查询用户问答总数请求，用户ID: {}", userId);
 
         try {
@@ -230,8 +229,8 @@ public class QAController {
      */
     @DeleteMapping("/{id}")
     public ApiResponse<Boolean> deleteQaRecord(
-            @PathVariable @NotNull @Min(1) Long id,
-            @RequestParam @NotNull @Min(1) Long userId) {
+            @PathVariable @Min(1) Long id,
+            @RequestParam @Min(1) Long userId) {
 
         log.info("收到删除问答记录请求，记录ID: {}, 用户ID: {}", id, userId);
 
@@ -262,7 +261,7 @@ public class QAController {
      */
     @DeleteMapping("/user/{userId}/all")
     public ApiResponse<Integer> deleteUserAllQaRecords(
-            @PathVariable @NotNull @Min(1) Long userId) {
+            @PathVariable @Min(1) Long userId) {
 
         log.info("收到批量删除用户问答记录请求，用户ID: {}", userId);
 

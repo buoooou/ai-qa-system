@@ -2,6 +2,8 @@ package com.ai.qa.user.api.controller;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,6 @@ import com.ai.qa.user.common.Constants;
 import com.ai.qa.user.common.JwtUtil;
 import com.ai.qa.user.domain.model.User;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

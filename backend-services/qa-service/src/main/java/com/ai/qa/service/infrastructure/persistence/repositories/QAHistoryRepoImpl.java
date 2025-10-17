@@ -3,6 +3,8 @@ package com.ai.qa.service.infrastructure.persistence.repositories;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,6 @@ import com.ai.qa.service.domain.repository.QAHistoryRepo;
 import com.ai.qa.service.infrastructure.persistence.entities.QAHistoryPO;
 import com.ai.qa.service.infrastructure.persistence.mapper.QAHistoryMapper;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 /**

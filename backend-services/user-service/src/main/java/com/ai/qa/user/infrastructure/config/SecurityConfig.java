@@ -6,7 +6,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.ai.qa.user.application.service.impl.UserDetailsServiceImpl;
 
 import lombok.RequiredArgsConstructor;
+
 
 @Configuration
 @EnableWebSecurity
@@ -27,23 +27,51 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(
-                        auth -> auth
-                                .requestMatchers(
-                                        "/api/user/**",
-                                        "/api/auth/**",
-                                        "/swagger-ui/**",
-                                        "/swagger-ui.html",
-                                        "/swagger-resources/**",
-                                        "/v3/api-docs/**",
-                                        "/api-docs/**",
-                                        "/webjars/**",
-                                        "/swagger-resources/**",
-                                        "/favicon.ico"
-                                ).permitAll()
-                                .anyRequest().authenticated()
-                )
+        // return http
+        //         .csrf().disable()
+        //         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        //         .and()
+        //         .authorizeRequests()
+        //         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+        //         .antMatchers(HttpMethod.POST, "/api/user/login", "/api/user/register").permitAll()
+        //         .antMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+        //         .antMatchers("/actuator/health", "/actuator/info").permitAll()
+        //         .antMatchers("/actuator/**").hasRole("ADMIN")
+        //         .anyRequest().authenticated()
+        //         .and()
+        //         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+        //         .build();
+
+        return http.csrf().disable()
+                // .and()
+                .authorizeRequests()
+                    .antMatchers("/api/user/**").permitAll()
+                    .antMatchers("/api/auth/**").permitAll()
+                    .antMatchers("/api/user/**").permitAll()
+                    .antMatchers("/swagger-ui/**").permitAll()
+                    .antMatchers("/swagger-ui.html").permitAll()
+                    .antMatchers("/swagger-resources/**").permitAll()
+                    .antMatchers("/v3/api-docs/**").permitAll()
+                    .antMatchers("/api-docs/**").permitAll()
+                    .antMatchers("/webjars/**").permitAll()
+                    .antMatchers("/favicon.ico").permitAll()
+                    .anyRequest().authenticated()
+                .and()
+                // .authorizeHttpRequests(
+                //         auth -> auth
+                //                 .requestMatchers(
+                //                         "/api/user/**",
+                //                         "/api/auth/**",
+                //                         "/swagger-ui/**",
+                //                         "/swagger-ui.html",
+                //                         "/swagger-resources/**",
+                //                         "/v3/api-docs/**",
+                //                         "/api-docs/**",
+                //                         "/webjars/**",
+                //                         "/favicon.ico"
+                //                 ).permitAll()
+                //                 .anyRequest().authenticated()
+                // )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 // .exceptionHandling(exceptions -> exceptions

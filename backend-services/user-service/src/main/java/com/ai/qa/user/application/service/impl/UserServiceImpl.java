@@ -3,6 +3,8 @@ package com.ai.qa.user.application.service.impl;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +24,6 @@ import com.ai.qa.user.domain.model.User;
 import com.ai.qa.user.domain.repository.UserRepo;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

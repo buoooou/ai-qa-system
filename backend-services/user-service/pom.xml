@@ -101,12 +101,20 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version> <!-- 这是一个稳定版本，可以保持不变 -->
+                <version>3.10.1</version> <!-- 这是一个稳定版本，可以保持不变 -->
                 <configuration>
                     <source>${maven.compiler.source}</source> <!-- 再次确认源文件版本 -->
                     <target>${maven.compiler.target}</target> <!-- 再次确认目标字节码版本 -->

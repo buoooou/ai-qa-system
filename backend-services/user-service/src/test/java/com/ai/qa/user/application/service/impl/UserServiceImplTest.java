@@ -12,6 +12,8 @@ import static org.mockito.Mockito.verify;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,8 +28,6 @@ import com.ai.qa.user.api.dto.UserResponse;
 import com.ai.qa.user.api.exception.UserServiceException;
 import com.ai.qa.user.domain.model.User;
 import com.ai.qa.user.domain.repository.UserRepo;
-
-import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {

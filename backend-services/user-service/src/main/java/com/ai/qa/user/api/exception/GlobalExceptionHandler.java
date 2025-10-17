@@ -1,5 +1,7 @@
 package com.ai.qa.user.api.exception;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -7,7 +9,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.ai.qa.user.api.dto.ApiResponse;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice

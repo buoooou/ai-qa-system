@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.ai.qa.service.api.dto.ApiResponse;
@@ -15,7 +17,6 @@ import com.ai.qa.service.domain.repository.QAHistoryRepo;
 import com.ai.qa.service.infrastructure.feign.GeminiClient;
 import com.ai.qa.service.infrastructure.feign.UserClient;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
