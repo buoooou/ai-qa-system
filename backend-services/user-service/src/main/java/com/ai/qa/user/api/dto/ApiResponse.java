@@ -1,62 +1,70 @@
 package com.ai.qa.user.api.dto;
 
-import com.ai.qa.user.api.exception.ErrorCode;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 
-// @JsonInclude(JsonInclude.Include.NON_NULL) // 序列化时忽略null值的字段
+import com.ai.qa.user.api.exception.ErrorCode;
+import com.ai.qa.user.common.Constants;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Schema(description = "统一API响应")
 public class ApiResponse<T> implements Serializable {
 
-    private final int code;
-    private final String message;
-    private final boolean success;
+    @Schema(description = "HTTP Status Code")
+    private int code;
 
+    @Schema(description = "业务消息")
+    private String message;
+
+    @Schema(description = "响应数据")
     @JsonInclude(JsonInclude.Include.NON_NULL) // 仅在data不为null时序列化
     private T data;
 
-    private ApiResponse(int code, String message, boolean success, T data) {
-        this.code = code;
-        this.message = message;
-        this.success = success;
-        this.data = data;
+    private boolean success;
+
+    public static <T> ApiResponse<T> success(int code, T data) {
+        return ApiResponse.<T>builder()
+                .success(true)
+                .code(code)
+                .message(Constants.MSG_RES_SUCCESS)
+                .data(data)
+                .build();
     }
 
-    // --- 静态工厂方法 ---
-
-    // 成功的响应（带数据）
-    public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getMessage(), true, data);
+    public static <T> ApiResponse<T> success(int code, String message, T data) {
+        return ApiResponse.<T>builder()
+                .success(true)
+                .code(code)
+                .message(message)
+                .data(data)
+                .build();
     }
 
-    // 成功的响应（不带数据）
-    public static <T> ApiResponse<T> success() {
-        return success(null);
+    public static <T> ApiResponse<T> error(ErrorCode errorCode) {
+        return ApiResponse.<T>builder()
+                .success(false)
+                .code(errorCode.getCode())
+                .message(errorCode.getMessage())
+                .data(null)
+                .build();
     }
 
-    // 失败的响应
-    public static <T> ApiResponse<T> failure(ErrorCode errorCode) {
-        return new ApiResponse<>(errorCode.getCode(), errorCode.getMessage(), false, null);
+    public static <T> ApiResponse<T> error(ErrorCode errorCode, String message) {
+        return ApiResponse.<T>builder()
+                .success(false)
+                .code(errorCode.getCode())
+                .message(message)
+                .data(null)
+                .build();
     }
 
-    // 失败的响应（可自定义覆盖错误信息）
-    public static <T> ApiResponse<T> failure(ErrorCode errorCode, String message) {
-        return new ApiResponse<>(errorCode.getCode(), message, false, null);
-    }
-
-    // --- Getters ---
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public T getData() {
-        return data;
-    }
 }
