@@ -1,20 +1,5 @@
 server:
   port: 8082
-logging:
-  level: 
-    '[com.ai.qa.service]': debug
-    '[org.hibernate.SQL]': debug
-    '[org.hibernate.type.descriptor.sql.BasicBinder]': trace
-  pattern:
-    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-  file:
-    name: logs/qa-service.log
-  logback:
-    rollingpolicy:
-      max-file-size: 50MB
-      max-history: 30
-      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
 spring:
   application:
     name: qa-service-hl
@@ -36,6 +21,23 @@ spring:
         jdbc:
           serverTimezone: GMT+8
     show-sql: true
+
+logging:
+  level: 
+    root: debug
+    '[com.ai.qa.service]': debug
+    '[org.hibernate.SQL]': debug
+    '[org.hibernate.type.descriptor.sql.BasicBinder]': trace
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/qa-service.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
 
 springdoc:
   # packages-to-scan: com.ai.qa.service

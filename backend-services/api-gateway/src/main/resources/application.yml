@@ -1,42 +1,24 @@
 server:
   port: 8080 # 所有后端请求的入口
-logging:
-  level: 
-    # (可选) 将 Reactor Netty 的日志也设为 DEBUG，可以看到更底层的网络交互
-    '[reactor.netty.http.client]': debug
-    '[com.alibaba.nacos]': debug
-    '[org.springframework.cloud.gateway]': debug
-  pattern:
-    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-  file:
-    name: logs/api-gateway.log
-  logback:
-    rollingpolicy:
-      max-file-size: 50MB
-      max-history: 30
-      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
+
 spring:
   application:
     name: api-gateway-hl
-  config:
-    import:
-      # 引入共享配置
-      - "optional:nacos:shared-config.yml"  
+
   cloud:
     nacos:
       discovery:
         server-addr: 18.144.11.177:8848
-      config:
+#      config:
         # 明确告诉 Nacos Config 默认的文件扩展名是 yml
-        file-extension: yml
-        group: DEFAULT_GROUP
-        import-check:
-          enabled: false
+#        file-extension: yml
+#        group: DEFAULT_GROUP
+#        import-check:
+#          enabled: false
     gateway:
       discovery:
         locator:
-          enabled: false # 开启基于服务发现的路由功能
+          enabled: true # 开启基于服务发现的路由功能
           lower-case-service-id: true # 将服务名转为小写路径，e.g., user-service -> /user-service/**
       globalcors:
         # 全局CORS配置
@@ -76,10 +58,29 @@ spring:
         - name: RequestRateLimiter
           args:
             key-resolver: '#{@ipKeyResolver}'
+
+logging:
+  level: 
+    # (可选) 将 Reactor Netty 的日志也设为 DEBUG，可以看到更底层的网络交互
+    '[reactor.netty.http.client]': debug
+    '[com.alibaba.nacos]': debug
+    '[org.springframework.cloud.gateway]': debug
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/api-gateway.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
     enabled: true
+
 jwt:
   secret: HhyD5jnwwGbyecOrbkAY6OEWNM/zDgF2qwFlF4MFAHznR4AaLweF8Xu71MF4TaYUfX7dRY9JIzOgF/yTYqx5Qg==
   # 24小时
