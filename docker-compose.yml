@@ -5,11 +5,12 @@ services:
   mysql:
     image: mysql:8.0
     container_name: ai-qa-mysql
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ai_qa_system
       MYSQL_DATABASE: ai_qa_system
-      MYSQL_USER: root
-      MYSQL_PASSWORD: ai_qa_system
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: ai_qa_system
     ports:
       - "3306:3306"
     volumes:
