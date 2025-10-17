@@ -7,7 +7,11 @@ spring:
     nacos:
       discovery:
         server-addr: 18.144.11.177:8848
-        enabled: false
+        enabled: true
+        ip: ${HOST_IP:56.228.34.193}  # 必须显式指定可访问的IP
+        port: ${SERVER_PORT:8082}
+        namespace: public
+        group: DEFAULT_GROUP
   datasource:
     # url: jdbc:mysql://18.144.11.177:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     url: jdbc:mysql://mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
@@ -26,8 +30,8 @@ spring:
 logging:
   level: 
     root: debug
-    '[com.alibaba.nacos]': debug
-    '[com.alibaba.cloud.nacos]': debug
+    '[com.alibaba.nacos.client.naming]': debug
+    '[com.alibaba.nacos.client.config]': debug
     '[com.ai.qa]': debug
     # '[org.springframework.cloud]': info
     '[org.springframework.cloud.client.serviceregistry]': debug
