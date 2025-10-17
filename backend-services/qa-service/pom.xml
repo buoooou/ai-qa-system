@@ -12,13 +12,16 @@
         <relativePath>../pom.xml</relativePath> <!-- 确保路径正确 -->
     </parent>
 
-    <!-- 2. 定义自己的artifactId -->
-    <artifactId>qa-service</artifactId>
     <properties>
         <spring-cloud.loadbalancer.ribbon.enabled>false</spring-cloud.loadbalancer.ribbon.enabled>
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <lombok.version>1.18.30</lombok.version>
     </properties>
+
+    <!-- 2. 定义自己的artifactId -->
+    <artifactId>qa-service</artifactId>
+    
     <dependencies>
         <!-- 作为Web服务的基础 -->
         <dependency>
@@ -53,6 +56,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
