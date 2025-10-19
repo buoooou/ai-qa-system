@@ -22,20 +22,20 @@ public enum ErrorCode {
     // --- 服务器错误 (5XX) ---
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, Constants.MSG_GLOBAL_INTERNAL_ERROR),
     FETCH_QA_HISTORY_FIAL(HttpStatus.INTERNAL_SERVER_ERROR, 5001, Constants.MSG_FETCH_QA_HISTORY_FAIL),
-    ELETE_QA_HISTORY_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 5002, Constants.MSG_DELETE_QA_HISTORY_FAIL),
+    DELETE_QA_HISTORY_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 5002, Constants.MSG_DELETE_QA_HISTORY_FAIL),
     SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, 503, Constants.MSG_GLOBAL_SERVICE_UNAVAILABLE);
 
     private final HttpStatus httpStatus;
     private final int code;
     private final String message;
 
-    ErrorCode(HttpStatus httpStatus, int code, String message) {
+    ErrorCode(final HttpStatus httpStatus, final int code, final String message) {
         this.httpStatus = httpStatus;
         this.code = code;
         this.message = message;
     }
 
-    public static ErrorCode valueFrom(String message) {
+    public static ErrorCode valueFrom(final String message) {
         return Arrays.stream(ErrorCode.values()).filter(errorCode -> errorCode.getMessage().equals(message)).findFirst().orElseThrow(() -> new IllegalStateException("未找到匹配状态"));
     }
 }

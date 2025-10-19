@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ai.qa.service.api.dto.ApiResponse;
 import com.ai.qa.service.api.dto.QARequest;
 import com.ai.qa.service.api.dto.QAResponse;
+import com.ai.qa.service.api.dto.UserInfoDTO;
 import com.ai.qa.service.api.exception.ErrorCode;
 import com.ai.qa.service.domain.service.QAService;
+import com.ai.qa.service.infrastructure.feign.UserClient;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,6 +37,13 @@ import lombok.extern.slf4j.Slf4j;
 public class QAController {
 
     private final QAService qaService;
+
+    /**
+     * 用户服务客户端
+     *
+     * 通过Feign Client调用user-service
+     */
+    private final UserClient userClient;
 
     @GetMapping("/test")
     public String testFeign() {
@@ -242,12 +252,12 @@ public class QAController {
                 return ApiResponse.success(ErrorCode.SUCCESS.getCode(), "删除成功", true);
             } else {
                 log.warn("删除问答记录失败，记录ID: {}", id);
-                return ApiResponse.error(ErrorCode.ELETE_QA_HISTORY_FAIL, "删除失败：记录不存在或无权限");
+                return ApiResponse.error(ErrorCode.DELETE_QA_HISTORY_FAIL, "删除失败：记录不存在或无权限");
             }
 
         } catch (Exception e) {
             log.error("删除问答记录异常，记录ID: {}, 错误信息: {}", id, e.getMessage());
-            return ApiResponse.error(ErrorCode.ELETE_QA_HISTORY_FAIL, "删除失败：" + e.getMessage());
+            return ApiResponse.error(ErrorCode.DELETE_QA_HISTORY_FAIL, "删除失败：" + e.getMessage());
         }
     }
 
@@ -273,7 +283,7 @@ public class QAController {
 
         } catch (Exception e) {
             log.error("批量删除用户问答记录失败，用户ID: {}, 错误信息: {}", userId, e.getMessage());
-            return ApiResponse.error(ErrorCode.ELETE_QA_HISTORY_FAIL, "批量删除失败：" + e.getMessage());
+            return ApiResponse.error(ErrorCode.DELETE_QA_HISTORY_FAIL, "批量删除失败：" + e.getMessage());
         }
     }
 
@@ -297,4 +307,61 @@ public class QAController {
         return ApiResponse.success(ErrorCode.SUCCESS.getCode(), "获取服务信息成功", info);
     }
 
+    /**
+     * 测试Feign Client - 获取用户信息
+     *
+     * 通过Feign Client调用user-service获取用户信息 用于测试服务间通信是否正常
+     *
+     * @param userId 用户ID
+     * @return ApiResponse<UserInfoDTO> 用户信息
+     */
+    @GetMapping("/test/user/{userId}")
+    public ApiResponse<UserInfoDTO> testGetUserInfo(@PathVariable @NotNull @Min(1) Long userId) {
+        log.info("测试Feign Client获取用户信息，用户ID: {}", userId);
+
+        try {
+            ApiResponse<UserInfoDTO> response = userClient.getUserById(userId);
+
+            if (response != null && response.getCode() == 200 && response.getData() != null) {
+                log.info("Feign Client调用成功，用户ID: {}, 用户名: {}",
+                        userId, response.getData().getUsername());
+                return ApiResponse.success(ErrorCode.SUCCESS.getCode(), "Feign Client调用成功", response.getData());
+            } else {
+                log.warn("Feign Client调用失败，用户ID: {}, 响应: {}", userId, response);
+                return ApiResponse.error(ErrorCode.BAD_REQUEST, "用户不存在或服务调用失败");
+            }
+
+        } catch (Exception e) {
+            log.error("Feign Client调用异常，用户ID: {}, 错误信息: {}", userId, e.getMessage(), e);
+            return ApiResponse.error(ErrorCode.SERVICE_UNAVAILABLE, "服务间调用失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 测试Feign Client - 检查用户服务健康状态
+     *
+     * 通过Feign Client调用user-service的健康检查接口
+     *
+     * @return ApiResponse<String> 健康检查结果
+     */
+    @GetMapping("/test/user-service/health")
+    public ApiResponse<String> testUserServiceHealth() {
+        log.info("测试Feign Client调用用户服务健康检查");
+
+        try {
+            ApiResponse<String> response = userClient.checkHealth();
+
+            if (response != null && response.getCode() == 200) {
+                log.info("用户服务健康检查成功，响应: {}", response.getMessage());
+                return ApiResponse.success(ErrorCode.SUCCESS.getCode(), "用户服务健康检查成功", response.getData());
+            } else {
+                log.warn("用户服务健康检查失败，响应: {}", response);
+                return ApiResponse.error(ErrorCode.BAD_REQUEST, "用户服务健康检查失败");
+            }
+
+        } catch (Exception e) {
+            log.error("用户服务健康检查异常，错误信息: {}", e.getMessage(), e);
+            return ApiResponse.error(ErrorCode.SERVICE_UNAVAILABLE, "用户服务健康检查异常：" + e.getMessage());
+        }
+    }
 }

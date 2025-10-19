@@ -3,10 +3,10 @@ server:
 spring:
   application:
     name: api-gateway
-  config:
-    import:
-      - "optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}"
-      - "optional:nacos:shared-config.yml"
+  # config:
+  #   import:
+  #     - "optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}"
+  #     - "optional:nacos:shared-config.yml"
   cloud:
     nacos:
       discovery:
@@ -47,6 +47,65 @@ spring:
             allowCredentials: true
             maxAge: 3600
       routes:
+        # 用户服务Swagger路由 - 必须放在通用路由之前
+        - id: user_swagger_ui
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/swagger-ui/**
+          filters:
+            - StripPrefix=2
+        
+        - id: user_swagger_docs
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+        
+        - id: user_swagger_webjars
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/webjars/**
+          filters:
+            - StripPrefix=2
+        
+        - id: user_swagger_config
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/v3/api-docs/swagger-config
+          filters:
+            - StripPrefix=2
+
+        # 问答服务Swagger路由 - 必须放在通用路由之前
+        - id: qa_swagger_ui
+          uri: lb://qa-service
+          predicates:
+            - Path=/api/qa/swagger-ui/**
+          filters:
+            - StripPrefix=2
+        
+        - id: qa_swagger_docs
+          uri: lb://qa-service
+          predicates:
+            - Path=/api/qa/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+        
+        - id: qa_swagger_webjars
+          uri: lb://qa-service
+          predicates:
+            - Path=/api/qa/webjars/**
+          filters:
+            - StripPrefix=2
+        
+        - id: qa_swagger_config
+          uri: lb://qa-service
+          predicates:
+            - Path=/api/qa/v3/api-docs/swagger-config
+          filters:
+            - StripPrefix=2
+
+        # 用户服务路由
         - id: user_service_route
           uri: lb://user-service # lb:// 表示从Nacos负载均衡地选择一个user-service实例
           predicates:
@@ -54,6 +113,15 @@ spring:
           filters:
             - StripPrefix=0
 
+        # JWT认证服务路由
+        - id: auth_service_route
+          uri: lb://user-service
+          predicates:
+            - Path=/api/auth/** # 匹配所有/api/auth/开头的请求
+          filters:
+            - StripPrefix=0
+
+        # 问答服务路由
         - id: qa_service_route
           uri: lb://qa-service
           predicates:
@@ -82,7 +150,7 @@ logging:
   level: 
     # (可选) 将 Reactor Netty 的日志也设为 DEBUG，可以看到更底层的网络交互
     '[reactor.netty.http.client]': debug
-    '[com.alibaba.nacos]': debug
+    # '[com.alibaba.nacos]': debug
     '[org.springframework.cloud.gateway]': debug
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
@@ -104,3 +172,15 @@ jwt:
   secret: HhyD5jnwwGbyecOrbkAY6OEWNM/zDgF2qwFlF4MFAHznR4AaLweF8Xu71MF4TaYUfX7dRY9JIzOgF/yTYqx5Qg==
   # 24小时
   expiration: 86400000
+
+# Actuator监控端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway # 暴露健康检查、信息和网关路由端点
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true # 启用网关端点

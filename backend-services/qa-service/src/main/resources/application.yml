@@ -1,17 +1,20 @@
 server:
   port: 8082
+
 spring:
   application:
     name: qa-service
+
   cloud:
     nacos:
       discovery:
         server-addr: 18.144.11.177:8848
-        enabled: true
-        ip: ${HOST_IP:56.228.34.193}
-        port: ${HOST_PORT:8082}
-        namespace: public
-        group: DEFAULT_GROUP
+        # enabled: true
+        # ip: ${HOST_IP:56.228.34.193}
+        # port: ${HOST_PORT:8082}
+        # namespace: public
+        # group: DEFAULT_GROUP
+        
   datasource:
     # url: jdbc:mysql://18.144.11.177:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     url: jdbc:mysql://mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
@@ -52,13 +55,10 @@ logging:
 springdoc:
   # packages-to-scan: com.ai.qa.service
   swagger-ui:
-    enabled: true
     path: /swagger-ui.html
     url: /api/qa/v3/api-docs
     config-url: /api/qa/v3/api-docs/swagger-config
     disable-swagger-default-url: true
-    operations-sorter: method
-    tags-sorter: alpha
   api-docs:
     path: /v3/api-docs
     enabled: true

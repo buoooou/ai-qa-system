@@ -10,7 +10,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ai.qa.user.application.service.impl.UserDetailsServiceImpl;
 
@@ -27,26 +26,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // return http
-        //         .csrf().disable()
-        //         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        //         .and()
-        //         .authorizeRequests()
-        //         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-        //         .antMatchers(HttpMethod.POST, "/api/user/login", "/api/user/register").permitAll()
-        //         .antMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
-        //         .antMatchers("/actuator/health", "/actuator/info").permitAll()
-        //         .antMatchers("/actuator/**").hasRole("ADMIN")
-        //         .anyRequest().authenticated()
-        //         .and()
-        //         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-        //         .build();
-
         return http.csrf(csrf -> csrf.disable())
                 .authorizeRequests(requests -> requests
                         .antMatchers("/api/user/**").permitAll()
                         .antMatchers("/api/auth/**").permitAll()
-                        .antMatchers("/api/user/**").permitAll()
+                        .antMatchers("/api/qa/**").permitAll()
                         .antMatchers("/swagger-ui/**").permitAll()
                         .antMatchers("/swagger-ui.html").permitAll()
                         .antMatchers("/swagger-resources/**").permitAll()
@@ -56,7 +40,7 @@ public class SecurityConfig {
                         .antMatchers("/favicon.ico").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 // .exceptionHandling(exceptions -> exceptions
                 //     .authenticationEntryPoint((request, response, authException) -> {
                 //         response.setStatus(HttpStatus.UNAUTHORIZED.value());

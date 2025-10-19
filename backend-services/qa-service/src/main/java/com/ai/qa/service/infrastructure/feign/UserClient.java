@@ -59,4 +59,12 @@ public interface UserClient {
      */
     @GetMapping("/api/user/{userId}/basic-info")
     ApiResponse<UserInfoDTO> getUserBasicInfo(@PathVariable("userId") Long userId);
+
+    /**
+     * 检查用户服务健康状态
+     * 
+     * @return 健康检查响应
+     */
+    @GetMapping("/health")
+    ApiResponse<String> checkHealth();
 }

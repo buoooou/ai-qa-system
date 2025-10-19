@@ -35,35 +35,38 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <!-- <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency> -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency> -->
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>32.1.2-jre</version> <!-- 使用一个较新的稳定版本 -->
+            <version>32.1.2-jre</version> 
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
-            <!-- 版本号会从你的 dependencyManagement 中继承 -->
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-webflux-ui</artifactId>
             <version>${springdoc-openapi.version}</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
@@ -74,8 +77,8 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>${jwt.version}</version>
@@ -91,7 +94,7 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>${jwt.version}</version>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
     </dependencies>
 
     <!-- 3. 添加构建插件，用于打包成可执行jar -->

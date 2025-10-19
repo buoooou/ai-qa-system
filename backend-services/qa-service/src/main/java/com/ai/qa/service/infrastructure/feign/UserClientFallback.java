@@ -1,7 +1,5 @@
 package com.ai.qa.service.infrastructure.feign;
 
-import org.springframework.stereotype.Component;
-
 import com.ai.qa.service.api.dto.ApiResponse;
 import com.ai.qa.service.api.dto.UserInfoDTO;
 import com.ai.qa.service.api.exception.ErrorCode;
@@ -13,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  * 当user-service服务不可用时，自动执行此类中的方法返回降级结果
  * 避免服务雪崩，提高系统容错性
  */
-@Component
+// @Component
 @Slf4j
 public class UserClientFallback implements UserClient {
 
@@ -53,5 +51,10 @@ public class UserClientFallback implements UserClient {
         log.warn("UserService unavailable, fallback triggered for user basic info: {}", userId);
         // return "{\"name\": \"未知用户\", \"userId\": " + userId + "}";
         return ApiResponse.error(ErrorCode.SERVICE_UNAVAILABLE);
+    }
+
+    @Override
+    public ApiResponse<String> checkHealth() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

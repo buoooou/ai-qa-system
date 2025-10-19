@@ -1,7 +1,9 @@
 package com.ai.qa.user.api.controller;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ai.qa.user.api.dto.ApiResponse;
@@ -66,7 +69,7 @@ public class UserController {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "预期外错误")
     })
     @PostMapping("/login")
-    public ApiResponse<LoginResponse> login(@RequestBody LoginRequest request) {
+    public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         log.debug("[User-Service] [{}]## Method {} Start.", this.getClass().getSimpleName(), "login");
         System.out.println("测试login");
 
@@ -100,7 +103,7 @@ public class UserController {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "预期外错误")
     })
     @PostMapping("/register")
-    public ApiResponse<UserResponse> register(@RequestBody RegisterRequest request) {
+    public ApiResponse<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
         log.debug("[User-Service] [{}]## Method {} Start.", this.getClass().getSimpleName(), "register");
         System.out.println("测试register");
 
@@ -167,6 +170,82 @@ public class UserController {
 
         } catch (EntityNotFoundException e) {
             log.error("获取用户信息失败，用户ID: {}, 错误信息: {}", userId, e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 根据用户名获取用户信息
+     *
+     * @param username 用户名
+     * @return Response<UserResponse> 用户信息
+     */
+    @GetMapping("/username/{username}")
+    public ApiResponse<UserResponse> getUserByUsername(@PathVariable String username) {
+        log.debug("收到根据用户名获取用户信息请求，用户名: {}", username);
+
+        try {
+            UserResponse userResponse = userService.getUserByUsername(username);
+
+            log.debug("根据用户名获取用户信息成功，用户名: {}", username);
+            return ApiResponse.success(HttpStatus.OK.value(), "获取成功", userResponse);
+
+        } catch (EntityNotFoundException e) {
+            log.error("根据用户名获取用户信息失败，用户名: {}, 错误信息: {}", username, e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param userId 用户ID
+     * @param email 新邮箱地址
+     * @return Response<UserResponse> 更新后的用户信息
+     */
+    @PutMapping("/{userId}")
+    public ApiResponse<UserResponse> updateUserInfo(
+            @PathVariable @NotNull @Min(1) Long userId,
+            @RequestParam String email) {
+
+        log.info("收到更新用户信息请求，用户ID: {}, 新邮箱: {}", userId, email);
+
+        try {
+            UserResponse userResponse = userService.updateUserInfo(userId, email);
+
+            log.info("更新用户信息成功，用户ID: {}", userId);
+            return ApiResponse.success(HttpStatus.OK.value(), "更新成功", userResponse);
+
+        } catch (EntityNotFoundException e) {
+            log.error("更新用户信息失败，用户ID: {}, 错误信息: {}", userId, e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 修改用户密码
+     *
+     * @param userId 用户ID
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @return Response<Boolean> 修改结果
+     */
+    @PutMapping("/{userId}/password")
+    public ApiResponse<Boolean> changePassword(
+            @PathVariable @NotNull @Min(1) Long userId,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword) {
+
+        log.info("收到修改密码请求，用户ID: {}", userId);
+
+        try {
+            boolean success = userService.changePassword(userId, oldPassword, newPassword);
+
+            log.info("修改密码成功，用户ID: {}", userId);
+            return ApiResponse.success(HttpStatus.OK.value(), "密码修改成功", true);
+
+        } catch (EntityNotFoundException e) {
+            log.error("修改密码异常，用户ID: {}, 错误信息: {}", userId, e.getMessage());
             throw e;
         }
     }
