@@ -17,7 +17,7 @@ jobs:
     # 任务的名称，会显示在 UI 中
     name: Build and Test Backend Services
     # 运行此任务所需的虚拟机环境
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     # 任务的执行步骤
     steps:
@@ -69,7 +69,7 @@ jobs:
     # 任务的名称
     name: Build and Push Docker Images
     # 运行此任务所需的虚拟机环境
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     # 依赖关系：这个任务必须在 `build-and-test-backend` 成功完成后才能开始
     needs: build-and-test-backend
