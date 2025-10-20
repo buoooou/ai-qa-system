@@ -29,7 +29,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/ai_qa_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root #  修改：直接写 root，不要用变量
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD} # 使用 root 密码
+      SPRING_DATASOURCE_PASSWORD: ai_qa_system # 使用 root 密码
     networks:
       - ai-qa-network
 
