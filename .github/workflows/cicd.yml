@@ -77,11 +77,11 @@ jobs:
     # 任务的执行步骤
     steps:
       # 清理所有Docker资源，构建缓存，悬空镜像
-      - name: clean docker environment
-        run: |
-          docker system prune -a -f
-          docker builder prune -a -f
-          docker image prune -f
+      # - name: Clean docker environment
+      #   run: |
+      #     docker system prune -a -f
+      #     docker builder prune -a -f
+      #     docker image prune -f
 
       # 步骤 1: 检出代码
       - name: Checkout repository
