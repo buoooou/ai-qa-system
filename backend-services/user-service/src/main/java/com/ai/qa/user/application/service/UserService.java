@@ -1,120 +1,82 @@
 package com.ai.qa.user.application.service;
 
+import com.ai.qa.user.api.dto.request.LoginRequest;
+import com.ai.qa.user.api.dto.request.RegisterRequest;
+import com.ai.qa.user.api.dto.request.UpdatePasswordRequest;
+import com.ai.qa.user.api.dto.response.LoginResponse;
+import com.ai.qa.user.api.dto.response.RegisterResponse;
+import com.ai.qa.user.api.dto.response.UpdatePasswordResponse;
+import com.ai.qa.user.api.dto.response.UserResponse;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
-import com.ai.qa.user.api.dto.LoginRequest;
-import com.ai.qa.user.api.dto.LoginResponse;
-import com.ai.qa.user.api.dto.RegisterRequest;
-import com.ai.qa.user.api.dto.UserLoginRequest;
-import com.ai.qa.user.api.dto.UserLoginResponse;
-import com.ai.qa.user.api.dto.UserResponse;
-import com.ai.qa.user.domain.model.User;
-
-
-@Service
+/**
+ * 用户服务接口
+ * 定义用户相关的业务逻辑方法，包括身份认证、用户管理等功能
+ * 作为业务逻辑层接口，负责处理核心业务规则和数据操作
+ *
+ */
 public interface UserService {
 
-    UserResponse updateNickname(String username, String newNickname);
+    /**
+     * 用户登录认证
+     * 验证用户名和密码，生成访问令牌并返回用户信息
+     *
+     * @param loginRequest 登录请求参数，包含用户名和密码
+     * @return LoginResponse 登录响应结果，包含令牌和用户信息
+     * @throws com.ai.qa.user.api.exception.BusinessException 当用户不存在或密码错误时抛出业务异常
+     * @see LoginRequest
+     * @see LoginResponse
+     */
+    LoginResponse login(LoginRequest loginRequest);
 
     /**
      * 用户注册
-     * 
-     * @param request 注册请求信息
-     * @return UserResponse 注册结果
+     * 创建新用户账户，验证用户名唯一性和密码一致性
+     *
+     * @param registerRequest 注册请求参数，包含用户名、昵称、密码等信息
+     * @return RegisterResponse 注册响应结果，包含新创建的用户信息
+     * @throws com.ai.qa.user.api.exception.BusinessException 当用户名已存在或密码不匹配时抛出业务异常
+     * @see RegisterRequest
+     * @see RegisterResponse
      */
-    UserResponse register(RegisterRequest request);
-    
+    RegisterResponse register(RegisterRequest registerRequest);
+
     /**
-     * 用户登录
-     * 
-     * @param request 登录请求信息
-     * @return LoginResponse 登录结果
+     * 根据用户ID查询用户信息
+     * 用于获取指定用户ID的完整用户信息
+     *
+     * @param id 用户ID
+     * @return UserResponse 用户响应对象，包含用户信息和操作结果
+     * @throws com.ai.qa.user.api.exception.BusinessException 当用户不存在时抛出业务异常
+     * @see UserResponse
      */
-    LoginResponse login(LoginRequest request);
-    
+    UserResponse getUserById(Long id);
+
     /**
-     * 用户登录（JWT版本）
-     * 
-     * @param request JWT登录请求信息
-     * @return User 用户实体
-     */
-    UserLoginResponse login(UserLoginRequest request);
-    
-    /**
-     * 根据ID查找用户
-     * 
-     * @param userId 用户ID
-     * @return Optional<User> 用户信息
-     */
-    Optional<User> findById(Long userId);
-    
-    /**
-     * 根据用户ID获取用户信息
-     * 
-     * @param userId 用户ID
-     * @return UserResponse 用户信息
-     */
-    UserResponse getUserById(Long userId);
-    
-    /**
-     * 根据用户名获取用户信息
-     * 
+     * 根据用户名查询用户信息
+     * 用于获取指定用户名的完整用户信息
+     *
      * @param username 用户名
-     * @return UserResponse 用户信息
+     * @return UserResponse 用户响应对象，包含用户信息和操作结果
+     * @throws com.ai.qa.user.api.exception.BusinessException 当用户不存在时抛出业务异常
+     * @see UserResponse
      */
-    UserResponse getUserByUsername(String username);
-    
-    /**
-     * 更新用户信息
-     * 
-     * @param userId 用户ID
-     * @param email 新邮箱
-     * @return UserResponse 更新后的用户信息
-     */
-    UserResponse updateUserInfo(Long userId, String email);
-    
-    /**
-     * 修改用户密码
-     * 
-     * @param userId 用户ID
-     * @param oldPassword 旧密码
-     * @param newPassword 新密码
-     * @return boolean 修改结果
-     */
-    boolean changePassword(Long userId, String oldPassword, String newPassword);
-    
-    /**
-     * 禁用用户
-     * 
-     * @param userId 用户ID
-     * @return boolean 操作结果
-     */
-    // boolean disableUser(Long userId);
-    
-    /**
-     * 启用用户
-     * 
-     * @param userId 用户ID
-     * @return boolean 操作结果
-     */
-    // boolean enableUser(Long userId);
-    
+    UserResponse findByUsername(String username);
+
     /**
      * 检查用户名是否存在
-     * 
-     * @param username 用户名
-     * @return boolean true-存在，false-不存在
+     * 用于验证用户名是否已被注册，通常在注册前调用
+     *
+     * @param username 需要检查的用户名
+     * @return Boolean true表示用户名已存在，false表示用户名可用
      */
-    boolean existsByUsername(String username);
-    
+    Boolean existsByUsername(String username);
+
     /**
-     * 检查邮箱是否存在
-     * 
-     * @param email 邮箱
-     * @return boolean true-存在，false-不存在
+     * 修改用户密码
+     * 验证旧密码后更新为新密码，需要用户已登录并通过JWT认证
+     *
+     * @param updatePasswordRequest 修改密码请求参数，包含用户ID、旧密码和新密码
+     * @return UpdatePasswordResponse 修改密码响应结果
      */
-    // boolean existsByEmail(String email);
+    UpdatePasswordResponse updatePassword(UpdatePasswordRequest updatePasswordRequest);
 }

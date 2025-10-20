@@ -1,34 +1,62 @@
 package com.ai.qa.service.api.dto;
 
+import lombok.Data;
 import java.time.LocalDateTime;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+/**
+ * QA历史记录响应DTO
+ * 用于返回给前端的问答历史数据
+ */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class QAHistoryDTO {
 
-    @Schema(description = "问题ID")
+    /**
+     * 记录ID
+     */
     private Long id;
 
-    @Schema(description = "用户ID")
-    private Long userId;
+    /**
+     * 用户ID
+     */
+    private String userId;
 
-    @Schema(description = "问题的内容")
+    /**
+     * 用户问题
+     */
     private String question;
 
-    @Schema(description = "AI回答的内容")
+    /**
+     * AI回答
+     */
     private String answer;
 
-    @Schema(description = "会话ID")
+    /**
+     * 问答时间戳
+     */
+    private LocalDateTime timestamp;
+
+    /**
+     * 会话ID
+     */
     private String sessionId;
 
-    @Schema(description = "创建时间")
+    /**
+     * 记录创建时间
+     */
     private LocalDateTime createTime;
+
+    /**
+     * 记录最后更新时间
+     */
+    private LocalDateTime updateTime;
+
+    /**
+     * 简化的回答（用于列表显示）
+     */
+    private String shortAnswer;
+
+    /**
+     * 问答持续时间
+     */
+    private String duration;
 }

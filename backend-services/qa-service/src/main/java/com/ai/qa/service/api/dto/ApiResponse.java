@@ -1,70 +1,71 @@
 package com.ai.qa.service.api.dto;
 
-import java.io.Serializable;
-
-import com.ai.qa.service.api.exception.ErrorCode;
-import com.ai.qa.service.common.Constants;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.ai.qa.service.api.exception.ErrCode;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+/**
+ * 统一API响应格式
+ * 用于规范所有接口的返回数据格式，包含状态码、消息和数据
+ * @param <T> 响应数据的类型
+ */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Schema(description = "统一API响应")
-public class ApiResponse<T> implements Serializable {
+public class ApiResponse<T> {
 
-    @Schema(description = "HTTP Status Code")
-    private int code;
+    /**
+     * 响应状态码
+     */
+    private String code;
 
-    @Schema(description = "业务消息")
+    /**
+     * 响应消息
+     */
     private String message;
 
-    @Schema(description = "响应数据")
-    @JsonInclude(JsonInclude.Include.NON_NULL) // 仅在data不为null时序列化
+    /**
+     * 响应数据
+     */
     private T data;
 
-    private boolean success;
-
-    public static <T> ApiResponse<T> success(int code, T data) {
-        return ApiResponse.<T>builder()
-                .success(true)
-                .code(code)
-                .message(Constants.MSG_RES_SUCCESS)
-                .data(data)
-                .build();
+    /**
+     * 构造函数
+     * @param code 状态码
+     * @param message 消息
+     * @param data 数据
+     */
+    public ApiResponse(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
     }
 
-    public static <T> ApiResponse<T> success(int code, String message, T data) {
-        return ApiResponse.<T>builder()
-                .success(true)
-                .code(code)
-                .message(message)
-                .data(data)
-                .build();
+    /**
+     * 创建成功响应
+     * @param data 响应数据
+     * @param <T> 数据类型
+     * @return 成功的ApiResponse实例
+     */
+    public static <T> ApiResponse<T> success(T data) {
+        return new ApiResponse<>(ErrCode.SUCCESS, ErrCode.SUCCESS_MSG, data);
     }
 
-    public static <T> ApiResponse<T> error(ErrorCode errorCode) {
-        return ApiResponse.<T>builder()
-                .success(false)
-                .code(errorCode.getCode())
-                .message(errorCode.getMessage())
-                .data(null)
-                .build();
+    /**
+     * 创建错误响应
+     * @param code 错误码
+     * @param message 错误消息
+     * @param <T> 数据类型
+     * @return 错误的ApiResponse实例
+     */
+    public static <T> ApiResponse<T> error(String code, String message) {
+        return new ApiResponse<>(code, message, null);
     }
 
-    public static <T> ApiResponse<T> error(ErrorCode errorCode, String message) {
-        return ApiResponse.<T>builder()
-                .success(false)
-                .code(errorCode.getCode())
-                .message(message)
-                .data(null)
-                .build();
+    /**
+     * 创建错误响应（根据错误码自动获取错误消息）
+     * @param code 错误码
+     * @param <T> 数据类型
+     * @return 错误的ApiResponse实例
+     */
+    public static <T> ApiResponse<T> error(String code) {
+        return new ApiResponse<>(code, ErrCode.getErrMsg(code), null);
     }
-
 }

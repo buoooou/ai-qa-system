@@ -12,7 +12,7 @@ public class QAHistoryQuery {
     /**
      * 用户ID
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 会话ID

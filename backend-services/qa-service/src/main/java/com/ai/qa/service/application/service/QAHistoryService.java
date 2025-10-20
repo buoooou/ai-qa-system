@@ -1,11 +1,13 @@
 package com.ai.qa.service.application.service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityNotFoundException;
-
+import com.ai.qa.service.api.dto.QAHistoryDTO; // 使用API层的DTO，确保与控制器层数据类型一致
+import com.ai.qa.service.application.dto.QAHistoryQuery;
+import com.ai.qa.service.application.dto.SaveHistoryCommand;
+import com.ai.qa.service.domain.exception.QADomainException;
+import com.ai.qa.service.domain.model.QAHistory;
+import com.ai.qa.service.domain.repo.QAHistoryRepo;
+import com.ai.qa.service.domain.service.QAService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -13,14 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ai.qa.service.api.dto.QAHistoryDTO;
-import com.ai.qa.service.application.dto.QAHistoryQuery;
-import com.ai.qa.service.application.dto.SaveHistoryCommand;
-import com.ai.qa.service.domain.model.QAHistory;
-import com.ai.qa.service.domain.repository.QAHistoryRepo;
-import com.ai.qa.service.domain.service.QAService;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * QA历史记录应用服务
@@ -34,13 +30,15 @@ import lombok.RequiredArgsConstructor;
  * 4. 参数验证和业务规则执行
  */
 @Service
-@Transactional(readOnly = true)
-@RequiredArgsConstructor
+@Transactional(readOnly = true) // 默认只读事务，写操作需要单独标注@Transactional
+@RequiredArgsConstructor // Lombok注解，自动生成包含final字段的构造函数
 public class QAHistoryService {
 
+    // 依赖注入：QA历史记录仓库，负责数据持久化操作
     private final QAHistoryRepo qaHistoryRepo;
-    private final QAService qaService;
 
+    // 依赖注入：QA领域服务，处理核心业务逻辑
+    private final QAService qaService;
 
     /**
      * 保存问答历史记录
@@ -123,11 +121,11 @@ public class QAHistoryService {
     public List<QAHistoryDTO> querySessionHistory(String sessionId) {
         // 验证会话ID：确保查询条件有效
         if (sessionId == null || sessionId.trim().isEmpty()) {
-            throw new IllegalArgumentException("会话ID不能为空");
+            throw new QADomainException("会话ID不能为空");
         }
 
         // 调用仓库获取会话历史数据
-        List<QAHistory> historyList = qaHistoryRepo.findHistoryBySessionId(sessionId);
+        List<QAHistory> historyList = qaHistoryRepo.findHistoryBySession(sessionId);
 
         // 转换为DTO列表返回
         return toDtoList(historyList);
@@ -141,13 +139,12 @@ public class QAHistoryService {
      * @return 问答记录DTO
      * @throws RuntimeException 如果记录不存在时抛出运行时异常
      */
-    public QAHistoryDTO getHistoryById(Long id) {
+    public QAHistoryDTO getHistoryById(String id) {
         // 调用领域服务获取记录：领域服务处理业务逻辑和异常
-        // QAHistory history = qaService.getQaById(id);
+        QAHistory history = qaService.getHistoryById(id);
 
         // 转换为DTO返回
-        // return toDto(history);
-        return Optional.of(qaHistoryRepo.findHistoryById(id)).map(this::toDto).orElseThrow(() -> new EntityNotFoundException());
+        return toDto(history);
     }
 
     /**
@@ -157,9 +154,9 @@ public class QAHistoryService {
      * @param id 要删除的记录ID
      */
     @Transactional // 写操作需要事务
-    public void deleteHistory(Long id, Long userId) {
+    public void deleteHistory(String id) {
         // 委托给领域服务执行删除操作
-        qaService.deleteQaRecord(id, userId);
+        qaService.deleteHistory(id);
     }
 
     /**
@@ -170,12 +167,12 @@ public class QAHistoryService {
      * @return 问答记录数量
      * @throws QADomainException 当用户ID为空时抛出领域异常
      */
-    public long getUserHistoryCount(Long userId) {
+    public long getUserHistoryCount(String userId) {
         // 验证用户ID
         validateUserId(userId);
 
         // 调用领域服务获取统计数量
-        return qaService.getUserQaCount(userId);
+        return qaService.getUserHistoryCount(userId);
     }
 
     /**
@@ -189,11 +186,11 @@ public class QAHistoryService {
     public void clearSessionHistory(String sessionId) {
         // 验证会话ID
         if (sessionId == null || sessionId.trim().isEmpty()) {
-            throw new IllegalArgumentException("会话ID不能为空");
+            throw new QADomainException("会话ID不能为空");
         }
 
         // 委托给领域服务执行清空操作
-        qaService.deleteAllQaRecordsBySessionId(sessionId);
+        qaService.clearSessionHistory(sessionId);
     }
 
     /**
@@ -204,14 +201,14 @@ public class QAHistoryService {
      * @throws QADomainException 当参数验证失败时抛出领域异常
      */
     private void validateSaveCommand(SaveHistoryCommand command) {
-        if (command.getUserId() == null) {
-            throw new IllegalArgumentException("用户ID不能为空");
+        if (command.getUserId() == null || command.getUserId().trim().isEmpty()) {
+            throw new QADomainException("用户ID不能为空");
         }
         if (command.getQuestion() == null || command.getQuestion().trim().isEmpty()) {
-            throw new IllegalArgumentException("问题不能为空");
+            throw new QADomainException("问题不能为空");
         }
         if (command.getAnswer() == null || command.getAnswer().trim().isEmpty()) {
-            throw new IllegalArgumentException("回答不能为空");
+            throw new QADomainException("回答不能为空");
         }
     }
 
@@ -222,9 +219,9 @@ public class QAHistoryService {
      * @param userId 用户ID
      * @throws QADomainException 当用户ID为空时抛出领域异常
      */
-    private void validateUserId(Long userId) {
-        if (userId == null) {
-            throw new IllegalArgumentException("用户ID不能为空");
+    private void validateUserId(String userId) {
+        if (userId == null || userId.trim().isEmpty()) {
+            throw new QADomainException("用户ID不能为空");
         }
     }
 
@@ -250,19 +247,18 @@ public class QAHistoryService {
      * @return QA历史记录DTO对象
      */
     private QAHistoryDTO toDto(QAHistory history) {
-        // QAHistoryDTO dto = new QAHistoryDTO();
-        // dto.setId(history.getId());
-        // dto.setUserId(history.getUserId());
-        // dto.setQuestion(history.getQuestion());
-        // dto.setAnswer(history.getAnswer());
-        // dto.setTimestamp(history.getTimestamp());
-        // dto.setSessionId(history.getSessionId());
-        // dto.setCreateTime(history.getCreateTime());
-        // dto.setUpdateTime(history.getUpdateTime());
-        // dto.setShortAnswer(history.getShortAnswer(100)); // 截取前100字符作为简略回答
-        // dto.setDuration(history.getDuration()); // 计算问答持续时间
-        return QAHistoryDTO.builder().id(history.getId()).userId(history.getUserId()).question(history.getQuestion())
-            .answer(history.getAnswer()).createTime(history.getCreateTime()).build();
+        QAHistoryDTO dto = new QAHistoryDTO();
+        dto.setId(history.getId());
+        dto.setUserId(history.getUserId());
+        dto.setQuestion(history.getQuestion());
+        dto.setAnswer(history.getAnswer());
+        dto.setTimestamp(history.getTimestamp());
+        dto.setSessionId(history.getSessionId());
+        dto.setCreateTime(history.getCreateTime());
+        dto.setUpdateTime(history.getUpdateTime());
+        dto.setShortAnswer(history.getShortAnswer(100)); // 截取前100字符作为简略回答
+        dto.setDuration(history.getDuration()); // 计算问答持续时间
+        return dto;
     }
 
     /**

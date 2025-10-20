@@ -1,11 +1,11 @@
 # 工作流的名称，会显示在 GitHub Actions 的 UI 界面中
-name: CI/CD for AI QA System
+name: CI/CD for AI QA System(pr3)
 
 # 工作流的触发条件
 on:
   # 当有代码推送到 main 分支时触发
   push:
-    branches: [ "main", "pr-1day" ]
+    branches: [ "main", "pr3" ]
   # 当有针对 main 分支的 Pull Request 被创建或更新时触发
   pull_request:
     branches: [ "main" ]

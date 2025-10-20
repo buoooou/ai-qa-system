@@ -1,38 +1,53 @@
 package com.ai.qa.service.api.exception;
 
-import javax.persistence.EntityNotFoundException;
-
+import com.ai.qa.service.domain.exception.QADomainException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.ai.qa.service.api.dto.ApiResponse;
+import java.util.HashMap;
+import java.util.Map;
 
-import lombok.extern.slf4j.Slf4j;
-
+/**
+ * 全局异常处理器
+ * 统一处理控制器层抛出的异常
+ */
 @RestControllerAdvice
-@Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ApiResponse<?>> handleBusinessException(IllegalArgumentException e) {
-        log.error("[QA-Service] [{}]## {} occured. message:{}", this.getClass().getSimpleName(), IllegalArgumentException.class.getSimpleName(), e.getMessage());
-        ErrorCode errorCode = ErrorCode.valueFrom(e.getMessage());
-        ApiResponse<?> response = ApiResponse.error(errorCode);
-        return new ResponseEntity<>(response, errorCode.getHttpStatus());
+    /**
+     * 处理领域异常
+     */
+    @ExceptionHandler(QADomainException.class)
+    public ResponseEntity<Map<String, Object>> handleQADomainException(QADomainException e) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("code", ErrCode.BAD_REQUEST);
+        response.put("message", e.getMessage());
+        response.put("data", null);
+        return ResponseEntity.badRequest().body(response);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ApiResponse<?>> handleEntityNotFoundException(EntityNotFoundException e) {
-        log.error("[QA-Service] [{}]## {} occured. message:{}", this.getClass().getSimpleName(), EntityNotFoundException.class.getSimpleName(), e.getMessage());
-        ApiResponse<?> response = ApiResponse.error(ErrorCode.BAD_REQUEST);
-        return new ResponseEntity<>(response, ErrorCode.BAD_REQUEST.getHttpStatus());
+    /**
+     * 处理运行时异常
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException e) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("code", ErrCode.INTERNAL_ERROR);
+        response.put("message", "系统内部错误: " + e.getMessage());
+        response.put("data", null);
+        return ResponseEntity.internalServerError().body(response);
     }
 
+    /**
+     * 处理其他异常
+     */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<?>> handleGlobalException(Exception e) {
-        log.error("[QA-Service] [{}]## Unexpected exception occured. message:{}", this.getClass().getSimpleName(), e.getMessage());
-        ApiResponse<?> response = ApiResponse.error(ErrorCode.INTERNAL_SERVER_ERROR);
-        return new ResponseEntity<>(response, ErrorCode.INTERNAL_SERVER_ERROR.getHttpStatus());
+    public ResponseEntity<Map<String, Object>> handleException(Exception e) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("code", ErrCode.INTERNAL_ERROR);
+        response.put("message", "系统异常: " + e.getMessage());
+        response.put("data", null);
+        return ResponseEntity.internalServerError().body(response);
     }
 }

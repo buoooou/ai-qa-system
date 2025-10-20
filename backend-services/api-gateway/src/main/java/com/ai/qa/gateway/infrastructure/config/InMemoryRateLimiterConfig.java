@@ -1,24 +1,22 @@
 package com.ai.qa.gateway.infrastructure.config;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import com.google.common.util.concurrent.RateLimiter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-
-import com.google.common.util.concurrent.RateLimiter;
-
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Configuration
-@Slf4j
 public class InMemoryRateLimiterConfig {
 
+    private static final Logger log = LoggerFactory.getLogger(InMemoryRateLimiterConfig.class);
     // ipKeyResolver Bean 保持不变
     @Bean
     public KeyResolver ipKeyResolver() {
@@ -33,8 +31,11 @@ public class InMemoryRateLimiterConfig {
     public org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<InMemoryRateLimiterConfig.RateLimiterConfig> inMemoryRateLimiter() {
 
         // 定义默认的限流速率
-        final double defaultReplenishRate = 5.0; // 每秒生成的令牌数
-        final int defaultBurstCapacity = 100;     // 令牌桶总容量
+//        final double defaultReplenishRate = 1000.0; // 每秒生成的令牌数
+//        final int defaultBurstCapacity = 10000;     // 令牌桶总容量
+
+        final double defaultReplenishRate = 10000.0;
+        final int defaultBurstCapacity = 100000;
 
         return new org.springframework.cloud.gateway.filter.ratelimit.RateLimiter<RateLimiterConfig>() {
 
@@ -43,6 +44,8 @@ public class InMemoryRateLimiterConfig {
 
             @Override
             public Mono<Response> isAllowed(String routeId, String id) {
+
+
                 // routeId 是当前请求匹配的路由ID
                 // id 是 KeyResolver 解析出的 key (IP地址)
                 // 获取当前路由的配置，如果不存在则使用默认配置
@@ -59,6 +62,7 @@ public class InMemoryRateLimiterConfig {
 
                 // 尝试获取一个令牌
                 boolean allowed = limiter.tryAcquire();
+                log.info("Limiter: {} Allow: {}", id, allowed);
 
                 if (allowed) {
                     log.info("Request ALLOWED. Route: {}, Key: {}", routeId, id);
@@ -101,7 +105,6 @@ public class InMemoryRateLimiterConfig {
      * 配置类，用于存储限流参数
      * 现在它不再是空的了，包含了速率和容量
      */
-    @Data
     public static class RateLimiterConfig {
         private double replenishRate;
         private int burstCapacity;
@@ -111,6 +114,20 @@ public class InMemoryRateLimiterConfig {
 
         public RateLimiterConfig(double replenishRate, int burstCapacity) {
             this.replenishRate = replenishRate;
+            this.burstCapacity = burstCapacity;
+        }
+
+        // Getters and Setters
+        public double getReplenishRate() {
+            return replenishRate;
+        }
+        public void setReplenishRate(double replenishRate) {
+            this.replenishRate = replenishRate;
+        }
+        public int getBurstCapacity() {
+            return burstCapacity;
+        }
+        public void setBurstCapacity(int burstCapacity) {
             this.burstCapacity = burstCapacity;
         }
     }

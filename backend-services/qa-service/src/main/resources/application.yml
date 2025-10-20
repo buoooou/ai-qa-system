@@ -2,82 +2,87 @@ server:
   port: 8082
 
 spring:
+  config:
+    # import: "optional:file:D:/dev/ai-qa-system/.env[.properties]"
+    import: "optional:file:.env[.properties]" # 改为可选，当前目录
   application:
     name: qa-service
-
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 18.144.11.177:8848
-        # enabled: true
-        # ip: ${HOST_IP:56.228.34.193}
-        # port: ${HOST_PORT:8082}
-        # namespace: public
-        # group: DEFAULT_GROUP
-        
+  # cloud:
+  #   nacos:
+  #     discovery:
+  #       server-addr: 3.101.113.38:8848
+  #       #ip: 127.0.0.1
+  #       #port: 8082
   datasource:
-    # url: jdbc:mysql://18.144.11.177:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    url: jdbc:mysql://mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://database:3306/ai_qa_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: ai_qa_system
+    # url: jdbc:mysql://database:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    # username: root
+    # password: root1234
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        jdbc:
-          serverTimezone: GMT+8
+        format_sql: true
     show-sql: true
-
-logging:
-  level: 
-    root: debug
-    '[com.alibaba.nacos.client.naming]': debug
-    '[com.alibaba.nacos.client.config]': debug
-    '[com.ai.qa]': debug
-    # '[org.springframework.cloud]': info
-    '[org.springframework.cloud.client.serviceregistry]': debug
-    '[org.springframework.boot]': info
-    '[org.hibernate.SQL]': info
-#    '[org.hibernate.type.descriptor.sql.BasicBinder]': trace
-  pattern:
-    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-  file:
-    name: logs/qa-service.log
-  logback:
-    rollingpolicy:
-      max-file-size: 50MB
-      max-history: 30
-      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.metrics.SystemMetricsAutoConfiguration
 
 springdoc:
-  # packages-to-scan: com.ai.qa.service
-  swagger-ui:
-    path: /swagger-ui.html
-    url: /api/qa/v3/api-docs
-    config-url: /api/qa/v3/api-docs/swagger-config
-    disable-swagger-default-url: true
   api-docs:
     path: /v3/api-docs
     enabled: true
-  # group-configs:
-  #   - group: 'qa-service'
-  #     display-name: QA Service
-  #     paths-to-match: /api/qa/**
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
 
-# chat:
-#   api:
-#     url: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
-#     key: AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw
-# gemini:
-#   api-key: AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw
-# GOOGLE_API_KEY:
-#   AIzaSyD-V4KPeOzfVHRTJ0Com2xIysmbu2C66sw
+deepseek:
+  api:
+    base-url: https://api.deepseek.com/v1
+    key: ${DEEPSEEK_API_KEY:sk-31581bd22e844e1d8387f8570a7f3fdb}
+    model: deepseek-chat
 
-# Gemini API配置
-gemini:
-  base-url: https://generativelanguage.googleapis.com/v1beta  # 配置API的根URL
-  api-key: AIzaSyDSpC9NbCG6L2e9znVwrwCoiTZj0E5gEvM
-  model-name: gemini-2.5-flash-lite
+logging:
+  file:
+    name: application.log
+    path: logs
+  level:
+    com.ai.qa.service: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  charset:
+    console: UTF-8
+    file: UTF-8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /actuator
+  endpoint:
+    health:
+      enabled: true
+      show-details: WHEN_AUTHORIZED
+    info:
+      enabled: true
+    metrics:
+      enabled: false
+  metrics:
+    enable:
+      process: false
+      system: false

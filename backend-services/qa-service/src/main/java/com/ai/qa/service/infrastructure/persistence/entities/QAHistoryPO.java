@@ -1,6 +1,6 @@
 package com.ai.qa.service.infrastructure.persistence.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; // 使用 javax.persistence 而不是 jakarta
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,45 +8,84 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "qa_history_hl")
+/**
+ * QA历史记录持久化对象（Persistent Object）
+ * 对应数据库中的qa_history表
+ * 使用JPA注解进行ORM映射
+ */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Entity
+@Table(name = "qa_history")
 public class QAHistoryPO {
 
+    /**
+     * 主键ID，自增长
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    /**
+     * 用户ID
+     */
+    @Column(name = "user_id")
+    private String userId;
 
-    @Column(name = "question", nullable = false, columnDefinition = "TEXT")
+    /**
+     * 用户问题，最大长度2000字符
+     */
+    @Column(name = "question", length = 2000)
     private String question;
 
-    @Column(name = "answer", columnDefinition = "LONGTEXT")
+    /**
+     * AI回答，最大长度4000字符
+     */
+    @Column(name = "answer", length = 4000)
     private String answer;
 
-    @Column(name = "session_id", nullable = false, length = 255)
+    /**
+     * 问答时间戳
+     */
+    @Column(name = "timestamp")
+    private LocalDateTime timestamp;
+
+    /**
+     * 会话ID，用于关联同一会话中的多条问答记录
+     */
+    @Column(name = "session_id")
     private String sessionId;
 
-    @Column(name = "create_time", nullable = false)
+    /**
+     * 记录创建时间
+     */
+    @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    // private LocalDateTime timestamp;
+    /**
+     * 记录最后更新时间
+     */
+    @Column(name = "update_time")
+    private LocalDateTime updateTime;
 
+    /**
+     * 持久化前的回调方法，自动设置创建时间和更新时间
+     */
     @PrePersist
     protected void onCreate() {
-        this.createTime = LocalDateTime.now();
+        createTime = LocalDateTime.now();
+        updateTime = LocalDateTime.now();
     }
 
+    /**
+     * 更新前的回调方法，自动更新更新时间
+     */
+    @PreUpdate
+    protected void onUpdate() {
+        updateTime = LocalDateTime.now();
+    }
 }

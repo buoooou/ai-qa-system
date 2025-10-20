@@ -3,331 +3,312 @@ package com.ai.qa.user.application.service.impl;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ai.qa.user.api.dto.LoginRequest;
-import com.ai.qa.user.api.dto.LoginResponse;
-import com.ai.qa.user.api.dto.RegisterRequest;
-import com.ai.qa.user.api.dto.UserLoginRequest;
-import com.ai.qa.user.api.dto.UserLoginResponse;
-import com.ai.qa.user.api.dto.UserResponse;
-import com.ai.qa.user.api.exception.ErrorCode;
-import com.ai.qa.user.api.exception.UserServiceException;
+import com.ai.qa.user.api.dto.request.LoginRequest;
+import com.ai.qa.user.api.dto.request.RegisterRequest;
+import com.ai.qa.user.api.dto.request.UpdatePasswordRequest;
+import com.ai.qa.user.api.dto.response.LoginResponse;
+import com.ai.qa.user.api.dto.response.RegisterResponse;
+import com.ai.qa.user.api.dto.response.UpdatePasswordResponse;
+import com.ai.qa.user.api.dto.response.UserResponse;
+import com.ai.qa.user.api.exception.BusinessException;
+import com.ai.qa.user.api.exception.ErrCode;
 import com.ai.qa.user.application.service.UserService;
-import com.ai.qa.user.common.Constants;
-import com.ai.qa.user.domain.mapper.UserMapper;
-import com.ai.qa.user.domain.model.User;
-import com.ai.qa.user.domain.repository.UserRepo;
+import com.ai.qa.user.common.JwtUtil;
+import com.ai.qa.user.domain.entity.User;
+import com.ai.qa.user.domain.repository.UserRepository;
 
-import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
+/**
+ * 用户服务实现类
+ * 处理用户相关的业务逻辑，包括登录、注册等功能
+ *
+ */
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private final UserRepo userRepository;
-    private final UserMapper userMapper = UserMapper.INSTANCE;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     /**
-     * 根据用户名获取用户信息
+     * 用户登录处理
+     * 验证用户名和密码，生成访问令牌
      *
-     * @param username 用户名
-     * @return UserResponse 用户信息
+     * @param loginRequest 登录请求参数，包含用户名和密码
+     * @return LoginResponse 登录响应结果，包含令牌和用户信息
+     * @throws BusinessException 当用户不存在或密码错误时抛出业务异常
      */
-    @Operation(summary = "根据用户名取得用户详细信息。")
     @Override
-    @Transactional(readOnly = true)
-    public UserResponse getUserByUsername(String username) {
-        log.debug("根据用户名获取用户信息: {}", username);
+    public LoginResponse login(LoginRequest loginRequest) {
 
-        return userRepository.findByUsername(username)
-                .map(x -> userMapper.toUserDTO(x))
-                .orElseThrow(() -> new EntityNotFoundException());
-    }
+        log.info("Start login(), username:{}", loginRequest.getUsername());
 
-    @Operation(summary = "更新该用户的昵称。")
-    @Transactional
-    @Override
-    public UserResponse updateNickname(String username, String newNickname) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException());
+        // 根据用户名查询用户信息
+        Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
 
-        user.changeNickname(newNickname);
+        // 验证用户是否存在
+        if (!userOptional.isPresent()) {
+            throw BusinessException.userNotFound();
+        }
+
+        User user = userOptional.get();
+
+        // 验证密码是否正确
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw BusinessException.passwordIncorrect();
+        }
+
+        // 更新用户最后登录时间
+        user.setUpdateDate(LocalDateTime.now());
         userRepository.save(user);
-        return userMapper.toUserDTO(user);
-    }
 
-    @Operation(summary = "注册新用户。")
-    @Transactional
-    @Override
-    public UserResponse register(RegisterRequest request) {
+        // 生成访问令牌（模拟实现，实际应使用JWT）
+        String token = generateToken(user);
 
-        log.info("开始用户注册，用户名: {}", request.getUsername());
-
-        // 参数验证
-        User newUser = User.builder()
-                .username(request.getUsername())
-                .password(request.getPassword())
-                .nickname(request.getNickname()).build();
-        newUser.registerValidation(request.getConfirmPassword());
-        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        // 检查用户名是否已存在
-        if (existsByUsername(request.getUsername())) {
-            log.warn("用户名已存在: {}", request.getUsername());
-            throw new UserServiceException(ErrorCode.USER_ALREADY_EXIST);
-        }
-
-        // 保存用户
-        try {
-            User savedUser = userRepository.save(newUser);
-            log.info("用户注册成功，用户ID: {}, 用户名: {}", savedUser.getId(), savedUser.getUsername());
-
-            return userMapper.toUserDTO(newUser);
-
-        } catch (Exception e) {
-            log.error("用户注册失败，用户名: {}, 错误: {}", request.getUsername(), e.getMessage());
-            throw new RuntimeException(Constants.MSG_USER_REGISTER_FAIL);
-        }
-    }
-
-    /**
-     * 检查用户名是否存在
-     *
-     * @param username 用户名
-     * @return boolean true-存在，false-不存在
-     */
-    @Operation(summary = "检查用户名是否存在。")
-    @Override
-    @Transactional(readOnly = true)
-    public boolean existsByUsername(String username) {
-        if (username == null || username.trim().isEmpty()) {
-            return false;
-        }
-        return userRepository.existsByUsername(username);
-    }
-
-    /**
-     * 用户登录
-     *
-     * @param request 登录请求信息
-     * @return LoginResponse 登录结果
-     */
-    @Operation(summary = "用户登录。")
-    @Override
-    @Transactional(readOnly = true)
-    public LoginResponse login(LoginRequest request) {
-        log.info("开始用户登录，用户名: {}", request.getUsername());
-
-        // 参数验证
-        User validateUser = User.builder().username(request.getUsername()).password(request.getPassword()).build();
-        validateUser.loginValidation();
-
-        // 根据用户名查找用户
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new EntityNotFoundException());
-
-        // 验证密码
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            log.warn("密码错误，用户名: {}", request.getUsername());
-            throw new UserServiceException(ErrorCode.UNAUTHORIZED);
-        }
-
-        // 5. 构建登录响应 - 使用JWT版本的LoginResponse
+        // 构建登录成功响应
         LoginResponse response = new LoginResponse();
-        LoginResponse.User loginUser = response.new User();
-        loginUser.setId(user.getId());
-        loginUser.setUsername(user.getUsername());
-        loginUser.setPassword(user.getPassword());
-        loginUser.setNickname(user.getNickname());
-        loginUser.setCreateTime(user.getCreateTime());
-        loginUser.setUpdateTime(user.getUpdateTime());
-        response.setUser(loginUser);
-        response.setAccessToken("mock-jwt-token-" + user.getId()); // 简化实现，实际应该生成JWT
-        response.setRefreshToken("mock-refresh-token-" + user.getId());
-        response.setExpiresIn(7200L); // 2小时
+        response.setSuccess(true);
+        response.setMessage(ErrCode.MSG_SUCCESS);
+        response.setErrorCode(ErrCode.SUCCESS);
+        response.setToken(token);
+        response.setUserId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setNickname(user.getNickname());
+        response.setEmail(user.getEmail());
+        response.setLoginTime(LocalDateTime.now());
 
-        log.info("用户登录成功，用户ID: {}, 用户名: {}", user.getId(), user.getUsername());
+        log.info("End login(), username:{}", loginRequest.getUsername());
+
         return response;
     }
 
     /**
-     * JWT用户登录
+     * 用户注册处理
+     * 创建新用户账户，验证用户名唯一性和密码一致性
      *
-     * @param request JWT登录请求信息
-     * @return User 用户实体
-     */
-    @Operation(summary = "JWT用户登录。")
-    @Override
-    @Transactional(readOnly = true)
-    public UserLoginResponse login(UserLoginRequest request) {
-        log.info("JWT用户登录请求，用户名: {}", request.getUsername());
-
-        try {
-            // 根据用户名查找用户
-            User user = userRepository.findByUsername(request.getUsername())
-                    .orElseThrow(() -> new EntityNotFoundException());
-
-            // 验证密码
-            if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                log.warn("密码错误，用户名: {}", request.getUsername());
-                throw new UserServiceException(ErrorCode.UNAUTHORIZED);
-            }
-
-            log.info("JWT用户登录成功，用户ID: {}, 用户名: {}", user.getId(), user.getUsername());
-            return UserLoginResponse.builder().id(user.getId()).username(user.getUsername()).password(user.getPassword())
-                .nickname(user.getNickname()).createTime(user.getCreateTime()).updateTime(user.getUpdateTime()).build();
-
-        } catch (Exception e) {
-            log.error("JWT用户登录失败，用户名: {}, 错误信息: {}", request.getUsername(), e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    /**
-     * 根据用户ID获取用户信息
-     *
-     * @param userId 用户ID
-     * @return UserResponse 用户信息
-     */
-    @Operation(summary = "根据用户ID取得该用户详细信息。")
-    @Transactional(readOnly = true)
-    @Override
-    public UserResponse getUserById(Long userId) {
-        log.debug("根据用户ID获取用户信息: {}", userId);
-
-        return userRepository.findById(userId)
-                .map(x -> userMapper.toUserDTO(x))
-                .orElseThrow(() -> new EntityNotFoundException());
-    }
-
-    /**
-     * 根据ID查找用户
-     * 
-     * @param userId 用户ID
-     * @return Optional<User> 用户信息
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<User> findById(Long userId) {
-        log.debug("根据ID查找用户，用户ID: {}", userId);
-        return userRepository.findById(userId);
-    }
-
-    /**
-     * 更新用户信息
-     * 
-     * @param userId 用户ID
-     * @param email 新邮箱
-     * @return UserResponse 更新后的用户信息
+     * @param registerRequest 注册请求参数，包含用户名、昵称、密码等信息
+     * @return RegisterResponse 注册响应结果，包含新创建的用户信息
+     * @throws BusinessException 当用户名已存在或密码不匹配时抛出业务异常
      */
     @Override
     @Transactional
-    public UserResponse updateUserInfo(Long userId, String email) {
-        log.info("更新用户信息，用户ID: {}, 新邮箱: {}", userId, email);
-        
-        // 1. 参数验证
-        // if (userId == null || userId <= 0) {
-        //     throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.PARAM_ERROR));
-        // }
-        // if (email == null || !CommonUtil.isValidEmail(email)) {
-        //     throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.EMAIL_FORMAT_ERROR));
-        // }
-        
-        // 2. 查找用户
-        Optional<User> userOpt = userRepository.findById(userId);
-        if (!userOpt.isPresent()) {
-            log.warn("用户不存在，用户ID: {}", userId);
-            return null;
+    public RegisterResponse register(RegisterRequest registerRequest) {
+
+        log.info("Start register(), username:{}", registerRequest.getUsername());
+
+        // 检查用户名是否已被注册
+        if (userRepository.existsByUsername(registerRequest.getUsername())) {
+            throw BusinessException.userAlreadyExists();
         }
-        
-        User user = userOpt.get();
-        
-        // 3. 检查邮箱是否被其他用户使用
-        // Optional<User> existingUserOpt = userRepository.findByEmail(email);
-        // if (existingUserOpt.isPresent() && !existingUserOpt.get().getId().equals(userId)) {
-        //     log.warn("邮箱已被其他用户使用: {}", email);
-        //     throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.EMAIL_EXISTS));
-        // }
-        
-        // 4. 更新用户信息
-        // user.setEmail(email);
-        user.setUpdateTime(LocalDateTime.now());
-        
-        try {
-            User savedUser = userRepository.save(user);
-            log.info("用户信息更新成功，用户ID: {}", userId);
-            return userMapper.toUserDTO(savedUser);
-            
-        } catch (Exception e) {
-            log.error("用户信息更新失败，用户ID: {}, 错误: {}", userId, e.getMessage());
-            throw new UserServiceException(ErrorCode.INTERNAL_SERVER_ERROR);
+
+        // 验证两次输入的密码是否一致
+        if (!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {
+            throw BusinessException.passwordMismatch();
         }
+
+        // 创建新用户对象并设置属性
+        User user = new User();
+        user.setUsername(registerRequest.getUsername());
+        user.setNickname(registerRequest.getNickname());
+        user.setEmail(registerRequest.getEmail());
+        // 对密码进行加密存储
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setCreateDate(LocalDateTime.now());
+        user.setUpdateDate(LocalDateTime.now());
+
+        // 保存用户到数据库
+        User savedUser = userRepository.save(user);
+
+        // 构建注册成功响应
+        RegisterResponse response = new RegisterResponse();
+        response.setSuccess(true);
+        response.setMessage(ErrCode.MSG_CREATED);
+        response.setErrorCode(ErrCode.CREATED);
+        response.setUserId(savedUser.getId());
+        response.setUsername(savedUser.getUsername());
+        response.setNickname(savedUser.getNickname());
+        response.setEmail(user.getEmail());
+        response.setRegisterTime(LocalDateTime.now());
+
+        log.info("End register(), username:{}", registerRequest.getUsername());
+
+        return response;
     }
 
     /**
-     * 修改用户密码
-     * 
-     * @param userId 用户ID
-     * @param oldPassword 旧密码
-     * @param newPassword 新密码
-     * @return boolean 修改结果
+     * 修改用户密码处理
+     * 验证旧密码正确性，更新为新密码
+     *
+     * @param updatePasswordRequest 修改密码请求参数
+     * @return UpdatePasswordResponse 修改密码响应结果
+     * @throws BusinessException 当用户不存在、旧密码错误或新密码不匹配时抛出业务异常
      */
     @Override
     @Transactional
-    public boolean changePassword(Long userId, String oldPassword, String newPassword) {
-        log.info("修改用户密码，用户ID: {}", userId);
-        
-        // 参数验证
-        // if (userId == null || userId <= 0) {
-        //     throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.PARAM_ERROR));
-        // }
-        // if (oldPassword == null || oldPassword.trim().isEmpty()) {
-        //     throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.PARAM_ERROR));
-        // }
-        // if (newPassword == null || !CommonUtil.isValidPassword(newPassword)) {
-        //     throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.PASSWORD_FORMAT_ERROR));
-        // }
-        // if (oldPassword.equals(newPassword)) {
-        //     throw new RuntimeException(ErrCode.getMessageByCode(ErrCode.SAME_PASSWORD_ERROR));
-        // }
-        
-        // 查找用户
-        Optional<User> userOpt = userRepository.findById(userId);
-        if (!userOpt.isPresent()) {
-            log.warn("用户不存在，用户ID: {}", userId);
-            return false;
+    public UpdatePasswordResponse updatePassword(UpdatePasswordRequest updatePasswordRequest) {
+
+        log.info("Start updatePassword(), username:{}", updatePasswordRequest.getUsername());
+
+        // 根据用户名查询用户信息
+        Optional<User> userOptional = userRepository.findByUsername(updatePasswordRequest.getUsername());
+
+        // 验证用户是否存在
+        if (!userOptional.isPresent()) {
+            throw BusinessException.userNotFound();
         }
 
-        User user = userOpt.get();
-        
-        // 验证旧密码
-        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            log.warn("旧密码错误，用户ID: {}", userId);
-            throw new UserServiceException(ErrorCode.OLD_PASSWORD_INCORRECT);
+        User user = userOptional.get();
+
+        // 验证旧密码是否正确
+        if (!passwordEncoder.matches(updatePasswordRequest.getOldPassword(), user.getPassword())) {
+            throw BusinessException.passwordIncorrect();
         }
-        
-        // 更新密码
-        user.setPassword(passwordEncoder.encode(newPassword));
-        user.setUpdateTime(LocalDateTime.now());
-        
-        try {
-            userRepository.save(user);
-            log.info("密码修改成功，用户ID: {}", userId);
-            return true;
-            
-        } catch (Exception e) {
-            log.error("密码修改失败，用户ID: {}, 错误: {}", userId, e.getMessage());
-            throw new UserServiceException(ErrorCode.CHANGE_PASSWORD_FAIL);
+
+        // 验证两次输入的新密码是否一致
+        if (!updatePasswordRequest.getNewPassword().equals(updatePasswordRequest.getConfirmNewPassword())) {
+            throw BusinessException.passwordMismatch();
         }
+
+        // 更新密码（加密存储）
+        user.setPassword(passwordEncoder.encode(updatePasswordRequest.getNewPassword()));
+        user.setUpdateDate(LocalDateTime.now());
+
+        // 保存更新后的用户信息
+        User updatedUser = userRepository.save(user);
+
+        // 构建密码修改成功响应
+        UpdatePasswordResponse response = new UpdatePasswordResponse();
+        response.setSuccess(true);
+        response.setMessage("密码修改成功");
+        response.setErrorCode(ErrCode.SUCCESS);
+        response.setUserId(updatedUser.getId());
+        response.setUsername(updatedUser.getUsername());
+        response.setUpdateTime(LocalDateTime.now());
+
+        log.info("End updatePassword(), username:{}", updatePasswordRequest.getUsername());
+
+        return response;
     }
+
+    /**
+     * 根据用户ID查询用户信息
+     * 用于获取指定用户ID的完整用户信息
+     *
+     * @param id 用户ID
+     * @return UserResponse 用户响应对象，包含用户信息和操作结果
+     * @throws BusinessException 当用户不存在时抛出业务异常
+     */
+    @Override
+    public UserResponse getUserById(Long id) {
+        log.info("Querying user by ID: {}", id);
+
+        Optional<User> userOptional = userRepository.getUserById(id);
+
+        if (!userOptional.isPresent()) {
+            log.warn("User not found, id:{}", id);
+            throw BusinessException.userNotFound();
+        }
+
+        User user = userOptional.get();
+        return convertToUserResponse(user);
+    }
+
+    /**
+     * 根据用户名查询用户信息
+     * 用于获取指定用户名的完整用户信息
+     *
+     * @param username 用户名
+     * @return UserResponse 用户响应对象，包含用户信息和操作结果
+     * @throws BusinessException 当用户不存在时抛出业务异常
+     */
+    @Override
+    public UserResponse findByUsername(String username) {
+        log.info("Querying user by username: {}", username);
+
+        Optional<User> userOptional = userRepository.findByUsername(username);
+
+        if (!userOptional.isPresent()) {
+            log.warn("User not found, username:{}", username);
+            throw BusinessException.userNotFound();
+        }
+
+        User user = userOptional.get();
+        return convertToUserResponse(user);
+    }
+
+    /**
+     * 检查用户名是否已存在
+     *
+     * @param username 需要检查的用户名
+     * @return Boolean true表示用户名已存在，false表示不存在
+     */
+    @Override
+    public Boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    /**
+     * 将User实体转换为UserResponse DTO
+     *
+     * @param user User实体对象
+     * @return UserResponse 响应DTO对象
+     */
+    private UserResponse convertToUserResponse(User user) {
+        UserResponse response = new UserResponse();
+        response.setSuccess(true);
+        response.setMessage(ErrCode.MSG_SUCCESS);
+        response.setErrorCode(ErrCode.SUCCESS);
+        response.setUserId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setNickname(user.getNickname());
+        response.setRegisterTime(user.getCreateDate());
+        return response;
+    }
+
+    /**
+     * 生成用户访问令牌（模拟实现）
+     * 实际项目中应使用JWT等标准token生成机制
+     *
+     * @param user 用户实体对象
+     * @return String 生成的访问令牌
+     */
+    private String generateToken(User user) {
+        // 调用JwtUtil生成真实token
+        return jwtUtil.generateToken(user.getUsername());
+    }
+
+    // /**
+    // * 验证用户密码是否正确
+    // *
+    // * @param rawPassword 原始密码（用户输入）
+    // * @param encodedPassword 加密后的密码（数据库存储）
+    // * @return Boolean true表示密码正确，false表示密码错误
+    // */
+    // private Boolean validatePassword(String rawPassword, String encodedPassword)
+    // {
+    // return passwordEncoder.matches(rawPassword, encodedPassword);
+    // }
+
+    // /**
+    // * 加密用户密码
+    // *
+    // * @param rawPassword 原始密码
+    // * @return String 加密后的密码
+    // */
+    // private String encodePassword(String rawPassword) {
+    // return passwordEncoder.encode(rawPassword);
+    // }
 
 }
