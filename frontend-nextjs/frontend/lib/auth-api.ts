@@ -1,15 +1,15 @@
 import type {
+  AuthResponse,
   LoginRequest,
   RegisterRequest,
-  AuthResponse,
   User,
 } from "../types/auth";
 
-// const API_BASE_URL =
-//   process.env.NEXT_PUBLIC_API_BASE_URL || "http://54.177.245.226:8080";
-
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://13.51.85.43:8080";
+
+// const API_BASE_URL =
+//   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
 
 class AuthAPI {
   private getAuthHeaders(token?: string) {
@@ -27,6 +27,7 @@ class AuthAPI {
   /* ----------  Login  ---------- */
   async login(credentials: LoginRequest): Promise<AuthResponse> {
     try {
+      console.log("API_BASE_URL@auth-api:", API_BASE_URL);
       console.log(
         "Sending login request to:",
         `${API_BASE_URL}/api/user/login`
@@ -84,6 +85,7 @@ class AuthAPI {
   /* ----------  Register  ---------- */
   async register(userData: RegisterRequest): Promise<AuthResponse> {
     try {
+      console.log("API_BASE_URL@auth-api:", API_BASE_URL);
       console.log(
         "Sending register request to:",
         `${API_BASE_URL}/api/user/register`
@@ -140,6 +142,8 @@ class AuthAPI {
 
   /* ----------  Get Current User  ---------- */
   async getCurrentUser(token: string): Promise<User> {
+    console.log("API_BASE_URL@auth-api:", API_BASE_URL);
+
     const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
       method: "GET",
       headers: this.getAuthHeaders(token),

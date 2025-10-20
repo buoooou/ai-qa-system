@@ -1,15 +1,19 @@
-import { MessageBubble } from "./message-bubble";
-import { ChatInput } from "./chat-input";
-import { ChatHeader } from "./chat-header";
-import { useEffect, useRef, useCallback, useState } from "react";
-import { Bot, Sparkles } from "lucide-react";
-import { useAuth } from "@/contexts/auth-context";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/auth-context";
 import { QARequest } from "@/types/qa";
+import { Bot, Sparkles } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { ChatHeader } from "./chat-header";
+import { ChatInput } from "./chat-input";
+import { MessageBubble } from "./message-bubble";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://13.51.85.43:8080";
+
+// const API_BASE_URL =
+//   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+
 
 interface ChatWindowProps {
   conversationId?: string;
@@ -142,6 +146,7 @@ export function ChatWindow({
 
         console.log("发送QA请求，会话ID:", effectiveSessionId);
         console.log("QaRequestData:", requestData);
+        console.log("API_BASE_URL@chat-window:", API_BASE_URL);
 
         const response = await fetch(`${API_BASE_URL}/api/qa/ask`, {
           method: "POST",

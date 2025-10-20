@@ -2,7 +2,10 @@
 import type { HistoryConversation } from "@/types/chat";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://13.51.85.43:8080";
+
+// const API_BASE_URL =
+//   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
 
 class ChatAPI {
   private getAuthHeaders(token?: string) {
@@ -24,6 +27,7 @@ class ChatAPI {
   ): Promise<HistoryConversation[]> {
     try {
       console.log("Fetching user conversations for userId:", userId);
+      console.log("API_BASE_URL@chat-api:", API_BASE_URL);
 
       const response = await fetch(
         `${API_BASE_URL}/api/qa/history/user/${userId}`,
@@ -72,6 +76,8 @@ class ChatAPI {
     conversationId: string,
     token: string
   ): Promise<void> {
+    console.log("API_BASE_URL@chat-api:", API_BASE_URL);
+    
     try {
       const response = await fetch(
         `${API_BASE_URL}/api/qa/history/${conversationId}`,
