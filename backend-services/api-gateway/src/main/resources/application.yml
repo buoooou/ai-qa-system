@@ -27,7 +27,7 @@ spring:
           enabled: false
       routes:
         - id: user_service_route
-          uri: ${USER_SERVICE_URL:} http://localhost:8081 # http://user-service:8081
+          uri: ${USER_SERVICE_URL:http://localhost:8081}  # http://user-service:8081
           predicates:
             - Path=/api/user/**
           filters:
