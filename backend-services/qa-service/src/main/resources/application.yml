@@ -79,5 +79,5 @@ springdoc:
 # Gemini API配置
 gemini:
   base-url: https://generativelanguage.googleapis.com/v1beta  # 配置API的根URL
-  api-key: AIzaSyDSpC9NbCG6L2e9znVwrwCoiTZj0E5gEvM
+  api-key: ${GOOGLE_API_KEY:YOUR_API_KEY_HERE}
   model-name: gemini-2.5-flash-lite
