@@ -1,28 +1,41 @@
 package com.ai.qa.user.api.exception;
 
+import javax.persistence.EntityNotFoundException;
 
-import com.ai.qa.user.api.dto.ApiResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.ai.qa.user.api.dto.ApiResponse;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    @ExceptionHandler(UserServiceException.class)
+    public ResponseEntity<ApiResponse<?>> handleBusinessException(UserServiceException e) {
+        log.error("[User-Service] [{}]## {} occured. ErrorCode:{}, message:{}", this.getClass().getSimpleName(), UserServiceException.class.getSimpleName(), e.getErrorCode().getCode(), e.getMessage());
+        ErrorCode errorCode = e.getErrorCode();
+        ApiResponse<?> response = ApiResponse.error(errorCode);
+        return new ResponseEntity<>(response, errorCode.getHttpStatus());
+    }
 
-    /**
-     * 处理自定义的业务异常
-     */
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ApiResponse<Object>> handleBusinessException(BusinessException ex) {
-        log.warn("业务异常: {}", ex.getMessage());
-        ErrorCode errorCode = ex.getErrorCode();
-        return new ResponseEntity<>(ApiResponse.failure(errorCode), errorCode.getHttpStatus());
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponse<?>> handleBusinessException(IllegalArgumentException e) {
+        log.error("[User-Service] [{}]## {} occured. message:{}", this.getClass().getSimpleName(), IllegalArgumentException.class.getSimpleName(), e.getMessage());
+        ErrorCode errorCode = ErrorCode.valueFrom(e.getMessage());
+        ApiResponse<?> response = ApiResponse.error(errorCode);
+        return new ResponseEntity<>(response, errorCode.getHttpStatus());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiResponse<?>> handleBusinessException(AuthenticationException e) {
+        log.error("[User-Service] [{}]## {} occured. message:{}", this.getClass().getSimpleName(), AuthenticationException.class.getSimpleName(), e.getMessage());
+        ApiResponse<?> response = ApiResponse.error(ErrorCode.UNAUTHORIZED);
+        return new ResponseEntity<>(response, ErrorCode.UNAUTHORIZED.getHttpStatus());
     }
 
     /**
@@ -30,20 +43,16 @@ public class GlobalExceptionHandler {
      * 这是将基础设施层的异常转换为统一业务响应的好例子
      */
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ApiResponse<Object>> handleEntityNotFoundException(EntityNotFoundException ex) {
-        log.warn("实体未找到: {}", ex.getMessage());
-        ErrorCode errorCode = ErrorCode.USER_NOT_FOUND; // 映射到一个具体的业务错误码
-        return new ResponseEntity<>(ApiResponse.failure(errorCode, ex.getMessage()), errorCode.getHttpStatus());
+    public ResponseEntity<ApiResponse<?>> handleEntityNotFoundException(EntityNotFoundException e) {
+        log.error("[User-Service] [{}]## {} occured. message:{}", this.getClass().getSimpleName(), EntityNotFoundException.class.getSimpleName(), e.getMessage());
+        ApiResponse<?> response = ApiResponse.error(ErrorCode.USER_NOT_FOUND);
+        return new ResponseEntity<>(response, ErrorCode.USER_NOT_FOUND.getHttpStatus());
     }
 
-    /**
-     * 处理所有未被捕获的异常（兜底）
-     */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<Object>> handleAllUncaughtException(Exception ex) {
-        // 对于未知的严重异常，需要记录详细的错误日志
-        log.error("发生未知异常", ex);
-        ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
-        return new ResponseEntity<>(ApiResponse.failure(errorCode), errorCode.getHttpStatus());
+    public ResponseEntity<ApiResponse<?>> handleGlobalException(Exception e) {
+        log.error("[User-Service] [{}]## Unexpected exception occured. message:{}", this.getClass().getSimpleName(), e.getMessage());
+        ApiResponse<?> response = ApiResponse.error(ErrorCode.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, ErrorCode.INTERNAL_SERVER_ERROR.getHttpStatus());
     }
 }

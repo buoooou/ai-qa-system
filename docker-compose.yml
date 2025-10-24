@@ -1,0 +1,148 @@
+version: '3.8'
+
+services:
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    container_name: ai-qa-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ai_qa_system
+      MYSQL_DATABASE: ai_qa_system
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: ai_qa_system
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend-services/user-service/src/main/resources/sql:/docker-entrypoint-initdb.d
+    networks:
+      - ai-qa-network
+#    healthcheck:
+#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+#      timeout: 20s
+#      retries: 10
+
+  # 用户服务
+  user-service:
+#    build:
+#      context: ./backend-services/user-service
+#      dockerfile: Dockerfile
+    image: zaqwsx123456a/ai-qa-user-service:latest
+    container_name: ai-qa-user-service
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ai_qa_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ai_qa_system
+      # HOST_IP: 56.228.34.193
+      # HOST_PORT: 8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    networks:
+      - ai-qa-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 问答服务
+  qa-service:
+#    build:
+#      context: ./backend-services/qa-service
+#      dockerfile: Dockerfile
+    image: zaqwsx123456a/ai-qa-qa-service:latest
+    container_name: ai-qa-qa-service
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ai_qa_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ai_qa_system
+      GEMINI_API_KEY: ${GOOGLE_API_KEY:YOUR_API_KEY_HERE}
+      USER_SERVICE_URL: http://user-service:8081
+      # HOST_IP: 56.228.34.193
+      # HOST_PORT: 8082
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+    networks:
+      - ai-qa-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # API网关
+  api-gateway:
+#    build:
+#      context: ./backend-services/api-gateway
+#      dockerfile: Dockerfile
+    image: zaqwsx123456a/ai-qa-api-gateway:latest
+    container_name: ai-qa-api-gateway
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      USER_SERVICE_URL: http://user-service:8081
+      QA_SERVICE_URL: http://qa-service:8082
+      # NEXT_PUBLIC_API_BASE_URL: http://56.228.34.193:8080
+      # HOST_IP: 56.228.34.193
+      # HOST_PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-service
+      - qa-service
+    networks:
+      - ai-qa-network
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 3
+
+  # 前端应用
+  frontend:
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+    image: zaqwsx123456a/ai-qa-frontend:latest
+    container_name: ai-qa-frontend
+    restart: always
+    environment:
+      # NEXT_PUBLIC_API_BASE_URL: http://56.228.34.193:8080
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+    networks:
+      - ai-qa-network
+
+  # Redis缓存 (可选)
+  #redis:
+  #  image: redis:7-alpine
+  #  container_name: ai-qa-redis
+  #  ports:
+  #    - "6379:6379"
+  #  volumes:
+  #    - redis_data:/data
+  #  networks:
+  #    - ai-qa-network
+  #  command: redis-server --appendonly yes
+
+volumes:
+  mysql_data:
+#    driver: local
+#  redis_data:
+#    driver: local
+
+networks:
+  ai-qa-network:
+    driver: bridge

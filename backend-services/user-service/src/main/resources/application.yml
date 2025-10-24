@@ -1,13 +1,18 @@
 server:
   port: 8081
+
 spring:
   application:
     name: user-service
+
   cloud:
     nacos:
-      server-addr: 54.219.180.170:8848
+      discovery:
+        server-addr: 18.144.11.177:8848
+
   datasource:
-    url: jdbc:mysql://54.219.180.170:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    # url: jdbc:mysql://18.144.11.177:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://mysql:3306/ai_qa_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: ai_qa_system
   jpa:
@@ -16,4 +21,46 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          serverTimezone: GMT+8
     show-sql: true
+
+springdoc:
+  # packages-to-scan: com.ai.qa.user
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /api/qa/v3/api-docs
+    config-url: /api/qa/v3/api-docs/swagger-config
+    disable-swagger-default-url: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  # group-configs:
+  #   - group: 'user-service'
+  #     display-name: User Service
+  #     paths-to-match: /api/user/**
+
+logging:
+  level: 
+    root: debug
+    '[com.ai.qa]': debug
+    '[com.alibaba.nacos]': info
+    '[org.springframework.cloud]': info
+    '[org.hibernate.sql]': info
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){blue} %clr(%-5level){green} %clr(%logger{36}){cyan}:%clr(%L){magenta} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/user-service.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
+
+jwt:
+  secret: HhyD5jnwwGbyecOrbkAY6OEWNM/zDgF2qwFlF4MFAHznR4AaLweF8Xu71MF4TaYUfX7dRY9JIzOgF/yTYqx5Qg==
+  # 2小时
+  access-expiration: 3600000 
+  # 24小时
+  refresh-expiration: 86400000 
