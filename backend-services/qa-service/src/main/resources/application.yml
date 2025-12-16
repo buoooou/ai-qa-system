@@ -53,7 +53,7 @@ springdoc:
 deepseek:
   api:
     base-url: https://api.deepseek.com/v1
-    key: ${DEEPSEEK_API_KEY:sk-31581bd22e844e1d8387f8570a7f3fdb}
+    key: ${DEEPSEEK_API_KEY}
     model: deepseek-chat
 
 logging:
